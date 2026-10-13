@@ -275,9 +275,9 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
 @media (max-width:360px){.cmpg{grid-template-columns:1fr}}
 .admadd{display:grid;gap:8px;grid-template-columns:1fr 1fr}.admadd label:nth-child(3),.admadd label:nth-child(4),.admadd button,.admadd .err{grid-column:1/-1}
 .admlist{list-style:none;padding:0;margin:0;display:grid;gap:6px;max-height:420px;overflow:auto}
-.admlist li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;background:var(--bg);border:1px solid var(--line);border-radius:10px}
-.admlist li>div:first-child{display:grid;min-width:0}.admlist b{font-family:var(--f-mono)}.admlist .note{font-size:13px}
-.admlist li.sold{opacity:.55}.admbt{display:flex;gap:6px;flex-shrink:0}
+.admlist li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;background:var(--bg);border:1px solid var(--line);border-radius:10px}
+.admlist li>div:first-child{display:grid;min-width:0;flex:1 1 100%}.admlist b{font-family:var(--f-mono)}.admlist .note{font-size:13px}
+.admlist li.sold{opacity:.55}.admbt{display:flex;flex-wrap:wrap;gap:6px}
 .admbt button{font:inherit;font-size:13px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
 .admbt button[data-del]{color:var(--bad);border-color:var(--bad-bg)}
 .admtb{width:100%;border-collapse:collapse;font-size:14px}.admtb th,.admtb td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}.admtb td:not(:first-child),.admtb th:not(:first-child){text-align:right;font-family:var(--f-mono)}
@@ -4654,7 +4654,13 @@ function admStockUI(){
   $("assave").onclick=async()=>{const b=$("assave");b.disabled=true;st("กำลังบันทึก...");
     try{await ghSave(stockToJson(ADMS));STOCK.splice(0,STOCK.length,...ADMS.map(r=>r.slice()));st("บันทึกขึ้นเว็บแล้ว ลูกค้าจะเห็นสต็อกใหม่ภายในประมาณ 1 นาที");}
     catch(e){st(e.message+" ใช้ปุ่มดาวน์โหลดไฟล์แทนได้");} b.disabled=false;};
-  $("astoksave").onclick=()=>{const v=$("astok").value.trim();if(!v||v.startsWith("•"))return;try{localStorage.setItem("plk_ghtok",v);}catch(e){}$("astok").value="••••••••";st("บันทึกรหัสแล้ว");};
+  $("astok").addEventListener("focus",()=>{if($("astok").value.startsWith("•"))$("astok").value="";});
+  $("astoksave").onclick=async()=>{const v=$("astok").value.replace(/•/g,"").replace(/\s+/g,"");if(!v){st("วางรหัส GitHub ในช่องก่อน แล้วค่อยกดบันทึก");return;}
+    if(!/^(github_pat_|ghp_)/.test(v)){st("รหัสไม่ถูกรูปแบบ ต้องขึ้นต้นด้วย github_pat_");return;}
+    try{localStorage.setItem("plk_ghtok",v);}catch(e){}$("astok").value="••••••••";st("กำลังตรวจรหัส...");
+    try{const r=await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}`,{headers:{"Authorization":"Bearer "+v,"Accept":"application/vnd.github+json"},cache:"no-store"});
+      if(r.status===401) st("รหัสไม่ถูกต้องหรือหมดอายุ ลองสร้างรหัสใหม่"); else if(!r.ok) st("รหัสนี้มองไม่เห็นเว็บ ตอนสร้างรหัสต้องเลือก lionizev-cell.github.io"); else {const j=await r.json(); st(j.permissions&&j.permissions.push===false?"รหัสใช้ได้ แต่ยังไม่มีสิทธิ์แก้ไฟล์ ตอนสร้างรหัสต้องเลือก Contents เป็น Read and write":"บันทึกรหัสแล้ว ใช้งานได้");}}
+    catch(e){st("บันทึกรหัสแล้ว แต่ตรวจไม่ได้ตอนนี้");}};
 }
 
 // ===== อัปเดตไฟล์เว็บจากมือถือ ตั้งชื่อไฟล์ให้ถูกเอง =====
@@ -4662,6 +4668,7 @@ async function ghList(){const tok=ghTok(); if(!tok) throw new Error("ยัง�
   const r=await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/`,{headers:{"Authorization":"Bearer "+tok,"Accept":"application/vnd.github+json"},cache:"no-store"});
   if(r.status===401) throw new Error("รหัส GitHub ไม่ถูกต้องหรือหมดอายุ"); if(!r.ok) throw new Error("อ่านรายการไฟล์ไม่ได้ ("+r.status+")"); return r.json();}
 async function ghPutB64(path,b64,msg,sha){const tok=ghTok(), url=`https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${encodeURIComponent(path)}`, h={"Authorization":"Bearer "+tok,"Accept":"application/vnd.github+json","Content-Type":"application/json"};
+  try{const g=await fetch(url,{headers:{"Authorization":"Bearer "+tok,"Accept":"application/vnd.github+json"},cache:"no-store"});if(g.status===200)sha=(await g.json()).sha;}catch(e){}
   const body={message:msg,content:b64}; if(sha) body.sha=sha;
   const p=await fetch(url,{method:"PUT",headers:h,body:JSON.stringify(body)});
   if(!p.ok){let m="";try{m=(await p.json()).message;}catch(e){} throw new Error(p.status===403||p.status===404?"รหัส GitHub ไม่มีสิทธิ์แก้ไฟล์":"อัปโหลด "+path+" ไม่สำเร็จ ("+p.status+" "+m+")");}}
