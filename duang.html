@@ -1,0 +1,2481 @@
+<!DOCTYPE html>
+<!--plk-target:duang.html-->
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://lionizev-cell.github.io/duang.html">
+<meta name="description" content="ผูกดวงราศีจักรฟรี ดูลัคนา ดาว 9 ดวง ดวงแต่ละด้าน ไพ่ยิปซี และสมพงษ์คู่ จากเพจความลับพลังตัวเลข">
+<title>ผูกดวงราศีจักร | ความลับพลังตัวเลข</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chonburi&family=Trirong:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E8E2D4; --sheet:#F1ECE1; --ink:#2B2420; --muted:#6B5F51; --line:#C8BCA8;
+  --gold:#8C6210; --seal:#A3301E; --good:#2F6B3A; --bad:#A3301E;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#221C16; --sheet:#2B241D; --ink:#EDE4D1; --muted:#A8997F; --line:#4B4034;
+    --gold:#E2B33F; --seal:#E0644C; --good:#8FC68F; --bad:#E0644C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#221C16; --sheet:#2B241D; --ink:#EDE4D1; --muted:#A8997F; --line:#4B4034;
+  --gold:#E2B33F; --seal:#E0644C; --good:#8FC68F; --bad:#E0644C;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Trirong","Sarabun","Leelawadee UI","Thonburi",Tahoma,serif;font-size:17px;line-height:1.75}
+main{max-width:720px;margin:0 auto;padding:28px 20px 64px;overflow-x:clip}
+h1,h2,h3{font-family:"Chonburi","Trirong",serif;font-weight:400;line-height:1.35;margin:0}
+h1{font-size:clamp(34px,8vw,52px);color:var(--gold)}
+h2{font-size:24px;margin:44px 0 12px;color:var(--gold)}
+h3{font-size:18px;margin:0 0 4px}
+p{margin:0 0 10px}
+.brand{color:var(--muted);font-size:15px;margin-bottom:6px}
+.lead{color:var(--muted);max-width:60ch;margin-top:10px}
+form{margin-top:28px;border-top:2px solid var(--gold);padding-top:18px;display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.full{grid-column:1/-1}
+label{display:block;font-size:15px;color:var(--muted);margin-bottom:4px}
+input,select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--sheet);
+  border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+button{font:inherit;font-family:"Chonburi",serif;font-size:19px;background:var(--seal);color:#FFF6EA;border:0;border-radius:6px;padding:12px 20px;cursor:pointer}
+.err{color:var(--bad);font-size:15px;grid-column:1/-1;min-height:1em}
+#result{display:none}
+.wheel{display:flex;justify-content:center;margin:20px 0 6px}
+.wheel svg{width:100%;max-width:420px;height:auto}
+.scroll{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:520px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+.note{font-size:14px;color:var(--muted)}
+.warn{border-left:3px solid var(--seal);padding:6px 12px;margin:10px 0;font-size:15px}
+.topic{padding:14px 0;border-bottom:1px solid var(--line)}
+.topic:last-child{border-bottom:0}
+.tag{display:inline-block;font-size:13px;padding:1px 9px;border-radius:20px;margin-left:8px;vertical-align:2px;border:1px solid currentColor}
+.t-good{color:var(--good)} .t-mid{color:var(--gold)} .t-bad{color:var(--bad)}
+ul{margin:6px 0 10px;padding-left:22px}
+li{margin:3px 0}
+.digits{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
+.d{font-family:"Chonburi",serif;font-size:22px;width:46px;height:46px;display:grid;place-items:center;border-radius:50%;border:2px solid var(--line)}
+.d.good{border-color:var(--good);color:var(--good)}
+.d.bad{border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+.d.mid{color:var(--muted)}
+details{margin-top:18px;border:1px solid var(--line);border-radius:8px;padding:10px 14px;background:var(--sheet)}
+summary{cursor:pointer;font-weight:600}
+.ovr{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
+.toc{display:flex;flex-wrap:nowrap;gap:6px;margin:14px -20px 4px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--paper);padding:6px 20px;z-index:2;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.toc::-webkit-scrollbar{display:none}
+.toc a{flex:none;white-space:nowrap;font-size:14px;line-height:1.4;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:20px;padding:3px 11px;background:var(--sheet)}
+.toc a:focus-visible{outline:3px solid var(--gold)}
+.sum{border-left:3px solid var(--gold);padding:4px 0 4px 14px}
+h2[id]{scroll-margin-top:56px}
+.jump{margin:14px 0 0}.jump a{color:var(--gold)}
+.tarot{margin-top:52px;border-top:2px solid var(--gold);padding-top:8px}
+.trow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+@media (max-width:560px){.trow{grid-template-columns:1fr}}
+.deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:8px;margin-top:16px}
+.cardb{aspect-ratio:2/3;border-radius:6px;border:1.5px solid var(--gold);cursor:pointer;padding:0;font:inherit;
+  background:repeating-linear-gradient(45deg,var(--sheet) 0 6px,var(--paper) 6px 12px);color:var(--gold);display:grid;place-items:center;font-size:18px}
+.cardb:disabled{opacity:.25;cursor:default}
+.cardb.picked{opacity:.15}
+.spread{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.slot{text-align:center;font-size:13px;color:var(--muted)}
+.face{aspect-ratio:2/3;border-radius:8px;border:2px solid var(--gold);background:var(--sheet);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;margin-bottom:6px}
+.face.empty{border-style:dashed;background:transparent}
+.face .num{font-family:"Chonburi",serif;font-size:26px;color:var(--gold)}
+.face .nm{font-size:14px;line-height:1.35;color:var(--ink)}
+.face .en{font-size:11px;color:var(--muted)}
+.face.rev .inner{transform:rotate(180deg)}
+.face.rev{border-color:var(--seal)}
+@media (prefers-reduced-motion:no-preference){.face.show{animation:flip .45s ease-out}@keyframes flip{from{transform:rotateY(90deg)}to{transform:none}}}
+.paywall{margin-top:44px;padding:20px;border:2px solid var(--seal);border-radius:8px;background:var(--sheet)}
+.paywall h2{margin-top:0;color:var(--seal)}
+.steps{padding-left:22px}.steps li{margin:10px 0}
+.qr{background:#fff;padding:10px;display:inline-block;border-radius:8px;margin-top:8px}
+.paid-ok{display:flex;gap:10px;align-items:center;margin:8px 0 12px;font-size:16px}.paid-ok input{width:22px;height:22px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.unlock{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}.unlock label{width:100%}.unlock input{max-width:200px;text-transform:uppercase;letter-spacing:3px}
+.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-family:inherit;font-size:15px;padding:6px 12px;margin-top:6px}
+.btn{display:inline-block;background:var(--good);color:#fff;border-radius:6px;padding:7px 14px;text-decoration:none;font-size:15px;margin-top:6px}
+.owner{border:1px dashed var(--gold);padding:8px 12px;margin-top:12px;font-size:15px}
+.areas{margin:6px 0 8px;padding-left:20px}.areas li{margin:5px 0}
+.stock{list-style:none;padding:0}.stock li{padding:10px 0;border-bottom:1px solid var(--line)}.sn{font-family:"Chonburi",serif;font-size:20px;letter-spacing:1px;color:var(--gold)}
+.ghostlink{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.paid-head{margin-top:44px;padding:10px 14px;border-radius:8px;background:var(--sheet);border:2px solid var(--good)}
+.cta{margin-top:44px;padding:20px;border:2px solid var(--gold);border-radius:8px}
+.cta h2{margin-top:0}
+.sharebar{margin:16px 0 0}.shot{display:block;width:100%;max-width:420px;border:1px solid var(--line);border-radius:8px;margin:10px 0}
+#pf{border-top:0;padding-top:0}
+.pform{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.pform fieldset{border:1px solid var(--line);border-radius:8px;padding:10px 14px 14px;margin:0;display:grid;gap:10px;background:var(--sheet)}
+.pform fieldset input,.pform fieldset select{background:var(--paper)}
+.pform legend{font-family:"Chonburi",serif;color:var(--gold);padding:0 6px}
+.nt{display:flex;gap:8px;align-items:center;font-size:15px;color:var(--muted)}.nt input{width:20px;height:20px}
+.pscore{display:flex;gap:18px;align-items:center;margin:18px 0 8px;flex-wrap:wrap}
+.pnum{font-family:"Chonburi",serif;font-size:56px;line-height:1;border:3px solid currentColor;border-radius:50%;width:130px;height:130px;display:grid;place-items:center;flex:none}
+@media (max-width:560px){form{grid-template-columns:1fr}.pform{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){#result.show{animation:rise .5s ease-out}@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}}
+.sitebar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.sitebar a{padding:6px 14px;border:1px solid currentColor;border-radius:999px;text-decoration:none;font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+  <p class="sitebar"><a href="palangtuaylek.html">วิเคราะห์เบอร์</a><a href="palangtuaylek.html#stock">สต็อกเบอร์</a><a href="index.html">หน้าแรก</a></p>
+  <div class="brand">ความลับพลังตัวเลข</div>
+  <h1>ผูกดวงราศีจักร</h1>
+  <p class="lead">ใส่วันเวลาและจังหวัดที่เกิด แล้วดูลัคนา ดาวทั้ง 9 ดวง นิสัย ดวงแต่ละด้าน ทักษาจรปีนี้ และตัวเลขที่ควรมีในเบอร์โทรศัพท์</p>
+
+  <p class="jump"><a href="#tarot">จับไพ่ยิปซี ดูดวง ณ ตอนนี้</a> · <a href="#pair">ดูสมพงษ์คู่ 2 คน</a></p>
+  <form id="f" novalidate>
+    <div class="full"><label for="name">ชื่อ (ไม่บังคับ)</label><input id="name" autocomplete="off"></div>
+    <div><label for="date">วันเกิด</label><input id="date" type="date" required value="1990-05-12"></div>
+    <div><label for="time">เวลาเกิด</label><input id="time" type="time" required value="07:43"></div>
+    <div class="full"><label for="prov">จังหวัดที่เกิด</label><select id="prov"></select></div>
+    <div class="full"><label for="meth">วิธีหาลัคนา</label><select id="meth"><option value="sy" selected>อันโตนาทีสามัญ สมผุสอาทิตย์อุทัย (แบบ myhora)</option><option value="st">เวลานักษัตร (ดาราศาสตร์)</option></select></div>
+    <div class="err" id="err" role="alert"></div>
+    <div class="full"><button type="submit">ผูกดวง</button></div>
+  </form>
+
+  <section id="result" aria-live="polite"></section>
+
+  <section class="tarot" aria-labelledby="tarot">
+    <h2 id="tarot">จับไพ่ยิปซี ดูดวง ณ ตอนนี้</h2>
+    <p class="lead">ตั้งจิตถึงเรื่องที่อยากรู้ เลือกหัวข้อ แล้วจับไพ่ 3 ใบจากกองที่สับแล้ว ใบแรกคือสถานการณ์ตอนนี้ ใบที่สองคือสิ่งที่ต้องระวัง ใบที่สามคือคำแนะนำ</p>
+    <div class="trow">
+      <div><label for="ttopic">เรื่องที่อยากรู้</label><select id="ttopic"><option value="ภาพรวม">ภาพรวมชีวิตตอนนี้</option><option value="การเงิน">การเงิน</option><option value="การงาน">การงาน</option><option value="ความรัก">ความรัก</option><option value="สุขภาพ">สุขภาพ</option></select></div>
+      <div><label for="tq">คำถาม (ไม่บังคับ)</label><input id="tq" maxlength="80" placeholder="เช่น เดือนนี้ควรเปลี่ยนงานไหม"></div>
+    </div>
+    <button type="button" id="tshuffle">สับไพ่</button>
+    <p class="note" id="thint" aria-live="polite"></p>
+    <div class="spread" id="tspread"></div>
+    <div class="deck" id="tdeck" role="group" aria-label="กองไพ่"></div>
+    <div id="tread" aria-live="polite"></div>
+  </section>
+
+  <section class="tarot" aria-labelledby="pair">
+    <h2 id="pair">สมพงษ์คู่ ดูดวงสองคน</h2>
+    <p class="lead">ดูว่าดวงสองคนเข้ากันไหม ใครเสริมใคร และมีเรื่องอะไรต้องระวัง ใช้ได้ทั้งคู่รัก สามีภรรยา และหุ้นส่วนธุรกิจ</p>
+    <form id="pf" novalidate>
+      <div class="full" style="grid-column:1/-1"><label for="ptype">ดูแบบไหน</label><select id="ptype"><option value="love">คู่รัก แฟน สามีภรรยา</option><option value="biz">หุ้นส่วน ร่วมลงทุน</option></select></div>
+      <div class="pform" style="grid-column:1/-1">
+      <fieldset><legend>คนที่ 1</legend>
+        <div><label for="pname1">ชื่อ</label><input id="pname1" autocomplete="off" maxlength="30"></div>
+        <div><label for="pdate1">วันเกิด</label><input id="pdate1" type="date" required></div>
+        <div><label for="ptime1">เวลาเกิด</label><input id="ptime1" type="time"></div>
+        <label class="nt"><input type="checkbox" id="pnt1"> ไม่ทราบเวลาเกิด</label>
+        <div><label for="pprov1">จังหวัดที่เกิด</label><select id="pprov1"></select></div>
+      </fieldset>
+      <fieldset><legend>คนที่ 2</legend>
+        <div><label for="pname2">ชื่อ</label><input id="pname2" autocomplete="off" maxlength="30"></div>
+        <div><label for="pdate2">วันเกิด</label><input id="pdate2" type="date" required></div>
+        <div><label for="ptime2">เวลาเกิด</label><input id="ptime2" type="time"></div>
+        <label class="nt"><input type="checkbox" id="pnt2"> ไม่ทราบเวลาเกิด</label>
+        <div><label for="pprov2">จังหวัดที่เกิด</label><select id="pprov2"></select></div>
+      </fieldset>
+      </div>
+      <div class="err" id="perr" role="alert"></div>
+      <div style="grid-column:1/-1"><button type="submit">ดูสมพงษ์</button></div>
+    </form>
+    <div id="pres2" aria-live="polite"></div>
+  </section>
+
+  
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+
+/* thai-astrology (MIT License, (c) 2026 Kongesque) bundled */
+var ThaiAstro=(function(){var M={},C={};function R(from,req){var p=req;var base=from.split("/").slice(0,-1).join("/");var parts=(base+"/"+req).split("/"),st=[];parts.forEach(function(x){if(x==="."||x==="")return;if(x==="..")st.pop();else st.push(x)});var k=st.join("/")+".js";if(!M[k])throw new Error("mod "+k);if(C[k])return C[k].exports;var m={exports:{}};C[k]=m;M[k](m,m.exports,function(r){return R(k,r)});return m.exports;}
+M["engine/astro/dignities.js"]=function(module,exports,require){"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.planetDignities = planetDignities;
+// กฎดาวมาตรฐานของ profile นี้ แต่ละสำนักอาจใช้เกณฑ์ต่างกัน
+const DIGNITIES = {
+    sun: { 0: "มหาอุจ", 2: "ราชาโชค", 3: "มหาจักร", 4: "เกษตรบดี", 6: "นิจ", 10: "ประ", 11: "อุจจาวิลาส" },
+    moon: { 0: "มหาจักร-อุจจาวิลาส", 1: "มหาอุจ", 3: "เกษตรบดี", 5: "ราชาโชค", 7: "นิจ", 9: "ประ" },
+    mars: { 0: "เกษตรบดี", 1: "ประ-ราชาโชค", 3: "นิจ", 5: "มหาจักร", 6: "ประ", 7: "เกษตรบดี", 8: "อุจจาวิลาส", 9: "มหาอุจ" },
+    mercury: { 2: "เกษตรบดี", 4: "มหาจักร-ราชาโชค", 5: "เกษตรบดี-มหาอุจ", 8: "ประ", 11: "ประ-นิจ" },
+    jupiter: { 0: "ราชาโชค", 2: "ประ-อุจจาวิลาส", 3: "มหาอุจ", 5: "ประ", 7: "มหาจักร", 8: "เกษตรบดี", 9: "นิจ", 11: "เกษตรบดี" },
+    venus: { 0: "ประ", 1: "เกษตรบดี", 3: "ราชาโชค", 5: "นิจ", 6: "เกษตรบดี", 7: "ประ", 8: "มหาจักร", 10: "อุจจาวิลาส", 11: "มหาอุจ" },
+    saturn: { 0: "นิจ", 1: "มหาจักร", 3: "ประ", 4: "ประ", 5: "อุจจาวิลาส", 6: "มหาอุจ", 7: "ราชาโชค", 9: "เกษตรบดี", 10: "เกษตรบดี" },
+    rahu: { 1: "นิจ", 2: "ประกิณโชค", 4: "ประ", 6: "ราชาโชค-อุจจาวิลาส-ประกิณโชค", 7: "มหาอุจ", 9: "มหาจักร", 10: "เกษตรบดี-ประกิณโชค" },
+    ketu: { 2: "มหาอุจ", 4: "มหาอุจ", 8: "มหาอุจ", 10: "มหาอุจ" },
+};
+function planetDignities(planet, sign) {
+    var _a, _b, _c;
+    return (_c = (_b = (_a = DIGNITIES[planet]) === null || _a === void 0 ? void 0 : _a[sign]) === null || _b === void 0 ? void 0 : _b.split("-")) !== null && _c !== void 0 ? _c : [];
+}
+
+};
+M["engine/astro/divisions.js"]=function(module,exports,require){"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.subdivisionLabels = subdivisionLabels;
+const math_1 = require("./math");
+const NAVAMSA_NAMES = ["ปฐมนวางค์", "ทุติยนวางค์", "ตติยนวางค์", "จัตตุถนวางค์", "ปัญจมนวางค์", "ฉัฏฐมนวางค์", "สัตตมนวางค์", "อัฏฐมนวางค์", "นวมนวางค์"];
+const DREKKANA_NAMES = ["ปฐมตรียางค์", "ทุติยตรียางค์", "ตติยตรียางค์"];
+const MANSION_NAMES = ["อัศวินีนักษัตรที่ ๑", "ภรณีนักษัตรที่ ๒", "กัตติกานักษัตรที่ ๓", "โรหิณีนักษัตรที่ ๔", "มฤคศิระนักษัตรที่ ๕", "อารทรานักษัตรที่ ๖", "ปุนรวสุนักษัตรที่ ๗", "ปุษยะนักษัตรที่ ๘", "อาศเลษานักษัตรที่ ๙", "มาฆะนักษัตรที่ ๑๐", "ปุรพผลคุณีนักษัตรที่ ๑๑", "อุตรผลคุณีนักษัตรที่ ๑๒", "หัสตะนักษัตรที่ ๑๓", "จิตรานักษัตรที่ ๑๔", "สวาตินักษัตรที่ ๑๕", "วิสาขะนักษัตรที่ ๑๖", "อนุราธานักษัตรที่ ๑๗", "เชษฐะนักษัตรที่ ๑๘", "มูละนักษัตรที่ ๑๙", "ปุรพาษาฒนักษัตรที่ ๒๐", "อุตราษาฒนักษัตรที่ ๒๑", "ศรวณะนักษัตรที่ ๒๒", "ธนิษฐะนักษัตรที่ ๒๓", "ศตภิสัชนักษัตร์ที่ ๒๔", "ปุรพภัทรบทนักษัตรที่ ๒๕", "อุตรภัทรบทนักษัตรที่ ๒๖", "เรวตินักษัตรที่ ๒๗"];
+const QUARTER_NAMES = ["ปฐมบาท", "ทุติยบาท", "ตติยบาท", "จัตตุถบาท"];
+const MANSION_QUALITIES = ["บูรณ", "บูรณ", "ฉินท", "บูรณ", "ภินท", "บูรณ", "ฉินท", "บูรณ", "บูรณ"];
+const RERK_NAMES = ["ทลิทโทฤกษ์", "มหันธโนฤกษ์", "โจโรฤกษ์", "ภูมิปาโลฤกษ์", "เทศาตรีฤกษ์", "เทวีฤกษ์", "เพชฌฆาฏฤกษ์", "ราชาฤกษ์", "สมโณฤกษ์"];
+const DREKKANA_QUALITY_SECTIONS = [0, 1, 2, 2, 1, 0, 1, 2, 0, 2, 1, 0];
+const DREKKANA_QUALITIES = ["พิษนาค", "พิษครุฑ", "พิษสุนัข"];
+function subdivisionLabels(arcMinutes) {
+    const sign = Math.floor(arcMinutes / 1800);
+    const navamsaSection = Math.floor((0, math_1.modulo)(arcMinutes, 1800) / 200);
+    const drekkanaSection = Math.floor((0, math_1.modulo)(arcMinutes, 1800) / 600);
+    const mansion = Math.floor(arcMinutes / 800);
+    const quarter = Math.floor((0, math_1.modulo)(arcMinutes, 800) / 200);
+    return {
+        navamsaName: NAVAMSA_NAMES[navamsaSection],
+        navamsaQuality: Math.floor(arcMinutes / 200) % 12 === sign ? "วรโคตม" : null,
+        drekkanaName: DREKKANA_NAMES[drekkanaSection],
+        drekkanaQuality: DREKKANA_QUALITY_SECTIONS[sign] === drekkanaSection ? DREKKANA_QUALITIES[drekkanaSection] : null,
+        nakshatraName: MANSION_NAMES[mansion],
+        nakshatraQuarterName: QUARTER_NAMES[quarter],
+        nakshatraQuality: MANSION_QUALITIES[mansion % 9],
+        rerk: RERK_NAMES[mansion % 9],
+    };
+}
+
+};
+M["engine/astro/input.js"]=function(module,exports,require){"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.normalizeCalculationInput = normalizeCalculationInput;
+exports.civilJulianDay = civilJulianDay;
+const provinces_1 = require("./provinces");
+const integerInRange = (value, name, min, max) => {
+    if (!Number.isInteger(value) || value < min || value > max) {
+        throw new RangeError(`\`${name}\` must be an integer between ${min} and ${max}`);
+    }
+    return value;
+};
+/** Validate civil Gregorian dates without Date's timezone or year-0..99 coercions. */
+function normalizeCalculationInput(input, strictProvince = true) {
+    var _a, _b;
+    if (input.yearBe === undefined && input.yearBc === undefined) {
+        throw new TypeError("Either `yearBe` or `yearBc` must be provided");
+    }
+    if (input.yearBe !== undefined)
+        integerInRange(input.yearBe, "yearBe", 544, 10542);
+    if (input.method !== undefined && input.method !== "legacy" && input.method !== "suriyayatra") {
+        throw new RangeError("Unknown calculation method");
+    }
+    const yearBe = (_a = input.yearBe) !== null && _a !== void 0 ? _a : input.yearBc + 543;
+    const yearCe = integerInRange(yearBe - 543, "Gregorian year", 1, 9999);
+    if (input.yearBc !== undefined) {
+        integerInRange(input.yearBc, "yearBc", 1, 9999);
+        if (input.yearBe !== undefined && input.yearBe !== input.yearBc + 543) {
+            throw new RangeError("`yearBe` and `yearBc` must describe the same year");
+        }
+    }
+    const month = integerInRange(input.monthTh, "monthTh", 1, 12);
+    const leapYear = yearCe % 4 === 0 && (yearCe % 100 !== 0 || yearCe % 400 === 0);
+    const daysInMonth = [31, leapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
+    const day = integerInRange(input.day, "day", 1, daysInMonth);
+    const hour = integerInRange(input.hour, "hour", 0, 23);
+    const minute = integerInRange(input.minute, "minute", 0, 59);
+    if (typeof input.province !== "string" || input.province.length === 0) {
+        throw new TypeError("`province` must be a non-empty string");
+    }
+    const provinceOffset = Object.prototype.hasOwnProperty.call(provinces_1.PROVINCE_TIME_OFFSETS, input.province)
+        ? provinces_1.PROVINCE_TIME_OFFSETS[input.province]
+        : strictProvince && (input.province === "ไม่ระบุจังหวัด" || input.province === "ไม่ใช้จังหวัด") ? 0 : undefined;
+    const offset = (_b = input.localTimeCorrectionMinutes) !== null && _b !== void 0 ? _b : provinceOffset;
+    if (strictProvince && offset === undefined) {
+        throw new RangeError("Unknown province; supply a Thai province or `localTimeCorrectionMinutes`");
+    }
+    if (offset !== undefined && (!Number.isFinite(offset) || Math.abs(offset) > 1440)) {
+        throw new RangeError("`localTimeCorrectionMinutes` must be finite and between -1440 and 1440");
+    }
+    return { day, month, yearCe, yearBe, hour, minute, localTimeCorrectionMinutes: offset !== null && offset !== void 0 ? offset : 18 };
+}
+/** Integer Julian day number for a proleptic Gregorian civil date (no timezone conversion). */
+function civilJulianDay(year, month, day) {
+    const y = month > 2 ? year : year - 1;
+    const m = month > 2 ? month + 1 : month + 13;
+    const century = Math.floor(y / 100);
+    return Math.floor(y * 365.25) + Math.floor(m * 30.6) + day + 1720997 - century + Math.floor(century / 4);
+}
+
+};
+M["engine/astro/lunar-calendar.js"]=function(module,exports,require){"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.lunarDateFromOffset = lunarDateFromOffset;
+exports.calculateThaiLunarDate = calculateThaiLunarDate;
+const lunar_year_rules_1 = require("./lunar-year-rules");
+const thaiDigits = (value) => String(value).replace(/\d/g, n => "๐๑๒๓๔๕๖๗๘๙"[Number(n)]);
+/** นับวันจากต้นเดือนห้า โดยเพิ่มเดือนหรือวันตามประเภทปี */
+function lunarDateFromOffset(offset, intercalation) {
+    if (!Number.isInteger(offset) || offset < 1 || ![0, 1, 2].includes(intercalation))
+        return null;
+    const months = [5, 6, 7, 8, ...(intercalation === 1 ? [88] : []), 9, 10, 11, 12, 1, 2, 3, 4, 5, 6];
+    let day = offset;
+    for (const month of months) {
+        const length = month === 7 && intercalation === 2 ? 30 : month % 2 ? 29 : 30;
+        if (day <= length) {
+            const lunarDay = day <= 15 ? day : day - 15;
+            const phase = day <= 15 ? "waxing" : "waning";
+            // เดือนแปดหลังมี marker แยก แต่คืนเลขเดือนเป็น 8 เหมือนเดิม
+            const labelDay = lunarDay < 10 ? " " + thaiDigits(lunarDay) : thaiDigits(lunarDay);
+            const labelMonth = month < 10 ? " " + thaiDigits(month) : thaiDigits(month);
+            return { dayBoundary: "civil-midnight", yearType: intercalation === 0 ? "ordinary" : intercalation === 1 ? "intercalary-month" : "intercalary-day", phase, day: lunarDay, month: month === 88 ? 8 : month, secondEighthMonth: month === 88, label: (phase === "waxing" ? "ข" : "ร") + labelDay + "ด" + labelMonth };
+        }
+        day -= length;
+    }
+    return null;
+}
+function calculateThaiLunarDate(horakhun, chulaSakarat, yearBe) {
+    if (yearBe <= 2124 || yearBe >= 2620)
+        return null;
+    const yearOffset = chulaSakarat - 943;
+    const newYearDayOffset = lunar_year_rules_1.LUNAR_NEW_YEAR_DAY_OFFSETS[yearOffset];
+    if (newYearDayOffset === undefined)
+        return null;
+    const thaloengHorakhun = Math.floor((chulaSakarat * 292207 + 373) / 800) + 1;
+    return lunarDateFromOffset(horakhun - thaloengHorakhun + newYearDayOffset, lunar_year_rules_1.LUNAR_INTERCALATIONS[yearOffset]);
+}
+
+};
+M["engine/astro/lunar-year-rules.js"]=function(module,exports,require){"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LUNAR_INTERCALATIONS = exports.LUNAR_NEW_YEAR_DAY_OFFSETS = void 0;
+// วันจันทรคติ ณ วันขึ้นปีใหม่ จ.ศ. ใช้คู่กับประเภทปีเพื่อคงปฏิทินแต่ละปี
+exports.LUNAR_NEW_YEAR_DAY_OFFSETS = [
+    26, 7, 17, 29, 10, 21, 33, 14, 25, 6, 17, 28, 9, 20, 32, 13,
+    23, 34, 16, 26, 7, 18, 29, 10, 21, 32, 14, 24, 35, 16, 27, 8,
+    19, 31, 12, 23, 34, 16, 26, 7, 18, 30, 11, 22, 32, 14, 25, 6,
+    17, 28, 9, 20, 31, 13, 23, 34, 15, 26, 7, 18, 29, 11, 22, 32,
+    14, 25, 6, 17, 28, 9, 20, 30, 12, 23, 33, 14, 26, 7, 18, 29,
+    11, 21, 32, 13, 25, 6, 17, 28, 10, 20, 31, 13, 23, 34, 15, 27,
+    8, 19, 29, 11, 22, 33, 14, 26, 7, 18, 29, 11, 21, 32, 13, 25,
+    6, 17, 27, 9, 20, 30, 12, 23, 34, 15, 27, 8, 19, 29, 11, 22,
+    32, 13, 25, 6, 17, 27, 9, 20, 31, 12, 24, 34, 15, 26, 8, 18,
+    29, 10, 22, 33, 14, 26, 7, 17, 27, 9, 20, 31, 12, 24, 34, 15,
+    26, 8, 19, 29, 10, 22, 33, 14, 25, 7, 17, 28, 9, 21, 31, 12,
+    24, 35, 16, 26, 8, 19, 30, 11, 22, 33, 14, 24, 6, 17, 28, 9,
+    21, 31, 12, 23, 35, 16, 26, 7, 19, 30, 11, 22, 33, 14, 25, 7,
+    18, 28, 9, 21, 32, 13, 23, 35, 16, 27, 8, 19, 30, 11, 22, 33,
+    14, 25, 6, 18, 29, 10, 20, 32, 13, 24, 35, 16, 27, 8, 20, 30,
+    11, 22, 34, 15, 26, 7, 18, 29, 10, 21, 32, 13, 24, 35, 17, 27,
+    8, 19, 30, 11, 22, 34, 15, 26, 7, 19, 29, 10, 21, 32, 13, 24,
+    35, 17, 27, 8, 19, 31, 12, 23, 33, 15, 26, 7, 18, 29, 10, 21,
+    32, 14, 25, 35, 17, 28, 9, 20, 31, 12, 23, 34, 16, 26, 7, 18,
+    30, 11, 22, 32, 14, 25, 6, 17, 28, 9, 20, 31, 13, 24, 34, 16,
+    27, 8, 19, 30, 11, 22, 33, 15, 25, 6, 17, 29, 10, 21, 31, 13,
+    24, 34, 15, 27, 8, 19, 30, 12, 23, 33, 14, 26, 7, 17, 29, 10,
+    21, 31, 13, 24, 34, 15, 27, 8, 19, 30, 12, 23, 4, 14, 26, 7,
+    18, 28, 10, 21, 31, 12, 24, 35, 16, 27, 8, 19, 30, 12, 23, 33,
+    14, 26, 7, 18, 29, 11, 21, 32, 13, 24, 35, 16, 27, 9, 20, 30,
+    11, 23, 34, 15, 27, 8, 19, 29, 11, 22, 32, 13, 25, 6, 17, 28,
+    10, 20, 31, 12, 23, 34, 15, 26, 8, 18, 29, 10, 22, 32, 13, 24,
+    6, 17, 28, 10, 20, 31, 12, 24, 34, 15, 26, 8, 19, 29, 10, 22,
+    33, 14, 25, 7, 18, 28, 9, 21, 32, 13, 24, 35, 16, 26, 8, 19,
+    30, 11, 23, 33, 14, 25, 7, 18, 28, 9, 21, 32, 13, 24, 35, 16,
+    26, 7, 19, 30, 11, 22, 33, 14, 25, 35, 17, 28, 39, 21, 32, 13,
+];
+// 0 = ปีปกติ, 1 = เพิ่มเดือนแปด, 2 = เพิ่มวันในเดือนเจ็ด
+exports.LUNAR_INTERCALATIONS = [
+    1, 2, 0, 1, 0, 0, 1, 0, 1, 2, 0, 1, 0, 0, 1, 2,
+    0, 1, 2, 1, 0, 2, 1, 0, 0, 1, 2, 0, 1, 2, 1, 0,
+    0, 1, 0, 0, 1, 2, 1, 0, 0, 1, 0, 2, 1, 0, 1, 0,
+    2, 1, 0, 0, 1, 2, 0, 1, 2, 1, 0, 0, 1, 0, 2, 1,
+    0, 1, 0, 2, 1, 0, 2, 1, 0, 2, 1, 0, 1, 0, 0, 1,
+    2, 0, 1, 0, 1, 0, 0, 1, 2, 0, 1, 2, 0, 1, 0, 1,
+    0, 2, 1, 0, 0, 1, 0, 1, 0, 0, 1, 2, 0, 1, 0, 1,
+    0, 2, 1, 0, 2, 1, 0, 0, 1, 0, 1, 0, 2, 1, 0, 2,
+    1, 0, 1, 0, 2, 1, 0, 0, 1, 0, 2, 1, 0, 1, 2, 0,
+    1, 0, 0, 1, 0, 1, 2, 2, 1, 0, 0, 1, 0, 2, 1, 0,
+    1, 0, 2, 1, 0, 0, 1, 0, 1, 2, 0, 1, 0, 2, 1, 0,
+    0, 1, 2, 1, 0, 0, 1, 2, 0, 1, 2, 1, 0, 0, 1, 0,
+    2, 1, 0, 0, 1, 2, 1, 0, 0, 1, 0, 2, 1, 0, 1, 0,
+    2, 1, 0, 0, 1, 2, 0, 1, 0, 1, 2, 0, 1, 0, 2, 1,
+    0, 1, 0, 0, 1, 2, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1,
+    0, 0, 1, 0, 1, 2, 0, 1, 0, 2, 1, 0, 0, 1, 2, 1,
+    0, 2, 1, 0, 0, 1, 0, 1, 0, 2, 1, 0, 2, 1, 0, 0,
+    1, 2, 1, 0, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 0,
+    1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 0, 1, 2, 1, 0, 0,
+    1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 0, 1, 0, 2, 1, 0,
+    1, 0, 2, 1, 0, 0, 1, 2, 1, 0, 0, 1, 0, 2, 1, 0,
+    2, 1, 0, 1, 0, 0, 1, 0, 2, 1, 0, 1, 2, 0, 1, 0,
+    2, 1, 0, 2, 1, 0, 1, 0, 0, 1, 0, 1, 2, 0, 1, 0,
+    2, 1, 0, 2, 1, 0, 0, 1, 2, 1, 0, 0, 1, 0, 2, 1,
+    0, 1, 0, 0, 1, 2, 0, 1, 2, 0, 1, 0, 1, 0, 2, 1,
+    0, 0, 1, 0, 1, 0, 2, 1, 0, 2, 1, 0, 1, 0, 0, 1,
+    2, 0, 2, 2, 0, 1, 0, 1, 2, 0, 1, 0, 2, 1, 0, 1,
+    0, 0, 1, 2, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 0,
+    1, 0, 1, 0, 2, 1, 0, 0, 1, 0, 2, 1, 2, 1, 0, 0,
+    1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 0, 1, 0, 2, 1, 2,
+    1, 0, 0, 1, 0, 2, 1, 0, 2, 1, 0, 0, 1, 0, 1, 2,
+];
+
+};
+M["engine/astro/math.js"]=function(module,exports,require){"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SIGN_NAMES = exports.PLANET_NUMBERS = exports.PLANET_KEYS = exports.SIGN_DURATIONS = exports.SIGN_RULERS = void 0;
+exports.modulo = modulo;
+/** คืนเศษในช่วง [0, divisor) แม้ค่าตั้งต้นติดลบ */
+function modulo(value, divisor) {
+    const remainder = value % divisor;
+    return remainder < 0 ? remainder + divisor : remainder === 0 ? 0 : remainder;
+}
+exports.SIGN_RULERS = [3, 6, 4, 2, 1, 4, 6, 3, 5, 7, 8, 5];
+exports.SIGN_DURATIONS = [120, 96, 72, 120, 144, 168, 168, 144, 120, 72, 96, 120];
+exports.PLANET_KEYS = ["sun", "moon", "mars", "mercury", "jupiter", "venus", "saturn", "rahu", "ketu", "uranus"];
+exports.PLANET_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+exports.SIGN_NAMES = ["เมษ", "พฤษภ", "เมถุน", "กรกฎ", "สิงห์", "กันย์", "ตุลย์", "พิจิก", "ธนู", "มังกร", "กุมภ์", "มีน"];
+
+};
+M["engine/astro/provinces.js"]=function(module,exports,require){"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PROVINCE_TIME_OFFSETS = void 0;
+exports.PROVINCE_TIME_OFFSETS = {
+    กระบี่: 24,
+    กรุงเทพมหานคร: 18,
+    กาญจนบุรี: 22,
+    กาฬสินธุ์: 6,
+    กำแพงเพชร: 22,
+    ขอนแก่น: 9,
+    จันทบุรี: 12,
+    ฉะเชิงเทรา: 16,
+    ชลบุรี: 16,
+    ชัยนาท: 19,
+    ชัยภูมิ: 12,
+    ชุมพร: 23,
+    เชียงราย: 21,
+    เชียงใหม่: 24,
+    ตรัง: 22,
+    ตราด: 10,
+    ตาก: 23,
+    นครนายก: 15,
+    นครปฐม: 20,
+    นครพนม: 1,
+    นครราชสีมา: 12,
+    นครศรีธรรมราช: 20,
+    นครสวรรค์: 20,
+    นนทบุรี: 18,
+    นราธิวาส: 13,
+    น่าน: 17,
+    บึงกาฬ: 5,
+    บุรีรัมย์: 8,
+    ปทุมธานี: 18,
+    ประจวบคีรีขันธ์: 21,
+    ปราจีนบุรี: 15,
+    ปัตตานี: 15,
+    พระนครศรีอยุธยา: 18,
+    พะเยา: 20,
+    พังงา: 26,
+    พัทลุง: 20,
+    พิจิตร: 19,
+    พิษณุโลก: 19,
+    เพชรบุรี: 20,
+    เพชรบูรณ์: 15,
+    แพร่: 19,
+    ภูเก็ต: 27,
+    มหาสารคาม: 7,
+    มุกดาหาร: 1,
+    แม่ฮ่องสอน: 28,
+    ยโสธร: 3,
+    ยะลา: 15,
+    ร้อยเอ็ด: 5,
+    ระนอง: 26,
+    ระยอง: 15,
+    ราชบุรี: 21,
+    ลพบุรี: 17,
+    ลำปาง: 22,
+    ลำพูน: 24,
+    เลย: 13,
+    ศรีสะเกษ: 3,
+    สกลนคร: 3,
+    สงขลา: 18,
+    สตูล: 20,
+    สมุทรปราการ: 18,
+    สมุทรสงคราม: 20,
+    สมุทรสาคร: 19,
+    สระแก้ว: 12,
+    สระบุรี: 16,
+    สิงห์บุรี: 18,
+    สุโขทัย: 21,
+    สุพรรณบุรี: 20,
+    สุราษฎร์ธานี: 23,
+    สุรินทร์: 6,
+    หนองคาย: 9,
+    หนองบัวลำภู: 10,
+    อ่างทอง: 18,
+    อำนาจเจริญ: 1,
+    อุดรธานี: 9,
+    อุตรดิตถ์: 20,
+    อุทัยธานี: 20,
+    อุบลราชธานี: 1,
+};
+
+};
+M["engine/astro/ruling-planets.js"]=function(module,exports,require){"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.formatRulingPlanets = exports.findRulingPlanets = exports.PLANET_NAME_MAP = void 0;
+exports.PLANET_NAME_MAP = {
+    "1": "ดาวอาทิตย์",
+    "2": "ดาวจันทร์",
+    "3": "ดาวอังคาร",
+    "4": "ดาวพุธ",
+    "5": "ดาวพฤหัสบดี",
+    "6": "ดาวศุกร์",
+    "7": "ดาวเสาร์",
+    "8": "ดาวราหู",
+    "9": "ดาวเกตุ",
+    "0": "ดาวมฤตยู",
+};
+const ASCENDANT_PATTERN = /ลั/;
+const isAscendantToken = (value) => typeof value === "string" && ASCENDANT_PATTERN.test(value);
+const THAI_TO_ARABIC_DIGIT_MAP = {
+    "๐": "0",
+    "๑": "1",
+    "๒": "2",
+    "๓": "3",
+    "๔": "4",
+    "๕": "5",
+    "๖": "6",
+    "๗": "7",
+    "๘": "8",
+    "๙": "9",
+};
+const normalizeDigits = (value) => value.replace(/[๐-๙]/g, (digit) => { var _a; return (_a = THAI_TO_ARABIC_DIGIT_MAP[digit]) !== null && _a !== void 0 ? _a : digit; });
+const extractAscendantEntry = (chart) => {
+    const index = chart.findIndex(isAscendantToken);
+    if (index === -1) {
+        throw new Error("Unable to locate ascendant information in chart");
+    }
+    const token = chart[index];
+    if (typeof token !== "string") {
+        throw new Error("Ascendant token is not a string");
+    }
+    return { token, index };
+};
+const extractRulingNumbers = (token) => {
+    var _a;
+    const normalized = normalizeDigits(token);
+    const matches = (_a = normalized.match(/\d/g)) !== null && _a !== void 0 ? _a : [];
+    const uniqueNumbers = Array.from(new Set(matches));
+    if (uniqueNumbers.length === 0) {
+        throw new Error("No ruling planets found in ascendant token");
+    }
+    return uniqueNumbers;
+};
+const findRulingPlanets = (chart) => {
+    if (!Array.isArray(chart)) {
+        throw new Error("Chart must be an array");
+    }
+    const { token: ascendantToken } = extractAscendantEntry(chart);
+    const numbers = extractRulingNumbers(ascendantToken);
+    const names = numbers
+        .map((digit) => exports.PLANET_NAME_MAP[digit])
+        .filter((name) => Boolean(name));
+    if (names.length === 0) {
+        throw new Error("Unable to map ruling planet numbers to names");
+    }
+    return { numbers, names };
+};
+exports.findRulingPlanets = findRulingPlanets;
+const formatRulingPlanets = ({ names, numbers }) => names.map((name, index) => { var _a; return `${name} (${(_a = numbers[index]) !== null && _a !== void 0 ? _a : "?"})`; }).join(" และ ");
+exports.formatRulingPlanets = formatRulingPlanets;
+
+};
+M["engine/astro/suriyayatra.js"]=function(module,exports,require){"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.describeLongitude = describeLongitude;
+exports.calculateSignRelationships = calculateSignRelationships;
+exports.calculateDetailedPositions = calculateDetailedPositions;
+exports.calculateTransits = calculateTransits;
+const input_1 = require("./input");
+const math_1 = require("./math");
+const dignities_1 = require("./dignities");
+const divisions_1 = require("./divisions");
+const lunar_calendar_1 = require("./lunar-calendar");
+const SHADOW_TABLE = [0, 244, 427, 488];
+const SUN_TABLE = [0, 35, 67, 94, 116, 129, 134];
+const MOON_TABLE = [0, 77, 148, 209, 256, 286, 296];
+function interpolate(arc, step, table) {
+    const index = Math.floor(arc / step);
+    if (index >= table.length - 1)
+        return table[table.length - 1];
+    return table[index] + (arc / step - index) * (table[index + 1] - table[index]);
+}
+function quadrant(anomaly) {
+    const a = (0, math_1.modulo)(anomaly, 21600);
+    const q = Math.floor(a / 5400);
+    const arc = [a, 10800 - a, a - 10800, 21600 - a][q];
+    return { arc, coArc: 5400 - arc, direction: q < 2 ? -1 : 1, coDirection: q === 0 || q === 3 ? 1 : -1 };
+}
+function luminary(mean, anomaly, table) {
+    const q = quadrant(anomaly);
+    return (0, math_1.modulo)(mean + Math.floor(interpolate(q.arc, 900, table)) * q.direction, 21600);
+}
+// ปัดลงหรือตัดเศษในแต่ละขั้นตามหน่วยที่ใช้ อย่ารวมไปปัดเฉพาะผลสุดท้าย
+function correctedPlanet(model, meanRavi) {
+    var _a;
+    const primary = quadrant(model.primaryBase - model.anomalyOffset);
+    const primaryNumerator = Math.floor(interpolate(primary.arc, 1800, SHADOW_TABLE) * 60);
+    const coCorrection = Math.floor(interpolate(primary.coArc, 1800, SHADOW_TABLE) + 0.5);
+    const denominator = model.denominator + Math.floor(coCorrection / 2) * primary.coDirection;
+    const first = model.primaryBase + Math.floor(primaryNumerator * 60 / denominator) * primary.direction;
+    const secondary = quadrant((0, math_1.modulo)(first, 21600) - (model.fixed === undefined ? meanRavi : model.mean));
+    const secondaryNumerator = Math.floor(interpolate(secondary.arc, 1800, SHADOW_TABLE) * 60);
+    const sineCorrection = Math.floor(Math.floor(secondaryNumerator / 60 + 0.5) / 3);
+    const scaledDenominator = (_a = model.fixed) !== null && _a !== void 0 ? _a : Math.floor(denominator * model.scale);
+    const secondaryCoCorrection = Math.floor(interpolate(secondary.coArc, 1800, SHADOW_TABLE) + 0.5);
+    const divisor = sineCorrection + scaledDenominator + secondaryCoCorrection * secondary.coDirection;
+    if (denominator <= 0 || divisor <= 0)
+        throw new RangeError("Invalid planetary correction denominator");
+    return (0, math_1.modulo)(first + Math.floor(secondaryNumerator * 60 / divisor) * secondary.direction, 21600);
+}
+/** แยกลองจิจูดเป็นราศี ภพ นวางค์ ตรียางค์ และนักษัตร */
+function describeLongitude(longitudeArcMinutes, ascendantSign = 0) {
+    if (!Number.isFinite(longitudeArcMinutes))
+        throw new RangeError("Longitude must be finite");
+    if (!Number.isInteger(ascendantSign) || ascendantSign < 0 || ascendantSign > 11)
+        throw new RangeError("Ascendant sign must be between 0 and 11");
+    const rawArc = (0, math_1.modulo)(longitudeArcMinutes, 21600);
+    // Remove binary arithmetic noise at exact integer arcminutes without rounding displayed minutes.
+    const nearestInteger = Math.round(rawArc);
+    const arc = Math.abs(rawArc - nearestInteger) < 1e-9 ? (0, math_1.modulo)(nearestInteger, 21600) : rawArc;
+    const sign = Math.floor(arc / 1800);
+    const withinSign = (0, math_1.modulo)(arc, 1800);
+    const degrees = Math.floor(withinSign / 60);
+    const navamsaSign = Math.floor(arc / 200) % 12;
+    const drekkanaSign = (sign + Math.floor(withinSign / 600) * 4) % 12;
+    const nakshatraIndex = Math.floor(arc / 800);
+    const labels = (0, divisions_1.subdivisionLabels)(arc);
+    return {
+        longitudeArcMinutes: arc,
+        longitudeDegrees: arc / 60,
+        sign,
+        signName: math_1.SIGN_NAMES[sign],
+        degrees,
+        minutes: withinSign - degrees * 60,
+        house: (0, math_1.modulo)(sign - ascendantSign, 12) + 1,
+        navamsaSign,
+        navamsaRuler: math_1.SIGN_RULERS[navamsaSign],
+        navamsaSection: Math.floor(withinSign / 200) + 1,
+        navamsaName: labels.navamsaName,
+        navamsaQuality: labels.navamsaQuality,
+        drekkanaSign,
+        drekkanaRuler: math_1.SIGN_RULERS[drekkanaSign],
+        drekkanaSection: Math.floor(withinSign / 600) + 1,
+        drekkanaName: labels.drekkanaName,
+        drekkanaQuality: labels.drekkanaQuality,
+        nakshatraIndex,
+        nakshatraQuarter: Math.floor((0, math_1.modulo)(arc, 800) / 200) + 1,
+        nakshatraMinutes: Math.floor((0, math_1.modulo)(arc, 800) * 60 / 800),
+        nakshatraName: labels.nakshatraName,
+        nakshatraQuarterName: labels.nakshatraQuarterName,
+        nakshatraQuality: labels.nakshatraQuality,
+        rerk: labels.rerk,
+        dignities: [],
+    };
+}
+function chartChannels(positions, tanuseth) {
+    const channels = Array(12).fill("");
+    channels[positions.ascendant] = "ลั";
+    const symbols = ["๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙", "๐"];
+    math_1.PLANET_KEYS.forEach((key, index) => {
+        channels[positions[key]] += symbols[index] + (index < 7 && tanuseth === index + 1 ? "*" : "");
+    });
+    return channels;
+}
+function calculateSignRelationships(positions) {
+    const occupants = Array.from({ length: 12 }, () => []);
+    for (const [index, key] of math_1.PLANET_KEYS.entries()) {
+        const sign = positions[key];
+        if (!Number.isInteger(sign) || sign < 0 || sign > 11)
+            throw new RangeError(`Invalid sign for ${key}`);
+        occupants[sign].push(math_1.PLANET_NUMBERS[index]);
+    }
+    return occupants.map((conjunction, sign) => {
+        const at = (offset) => [...occupants[(sign + offset) % 12]];
+        const opposition = at(6);
+        const trines = [at(4), at(8)];
+        const squares = [at(3), at(6), at(9)];
+        const sextiles = [at(2), at(10)];
+        const candidates = [...conjunction, ...(conjunction.length ? [] : [math_1.SIGN_RULERS[sign]]), ...opposition];
+        if (trines.every(group => group.length))
+            candidates.push(...conjunction, ...trines.flat());
+        if (squares.every(group => group.length))
+            candidates.push(...conjunction, ...squares.flat());
+        candidates.push(...sextiles.flat());
+        return { sign, ruler: math_1.SIGN_RULERS[sign], conjunction: [...conjunction], opposition, trines, squares, sextiles, numberCandidates: [...new Set(candidates)] };
+    });
+}
+function ascendantLongitude(sun, timeMinutes, correction) {
+    const sunSign = Math.floor(sun / 1800);
+    const elapsedSun = math_1.SIGN_DURATIONS.slice(0, sunSign).reduce((sum, duration) => sum + duration, 0)
+        + math_1.SIGN_DURATIONS[sunSign] * (0, math_1.modulo)(sun, 1800) / 1800;
+    const progression = (0, math_1.modulo)(elapsedSun + timeMinutes - 360 - correction, 1440);
+    let cumulative = 0;
+    let longitude = 0;
+    const starts = [];
+    for (const [sign, duration] of math_1.SIGN_DURATIONS.entries()) {
+        starts.push((0, math_1.modulo)(360 + correction - elapsedSun + cumulative, 1440));
+        if (progression >= cumulative && progression < cumulative + duration) {
+            longitude = sign * 1800 + (progression - cumulative) * 1800 / duration;
+        }
+        cumulative += duration;
+    }
+    return { longitude, starts };
+}
+/** คำนวณสุริยยาตร์ โดยคงหน่วยและจังหวะการปัดค่าของแต่ละขั้น */
+function calculateDetailedPositions(input) {
+    const normalized = (0, input_1.normalizeCalculationInput)(input);
+    const { day, month, yearCe, yearBe, hour, minute, localTimeCorrectionMinutes } = normalized;
+    const julianDayNumber = (0, input_1.civilJulianDay)(yearCe, month, day);
+    // ใช้วันสากลเป็นฐาน เพื่อไม่ให้ timezone ของเครื่องเปลี่ยนวันคำนวณ
+    const horakhun = julianDayNumber - 1954167;
+    const hours = hour + minute / 60;
+    const cs = yearBe - 1181;
+    const thaloeng = Math.ceil((292207 * cs + 373) / 800);
+    const equation = cs * 0.25875 + Math.trunc(cs / 100 + 0.38) - Math.trunc(cs / 4 + 0.5) - Math.trunc(cs / 400 + 0.595) - 5.53375;
+    // เทียบเวลาจุดเปลี่ยนปีด้วยหน่วยนาทีเดียวกัน รวมส่วนวินาทีของจุดเปลี่ยนด้วย
+    const thaloengTime = (equation - Math.trunc(equation)) * 1440;
+    const chulaSakarat = horakhun < thaloeng || (horakhun === thaloeng && hours * 60 <= thaloengTime) ? cs - 1 : cs;
+    const solarCycleUnits = (0, math_1.modulo)((horakhun - 1) * 800 + Math.trunc(hours * 800 / 24) - 373, 292207);
+    const remainder = (0, math_1.modulo)(solarCycleUnits, 24350);
+    const meanSun = (0, math_1.modulo)(Math.trunc(solarCycleUnits / 24350) * 1800 + Math.trunc(remainder / 811) * 60 + Math.trunc((0, math_1.modulo)(remainder, 811) / 14) - 3, 21600);
+    const meanRavi = (0, math_1.modulo)(meanSun - 23, 21600);
+    const epoch = (chulaSakarat - (solarCycleUnits >= 364 ? 610 : 611)) * 21600 + meanRavi;
+    const sun = luminary(meanSun, meanSun - 4800, SUN_TABLE);
+    const lunarCycle = (0, math_1.modulo)((horakhun - 1) * 703 + 650 + Math.trunc(hours * 703 / 24), 20760);
+    const meanMoon = (0, math_1.modulo)(Math.floor(lunarCycle / 692) * 720 + Math.trunc(1.04 * (0, math_1.modulo)(lunarCycle, 692)) - 40 + meanSun, 21600);
+    const lunarAnomaly = Math.trunc(((0, math_1.modulo)(horakhun - 1 - 621, 3232) + hours / 24) / 3232 * 21600) + 2;
+    const moon = luminary(meanMoon, meanMoon - lunarAnomaly, MOON_TABLE);
+    const marsMean = (0, math_1.modulo)(Math.trunc(epoch / 2) + Math.floor(epoch * 16 / 505) + 5420, 21600);
+    const mercuryMean = (0, math_1.modulo)(Math.trunc(epoch * 7 / 46) + Math.floor(epoch * 4) + 10642, 21600);
+    const jupiterMean = (0, math_1.modulo)(Math.trunc(epoch / 12) + Math.floor(epoch / 1032) + 14297, 21600);
+    const venusMean = (0, math_1.modulo)(Math.trunc(epoch * 5 / 3) - Math.floor(epoch * 10 / 243) + 10944, 21600);
+    const saturnMean = (0, math_1.modulo)(Math.trunc(epoch / 30) + Math.floor(epoch * 6 / 10000) + 11944, 21600);
+    const uranusMean = (0, math_1.modulo)(Math.trunc(epoch / 84) + Math.floor(epoch / 7224) + 16277, 21600);
+    const asc = ascendantLongitude(sun, hours * 60, localTimeCorrectionMinutes);
+    const arcs = {
+        ascendant: asc.longitude,
+        sun,
+        moon,
+        mars: correctedPlanet({ mean: marsMean, primaryBase: marsMean, anomalyOffset: 7620, denominator: 2700, scale: 4 / 15 }, meanRavi),
+        mercury: correctedPlanet({ mean: mercuryMean, primaryBase: meanRavi, anomalyOffset: 13200, denominator: 6000, fixed: 1260 }, meanRavi),
+        jupiter: correctedPlanet({ mean: jupiterMean, primaryBase: jupiterMean, anomalyOffset: 10320, denominator: 5520, scale: 3 / 7 }, meanRavi),
+        venus: correctedPlanet({ mean: venusMean, primaryBase: meanRavi, anomalyOffset: 4800, denominator: 19200, fixed: 660 }, meanRavi),
+        saturn: correctedPlanet({ mean: saturnMean, primaryBase: saturnMean, anomalyOffset: 14820, denominator: 3780, scale: 7 / 6 }, meanRavi),
+        uranus: correctedPlanet({ mean: uranusMean, primaryBase: uranusMean, anomalyOffset: 7440, denominator: 38640, scale: 3 / 7 }, meanRavi),
+        rahu: (0, math_1.modulo)(15150 - (0, math_1.modulo)(Math.trunc(epoch / 20) + Math.floor(epoch / 265), 21600), 21600),
+        // Thai Ketu has its own 679-day cycle; it is not Rahu + 180 degrees.
+        ketu: (0, math_1.modulo)(21600 - Math.trunc(((0, math_1.modulo)(horakhun - 1 - 344, 679) + hours / 24) * 21600 / 679), 21600),
+    };
+    // Use the same boundary normalization for houses, rulers and the displayed ascendant.
+    const ascSign = describeLongitude(asc.longitude).sign;
+    const longitudes = {};
+    const positions = {};
+    for (const key of Object.keys(arcs)) {
+        longitudes[key] = describeLongitude(arcs[key], ascSign);
+        positions[key] = longitudes[key].sign;
+        if (key !== "ascendant")
+            longitudes[key].dignities = (0, dignities_1.planetDignities)(key, positions[key]);
+    }
+    const firstLord = math_1.PLANET_KEYS[math_1.SIGN_RULERS[ascSign] - 1];
+    const firstSign = positions[firstLord];
+    const secondLord = math_1.PLANET_KEYS[math_1.SIGN_RULERS[firstSign] - 1];
+    const firstDistance = (0, math_1.modulo)(firstSign - ascSign, 12) + 1;
+    const secondDistance = (0, math_1.modulo)(positions[secondLord] - firstSign, 12) + 1;
+    const tanuseth = (0, math_1.modulo)(firstDistance * secondDistance, 7) || 7;
+    const channelOutputs = chartChannels(positions, tanuseth);
+    const navamsa = {};
+    const drekkana = {};
+    for (const key of Object.keys(longitudes)) {
+        navamsa[key] = longitudes[key].navamsaSign;
+        drekkana[key] = longitudes[key].drekkanaSign;
+    }
+    const elongation = (0, math_1.modulo)(moon - sun, 21600);
+    const lunarDay = Math.floor(elongation / 720) + 1;
+    const astrologicalWeekday = (0, math_1.modulo)(horakhun - (hour < 6 ? 1 : 0), 7) || 7;
+    const taksaCycle = [1, 2, 3, 4, 7, 5, 8, 6];
+    const taksaStart = taksaCycle.indexOf(astrologicalWeekday);
+    const taksaPlanet = (offset) => taksaCycle[(taksaStart + offset) % 8];
+    return {
+        method: "suriyayatra", positions, tanuseth, channelOutputs,
+        sunPosition: [longitudes.sun.degrees, longitudes.sun.minutes],
+        longitudes,
+        calendar: {
+            julianDayNumber, horakhun, chulaSakarat,
+            civilWeekday: (0, math_1.modulo)(horakhun, 7) || 7,
+            astrologicalWeekday,
+            lunarPhase: lunarDay <= 15 ? "waxing" : "waning",
+            lunarDay: lunarDay <= 15 ? lunarDay : lunarDay - 15,
+            elongationDegrees: elongation / 60,
+            thaiLunarDate: (0, lunar_calendar_1.calculateThaiLunarDate)(horakhun, chulaSakarat, yearBe),
+        },
+        ascendant: { method: "anto-birth-sun", localTimeCorrectionMinutes, referenceTimeMinutes: (0, math_1.modulo)(360 + localTimeCorrectionMinutes, 1440), signStartTimesMinutes: asc.starts },
+        relationships: calculateSignRelationships(positions),
+        divisionalCharts: { navamsa: { positions: navamsa, channelOutputs: chartChannels(navamsa, tanuseth) }, drekkana: { positions: drekkana, channelOutputs: chartChannels(drekkana, tanuseth) } },
+        tanusethDetails: { firstLord: math_1.SIGN_RULERS[ascSign], firstLordSign: firstSign, firstDistance, secondLord: math_1.SIGN_RULERS[firstSign], secondLordSign: positions[secondLord], secondDistance },
+        taksa: { method: "weekday-0600", boriwan: taksaPlanet(0), ayu: taksaPlanet(1), det: taksaPlanet(2), si: taksaPlanet(3), mula: taksaPlanet(4), utsaha: taksaPlanet(5), montri: taksaPlanet(6), kalakini: taksaPlanet(7), center: 9 },
+        diagnostics: { meanSunArcMinutes: meanSun, meanRaviArcMinutes: meanRavi, planetaryEpochArcMinutes: epoch, solarCycleUnits },
+    };
+}
+/** ดวงกำเนิดและดวงจรใช้วันเวลาของตัวเอง ไม่อิงเวลาปัจจุบันของเครื่อง */
+function calculateTransits(natalInput, transitInput) {
+    const natal = calculateDetailedPositions(natalInput);
+    const transit = calculateDetailedPositions(transitInput);
+    const comparison = {};
+    for (const key of math_1.PLANET_KEYS) {
+        comparison[key] = {
+            natalHouse: (0, math_1.modulo)(transit.positions[key] - natal.positions.ascendant, 12) + 1,
+            longitudeDifferenceDegrees: ((0, math_1.modulo)(transit.longitudes[key].longitudeArcMinutes - natal.longitudes[key].longitudeArcMinutes + 10800, 21600) - 10800) / 60,
+        };
+    }
+    return { natal, transit, comparison };
+}
+
+};
+M["engine/astro-calculation.js"]=function(module,exports,require){"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.describeLongitude = exports.calculateTransits = exports.calculateSignRelationships = exports.calculateDetailedPositions = void 0;
+exports.calculateUranus = calculateUranus;
+exports.calculateKetu = calculateKetu;
+exports.calculateRahu = calculateRahu;
+exports.calculateSaturn = calculateSaturn;
+exports.calculateVenus = calculateVenus;
+exports.calculateJupiter = calculateJupiter;
+exports.calculateMercury = calculateMercury;
+exports.calculateMars = calculateMars;
+exports.calculateMoon = calculateMoon;
+exports.calculateSun = calculateSun;
+exports.calculateSunDegrees = calculateSunDegrees;
+exports.calculateSunMinutes = calculateSunMinutes;
+exports.calculateAscendant = calculateAscendant;
+exports.calculateTanuseth = calculateTanuseth;
+exports.calculateAllPositions = calculateAllPositions;
+// Thai Astrological Calculations - TypeScript Version
+const input_1 = require("./astro/input");
+const suriyayatra_1 = require("./astro/suriyayatra");
+var suriyayatra_2 = require("./astro/suriyayatra");
+Object.defineProperty(exports, "calculateDetailedPositions", { enumerable: true, get: function () { return suriyayatra_2.calculateDetailedPositions; } });
+Object.defineProperty(exports, "calculateSignRelationships", { enumerable: true, get: function () { return suriyayatra_2.calculateSignRelationships; } });
+Object.defineProperty(exports, "calculateTransits", { enumerable: true, get: function () { return suriyayatra_2.calculateTransits; } });
+Object.defineProperty(exports, "describeLongitude", { enumerable: true, get: function () { return suriyayatra_2.describeLongitude; } });
+const ensureMonthTh = (monthTh) => {
+    if (!Number.isInteger(monthTh) || monthTh < 1 || monthTh > 12) {
+        throw new RangeError("`monthTh` must be an integer between 1 and 12");
+    }
+    return monthTh;
+};
+const ensureInteger = (value, label) => {
+    if (!Number.isFinite(value) || !Number.isInteger(value)) {
+        throw new RangeError(`\`${label}\` must be a finite integer`);
+    }
+    return value;
+};
+const resolveYearBe = (yearBe, yearBc) => {
+    if (yearBe !== undefined) {
+        return ensureInteger(yearBe, "yearBe");
+    }
+    if (yearBc !== undefined) {
+        const normalizedYearBc = ensureInteger(yearBc, "yearBc");
+        return normalizedYearBc + 543;
+    }
+    throw new TypeError("Either `yearBe` or `yearBc` must be provided");
+};
+const QUADRANT_ADJUST_TABLE = { 0: 0, 1: 244, 2: 427, 3: 488 };
+const SIGN_DURATIONS_MINUTES = [120.0, 96.0, 72.0, 120.0, 144.0, 168.0, 168.0, 144.0, 120.0, 72.0, 96.0, 120.0];
+const SIGN_PLANETS = {
+    1: "อาทิตย์",
+    2: "จันทร์",
+    3: "อังคาร",
+    4: "พุธ",
+    5: "พฤหัสบดี",
+    6: "ศุกร์",
+    7: "เสาร์",
+    8: "ราหู",
+    9: "เกตุ",
+    0: "มฤตยู",
+};
+const MAP_PLANETS = {
+    0: 3,
+    1: 6,
+    2: 4,
+    3: 2,
+    4: 1,
+    5: 4,
+    6: 6,
+    7: 3,
+    8: 5,
+    9: 7,
+    10: 8,
+    11: 5,
+};
+const PLANET_SYMBOLS = {
+    ascendant: ["ลั", null],
+    sun: ["๑", 1],
+    moon: ["๒", 2],
+    mars: ["๓", 3],
+    mercury: ["๔", 4],
+    jupiter: ["๕", 5],
+    venus: ["๖", 6],
+    saturn: ["๗", 7],
+    rahu: ["๘", null],
+    ketu: ["๙", null],
+    uranus: ["๐", null],
+};
+// Helper Functions
+function wrap21600(value) {
+    const modValue = value % 21600;
+    return modValue >= 0 ? modValue : modValue + 21600;
+}
+function calculateBaseValues(monthTh, yearBe, day, hour, minute) {
+    (0, input_1.normalizeCalculationInput)({ day, monthTh, yearBe, hour, minute, province: "ไม่ใช้จังหวัด" });
+    const monthNum = ensureMonthTh(monthTh);
+    const yearAd = yearBe - 543;
+    const julianYear = monthNum > 2 ? yearAd : yearAd - 1;
+    const julianMonth = monthNum > 2 ? monthNum + 1 : monthNum + 13;
+    const centuryComponent = Math.floor(julianYear * 0.01);
+    const julianDayBase = Math.floor(julianYear * 365.25) +
+        Math.floor(julianMonth * 30.6) +
+        day +
+        1720997 -
+        centuryComponent +
+        Math.floor(centuryComponent * 0.25);
+    let julianDayInteger;
+    let fractionalDayBase;
+    if (hour < 12) {
+        julianDayInteger = julianDayBase - 1;
+        fractionalDayBase = hour / 24 - 0.5 + 1.5;
+    }
+    else {
+        julianDayInteger = julianDayBase;
+        fractionalDayBase = hour / 24 - 0.5;
+    }
+    const fractionalDayOffset = (hour / 60 + minute) / 60 / 60 / 24;
+    const fractionalJulianDay = fractionalDayBase + fractionalDayOffset;
+    const julianDay = julianDayInteger + fractionalJulianDay;
+    const relativeJulianDay = Math.round(julianDay - 1954167.5);
+    const timeOfDayHours = hour + minute / 60;
+    const relativeYearFrom1181 = yearBe - 1181;
+    const solarCalendarCeiling = Math.ceil((292207 * relativeYearFrom1181 + 373) / 800);
+    const solarEquationCorrection = relativeYearFrom1181 * 0.25875 +
+        Math.trunc(relativeYearFrom1181 / 100 + 0.38) -
+        Math.trunc(relativeYearFrom1181 / 4 + 0.5) -
+        Math.trunc(relativeYearFrom1181 / 400 + 0.595) -
+        5.53375;
+    const solarCorrectionDays = Math.trunc(solarEquationCorrection);
+    const solarCorrectionHours = Math.trunc((solarEquationCorrection - solarCorrectionDays) * 24);
+    const solarCorrectionMinutes = Math.trunc(((solarEquationCorrection - solarCorrectionDays) * 24 - solarCorrectionHours) * 60);
+    const currentTimeMinutes = hour * 60 + minute / 60;
+    const solarCorrectionMinutesTotal = solarCorrectionHours * 60 + solarCorrectionMinutes / 60;
+    const solarCorrectionComparison = currentTimeMinutes > solarCorrectionMinutesTotal ? 1 : 2;
+    let solarCycleYear;
+    if (relativeJulianDay < solarCalendarCeiling ||
+        (relativeJulianDay === solarCalendarCeiling && solarCorrectionComparison === 2)) {
+        solarCycleYear = relativeYearFrom1181 - 1;
+    }
+    else {
+        solarCycleYear = relativeYearFrom1181;
+    }
+    const solarCyclePosition = ((relativeJulianDay - 1) * 800 + Math.trunc((timeOfDayHours * 800) / 24) - 373) % 292207;
+    const solarCycleRemainder = solarCyclePosition % 24350;
+    const solarCycleTurns = Math.floor(solarCyclePosition / 24350);
+    const solarCycleDegrees = Math.floor(solarCycleRemainder / 811);
+    const solarCycleDegreeRemainder = solarCycleRemainder % 811;
+    const solarCycleMinutes = Math.floor(solarCycleDegreeRemainder / 14) - 3;
+    const solarMeanLongitudeRaw = solarCycleTurns * 1800 + solarCycleDegrees * 60 + solarCycleMinutes;
+    const solarLongitudeMean = wrap21600(solarMeanLongitudeRaw);
+    const solarLongitudeCorrected = wrap21600(solarLongitudeMean - 23);
+    const solarCycleBaseOffset = solarCyclePosition >= 364 ? solarCycleYear - 610 : solarCycleYear - 611;
+    const solarCycleBaseMinutes = solarCycleBaseOffset * 21600 + solarLongitudeCorrected;
+    return {
+        relativeJulianDay,
+        timeOfDayHours,
+        solarCycleBaseMinutes,
+        solarLongitudeCorrected,
+        solarLongitudeMean,
+    };
+}
+function describeQuadrant(value) {
+    const normalizedValue = wrap21600(value);
+    const quadrantIndex = Math.floor(normalizedValue / 5400) + 1;
+    const directionMultiplier = [1, 2].includes(quadrantIndex) ? -1 : 1;
+    let quadrantArcMinutes;
+    if (quadrantIndex === 1)
+        quadrantArcMinutes = normalizedValue;
+    else if (quadrantIndex === 2)
+        quadrantArcMinutes = 10800 - normalizedValue;
+    else if (quadrantIndex === 3)
+        quadrantArcMinutes = normalizedValue - 10800;
+    else
+        quadrantArcMinutes = 21600 - normalizedValue;
+    return { quadrantIndex, quadrantArcMinutes, directionMultiplier };
+}
+function lookupQuadrantAdjustment(quadrantArcMinutes) {
+    const baseIndex = Math.floor(quadrantArcMinutes / 1800);
+    const lowerValue = QUADRANT_ADJUST_TABLE[baseIndex % 4];
+    const upperValue = QUADRANT_ADJUST_TABLE[(baseIndex + 1) % 4];
+    const interpolationFactor = quadrantArcMinutes / 1800 - baseIndex;
+    const interpolated = interpolationFactor * (upperValue - lowerValue) + lowerValue;
+    return Math.round(interpolated * 60);
+}
+function getSecondaryAdjustmentParameters(value) {
+    const normalizedValue = wrap21600(value);
+    const quadrantIndex = Math.floor(normalizedValue / 5400) + 1;
+    let secondaryArcMinutes;
+    if (quadrantIndex === 1)
+        secondaryArcMinutes = 5400 - normalizedValue;
+    else if (quadrantIndex === 2)
+        secondaryArcMinutes = normalizedValue - 5400;
+    else if (quadrantIndex === 3)
+        secondaryArcMinutes = 16200 - normalizedValue;
+    else
+        secondaryArcMinutes = normalizedValue - 16200;
+    const baseIndex = Math.floor(secondaryArcMinutes / 1800);
+    const lowerValue = QUADRANT_ADJUST_TABLE[baseIndex % 4];
+    const upperValue = QUADRANT_ADJUST_TABLE[(baseIndex + 1) % 4];
+    const interpolationFactor = secondaryArcMinutes / 1800 - baseIndex;
+    const interpolatedAdjustment = Math.round(interpolationFactor * (upperValue - lowerValue) + lowerValue + 0.5);
+    const halfAdjustment = Math.floor(interpolatedAdjustment / 2);
+    const secondaryDirection = [1, 4].includes(quadrantIndex) ? 1 : -1;
+    return { halfAdjustment, secondaryDirection, interpolatedAdjustment };
+}
+function applyPlanetaryAdjustments(initialPos, baseCalcVal, constants) {
+    // First Adjustment Cycle
+    const primaryOffset = initialPos - constants.primaryOffsetBaseline;
+    const { quadrantArcMinutes: primaryQuadrantArc, directionMultiplier: primaryDirection } = describeQuadrant(primaryOffset);
+    const primaryTableAdjustment = lookupQuadrantAdjustment(primaryQuadrantArc);
+    const { halfAdjustment: primaryHalfAdjustment, secondaryDirection: primarySecondaryDirection, } = getSecondaryAdjustmentParameters(wrap21600(primaryOffset));
+    const primaryDenominator = constants.primaryDenominatorBase + primaryHalfAdjustment * primarySecondaryDirection;
+    const primaryAdjustment = primaryDenominator !== 0 ? Math.round((primaryTableAdjustment * 60) / primaryDenominator) : 0;
+    const positionAfterPrimaryAdjustment = initialPos + primaryAdjustment * primaryDirection;
+    // Second Adjustment Cycle
+    const secondaryOffset = wrap21600(positionAfterPrimaryAdjustment) - baseCalcVal;
+    const { quadrantArcMinutes: secondaryQuadrantArc, directionMultiplier: secondaryDirection } = describeQuadrant(secondaryOffset);
+    const secondaryTableAdjustment = lookupQuadrantAdjustment(secondaryQuadrantArc);
+    const roundedSecondaryAdjustment = Math.round(Math.round(secondaryTableAdjustment / 60) / 3);
+    const scaledPrimaryDenominator = Math.round(primaryDenominator * constants.secondaryScaleFactor);
+    const secondaryNumeratorBase = roundedSecondaryAdjustment + scaledPrimaryDenominator;
+    const { secondaryDirection: interpolationDirection, interpolatedAdjustment: secondaryInterpolatedAdjustment, } = getSecondaryAdjustmentParameters(wrap21600(secondaryOffset));
+    const secondaryDenominator = secondaryNumeratorBase + secondaryInterpolatedAdjustment * interpolationDirection;
+    const secondaryAdjustment = secondaryDenominator !== 0 ? Math.round((secondaryTableAdjustment * 60) / secondaryDenominator) : 0;
+    const finalPos = wrap21600(positionAfterPrimaryAdjustment) + secondaryAdjustment * secondaryDirection;
+    return wrap21600(finalPos);
+}
+function getSignIndex(finalPos) {
+    const signIndex = Math.floor(Math.trunc(finalPos / 1800));
+    return signIndex === 12 ? 0 : signIndex;
+}
+function calculateSunPrecisePosition(monthTh, yearBe, day, hour, minute) {
+    var _a, _b;
+    const G_VALS_SUN = { 0: 0.0, 1: 35.0, 2: 67.0, 3: 94.0, 4: 116.0, 5: 129.0, 6: 134.0 };
+    const { solarLongitudeMean } = calculateBaseValues(monthTh, yearBe, day, hour, minute);
+    const meanAnomalyRaw = solarLongitudeMean - 4800;
+    const meanAnomaly = wrap21600(meanAnomalyRaw);
+    const quadrantIndex = Math.floor(Math.trunc(meanAnomaly / 5400)) + 1;
+    const directionMultiplier = [1, 2].includes(quadrantIndex) ? -1 : 1;
+    let quadrantArcMinutes;
+    if (quadrantIndex === 1)
+        quadrantArcMinutes = meanAnomaly;
+    else if (quadrantIndex === 2)
+        quadrantArcMinutes = 10800 - meanAnomaly;
+    else if (quadrantIndex === 3)
+        quadrantArcMinutes = meanAnomaly - 10800;
+    else
+        quadrantArcMinutes = 21600 - meanAnomaly;
+    const tableIndexFloor = Math.floor(Math.trunc(quadrantArcMinutes / 900));
+    const tableIndexCeil = tableIndexFloor + 1;
+    const tableValueFloor = (_a = G_VALS_SUN[tableIndexFloor]) !== null && _a !== void 0 ? _a : G_VALS_SUN[6];
+    const tableValueCeil = (_b = G_VALS_SUN[tableIndexCeil]) !== null && _b !== void 0 ? _b : G_VALS_SUN[6];
+    const interpolationFactor = quadrantArcMinutes / 900 - tableIndexFloor;
+    const quadrantAdjustment = Math.floor(Math.trunc(interpolationFactor * (tableValueCeil - tableValueFloor) + tableValueFloor));
+    const adjustedLongitude = solarLongitudeMean + quadrantAdjustment * directionMultiplier;
+    const preciseLongitude = wrap21600(adjustedLongitude);
+    return preciseLongitude;
+}
+// Planet calculation functions
+function calculateUranus(monthTh, yearBe, day, hour, minute) {
+    const { solarCycleBaseMinutes, solarLongitudeCorrected } = calculateBaseValues(monthTh, yearBe, day, hour, minute);
+    const primaryCycleComponent = Math.floor(Math.trunc(solarCycleBaseMinutes / 84));
+    const secondaryCycleComponent = Math.floor(solarCycleBaseMinutes / 7224);
+    const meanLongitude = (primaryCycleComponent + secondaryCycleComponent + 16277) % 21600;
+    const uranusAdjustmentConstants = {
+        primaryOffsetBaseline: 7440,
+        primaryDenominatorBase: 38640,
+        secondaryScaleFactor: 3 / 7,
+    };
+    const adjustedLongitude = applyPlanetaryAdjustments(meanLongitude, solarLongitudeCorrected, uranusAdjustmentConstants);
+    return getSignIndex(adjustedLongitude);
+}
+function calculateKetu(monthTh, yearBe, day, hour, minute) {
+    const { relativeJulianDay, timeOfDayHours } = calculateBaseValues(monthTh, yearBe, day, hour, minute);
+    const lunarNodeCycleOffset = (relativeJulianDay - 1 - 344) % 679;
+    const normalizedCyclePosition = Math.trunc(((lunarNodeCycleOffset + timeOfDayHours / 24) * 21600) / 679);
+    const positionWithinCycle = normalizedCyclePosition % 21600;
+    const finalLongitude = wrap21600(21600 - positionWithinCycle);
+    return getSignIndex(finalLongitude);
+}
+function calculateRahu(monthTh, yearBe, day, hour, minute) {
+    const { solarCycleBaseMinutes } = calculateBaseValues(monthTh, yearBe, day, hour, minute);
+    const primaryComponent = Math.floor(solarCycleBaseMinutes / 20);
+    const secondaryComponent = Math.floor(solarCycleBaseMinutes / 265);
+    const meanLongitude = primaryComponent + secondaryComponent;
+    const wrappedLongitude = meanLongitude % 21600;
+    const finalLongitude = wrap21600(15150 - wrappedLongitude);
+    return getSignIndex(finalLongitude);
+}
+function calculateSaturn(monthTh, yearBe, day, hour, minute) {
+    const { solarCycleBaseMinutes, solarLongitudeCorrected } = calculateBaseValues(monthTh, yearBe, day, hour, minute);
+    const primaryCycleComponent = Math.floor(Math.trunc(solarCycleBaseMinutes / 30));
+    const secondaryCycleComponent = Math.floor((solarCycleBaseMinutes * 6) / 10000);
+    const meanLongitude = (primaryCycleComponent + secondaryCycleComponent + 11944) % 21600;
+    const saturnAdjustmentConstants = {
+        primaryOffsetBaseline: 14820,
+        primaryDenominatorBase: 3780,
+        secondaryScaleFactor: 7 / 6,
+    };
+    const adjustedLongitude = applyPlanetaryAdjustments(meanLongitude, solarLongitudeCorrected, saturnAdjustmentConstants);
+    return getSignIndex(adjustedLongitude);
+}
+function calculateVenus(monthTh, yearBe, day, hour, minute) {
+    const { solarCycleBaseMinutes, solarLongitudeCorrected } = calculateBaseValues(monthTh, yearBe, day, hour, minute);
+    const primaryCycleComponent = Math.floor(Math.trunc((solarCycleBaseMinutes * 5) / 3));
+    const secondaryCycleComponent = Math.floor((solarCycleBaseMinutes * 10) / 243);
+    const venusMeanLongitude = (primaryCycleComponent - secondaryCycleComponent + 10944) % 21600;
+    const primaryOffset = solarLongitudeCorrected - 4800;
+    const { quadrantArcMinutes: primaryQuadrantArc, directionMultiplier: primaryDirection } = describeQuadrant(primaryOffset);
+    const primaryTableAdjustment = lookupQuadrantAdjustment(primaryQuadrantArc);
+    const { halfAdjustment: primaryHalfAdjustment, secondaryDirection: primarySecondaryDirection, } = getSecondaryAdjustmentParameters(wrap21600(primaryOffset));
+    const primaryDenominator = 19200 + primaryHalfAdjustment * primarySecondaryDirection;
+    const primaryAdjustment = primaryDenominator !== 0 ? Math.round((primaryTableAdjustment * 60) / primaryDenominator) : 0;
+    const positionAfterPrimaryAdjustment = solarLongitudeCorrected + primaryAdjustment * primaryDirection;
+    const secondaryOffset = wrap21600(positionAfterPrimaryAdjustment) - venusMeanLongitude;
+    const { quadrantArcMinutes: secondaryQuadrantArc, directionMultiplier: secondaryDirection } = describeQuadrant(secondaryOffset);
+    const secondaryTableAdjustment = lookupQuadrantAdjustment(secondaryQuadrantArc);
+    const roundedSecondaryAdjustment = Math.round(Math.round(secondaryTableAdjustment / 60) / 3);
+    const fixedVenusAdjustment = 60 * 11;
+    const secondaryNumeratorBase = roundedSecondaryAdjustment + fixedVenusAdjustment;
+    const { secondaryDirection: interpolationDirection, interpolatedAdjustment: secondaryInterpolatedAdjustment, } = getSecondaryAdjustmentParameters(wrap21600(secondaryOffset));
+    const secondaryDenominator = secondaryNumeratorBase + secondaryInterpolatedAdjustment * interpolationDirection;
+    const secondaryAdjustment = secondaryDenominator !== 0 ? Math.round((secondaryTableAdjustment * 60) / secondaryDenominator) : 0;
+    const finalLongitude = wrap21600(positionAfterPrimaryAdjustment) + secondaryAdjustment * secondaryDirection;
+    return getSignIndex(wrap21600(finalLongitude));
+}
+function calculateJupiter(monthTh, yearBe, day, hour, minute) {
+    const { solarCycleBaseMinutes, solarLongitudeCorrected } = calculateBaseValues(monthTh, yearBe, day, hour, minute);
+    const primaryCycleComponent = Math.floor(Math.trunc(solarCycleBaseMinutes / 12));
+    const secondaryCycleComponent = Math.floor(solarCycleBaseMinutes / 1032);
+    const meanLongitude = (primaryCycleComponent + secondaryCycleComponent + 14297) % 21600;
+    const jupiterAdjustmentConstants = {
+        primaryOffsetBaseline: 10320,
+        primaryDenominatorBase: 5520,
+        secondaryScaleFactor: 3 / 7,
+    };
+    const adjustedLongitude = applyPlanetaryAdjustments(meanLongitude, solarLongitudeCorrected, jupiterAdjustmentConstants);
+    return getSignIndex(adjustedLongitude);
+}
+function calculateMercury(monthTh, yearBe, day, hour, minute) {
+    const { solarCycleBaseMinutes, solarLongitudeCorrected } = calculateBaseValues(monthTh, yearBe, day, hour, minute);
+    const primaryCycleComponent = Math.floor(Math.trunc((solarCycleBaseMinutes * 7) / 46));
+    const secondaryCycleComponent = Math.floor(solarCycleBaseMinutes * 4);
+    const mercuryMeanLongitude = (primaryCycleComponent + secondaryCycleComponent + 10642) % 21600;
+    const primaryOffset = solarLongitudeCorrected - 13200;
+    const { quadrantArcMinutes: primaryQuadrantArc, directionMultiplier: primaryDirection } = describeQuadrant(primaryOffset);
+    const primaryTableAdjustment = lookupQuadrantAdjustment(primaryQuadrantArc);
+    const { halfAdjustment: primaryHalfAdjustment, secondaryDirection: primarySecondaryDirection, } = getSecondaryAdjustmentParameters(wrap21600(primaryOffset));
+    const primaryDenominator = 6000 + primaryHalfAdjustment * primarySecondaryDirection;
+    const primaryAdjustment = primaryDenominator !== 0 ? Math.round((primaryTableAdjustment * 60) / primaryDenominator) : 0;
+    const positionAfterPrimaryAdjustment = solarLongitudeCorrected + primaryAdjustment * primaryDirection;
+    const secondaryOffset = wrap21600(positionAfterPrimaryAdjustment) - mercuryMeanLongitude;
+    const { quadrantArcMinutes: secondaryQuadrantArc, directionMultiplier: secondaryDirection } = describeQuadrant(secondaryOffset);
+    const secondaryTableAdjustment = lookupQuadrantAdjustment(secondaryQuadrantArc);
+    const roundedSecondaryAdjustment = Math.round(Math.round(secondaryTableAdjustment / 60) / 3);
+    const fixedMercuryAdjustment = 60 * 21;
+    const secondaryNumeratorBase = roundedSecondaryAdjustment + fixedMercuryAdjustment;
+    const { secondaryDirection: interpolationDirection, interpolatedAdjustment: secondaryInterpolatedAdjustment, } = getSecondaryAdjustmentParameters(wrap21600(secondaryOffset));
+    const secondaryDenominator = secondaryNumeratorBase + secondaryInterpolatedAdjustment * interpolationDirection;
+    const secondaryAdjustment = secondaryDenominator !== 0 ? Math.round((secondaryTableAdjustment * 60) / secondaryDenominator) : 0;
+    const finalLongitude = wrap21600(positionAfterPrimaryAdjustment) + secondaryAdjustment * secondaryDirection;
+    return getSignIndex(wrap21600(finalLongitude));
+}
+function calculateMars(monthTh, yearBe, day, hour, minute) {
+    const { solarCycleBaseMinutes, solarLongitudeCorrected } = calculateBaseValues(monthTh, yearBe, day, hour, minute);
+    const primaryCycleComponent = Math.floor(Math.trunc(solarCycleBaseMinutes / 2));
+    const secondaryCycleComponent = Math.floor((solarCycleBaseMinutes * 16) / 505);
+    const meanLongitude = (primaryCycleComponent + secondaryCycleComponent + 5420) % 21600;
+    const marsAdjustmentConstants = {
+        primaryOffsetBaseline: 7620,
+        primaryDenominatorBase: 2700,
+        secondaryScaleFactor: 4 / 15,
+    };
+    const adjustedLongitude = applyPlanetaryAdjustments(meanLongitude, solarLongitudeCorrected, marsAdjustmentConstants);
+    return getSignIndex(adjustedLongitude);
+}
+function calculateMoon(monthTh, yearBe, day, hour, minute) {
+    var _a, _b;
+    const G_VALS_MOON = { 0: 0.0, 1: 77.0, 2: 148.0, 3: 209.0, 4: 256.0, 5: 286.0, 6: 296.0 };
+    const { relativeJulianDay, timeOfDayHours, solarLongitudeMean } = calculateBaseValues(monthTh, yearBe, day, hour, minute);
+    const lunarMeanCycle = ((relativeJulianDay - 1) * 703 + 650 + Math.trunc((timeOfDayHours * 703) / 24)) % 20760;
+    const meanCycleQuotient = Math.floor(lunarMeanCycle / 692);
+    const meanCycleRemainder = lunarMeanCycle % 692;
+    const meanLongitudeEstimate = meanCycleQuotient * 720 + Math.trunc(1.04 * meanCycleRemainder) - 40 + solarLongitudeMean;
+    const meanLongitude = wrap21600(meanLongitudeEstimate);
+    const anomalyCycle = (relativeJulianDay - 1 - 621) % 3232;
+    const anomalyLongitude = Math.trunc(((anomalyCycle + timeOfDayHours / 24) / 3232) * 21600) + 2;
+    const anomalyLongitudeWrapped = wrap21600(anomalyLongitude);
+    const longitudeDifferenceRaw = meanLongitude - anomalyLongitudeWrapped;
+    const longitudeDifference = wrap21600(longitudeDifferenceRaw);
+    const quadrantIndex = Math.floor(Math.trunc(longitudeDifference / 5400)) + 1;
+    const directionMultiplier = [1, 2].includes(quadrantIndex) ? -1 : 1;
+    let quadrantArcMinutes;
+    if (quadrantIndex === 1)
+        quadrantArcMinutes = longitudeDifference;
+    else if (quadrantIndex === 2)
+        quadrantArcMinutes = 10800 - longitudeDifference;
+    else if (quadrantIndex === 3)
+        quadrantArcMinutes = longitudeDifference - 10800;
+    else
+        quadrantArcMinutes = 21600 - longitudeDifference;
+    const tableIndexFloor = Math.floor(Math.trunc(quadrantArcMinutes / 900));
+    const tableIndexCeil = tableIndexFloor + 1;
+    const tableValueFloor = (_a = G_VALS_MOON[tableIndexFloor]) !== null && _a !== void 0 ? _a : G_VALS_MOON[6];
+    const tableValueCeil = (_b = G_VALS_MOON[tableIndexCeil]) !== null && _b !== void 0 ? _b : G_VALS_MOON[6];
+    const interpolationFactor = quadrantArcMinutes / 900 - tableIndexFloor;
+    const quadrantAdjustment = Math.floor(Math.trunc(interpolationFactor * (tableValueCeil - tableValueFloor) + tableValueFloor));
+    const adjustedLongitude = meanLongitude + quadrantAdjustment * directionMultiplier;
+    const wrappedLongitude = wrap21600(adjustedLongitude);
+    const signIndex = Math.floor(wrappedLongitude / 1800);
+    const finalSignIndex = signIndex < 12 ? signIndex : 0;
+    return finalSignIndex;
+}
+function calculateSun(monthTh, yearBe, day, hour, minute) {
+    const preciseLongitude = calculateSunPrecisePosition(monthTh, yearBe, day, hour, minute);
+    return getSignIndex(preciseLongitude);
+}
+function calculateSunDegrees(monthTh, yearBe, day, hour, minute) {
+    const preciseLongitude = calculateSunPrecisePosition(monthTh, yearBe, day, hour, minute);
+    const minutesWithinCurrentSign = preciseLongitude % 1800;
+    const degreesInSign = Math.trunc(minutesWithinCurrentSign / 60);
+    return degreesInSign;
+}
+function calculateSunMinutes(monthTh, yearBe, day, hour, minute) {
+    const preciseLongitude = calculateSunPrecisePosition(monthTh, yearBe, day, hour, minute);
+    const minutesWithinCurrentSign = preciseLongitude % 1800;
+    const minutesWithinDegree = Math.trunc(minutesWithinCurrentSign % 60);
+    return minutesWithinDegree;
+}
+function calculateAscendant(day, monthTh, yearBe, hour, minute, province, localTimeCorrectionMinutes) {
+    const sunLongitude = calculateSunPrecisePosition(monthTh, yearBe, day, hour, minute);
+    const sunSignIndex = Math.floor(Math.trunc(sunLongitude / 1800));
+    const sunMinutesInSign = sunLongitude % 1800;
+    const sunDegreesWithinSign = Math.trunc(sunMinutesInSign / 60);
+    const sunMinutesWithinDegree = Math.trunc(sunMinutesInSign % 60);
+    const provinceSunriseOffsetMinutes = (0, input_1.normalizeCalculationInput)({ day, monthTh, yearBe, hour, minute, province, localTimeCorrectionMinutes }, false).localTimeCorrectionMinutes;
+    const localTimeMinutes = hour * 60 + minute;
+    const minutesBeforeSunSign = SIGN_DURATIONS_MINUTES.slice(0, sunSignIndex).reduce((sum, duration) => sum + duration, 0);
+    const sunProgressDegrees = sunDegreesWithinSign + sunMinutesWithinDegree / 60;
+    const sunSignDurationMinutes = SIGN_DURATIONS_MINUTES[sunSignIndex];
+    const sunTraversalMinutes = sunSignDurationMinutes > 0 ? sunSignDurationMinutes * (sunProgressDegrees / 30) : 0;
+    const sunTotalProgressionMinutes = minutesBeforeSunSign + sunTraversalMinutes;
+    const sunriseTimeMinutes = 360 + provinceSunriseOffsetMinutes;
+    let elapsedSinceSunrise = (localTimeMinutes - sunriseTimeMinutes) % 1440;
+    if (elapsedSinceSunrise < 0)
+        elapsedSinceSunrise += 1440;
+    let ascendantMinutesOfDay = (sunTotalProgressionMinutes + elapsedSinceSunrise) % 1440;
+    if (ascendantMinutesOfDay < 0)
+        ascendantMinutesOfDay += 1440;
+    let ascendantSignIndex = 0;
+    let cumulativeMinutes = 0.0;
+    let degreesWithinAscendantSign = 0.0;
+    for (let signIndex = 0; signIndex < SIGN_DURATIONS_MINUTES.length; signIndex++) {
+        const signDuration = SIGN_DURATIONS_MINUTES[signIndex];
+        if (signDuration <= 0)
+            continue;
+        const startOfSign = cumulativeMinutes;
+        const endOfSign = cumulativeMinutes + signDuration;
+        const wrapsAround = startOfSign >= endOfSign;
+        const isWithinSign = wrapsAround
+            ? ascendantMinutesOfDay >= startOfSign || ascendantMinutesOfDay < endOfSign
+            : ascendantMinutesOfDay >= startOfSign && ascendantMinutesOfDay < endOfSign;
+        if (isWithinSign) {
+            ascendantSignIndex = signIndex;
+            let minutesIntoAscendantSign = (ascendantMinutesOfDay - startOfSign) % 1440;
+            if (minutesIntoAscendantSign < 0)
+                minutesIntoAscendantSign += 1440;
+            degreesWithinAscendantSign = (minutesIntoAscendantSign * 30) / signDuration;
+            break;
+        }
+        cumulativeMinutes = endOfSign % 1440;
+    }
+    const ascendantLongitudeMinutes = (ascendantSignIndex * 30 + degreesWithinAscendantSign) * 60;
+    const ascendantSign = Math.trunc(ascendantLongitudeMinutes / 1800);
+    return ascendantSign;
+}
+function calculateTanuseth(positions, ascSign) {
+    try {
+        const lord1Idx = MAP_PLANETS[ascSign];
+        const lord1Name = SIGN_PLANETS[lord1Idx];
+        const firstLordSign = positions[lord1Name];
+        const lord2Idx = MAP_PLANETS[firstLordSign];
+        const lord2Name = SIGN_PLANETS[lord2Idx];
+        const secondLordSign = positions[lord2Name];
+        const ascendantDistance = ((firstLordSign - ascSign) % 12) + 1;
+        const secondStepDistance = ((secondLordSign - firstLordSign) % 12) + 1;
+        const result = (ascendantDistance * secondStepDistance) % 7 || 7;
+        return result;
+    }
+    catch {
+        return -1;
+    }
+}
+function calculateAllPositions(input) {
+    if (input.method === "suriyayatra")
+        return (0, suriyayatra_1.calculateDetailedPositions)(input);
+    if (input.method !== undefined && input.method !== "legacy")
+        throw new RangeError("Unknown calculation method");
+    (0, input_1.normalizeCalculationInput)(input, false);
+    const { day, monthTh, yearBe, yearBc, hour, minute, province } = input;
+    const normalizedYearBe = resolveYearBe(yearBe, yearBc);
+    const positions = {
+        ascendant: calculateAscendant(day, monthTh, normalizedYearBe, hour, minute, province, input.localTimeCorrectionMinutes),
+        sun: calculateSun(monthTh, normalizedYearBe, day, hour, minute),
+        moon: calculateMoon(monthTh, normalizedYearBe, day, hour, minute),
+        mars: calculateMars(monthTh, normalizedYearBe, day, hour, minute),
+        mercury: calculateMercury(monthTh, normalizedYearBe, day, hour, minute),
+        jupiter: calculateJupiter(monthTh, normalizedYearBe, day, hour, minute),
+        venus: calculateVenus(monthTh, normalizedYearBe, day, hour, minute),
+        saturn: calculateSaturn(monthTh, normalizedYearBe, day, hour, minute),
+        rahu: calculateRahu(monthTh, normalizedYearBe, day, hour, minute),
+        ketu: calculateKetu(monthTh, normalizedYearBe, day, hour, minute),
+        uranus: calculateUranus(monthTh, normalizedYearBe, day, hour, minute),
+    };
+    const planetPositionsForTanuseth = {
+        ลัคนา: positions.ascendant,
+        อาทิตย์: positions.sun,
+        จันทร์: positions.moon,
+        อังคาร: positions.mars,
+        พุธ: positions.mercury,
+        พฤหัสบดี: positions.jupiter,
+        ศุกร์: positions.venus,
+        เสาร์: positions.saturn,
+        ราหู: positions.rahu,
+        เกตุ: positions.ketu,
+        มฤตยู: positions.uranus,
+    };
+    const tanuseth = calculateTanuseth(planetPositionsForTanuseth, positions.ascendant);
+    const sunDeg = calculateSunDegrees(monthTh, normalizedYearBe, day, hour, minute);
+    const sunMin = calculateSunMinutes(monthTh, normalizedYearBe, day, hour, minute);
+    // Generate channel outputs
+    const outputArray = new Array(13).fill("");
+    if (tanuseth !== -1) {
+        for (let ch = 0; ch < 12; ch++) {
+            let channelOutput = "";
+            // Check each planet for this channel
+            Object.entries(positions).forEach(([planetKey, position]) => {
+                if (position === ch) {
+                    const [symbol, tanusethNum] = PLANET_SYMBOLS[planetKey];
+                    channelOutput += symbol;
+                    if (tanusethNum !== null && tanuseth === tanusethNum) {
+                        channelOutput += "*";
+                    }
+                }
+            });
+            outputArray[ch] = channelOutput;
+        }
+    }
+    return {
+        positions,
+        tanuseth,
+        channelOutputs: outputArray.slice(0, 12),
+        sunPosition: [sunDeg, sunMin],
+    };
+}
+
+};
+M["horoscope.js"]=function(module,exports,require){"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.HoroscopeInputError = void 0;
+exports.validateHoroscopeInput = validateHoroscopeInput;
+exports.calculateThaiHoroscope = calculateThaiHoroscope;
+exports.calculateHoroscopeTransits = calculateHoroscopeTransits;
+exports.getThaiAstrologyProvinces = getThaiAstrologyProvinces;
+const suriyayatra_1 = require("./engine/astro/suriyayatra");
+const input_1 = require("./engine/astro/input");
+const math_1 = require("./engine/astro/math");
+const provinces_1 = require("./engine/astro/provinces");
+class HoroscopeInputError extends RangeError {
+    constructor(issues) {
+        super(issues.map(issue => `${issue.field}: ${issue.message}`).join("; "));
+        this.name = "HoroscopeInputError";
+        this.issues = issues;
+    }
+}
+exports.HoroscopeInputError = HoroscopeInputError;
+const object = (value) => typeof value === "object" && value !== null && !Array.isArray(value);
+/** Safe form/API validation: no coercion of strings, no host Date parsing, no thrown input errors. */
+function validateHoroscopeInput(input) {
+    const issues = [];
+    const issue = (field, code, message) => { issues.push({ field, code, message }); };
+    if (!object(input))
+        return { valid: false, issues: [{ field: "input", code: "type", message: "Expected an object" }] };
+    const date = object(input.date) ? input.date : {};
+    const time = object(input.time) ? input.time : {};
+    const location = object(input.location) ? input.location : {};
+    if (!object(input.date))
+        issue("date", "required", "A civil date is required");
+    if (!object(input.time))
+        issue("time", "required", "A local time is required");
+    if (input.location !== undefined && !object(input.location))
+        issue("location", "type", "Expected an object");
+    const integer = (value, field, min, max) => {
+        if (value === undefined)
+            issue(field, "required", "Required");
+        else if (typeof value !== "number" || !Number.isInteger(value))
+            issue(field, "type", "Expected a finite integer");
+        else if (value < min || value > max)
+            issue(field, "range", `Must be between ${min} and ${max}`);
+    };
+    if (date.era !== "BE" && date.era !== "CE")
+        issue("date.era", "unknown", "Use BE or CE");
+    integer(date.year, "date.year", date.era === "BE" ? 544 : 1, date.era === "BE" ? 10542 : 9999);
+    integer(date.month, "date.month", 1, 12);
+    integer(date.day, "date.day", 1, 31);
+    integer(time.hour, "time.hour", 0, 23);
+    integer(time.minute, "time.minute", 0, 59);
+    if (location.province !== undefined && (typeof location.province !== "string" || !location.province.length))
+        issue("location.province", "type", "Expected a non-empty Thai province name");
+    const correction = location.localTimeCorrectionMinutes;
+    if (correction !== undefined && (typeof correction !== "number" || !Number.isFinite(correction) || Math.abs(correction) > 1440))
+        issue("location.localTimeCorrectionMinutes", "range", "Expected finite minutes between -1440 and 1440");
+    const province = location.province === undefined ? "ไม่ใช้จังหวัด" : location.province;
+    if (typeof province === "string" && province.length && province !== "ไม่ระบุจังหวัด" && province !== "ไม่ใช้จังหวัด" && !Object.prototype.hasOwnProperty.call(provinces_1.PROVINCE_TIME_OFFSETS, province) && correction === undefined) {
+        issue("location.province", "unknown", "Unknown province; provide an explicit local-time correction");
+    }
+    if (!issues.some(value => value.field === "date" || value.field.startsWith("date."))) {
+        try {
+            (0, input_1.normalizeCalculationInput)({
+                day: date.day, monthTh: date.month,
+                ...(date.era === "BE" ? { yearBe: date.year } : { yearBc: date.year }),
+                hour: 0, minute: 0, province: "ไม่ใช้จังหวัด",
+            });
+        }
+        catch (error) {
+            issue("date.day", "range", error instanceof Error ? error.message : "Invalid civil date");
+        }
+    }
+    if (issues.length)
+        return { valid: false, issues };
+    const typed = input;
+    try {
+        const normalized = (0, input_1.normalizeCalculationInput)({
+            day: typed.date.day, monthTh: typed.date.month,
+            ...(typed.date.era === "BE" ? { yearBe: typed.date.year } : { yearBc: typed.date.year }),
+            hour: typed.time.hour, minute: typed.time.minute,
+            province, localTimeCorrectionMinutes: correction,
+        });
+        return { valid: true, value: {
+                date: { yearBe: normalized.yearBe, yearCe: normalized.yearCe, month: normalized.month, day: normalized.day },
+                time: { hour: normalized.hour, minute: normalized.minute, convention: "civil-local" },
+                location: { province, localTimeCorrectionMinutes: normalized.localTimeCorrectionMinutes },
+            } };
+    }
+    catch (error) {
+        return { valid: false, issues: [{ field: "date.day", code: "range", message: error instanceof Error ? error.message : "Invalid civil date" }] };
+    }
+}
+const POINT_NAMES = {
+    ascendant: "ลัคนา", sun: "อาทิตย์", moon: "จันทร์", mars: "อังคาร", mercury: "พุธ", jupiter: "พฤหัสบดี",
+    venus: "ศุกร์", saturn: "เสาร์", rahu: "ราหู", ketu: "เกตุ", uranus: "มฤตยู",
+};
+// เรียงภพจากลัคนา ไม่ใช่เรียงจากราศีเมษ
+const HOUSE_NAMES = ["ตนุ", "กดุมภะ", "สหัชชะ", "พันธุ", "ปุตตะ", "อริ", "ปัตนิ", "มรณะ", "ศุภะ", "กัมมะ", "ลาภะ", "วินาศะ"];
+function calculationInput(input) {
+    return { day: input.date.day, monthTh: input.date.month, yearBe: input.date.yearBe, hour: input.time.hour, minute: input.time.minute, ...input.location, method: "suriyayatra" };
+}
+function requireInput(input) {
+    const validation = validateHoroscopeInput(input);
+    if (!validation.valid)
+        throw new HoroscopeInputError(validation.issues);
+    return validation.value;
+}
+function chart(positions, channels) {
+    return { positions, channels: { thai: [...channels], arabic: channels.map(value => value.replace(/[๐-๙]/g, digit => String("๐๑๒๓๔๕๖๗๘๙".indexOf(digit)))) } };
+}
+function horoscope(input, result) {
+    const ascendantSign = result.positions.ascendant;
+    const houses = Array.from({ length: 12 }, (_, index) => {
+        const sign = (0, math_1.modulo)(ascendantSign + index, 12);
+        const rulerNumber = math_1.SIGN_RULERS[sign];
+        const key = math_1.PLANET_KEYS[rulerNumber - 1];
+        return {
+            number: index + 1, nameThai: HOUSE_NAMES[index], sign, signNameThai: math_1.SIGN_NAMES[sign],
+            ruler: { key, number: rulerNumber, nameThai: POINT_NAMES[key], house: result.longitudes[key].house },
+            occupants: math_1.PLANET_KEYS.filter(planet => result.positions[planet] === sign), containsAscendant: index === 0,
+        };
+    });
+    const points = {};
+    for (const key of ["ascendant", ...math_1.PLANET_KEYS]) {
+        const planetIndex = math_1.PLANET_KEYS.indexOf(key);
+        points[key] = { ...result.longitudes[key], key, nameThai: POINT_NAMES[key], number: planetIndex < 0 ? null : math_1.PLANET_NUMBERS[planetIndex], ruledHouses: houses.filter(house => house.ruler.key === key).map(house => house.number) };
+    }
+    const tanusethKey = math_1.PLANET_KEYS[result.tanuseth - 1];
+    return {
+        schemaVersion: "1.0",
+        profile: { method: "suriyayatra", ascendant: result.ascendant.method, houseSystem: "whole-sign", referenceYearRangeCe: [1900, 2100], thaiLunarYearRangeBe: [2125, 2619] },
+        input, points, houses,
+        charts: {
+            rasi: chart(result.positions, result.channelOutputs),
+            navamsa: chart(result.divisionalCharts.navamsa.positions, result.divisionalCharts.navamsa.channelOutputs),
+            drekkana: chart(result.divisionalCharts.drekkana.positions, result.divisionalCharts.drekkana.channelOutputs),
+        },
+        factors: { ascendantRuler: houses[0].ruler.key, tanuseth: { key: tanusethKey, number: result.tanuseth, nameThai: POINT_NAMES[tanusethKey], calculation: result.tanusethDetails }, ascendantOccupants: [...houses[0].occupants] },
+        calendar: result.calendar, taksa: result.taksa, relationships: result.relationships, timing: result.ascendant, diagnostics: result.diagnostics,
+    };
+}
+/** JSON-serializable deterministic natal factors for web forms, charts and interpretation rules. */
+function calculateThaiHoroscope(input) {
+    const normalized = requireInput(input);
+    return horoscope(normalized, (0, suriyayatra_1.calculateDetailedPositions)(calculationInput(normalized)));
+}
+function calculateHoroscopeTransits(natalInput, transitInput) {
+    const natal = requireInput(natalInput);
+    const transit = requireInput(transitInput);
+    const result = (0, suriyayatra_1.calculateTransits)(calculationInput(natal), calculationInput(transit));
+    return { natal: horoscope(natal, result.natal), transit: horoscope(transit, result.transit), comparison: result.comparison };
+}
+/** Fresh records for province dropdowns; callers cannot modify the engine's lookup table. */
+function getThaiAstrologyProvinces() {
+    return Object.entries(provinces_1.PROVINCE_TIME_OFFSETS).map(([province, localTimeCorrectionMinutes]) => ({ province, localTimeCorrectionMinutes }));
+}
+
+};
+M["index.js"]=function(module,exports,require){"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.formatChannelOutputs = void 0;
+exports.generateThaiAstrologyChart = generateThaiAstrologyChart;
+const astro_calculation_1 = require("./engine/astro-calculation");
+const ruling_planets_1 = require("./engine/astro/ruling-planets");
+__exportStar(require("./engine/astro-calculation"), exports);
+__exportStar(require("./engine/astro/ruling-planets"), exports);
+__exportStar(require("./horoscope"), exports);
+const THAI_DIGITS = ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"];
+const CHANNEL_PREFIX_PATTERN = /^Channel\s+\d+:/i;
+const stripChannelLabel = (value) => value.replace(CHANNEL_PREFIX_PATTERN, "").trimStart();
+const convertDigits = (value, system) => {
+    if (system === "thai") {
+        return value.replace(/\d/g, (digit) => { var _a; return (_a = THAI_DIGITS[Number(digit)]) !== null && _a !== void 0 ? _a : digit; });
+    }
+    return value.replace(/[๐-๙]/g, (digit) => {
+        const index = THAI_DIGITS.indexOf(digit);
+        return index === -1 ? digit : index.toString();
+    });
+};
+const formatChannelOutputs = (chart, options = {}) => {
+    const { numerals = "arabic" } = typeof options === "string" ? { numerals: options } : options;
+    return chart.channelOutputs.map((token) => convertDigits(stripChannelLabel(token), numerals));
+};
+exports.formatChannelOutputs = formatChannelOutputs;
+function generateThaiAstrologyChart(input) {
+    const result = (0, astro_calculation_1.calculateAllPositions)(input);
+    try {
+        const rulingPlanets = (0, ruling_planets_1.findRulingPlanets)(result.channelOutputs);
+        return {
+            ...result,
+            rulingPlanets,
+        };
+    }
+    catch (error) {
+        const message = error instanceof Error ? error.message : "Unable to determine ruling planets";
+        return {
+            ...result,
+            rulingPlanetsError: message,
+        };
+    }
+}
+
+};
+return R("x","./index");})();
+/* ===== กฎคุณภาพดาว 0-9 (กาลีไม่ตัดเสียทันที ดูคุณภาพดาวโดยรวม) (ใช้ร่วมกันทั้งเว็บดูดวงและเว็บทำนายเบอร์) ===== */
+var QDAO=(function(){
+  var RULER=[3,6,4,2,1,4,6,3,5,7,8,5];
+  var KASET={1:[4],2:[3],3:[0,7],4:[2,5],5:[8,11],6:[1,6],7:[9],8:[10]};
+  var UJ={1:0,2:1,3:9,4:5,5:3,6:11,7:6,8:7};
+  var MAHA={1:3,2:0,3:5,4:4,5:7,6:8,7:7,8:9};
+  var RACHA={1:2,2:5,3:1,4:4,5:0,6:3,7:7,8:6};
+  var WHEEL=[1,2,3,4,7,5,8,6];
+  var ROLES=['บริวาร','อายุ','เดช','ศรี','มูลละ','อุตสาหะ','มนตรี','กาลี'];
+  var HN=['ตนุ','กดุมภะ','สหัชชะ','พันธุ','ปุตตะ','อริ','ปัตนิ','มรณะ','ศุภะ','กัมมะ','ลาภะ','วินาศ'];
+  var BADH=[6,8,12], GOODLORD=[1,2,9,10,11], GOODPLACE=[1,2,5,9,10,11];
+  var BADPAIR=['2-3','3-8','2-7','2-8','3-4','3-7','1-3','4-8','6-7'];
+  var GHAT={'นระ':7,'อัมพุ':3,'กีฏะ':8,'ปัศวะ':5};
+  var TWIN=[[0,7],[1,6],[2,5],[8,11]];
+  var REACH={3:[4,8],5:[5,9],7:[3,10],8:[4,10]};
+  function pkey(a,b){return a<b?a+'-'+b:b+'-'+a}
+  function type(s){if([2,5,6,8,10].indexOf(s)>=0)return 'นระ';if([3,9,11].indexOf(s)>=0)return 'อัมพุ';if(s===7)return 'กีฏะ';return 'ปัศวะ'}
+  function role(p,day){var i=WHEEL.indexOf(p),j=WHEEL.indexOf(day);if(i<0||j<0)return '';return ROLES[(i-j+8)%8]}
+  function navamsa(deg){var s=Math.floor(deg/30),d=deg%30,lukh=Math.min(9,Math.floor(d/(10/3))+1),st=[0,9,6,3][s%4];return {sign:(st+lukh-1)%12,lukh:lukh}}
+  function stds(p,s,deg){if(p===0||p===9)return [];var r=[];
+    if(KASET[p].indexOf(s)>=0)r.push('เกษตร');if(KASET[p].some(function(k){return (k+6)%12===s}))r.push('ประ');
+    if(UJ[p]===s)r.push('อุจจ์');if((UJ[p]+6)%12===s)r.push('นิจ');if(MAHA[p]===s)r.push('มหาจักร');if(RACHA[p]===s)r.push('ราชาโชค');
+    if(deg!=null&&navamsa(s*30+deg).sign===s)r.push('วรโคตร');return r}
+  // L = ราศีลัคนา, S[p] = ราศีดาว p (0-9, 9 อาจเป็น null), D[p] = องศาในราศี (อาจเป็น null), day = ดาววันเกิด (พุธกลางคืน = 8)
+  function quality(L,S,D,day){
+    var P=[0,1,2,3,4,5,6,7,8,9].filter(function(p){return S[p]!=null});
+    var house=function(p){return (S[p]-L+12)%12+1};
+    var lordOf=function(h){return RULER[(L+h-1)%12]};
+    var tl=RULER[L], ty=type(L), info={}, links=[];
+    P.forEach(function(p){var r=[];if(p>=1&&p<=8)for(var h=1;h<=12;h++)if(lordOf(h)===p)r.push(h);
+      info[p]={sign:S[p],house:house(p),rules:r,std:stds(p,S[p],D?D[p]:null),role:(p>=1&&p<=8)?role(p,day):'',plus:[],minus:[]}});
+    P.forEach(function(a,ia){P.forEach(function(b,ib){if(ib<=ia)return;var d=(S[b]-S[a]+12)%12;
+      if(d===0)links.push([a,b,'กุม']);else if(d===6)links.push([a,b,'เล็ง']);
+      TWIN.forEach(function(t){if((S[a]===t[0]&&S[b]===t[1])||(S[a]===t[1]&&S[b]===t[0]))links.push([a,b,'แฝงเรือนเกษตร'])})})});
+    P.forEach(function(a){if(REACH[a])REACH[a].forEach(function(n){var t=(S[a]+n-1)%12;P.forEach(function(b){if(b!==a&&S[b]===t)links.push([a,b,'ส่งเกณฑ์ '+n])})})});
+    var ONG={'นระ':[[1,5,7],[1]],'อัมพุ':[[2,4,5,6],[4]],'กีฏะ':[[3,8],[7]],'ปัศวะ':[[1,2,3,5],[10]]}[ty];
+    var ong=ONG[0].filter(function(p){return info[p]&&ONG[1].indexOf(info[p].house)>=0});
+    var kali=WHEEL.filter(function(p){return role(p,day)==='กาลี'})[0];
+    var sc={},cls={};
+    P.forEach(function(p){var i=info[p],s=0,st=i.std;
+      var g=st.filter(function(x){return ['เกษตร','อุจจ์','มหาจักร','ราชาโชค','วรโคตร'].indexOf(x)>=0});
+      if(g.length){s+=Math.min(3,g.length*2);i.plus.push('เป็น'+g.join('และ'))}
+      if(st.indexOf('นิจ')>=0){s-=2;i.minus.push('เป็นนิจ')}
+      if(st.indexOf('ประ')>=0){s-=1;i.minus.push('เป็นประ')}
+      if(BADH.indexOf(i.house)>=0){s-=2;i.minus.push('ตกภพ'+HN[i.house-1])}
+      else if(GOODPLACE.indexOf(i.house)>=0){s+=1;i.plus.push('อยู่ภพ'+HN[i.house-1])}
+      var rv={'ศรี':2,'มนตรี':1,'เดช':1,'มูลละ':1,'กาลี':-2}[i.role]||0;
+      if(rv>0)i.plus.push('เป็น'+i.role+'วันเกิด');if(rv<0)i.minus.push('เป็นกาลีวันเกิด');s+=rv;
+      i.rules.forEach(function(r){if(BADH.indexOf(r)>=0){s-=1;i.minus.push('เป็นเจ้าภพ'+HN[r-1])}
+        else if(GOODLORD.indexOf(r)>=0){s+=1;i.plus.push('เป็นเจ้าภพ'+HN[r-1])}});
+      if([7,8,0].indexOf(p)>=0&&i.house===7){s-=2;i.minus.push('เล็งลัคนา')}
+      if(GHAT[ty]===p){s-=2;i.minus.push('เป็นดาวฆาตของลัคนาราศี'+ty)}
+      if(ong.indexOf(p)>=0){s+=2;i.plus.push('ได้องค์เกณฑ์')}
+      if(i.house===1){s+=1;i.plus.push('กุมลัคนา')}
+      links.forEach(function(l){var o=l[0]===p?l[1]:l[1]===p?l[0]:null;if(o===null)return;
+        if(o===tl&&p!==tl&&BADPAIR.indexOf(pkey(p,o))>=0){s-=2;i.minus.push('ทำคู่เสีย '+pkey(p,o)+' กับดาวเจ้าเรือนลัคนา')}
+        if(p===9&&info[o]&&['ศรี','มนตรี'].indexOf(info[o].role)>=0&&(l[2]==='กุม'||l[2]==='เล็ง')){s+=1;i.plus.push(l[2]+'ดาว '+o+' ที่เป็น'+info[o].role)}});
+      sc[p]=s;cls[p]=s<=-2?'b':s>=2?'g':'m';
+    });
+    return {sc:sc,cls:cls,info:info,links:links,kali:kali,ong:ong,tl:tl,type:ty};
+  }
+  return {quality:quality,role:role,stds:stds,navamsa:navamsa,BADPAIR:BADPAIR,pkey:pkey};
+})();
+
+</script>
+<script>
+(function(){
+"use strict";
+var SIGN=['เมษ','พฤษภ','มิถุน','กรกฎ','สิงห์','กันย์','ตุลย์','พิจิก','ธนู','มังกร','กุมภ์','มีน'];
+var PN={1:'อาทิตย์',2:'จันทร์',3:'อังคาร',4:'พุธ',5:'พฤหัสบดี',6:'ศุกร์',7:'เสาร์',8:'ราหู',9:'เกตุ',0:'มฤตยู'};
+var TH=['๐','๑','๒','๓','๔','๕','๖','๗','๘','๙'];
+var HOUSE=['ตนุ','กดุมภะ','สหัชชะ','พันธุ','ปุตตะ','อริ','ปัตนิ','มรณะ','ศุภะ','กัมมะ','ลาภะ','วินาศ'];
+var GIST=['ตัวเองและฝีมือตัวเอง','เงินและรายได้','เพื่อน สังคม และการติดต่อ','บ้าน ครอบครัว และญาติ','ลูก บริวาร และสิ่งใหม่','ปัญหา หนี้ และคู่แข่ง','คู่ครองและหุ้นส่วน','ความเสียหายและต่างถิ่น','ผู้ใหญ่ ความสำเร็จ และศาสนา','การงาน','โชคลาภและความสะดวก','ความลับและเรื่องเบื้องหลัง'];
+var RULER=[3,6,4,2,1,4,6,3,5,7,8,5];
+var GOODH=[1,2,4,5,7,9,10,11], BADH=[6,8,12];
+var KASET={1:[4],2:[3],3:[0,7],4:[2,5],5:[8,11],6:[1,6],7:[9],8:[10]};
+var UJ={1:0,2:1,3:9,4:5,5:3,6:11,7:6,8:7};
+var MAHA={1:3,2:0,3:5,4:4,5:7,6:8,7:7,8:9};
+var RACHA={1:2,2:5,3:1,4:4,5:0,6:3,7:7,8:6};
+var STDTXT={'เกษตร':'มั่นคง','ประ':'ไม่มั่นคง','อุจจ์':'ยิ่งใหญ่ เด่น','นิจ':'อ่อนกำลัง','มหาจักร':'สำเร็จใหญ่แต่ต้องเหนื่อย','ราชาโชค':'ราบรื่น มีคนเมตตา','วรโคตร':'มีกำลังมาก'};
+var WHEEL=[1,2,3,4,7,5,8,6];
+var ROLES=['บริวาร','อายุ','เดช','ศรี','มูลละ','อุตสาหะ','มนตรี','กาลี'];
+var ROLETXT={'บริวาร':'ผูกกับคนรอบตัว','อายุ':'ผูกกับสุขภาพ','เดช':'มีอำนาจและชื่อเสียง','ศรี':'เป็นจุดโชคดี','มูลละ':'ใช้สร้างฐานะ','อุตสาหะ':'ต้องขยัน','มนตรี':'มีคนช่วย','กาลี':'เป็นจุดเดือดร้อน'};
+var DAYNAME={1:'อาทิตย์',2:'จันทร์',3:'อังคาร',4:'พุธ',5:'พฤหัสบดี',6:'ศุกร์',7:'เสาร์',8:'พุธกลางคืน'};
+var TYPE=function(s){if([2,5,6,8,10].indexOf(s)>=0)return 'นระ';if([3,9,11].indexOf(s)>=0)return 'อัมพุ';if(s===7)return 'กีฏะ';return 'ปัศวะ'};
+var GHAT={'นระ':7,'อัมพุ':3,'กีฏะ':8,'ปัศวะ':5};
+var PAIR={'2-3':'ชู้สาว อิจฉาริษยา','3-8':'รักซ้อน รักสามเส้า','2-7':'พลัดพราก อยู่ห่างกัน','2-8':'หนี้สิน เครดิต','3-4':'วิวาท ปากเสียง','3-7':'แตกหัก อุบัติเหตุ','1-3':'แตกหัก อุบัติเหตุ','1-4':'วิชาการ ชอบเรียนรู้','4-5':'วิชาการ ชอบเรียนรู้','4-8':'คดีความ หลอกลวง','5-6':'คู่โชค หาเงินคล่อง','5-7':'การเปลี่ยนแปลง','5-8':'ชอบตำรา ไม่ยอมเสียเปรียบ','5-9':'ลางสังหรณ์ โหราศาสตร์','0-5':'ลางสังหรณ์ โหราศาสตร์','6-9':'ดาว 9 เพิ่มกำลังดาว 6 เป็นสองเท่า','3-9':'ดาว 9 เพิ่มกำลังดาว 3 เป็นสองเท่า','8-9':'ดาว 9 เพิ่มกำลังดาว 8 เป็นสองเท่า','6-7':'อุปสรรคแห่งรัก','7-8':'มหาเฮง เส้นสายใหญ่','1-5':'มีผู้ใหญ่ช่วย','2-4':'มีคนช่วย','3-6':'มีคนช่วย ราบรื่น','1-7':'มั่นคง ยาวนาน','2-5':'มั่นคง แต่มีติดขัดเล็กน้อย','4-6':'มั่นคง ยาวนาน','1-6':'เก่ง สู้ไม่ถอย','3-5':'เก่ง สู้ไม่ถอย','4-7':'เก่ง สู้ไม่ถอย'};
+var BADPAIR=['2-3','3-8','2-7','2-8','3-4','3-7','1-3','4-8','6-7'];
+var NICE=['6-9','3-9','8-9','1-5','2-4','3-6','7-8','1-7','2-5','4-6','1-6','2-8','3-5','4-7','5-6','1-4','4-5','5-9','0-5'];
+var SESH={1:'ทะเยอทะยาน รักศักดิ์ศรี จริงจัง ใจร้อน',2:'หัวอ่อน เชื่อคนง่าย ขี้น้อยใจ ไม่มีพิษภัย',3:'หุนหัน โกรธง่ายหายเร็ว ชอบแข่งขัน',4:'ช่างพูด ปรับตัวเก่ง ปากตรงกับใจ มนุษยสัมพันธ์ดี',5:'ยุติธรรม กตัญญู ชอบเรียนรู้ เป็นที่พึ่งทางใจ',6:'รักสวยรักงาม รักสบาย หนีความทุกข์เก่ง',7:'คิดมาก รอบคอบแต่ช้า ใจแข็ง ตัดสินใจแล้วไม่เปลี่ยน'};
+var SESHH=['เชื่อมั่นตัวเอง ชอบทำเอง','คิดเรื่องเงินก่อน','รักเพื่อน ชอบสังคม ชอบเดินทาง','รักบ้าน รักครอบครัว','รักเด็ก ขี้เล่น ชอบเริ่มของใหม่','ขี้กังวล กลัวหนี้และปัญหา','ให้ความสำคัญกับคู่ก่อนตัวเอง','ตกใจง่าย ฝังใจอดีต','เคารพผู้ใหญ่ ใจบุญ ชอบช่วยคน','รักงาน บ้างาน','ชอบต่อยอดฐานะ หาลาภเก่ง','รักอิสระ โลกส่วนตัวสูง'];
+var PROV=[["กรุงเทพมหานคร",13.75,100.50],["กระบี่",8.09,98.91],["กาญจนบุรี",14.02,99.53],["กาฬสินธุ์",16.43,103.51],["กำแพงเพชร",16.48,99.52],["ขอนแก่น",16.43,102.83],["จันทบุรี",12.61,102.10],["ฉะเชิงเทรา",13.69,101.07],["ชลบุรี",13.36,100.98],["ชัยนาท",15.19,100.13],["ชัยภูมิ",15.81,102.03],["ชุมพร",10.49,99.18],["เชียงราย",19.91,99.83],["เชียงใหม่",18.79,98.98],["ตรัง",7.56,99.61],["ตราด",12.24,102.52],["ตาก",16.88,99.13],["นครนายก",14.21,101.21],["นครปฐม",13.82,100.06],["นครพนม",17.41,104.78],["นครราชสีมา",14.97,102.10],["นครศรีธรรมราช",8.43,99.96],["นครสวรรค์",15.70,100.14],["นนทบุรี",13.86,100.51],["นราธิวาส",6.43,101.82],["น่าน",18.78,100.78],["บึงกาฬ",18.36,103.65],["บุรีรัมย์",14.99,103.10],["ปทุมธานี",14.02,100.53],["ประจวบคีรีขันธ์",11.81,99.80],["ปราจีนบุรี",14.05,101.37],["ปัตตานี",6.87,101.25],["พระนครศรีอยุธยา",14.35,100.57],["พะเยา",19.17,99.90],["พังงา",8.45,98.53],["พัทลุง",7.62,100.08],["พิจิตร",16.44,100.35],["พิษณุโลก",16.82,100.26],["เพชรบุรี",13.11,99.94],["เพชรบูรณ์",16.42,101.16],["แพร่",18.14,100.14],["ภูเก็ต",7.88,98.39],["มหาสารคาม",16.18,103.30],["มุกดาหาร",16.54,104.72],["แม่ฮ่องสอน",19.30,97.97],["ยโสธร",15.79,104.15],["ยะลา",6.54,101.28],["ร้อยเอ็ด",16.05,103.65],["ระนอง",9.96,98.64],["ระยอง",12.68,101.28],["ราชบุรี",13.54,99.82],["ลพบุรี",14.80,100.65],["ลำปาง",18.29,99.49],["ลำพูน",18.58,99.01],["เลย",17.49,101.73],["ศรีสะเกษ",15.12,104.32],["สกลนคร",17.16,104.15],["สงขลา",7.19,100.60],["สตูล",6.62,100.07],["สมุทรปราการ",13.60,100.60],["สมุทรสงคราม",13.41,100.00],["สมุทรสาคร",13.55,100.27],["สระแก้ว",13.82,102.07],["สระบุรี",14.53,100.91],["สิงห์บุรี",14.89,100.40],["สุโขทัย",17.01,99.82],["สุพรรณบุรี",14.47,100.12],["สุราษฎร์ธานี",9.14,99.33],["สุรินทร์",14.88,103.49],["หนองคาย",17.88,102.74],["หนองบัวลำภู",17.20,102.44],["อ่างทอง",14.59,100.45],["อำนาจเจริญ",15.86,104.63],["อุดรธานี",17.41,102.79],["อุตรดิตถ์",17.62,100.10],["อุทัยธานี",15.38,100.02],["อุบลราชธานี",15.24,104.85]];
+
+var sel=document.getElementById('prov');
+PROV.forEach(function(p,i){var o=document.createElement('option');o.value=i;o.textContent=p[0];if(p[0]==='เลย')o.selected=true;sel.appendChild(o)});
+
+/* ---------- astronomy (approximate, sidereal Lahiri) ---------- */
+var R=Math.PI/180;
+function jd(y,m,d,h){if(m<=2){y--;m+=12}var A=Math.floor(y/100),B=2-A+Math.floor(A/4);return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524.5+h/24}
+var EL={me:[0.38709927,0.20563593,7.00497902,252.25032350,77.45779628,48.33076593,0.00000037,0.00001906,-0.00594749,149472.67411175,0.16047689,-0.12534081],
+ve:[0.72333566,0.00677672,3.39467605,181.97909950,131.60246718,76.67984255,0.00000390,-0.00004107,-0.00078890,58517.81538729,0.00268329,-0.27769418],
+em:[1.00000261,0.01671123,-0.00001531,100.46457166,102.93768193,0,0.00000562,-0.00004392,-0.01294668,35999.37244981,0.32327364,0],
+ma:[1.52371034,0.09339410,1.84969142,-4.55343205,-23.94362959,49.55953891,0.00001847,0.00007882,-0.00813131,19140.30268499,0.44441088,-0.29257343],
+ju:[5.20288700,0.04838624,1.30439695,34.39644051,14.72847983,100.47390909,-0.00011607,-0.00013253,-0.00183714,3034.74612775,0.21252668,0.20469106],
+sa:[9.53667594,0.05386179,2.48599187,49.95424423,92.59887831,113.66242448,-0.00125060,-0.00050991,0.00193609,1222.49362201,-0.41897216,-0.28867794],
+ur:[19.18916464,0.04725744,0.77263783,313.23810451,170.95427630,74.01692503,-0.00196176,-0.00004397,-0.00242939,428.48202785,0.40805281,0.04240589]};
+function helio(k,T){var e=EL[k],v=[];for(var i=0;i<6;i++)v.push(e[i]+e[i+6]*T);var a=v[0],ec=v[1],I=v[2]*R,L=v[3],w=v[4],O=v[5]*R;
+  var M=((L-w)%360)*R,om=(w-v[5])*R,E=M;for(var j=0;j<30;j++)E=E-(E-ec*Math.sin(E)-M)/(1-ec*Math.cos(E));
+  var xp=a*(Math.cos(E)-ec),yp=a*Math.sqrt(1-ec*ec)*Math.sin(E);
+  var x=(Math.cos(om)*Math.cos(O)-Math.sin(om)*Math.sin(O)*Math.cos(I))*xp+(-Math.sin(om)*Math.cos(O)-Math.cos(om)*Math.sin(O)*Math.cos(I))*yp;
+  var y=(Math.cos(om)*Math.sin(O)+Math.sin(om)*Math.cos(O)*Math.cos(I))*xp+(-Math.sin(om)*Math.sin(O)+Math.cos(om)*Math.cos(O)*Math.cos(I))*yp;
+  return [x,y]}
+function norm(x){x%=360;return x<0?x+360:x}
+function positions(J){
+  var T=(J-2451545)/36525, E=helio('em',T), out={};
+  out[1]=norm(Math.atan2(-E[1],-E[0])/R);
+  var map={4:'me',6:'ve',3:'ma',5:'ju',7:'sa',0:'ur'};
+  for(var p in map){var h=helio(map[p],T);out[p]=norm(Math.atan2(h[1]-E[1],h[0]-E[0])/R)}
+  var D=297.8501921+445267.1114034*T,Mm=134.9633964+477198.8675055*T,Ms=357.5291092+35999.0502909*T,F=93.2720950+483202.0175233*T,Lp=218.3164477+481267.88123421*T,s=function(x){return Math.sin(x*R)};
+  out[2]=norm(Lp+6.288774*s(Mm)+1.274027*s(2*D-Mm)+0.658314*s(2*D)+0.213618*s(2*Mm)-0.185116*s(Ms)-0.114332*s(2*F)+0.058793*s(2*D-2*Mm)+0.057066*s(2*D-Ms-Mm)+0.053322*s(2*D+Mm)+0.045758*s(2*D-Ms)-0.040923*s(Ms-Mm)-0.034720*s(D)-0.030383*s(Ms+Mm));
+  out[8]=norm(125.0445479-1934.1362891*T);
+  var ay=23.853+((J-2451545)/365.25)*50.29/3600;
+  for(var q in out)out[q]=norm(out[q]-ay);
+  return {pos:out,ay:ay};
+}
+function ascendant(J,lat,lon,ay){
+  var G=norm(280.46061837+360.98564736629*(J-2451545)),L=(G+lon)*R,eps=23.44*R;
+  var a=Math.atan2(Math.cos(L),-(Math.sin(L)*Math.cos(eps)+Math.tan(lat*R)*Math.sin(eps)))/R;
+  return norm(a-ay);
+}
+var ANTO=[120,96,72,120,144,168,168,144,120,72,96,120];
+function sunEvents(y,m,d,lat,lon){var doy=Math.round((Date.UTC(y,m-1,d)-Date.UTC(y,0,1))/864e5)+1,g=2*Math.PI/365*(doy-1+(6-7-12)/24);
+  var eq=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g));
+  var de=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g);
+  var ha=Math.acos(Math.cos(90.833*R)/(Math.cos(lat*R)*Math.cos(de))-Math.tan(lat*R)*Math.tan(de))/R;
+  return {rise:720-4*(lon+ha)-eq+420,set:720-4*(lon-ha)-eq+420}}
+function antoLagna(sun,elapsed){var s=Math.floor(sun/30),rem=(30-sun%30)/30*ANTO[s];
+  if(elapsed<rem)return sun+elapsed/ANTO[s]*30;var e=elapsed-rem;s=(s+1)%12;
+  while(e>=ANTO[s]){e-=ANTO[s];s=(s+1)%12}return s*30+e/ANTO[s]*30}
+function navamsa(deg){var s=Math.floor(deg/30),d=deg%30,lukh=Math.min(9,Math.floor(d/(10/3))+1),st=[0,9,6,3][s%4];return {sign:(st+lukh-1)%12,lukh:lukh}}
+
+/* ---------- astrology ---------- */
+var chart=null;
+function stds(p,s){if(p===0||p===9)return [];var r=[];if(KASET[p].indexOf(s)>=0)r.push('เกษตร');if(KASET[p].some(function(k){return (k+6)%12===s}))r.push('ประ');
+  if(UJ[p]===s)r.push('อุจจ์');if((UJ[p]+6)%12===s)r.push('นิจ');if(MAHA[p]===s)r.push('มหาจักร');if(RACHA[p]===s)r.push('ราชาโชค');return r}
+function role(p,day){var i=WHEEL.indexOf(p),j=WHEEL.indexOf(day);if(i<0)return '';return ROLES[(i-j+8)%8]}
+function digitRoot(n){while(n>9)n=String(n).split('').reduce(function(a,b){return a+ +b},0);return n}
+function jorBoriwan(day,age){var W=[1,'c',2,3,4,7,5,8,6],st=W.indexOf(day),p=W[(st+digitRoot(age)-1)%9];return p==='c'?5:p}
+function pkey(a,b){return a<b?a+'-'+b:b+'-'+a}
+
+function analyze(c){
+  var L=c.lagna, S=c.sign, day=c.day;
+  var house=function(p){return (S[p]-L+12)%12+1};
+  var lordOf=function(h){return RULER[(L+h-1)%12]};
+  var rules=function(p){var r=[];for(var h=1;h<=12;h++)if(lordOf(h)===p)r.push(h);return r};
+  var planets=[1,2,3,4,5,6,7,8,0].concat(S[9]!=null?[9]:[]);
+  var info={};
+  planets.forEach(function(p){var st=stds(p,S[p]);if(c.nav&&c.nav[p]&&c.nav[p].sign===S[p])st.push('วรโคตร');
+    info[p]={sign:S[p],house:house(p),std:st,role:(p>=1&&p<=8)?role(p,day):'',rules:(p>=1&&p<=8)?rules(p):[]}});
+  // aspects
+  var links=[],seen={};
+  function add(a,b,why){var k=pkey(a,b)+why;if(a===b||seen[k])return;seen[k]=1;links.push({a:a,b:b,why:why})}
+  var twin=[[0,7],[1,6],[2,5],[8,11]];
+  var REACH={3:[4,8],5:[5,9],7:[3,10],8:[4,10]};
+  planets.forEach(function(a,ia){planets.forEach(function(b,ib){if(ib<=ia)return;
+    var d=(S[b]-S[a]+12)%12;
+    if(d===0)add(a,b,'กุม');else if(d===6)add(a,b,'เล็ง');
+    twin.forEach(function(t){if((S[a]===t[0]&&S[b]===t[1])||(S[a]===t[1]&&S[b]===t[0]))add(a,b,'แฝงเรือนเกษตร')})})});
+  planets.forEach(function(a){if(!REACH[a])return;REACH[a].forEach(function(n){var t=(S[a]+n-1)%12;planets.forEach(function(b){if(b!==a&&S[b]===t)add(a,b,'ดาว '+a+' ส่งเกณฑ์ '+n)})})});
+  var lagnaLinks=[];
+  planets.forEach(function(p){var d=(S[p]-L+12)%12;if(d===0)lagnaLinks.push([p,'กุมลัคนา']);else if(d===6)lagnaLinks.push([p,'เล็งลัคนา']);
+    twin.forEach(function(t){if((S[p]===t[0]&&L===t[1])||(S[p]===t[1]&&L===t[0]))lagnaLinks.push([p,'แฝงเรือนเกษตรถึงลัคนา'])});
+    if(REACH[p])REACH[p].forEach(function(n){if((S[p]+n-1)%12===L)lagnaLinks.push([p,'ส่งเกณฑ์ '+n+' ถึงลัคนา'])})});
+  // tanu sesh
+  var RT=RULER.slice();RT[10]=7;
+  var tl=RT[L],a=(S[tl]-L+12)%12+1,t2=RT[S[tl]],b=(S[t2]-S[tl]+12)%12+1,ts=(a*b)%7;if(ts===0)ts=7;
+  // kanet
+  var ty=TYPE(L),k=[],h=function(p){return info[p].house};
+  var ong={'นระ':[[1,5,7],[1]],'อัมพุ':[[2,4,5,6],[4]],'กีฏะ':[[3,8],[7]],'ปัศวะ':[[1,2,3,5],[10]]}[ty];
+  var og=ong[0].filter(function(p){return ong[1].indexOf(h(p))>=0});
+  if(og.length)k.push({good:true,t:'องค์เกณฑ์ ('+og.map(function(p){return 'ดาว '+p}).join(', ')+')',d:'โดดเด่นตามความหมายของดาวและภพที่ดาวเป็นเจ้าเรือน'});
+  var ud={'นระ':[[4,5,6,7],[1,3,4,7,11]],'อัมพุ':[[3,5,7,8],[4,5,9]],'กีฏะ':[[3,8],[3,7,9,12]],'ปัศวะ':[[1,2,3,6],[6,10]]}[ty];
+  var uu=ud[0].filter(function(p){return ud[1].indexOf(h(p))>=0});
+  if(uu.length)k.push({good:true,t:'อุดมเกณฑ์ ('+uu.map(function(p){return 'ดาว '+p}).join(', ')+')',d:'ดีตามดาวและภพ ถ้าดาวอยู่อริหรือวินาศ สำเร็จแล้วมีปัญหาตามมา'});
+  var pt=[];if(h(2)===11)pt.push('ดาว 2 อยู่ลาภะ: คนทั่วไปเอ็นดู');if(h(5)===4)pt.push('ดาว 5 อยู่พันธุ: ผู้ใหญ่เมตตา');if(h(6)===3)pt.push('ดาว 6 อยู่สหัชชะ: บุคลิกดี มีเสน่ห์');
+  if(pt.length)k.push({good:true,t:'ปทุมเกณฑ์',d:pt.join(' · ')});
+  var b1=[];if(h(7)===7)b1.push('ดาว 7 เล็งลัคนา');if(h(8)===7)b1.push('ดาว 8 เล็งลัคนา');if(h(3)===8)b1.push('ดาว 3 อยู่มรณะ');if((S[2]-S[8]+12)%12+1===11)b1.push('ดาว 2 เป็น 11 แก่ราหู: หูเบา เชื่อคนง่าย ระวังหนี้และถูกหลอก');
+  if(b1.length)k.push({good:false,t:'พินทุบาทว์ บทที่ 1',d:b1.join(' · ')});
+  var dayH={1:5,3:5,7:5,2:8,5:8,4:9,6:7}[day];if(h(day)===dayH)k.push({good:false,t:'พินทุบาทว์ บทที่ 2',d:'ดาววันเกิด (ดาว '+day+') อยู่ภพ'+HOUSE[dayH-1]+' เสียตามเรื่องของภพนั้น'});
+  var pat=[];if([7,8,0].some(function(p){return h(p)===7&&!(p===8&&L===7)}))pat.push('มีดาว 7, 8 หรือ 0 เล็งลัคนา');
+  var pl=lordOf(7);if(BADH.indexOf(h(pl))>=0)pat.push('เจ้าเรือนปัตนิตกภพเสีย');if(info[pl].role==='กาลี')pat.push('เจ้าเรือนปัตนิเป็นกาลีวันเกิด');
+  if(pat.length)k.push({good:false,t:'ไม่ควรมีหุ้นส่วน',d:pat.join(' · ')});
+  if(c.nav){[1,2,3,4,5,6,7,8].forEach(function(p){var s=S[p];if((s===3||s===7)&&c.nav[p]&&c.nav[p].lukh===9)k.push({good:false,t:'นวางค์ขาด (ดาว '+p+')',d:'ดาวตกลูกที่ 9 ของ'+SIGN[s]+' เด่นแค่ไหนก็สะดุดได้'})})}
+  return {info:info,house:house,lordOf:lordOf,links:links,lagnaLinks:lagnaLinks,ts:ts,kanet:k,type:ty,planets:planets,ong:og,tl:RULER[L]};
+}
+
+function score(A,p,day,L){
+  var i=A.info[p];if(!i)return null;var s=0,st=i.std;
+  var g=st.filter(function(x){return ['เกษตร','อุจจ์','มหาจักร','ราชาโชค','วรโคตร'].indexOf(x)>=0}).length;s+=Math.min(3,g*2);
+  if(st.indexOf('นิจ')>=0)s-=2;if(st.indexOf('ประ')>=0)s-=1;
+  if(BADH.indexOf(i.house)>=0)s-=2;else if([1,2,5,9,10,11].indexOf(i.house)>=0)s+=1;
+  s+={'ศรี':3,'มนตรี':2,'เดช':2,'มูลละ':1,'กาลี':-4}[i.role]||0;
+  i.rules.forEach(function(r){if(BADH.indexOf(r)>=0)s-=1;if([1,2,9,10,11].indexOf(r)>=0)s+=1});
+  if([7,8,0].indexOf(p)>=0&&i.house===7)s-=2;
+  if(GHAT[TYPE(L)]===p)s-=2;
+  if(A.ong.indexOf(p)>=0)s+=2;
+  if(i.house===1)s+=1;
+  A.links.forEach(function(l){var o=l.a===p?l.b:l.b===p?l.a:null;if(o===null)return;
+    if(o===A.tl&&p!==A.tl&&BADPAIR.indexOf(pkey(p,o))>=0)s-=2;
+    if(p===9&&A.info[o]&&['ศรี','มนตรี'].indexOf(A.info[o].role)>=0&&(l.why==='กุม'||l.why==='เล็ง'))s+=1});
+  return s;
+}
+
+/* ---------- render ---------- */
+function esc(t){return String(t).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+function hn(h){return 'ภพ'+HOUSE[h-1]}
+function verdict(v){return v>=2?'<span class="tag t-good">เด่น</span>':v<=-2?'<span class="tag t-bad">ต้องระวัง</span>':'<span class="tag t-mid">ปานกลาง</span>'}
+
+function topic(A,h,title){
+  var c=chart,lord=A.lordOf(h),i=A.info[lord],at=i.house,v=0,out=[];
+  var st=i.std.filter(function(x){return x!=='วรโคตร'});
+  var s1='ดาว '+lord+' ('+PN[lord]+') เจ้าเรือน'+HOUSE[h-1]+' อยู่'+hn(at);
+  if(i.std.length)s1+=' เป็น'+i.std.join('และ')+' ('+i.std.map(function(x){return STDTXT[x]}).join(', ')+')';
+  if(i.role)s1+=' และเป็น'+i.role+'ทางทักษา ('+ROLETXT[i.role]+')';
+  out.push(s1+'.');
+  if(at===h)out.push('เจ้าเรือนอยู่บ้านตัวเอง เรื่อง'+title+'จึงมั่นคง พึ่งตัวเองได้');
+  else out.push('เรื่อง'+title+'ผูกกับเรื่อง'+GIST[at-1]);
+  var l2=RULER[c.sign[lord]];
+  if(l2!==lord){var at2=A.info[l2].house;out.push('อ่านจังหวะสอง: ดาว '+l2+' เจ้าราศีที่ดาว '+lord+' อาศัย อยู่'+hn(at2)+' ผลสุดท้ายไปออกที่เรื่อง'+GIST[at2-1]);
+    if(BADH.indexOf(at2)>=0)v-=1;else if(GOODH.indexOf(at2)>=0)v+=1}
+  var good=st.some(function(x){return ['เกษตร','อุจจ์','มหาจักร','ราชาโชค'].indexOf(x)>=0}),weak=st.some(function(x){return x==='นิจ'||x==='ประ'});
+  if(BADH.indexOf(at)>=0){v-=2;if(good)out.push('มาตรฐานดีแต่ไปอยู่ภพเสีย เรื่องร้ายจะหนักขึ้น');else if(weak)out.push('มาตรฐานอ่อนอยู่ในภพเสีย เรื่องร้ายจึงเบาลง')}
+  else if(GOODH.indexOf(at)>=0)v+=1;
+  if(good)v+=1;if(weak)v-=1;
+  v+={'ศรี':2,'มนตรี':1,'เดช':1,'กาลี':-2}[i.role]||0;
+  var fl=A.planets.filter(function(p){return A.info[p].house===h&&p!==lord});
+  if(fl.length)out.push('ดาวที่อยู่ในภพนี้: '+fl.map(function(p){return 'ดาว '+p+' ('+PN[p]+')'}).join(', ')+' ใช้เป็นความหมายเสริม');
+  return {v:v,title:title,html:'<div class="topic"><h3>'+title+verdict(v)+'</h3><p>'+out.map(esc).join(' ')+'</p></div>',short:'<div class="topic"><h3>'+title+verdict(v)+'</h3><p>'+esc(out[1]||out[0])+'</p></div>'};
+}
+
+function wheelSVG(c,A){
+  var cx=200,cy=200,r1=190,r2=128,r3=70,o='<svg viewBox="0 0 400 400" role="img" aria-label="แผนผังดวงราศีจักร">';
+  o+='<circle cx="200" cy="200" r="'+r1+'" fill="var(--sheet)" stroke="var(--gold)" stroke-width="2"/><circle cx="200" cy="200" r="'+r2+'" fill="none" stroke="var(--line)"/><circle cx="200" cy="200" r="'+r3+'" fill="var(--paper)" stroke="var(--gold)" stroke-width="1.5"/>';
+  for(var s=0;s<12;s++){
+    var a0=(-90-30*s+15)*R,a1=(-90-30*s)*R;
+    o+='<line x1="'+(cx+r3*Math.cos(a0))+'" y1="'+(cy+r3*Math.sin(a0))+'" x2="'+(cx+r1*Math.cos(a0))+'" y2="'+(cy+r1*Math.sin(a0))+'" stroke="var(--line)"/>';
+    var isL=s===c.lagna;
+    if(isL){var b0=(-90-30*s+15)*R,b1=(-90-30*s-15)*R;o+='<path d="M'+(cx+r2*Math.cos(b0))+' '+(cy+r2*Math.sin(b0))+' A'+r2+' '+r2+' 0 0 0 '+(cx+r2*Math.cos(b1))+' '+(cy+r2*Math.sin(b1))+' L'+(cx+r1*Math.cos(b1))+' '+(cy+r1*Math.sin(b1))+' A'+r1+' '+r1+' 0 0 1 '+(cx+r1*Math.cos(b0))+' '+(cy+r1*Math.sin(b0))+'Z" fill="var(--seal)" opacity=".12"/>'}
+    o+='<text x="'+(cx+(r1-16)*Math.cos(a1))+'" y="'+(cy+(r1-16)*Math.sin(a1)+5)+'" text-anchor="middle" font-size="13" fill="var(--muted)" font-family="Trirong,serif">'+SIGN[s]+'</text>';
+    var hnum=(s-c.lagna+12)%12;
+    o+='<text x="'+(cx+(r3+12)*Math.cos(a1))+'" y="'+(cy+(r3+12)*Math.sin(a1)+4)+'" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Trirong,serif">'+HOUSE[hnum]+'</text>';
+    var here=A.planets.filter(function(p){return c.sign[p]===s}).map(function(p){return TH[p]});
+    if(isL)here.unshift('ล');
+    here.forEach(function(t,i){var n=here.length,rr=(r2+r3)/2+12+(n>3?(i%2?-9:9):0),ang=a1+((i-(n-1)/2)*(n>3?5.5:9))*R;
+      o+='<text x="'+(cx+rr*Math.cos(ang))+'" y="'+(cy+rr*Math.sin(ang)+7)+'" text-anchor="middle" font-size="20" font-family="Chonburi,serif" fill="'+(t==='ล'?'var(--seal)':'var(--ink)')+'">'+t+'</text>'});
+  }
+  o+='<text x="200" y="194" text-anchor="middle" font-size="13" fill="var(--muted)" font-family="Trirong,serif">ลัคนา</text><text x="200" y="222" text-anchor="middle" font-size="24" fill="var(--gold)" font-family="Chonburi,serif">'+SIGN[c.lagna]+'</text></svg>';
+  return o;
+}
+
+function thDate(d){var m=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];return d.getDate()+' '+m[d.getMonth()]+' '+(d.getFullYear()+543)}
+
+function yearBlock(c,A,age,start,end,transit){
+  var bw=jorBoriwan(c.day,age),get=function(rl){return WHEEL.filter(function(p){return role(p,bw)===rl})[0]};
+  var sri=get('ศรี'),mon=get('มนตรี'),kal=get('กาลี'),dej=get('เดช');
+  var hs=function(p){return A.info[p].rules.map(function(r){return GIST[r-1]}).join(' และ')};
+  var o='<h3>อายุย่าง '+age+' ('+thDate(start)+' – '+thDate(end)+')</h3><ul>';
+  o+='<li>ศรีจรคือดาว '+sri+': ปีนี้เรื่อง'+hs(sri)+'เด่นและมีโชค</li>';
+  o+='<li>มนตรีจรคือดาว '+mon+': เรื่อง'+hs(mon)+'มีคนช่วย</li>';
+  o+='<li>เดชจรคือดาว '+dej+': เรื่อง'+hs(dej)+'ทำให้มีชื่อเสียงหรืออำนาจ</li>';
+  o+='<li>กาลีจรคือดาว '+kal+': เรื่อง'+hs(kal)+'เป็นจุดเดือดร้อน'+(A.info[kal].role==='กาลี'?' และซ้อนกับกาลีวันเกิด หนักเป็นสองเท่า':'')+'</li>';
+  var gp=GHAT[A.type];
+  if(kal===gp&&transit){var ts=transit[gp],d=(ts-c.lagna+12)%12,how=null;
+    if(d===0)how='จรทับลัคนา (หนักมาก)';else if(d===6)how='จรเล็งลัคนา (หนักมาก)';
+    else{var RE={3:[4,8],5:[5,9],7:[3,10],8:[4,10]}[gp]||[];RE.forEach(function(n){if((ts+n-1)%12===c.lagna)how='ส่งเกณฑ์ '+n+' ถึงลัคนา (หนักพอประมาณ)'})}
+    o+='<li><strong>ฆาต'+A.type+':</strong> ดาว '+gp+' เป็นกาลีจรปีนี้'+(how?' และตอนนี้'+how+' ระวังเรื่องตามความหมายดาว '+gp:' แต่ตอนนี้ยังไม่ทำมุมกับลัคนา')+'</li>'}
+  return o+'</ul>';
+}
+
+/* ===== ตั้งค่าการชำระเงิน (แก้ตรงนี้) ===== */
+var PAY={price:399,pairPrice:299,promptpay:'0997891585',accountName:'ธนวัตน์ จิระเมธาทรัพย์',bankName:'ธนาคารไทยพาณิชย์ (SCB)',bankNo:'648-284-4987',line:'https://lin.ee/ujF7VHa',salt:'KLPT-2569-horo'};
+function crc16(s){var c=0xFFFF;for(var i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(var j=0;j<8;j++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return ('0000'+c.toString(16).toUpperCase()).slice(-4)}
+function tlv(id,v){return id+('0'+v.length).slice(-2)+v}
+function promptpayPayload(target,amount){var t=String(target).replace(/\D/g,''),sub;
+  if(t.length>=13)sub=tlv('02',t);else sub=tlv('01',('0000000000000'+('66'+t.replace(/^0/,''))).slice(-13));
+  var p=tlv('00','01')+tlv('01','12')+tlv('29',tlv('00','A000000677010111')+sub)+tlv('53','764')+tlv('54',amount.toFixed(2))+tlv('58','TH')+'6304';return p+crc16(p)}
+function unlockCode(key){var s=key+'|'+PAY.salt,h1=2166136261,h2=5381;for(var i=0;i<s.length;i++){var ch=s.charCodeAt(i);h1=Math.imul(h1^ch,16777619)>>>0;h2=(Math.imul(h2,33)+ch)>>>0}
+  var n=(h1^(h2<<7))>>>0,A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',o='';for(var k=0;k<6;k++){o+=A[n%32];n=Math.floor(n/32);if(k===2)n=(n^h2)>>>0}return o}
+function isUnlocked(key){try{return localStorage.getItem('horo-unlock:'+key)===unlockCode(key)}catch(e){return false}}
+function saveUnlock(key){try{localStorage.setItem('horo-unlock:'+key,unlockCode(key))}catch(e){}}
+var OWNER=false;
+(function(){if(window.claude&&window.claude.use){window.claude.use('user').then(function(u){if(!u)return;u.isOwner().then(function(v){OWNER=!!v;if(OWNER&&chart)render()})})}})();
+var CAREER={1:'ผู้บริหาร ข้าราชการ หัวหน้างาน งานพลังงานและไฟฟ้า',2:'งานบริการ พยาบาล อาหารและเครื่องดื่ม ท่องเที่ยว ขนส่ง',3:'ช่าง วิศวกร ทหาร ตำรวจ กีฬา ยานยนต์ เครื่องจักร',4:'บัญชี เลขา สื่อ นักเขียน เซลส์ นายหน้า งานเอกสาร',5:'ครู แพทย์ กฎหมาย ที่ปรึกษา ธนาคาร โหราศาสตร์ ศาสนา',6:'ศิลปะ บันเทิง แฟชั่น ความงาม ขนม ร้านอาหาร ร้านกาแฟ ตกแต่ง',7:'เกษตร ที่ดิน อสังหา ก่อสร้าง โรงงาน ของเก่า ร้านโชห่วย',8:'ต่างประเทศ การตลาด งานออนไลน์ หุ้น งานกลางคืน',9:'ศาสนา โหราศาสตร์ วัตถุมงคล งานสายความเชื่อ',0:'วิทยาศาสตร์ คอมพิวเตอร์ อิเล็กทรอนิกส์ งานอิสระ'};
+var ORGAN={1:'หัวใจ สายตา',2:'น้ำเหลือง ระบบน้ำในร่างกาย',3:'การผ่าตัด อุบัติเหตุ',4:'สมอง ประสาท ลำไส้ ทางเดินหายใจ',5:'ตับ ถุงน้ำดี น้ำตาลในเลือด กระเพาะ',6:'ไต ระบบสืบพันธุ์',7:'กระดูก ฟัน กล้ามเนื้อ',8:'ผิวหนัง พิษจากสุรา',9:'อาการที่หาสาเหตุยาก',0:'ไข้สูง อาการแปลก ๆ'};
+var MERIT={1:6,2:15,3:8,4:17,5:19,6:21,7:10,8:12,9:9};
+var NOTE_CLS={g:['ดี','t-good'],m:['กลาง','t-mid'],b:['อ่อน','t-bad']};
+function sec(id,title){return '<h2 id="'+id+'">'+title+'</h2>'}
+function transitHits(c,p,ts){var out=[],REA={3:[4,8],5:[5,9],7:[3,10],8:[4,10]}[p]||[];
+  [1,2,3,4,5,6,7,8,9,0].forEach(function(q){if(c.sign[q]==null)return;var d=(c.sign[q]-ts+12)%12,how=null;
+    if(d===0)how='ทับ';else if(d===6)how='เล็ง';else REA.forEach(function(n){if((ts+n-1)%12===c.sign[q])how='ส่งเกณฑ์ '+n+' ถึง'});
+    if(how){var k=pkey(p,q);out.push(how+'ดาว '+q+' เดิม'+(PAIR[k]?' ('+PAIR[k]+')':''))}});
+  var dl=(c.lagna-ts+12)%12;if(dl===0)out.unshift('ทับลัคนา');else if(dl===6)out.unshift('เล็งลัคนา');
+  return out}
+function render(){
+  var c=chart,A=analyze(c),L=c.lagna,r='';
+  var QQ=QDAO.quality(L,c.sign,c.deg,c.day),sc=QQ.sc,kali=QQ.kali;
+  var cls=function(p){var v=QQ.cls[p];return v==null?'mid':v==='g'?'good':v==='b'?'bad':'mid'};
+  var nm=document.getElementById('name').value.trim();
+  var TOPICS=[[1,'ตัวตนและชีวิต'],[2,'การเงิน'],[10,'การงาน'],[7,'ความรักและคู่'],[4,'บ้านและครอบครัว'],[5,'ลูกและบริวาร'],[11,'โชคลาภ'],[3,'เพื่อนและพี่น้อง'],[9,'ผู้ใหญ่และความสำเร็จ'],[6,'ปัญหา หนี้ และคู่แข่ง']];
+  var TD=TOPICS.map(function(t){return topic(A,t[0],t[1])});
+  var now=new Date(),b=c.birth,last=new Date(now.getFullYear(),b.getMonth(),b.getDate());if(last>now)last.setFullYear(last.getFullYear()-1);
+  var age=last.getFullYear()-b.getFullYear()+1;
+  var TR=ThaiAstro.calculateThaiHoroscope({date:{year:now.getFullYear(),era:"CE",month:now.getMonth()+1,day:now.getDate()},time:{hour:now.getHours(),minute:now.getMinutes()}}),trs={},TK={1:'sun',2:'moon',3:'mars',4:'mercury',5:'jupiter',6:'venus',7:'saturn',8:'rahu',9:'ketu',0:'uranus'};
+  for(var tk in TK)trs[tk]=Math.floor(TR.points[TK[tk]].longitudeArcMinutes/1800);
+  var bw=age>=1?jorBoriwan(c.day,age):null,jr=function(rl){return WHEEL.filter(function(p){return role(p,bw)===rl})[0]};
+
+  r+='<h2 id="s-top">'+(nm?esc(nm)+' ':'')+'ลัคนา'+SIGN[L]+' เกิดวัน'+DAYNAME[c.day]+'</h2>';
+  r+='<p class="note">เกิด '+esc(c.label)+' · ลัคนา '+SIGN[L]+' '+(c.lagDeg!=null?c.lagDeg.toFixed(1)+'°':'(ปรับเอง)')+(c.meth==='st'?' แบบเวลานักษัตร':' แบบอันโตนาทีสามัญ')+' · ราศีประเภท'+A.type+'</p>';
+  if(c.lagDeg!=null&&(c.lagDeg<4||c.lagDeg>26))r+='<div class="warn">ลัคนาอยู่ใกล้ขอบราศี โปรแกรมโหรแต่ละตัวอาจได้ลัคนาต่างกัน ควรเทียบกับโปรแกรมที่ใช้ประจำ และปรับลัคนาได้ในส่วนปรับตำแหน่งดาว</div>';
+  r+='<nav class="toc" aria-label="สารบัญ">'+[['s-sum','สรุป'],['s-chart','ผังดวง'],['s-nisai','นิสัย'],['s-topics','ดวงรายด้าน'],['s-phone','เช็กเบอร์'],['s-stock','เบอร์แนะนำ'],['tarot','ไพ่ยิปซี'],['pair','สมพงษ์คู่']].concat(isUnlocked(c.key)?[['p-sum','สรุปฉบับละเอียด'],['p-month','12 เดือน'],['p-year','10 ปี'],['s-dao','คุณภาพดาว'],['s-num','เลขในเบอร์'],['s-year','ทักษาจร']]:[['paywall','ฉบับละเอียด']]).map(function(x){return '<a href="#'+x[0]+'">'+x[1]+'</a>'}).join('')+'</nav>';
+
+  // summary
+  var good=TD.filter(function(t){return t.v>=2}).map(function(t){return t.title}),weak=TD.filter(function(t){return t.v<=-2}).map(function(t){return t.title});
+  var gd=[1,2,3,4,5,6,7,8,9,0].filter(function(p){return cls(p)==='good'}),bd=[1,2,3,4,5,6,7,8,9,0].filter(function(p){return cls(p)==='bad'});
+  r+=sec('s-sum','สรุปภาพรวม')+'<div class="sum">';
+  r+='<p><strong class="t-good">จุดแข็ง:</strong> '+(good.length?good.join(' · '):'ไม่มีด้านที่เด่นชัดเป็นพิเศษ')+'</p>';
+  r+='<p><strong class="t-bad">จุดที่ต้องระวัง:</strong> '+(weak.length?weak.join(' · '):'ไม่มีด้านที่เสียชัด')+'</p>';
+  var kn=A.kanet.map(function(k){return '<span class="'+(k.good?'t-good':'t-bad')+'">'+k.t+'</span>'});
+  if(kn.length)r+='<p><strong>เกณฑ์ในดวง:</strong> '+kn.join(' · ')+'</p>';
+  r+='<p><strong>ดาวที่ส่งดี:</strong> '+(gd.map(function(p){return p+' '+PN[p]}).join(', ')||'–')+'<br><strong>ดาวที่อ่อน:</strong> '+(bd.map(function(p){return p+' '+PN[p]}).join(', ')||'–')+'</p>';
+  if(bw)r+='<p><strong>ปีนี้ (อายุย่าง '+age+'):</strong> ศรีจรคือดาว '+jr('ศรี')+' · กาลีจรคือดาว '+jr('กาลี')+'</p>';
+  r+='</div><div class="sharebar"><button type="button" class="ghost" id="shr">บันทึกผลเป็นรูป ไว้แชร์</button><div id="shrout"></div></div>';
+  var SHARE={kicker:'ผูกดวงราศีจักร',fname:nm||'ของฉัน',title:(nm?nm+' ':'')+'ลัคนา'+SIGN[L],sub:'เกิดวัน'+DAYNAME[c.day]+' · ราศีประเภท'+A.type,
+    rows:[{label:'จุดแข็ง',color:'good',text:good.length?good.join(' · '):'ไม่มีด้านที่เด่นชัดเป็นพิเศษ'},{label:'จุดที่ต้องระวัง',color:'seal',text:weak.length?weak.join(' · '):'ไม่มีด้านที่เสียชัด'}].concat(bw?[{label:'ปีนี้ (อายุย่าง '+age+')',color:'gold',text:'ศรีจรคือดาว '+jr('ศรี')+' '+PN[jr('ศรี')]+' · กาลีจรคือดาว '+jr('กาลี')+' '+PN[jr('กาลี')]}]:[]),
+    digits:{good:gd,bad:bd}};
+
+  // chart
+  r+=sec('s-chart','ผังดวงและตำแหน่งดาว')+'<div class="wheel">'+wheelSVG(c,A)+'</div>';
+  r+='<div class="scroll"><table><thead><tr><th>ดาว</th><th>ราศี</th><th>ภพ</th><th>มาตรฐาน</th><th>ทักษา</th><th>เจ้าเรือน</th></tr></thead><tbody>';
+  A.planets.forEach(function(p){var i=A.info[p];r+='<tr><td>'+p+' '+PN[p]+'</td><td>'+SIGN[i.sign]+(c.deg[p]!=null?' '+c.deg[p].toFixed(1)+'°':'')+'</td><td>'+HOUSE[i.house-1]+'</td><td>'+(i.std.join(', ')||'–')+'</td><td>'+(i.role||'–')+'</td><td>'+(i.rules.map(function(h){return HOUSE[h-1]}).join(', ')||'–')+'</td></tr>'});
+  r+='</tbody></table></div>'+overrideUI();
+
+  var M0=r.length;
+  // planet quality
+  r+=sec('s-dao','คุณภาพดาว 0 ถึง 9')+'<p class="note">ดูรวมทุกปัจจัย: มาตรฐานดาว ภพที่ดาวอยู่ ภพที่ดาวเป็นเจ้าเรือน ทักษา และดาวที่สัมพันธ์ กาลีวันเกิดเป็นแค่ตัวลบหนึ่งตัว ไม่ได้ตัดเสียทันที</p>';
+  [1,2,3,4,5,6,7,8,9,0].forEach(function(p){var q=QQ.info[p];if(!q)return;var k=QQ.cls[p],nc=NOTE_CLS[k];
+    r+='<div class="topic"><h3>ดาว '+p+' '+PN[p]+' <span class="tag '+nc[1]+'">'+nc[0]+'</span></h3>';
+    r+='<p>อยู่ราศี'+SIGN[q.sign]+' '+hn(q.house)+(q.rules.length?' · เป็นเจ้าภพ'+q.rules.map(function(h){return HOUSE[h-1]}).join(' และ'):'')+(q.role?' · ทักษาเป็น'+q.role:'')+'</p>';
+    if(q.plus.length)r+='<p><span class="t-good">จุดส่ง:</span> '+q.plus.join(' · ')+'</p>';
+    if(q.minus.length)r+='<p><span class="t-bad">จุดถ่วง:</span> '+q.minus.join(' · ')+'</p>';
+    r+='<p class="note">'+(k==='g'?'รวมแล้วดาวนี้ให้คุณ เรื่องที่ดาวดูแลเป็นจุดแข็ง':k==='b'?'รวมแล้วดาวนี้ถ่วงมากกว่าส่ง เรื่องที่ดาวดูแลต้องระวัง':'มีทั้งส่งและถ่วง ผลออกมากลาง ๆ')+(p===kali&&k!=='b'?' แม้เป็นกาลีวันเกิด แต่คุณภาพดาวโดยรวมยังไม่เสีย':'')+'</p></div>'});
+
+  var M1=r.length;
+  // personality
+  r+=sec('s-nisai','นิสัยและตัวตน');
+  var ts=A.ts,tsh=A.info[ts].house,tl=A.lordOf(1),ti=A.info[tl];
+  r+='<p><strong>ตนุเศษคือดาว '+ts+' ('+PN[ts]+')</strong> ซึ่งบอกนิสัยแท้: '+SESH[ts]+' ดาวนี้อยู่'+hn(tsh)+' จึง'+SESHH[tsh-1]+'</p>';
+  r+='<p><strong>ตนุลัคน์คือดาว '+tl+' ('+PN[tl]+')</strong> อยู่'+hn(ti.house)+(ti.std.length?' เป็น'+ti.std.join('และ'):'')+(ti.role?' และเป็น'+ti.role+'ทางทักษา':'')+' ชีวิตจึงวนอยู่กับเรื่อง'+GIST[ti.house-1]+'</p>';
+  if(A.lagnaLinks.length)r+='<p><strong>ดาวที่สัมพันธ์กับลัคนา:</strong> '+A.lagnaLinks.map(function(x){return 'ดาว '+x[0]+' '+x[1]}).join(' · ')+' ดาวเหล่านี้มีผลกับบุคลิกและตัวตนโดยตรง</p>';
+
+  var M2=r.length;
+  // topics
+  r+=sec('s-topics','ดวงแต่ละด้าน')+TD.map(function(t){return t.html}).join('');
+
+  var M3=r.length;
+  // navamsa
+  r+=sec('s-nav','นวางค์จักร')+'<p class="note">นวางค์บอกเนื้อในของดาว ถ้าราศีจักรเด่นแต่นวางค์เสีย คือข้างนอกดูดีข้างในเป็นโพรง ถ้าราศีจักรเสียแต่นวางค์เด่น คือผ้าขี้ริ้วห่อทอง</p>';
+  var nrow=[];[1,2,3,4,5,6,7,8,9,0].forEach(function(p){if(c.deg[p]==null||c.sign[p]==null)return;var nv=navamsa(c.sign[p]*30+c.deg[p]),ns=nv.sign,nh=(ns-L+12)%12+1;
+    var s1=stds(p,c.sign[p]),s2=stds(p,ns),good=function(a){return a.some(function(x){return ['เกษตร','อุจจ์','มหาจักร','ราชาโชค'].indexOf(x)>=0})},bad=function(a){return a.some(function(x){return x==='นิจ'||x==='ประ'})};
+    var note=ns===c.sign[p]?'วรโคตร มีกำลังมาก':good(s1)&&bad(s2)?'ข้างนอกดี ข้างในเสีย':bad(s1)&&good(s2)?'ผ้าขี้ริ้วห่อทอง':good(s2)?'เนื้อในดี':bad(s2)?'เนื้อในอ่อน':'–';
+    if((c.sign[p]===3||c.sign[p]===7)&&nv.lukh===9)note='นวางค์ขาด ระวังเรื่องที่ดาวนี้ดูแลสะดุด';
+    nrow.push('<tr><td>'+p+' '+PN[p]+'</td><td>'+SIGN[ns]+' (ลูก '+nv.lukh+')</td><td>'+HOUSE[nh-1]+'</td><td>'+(s2.join(', ')||'–')+'</td><td>'+note+'</td></tr>')});
+  r+='<div class="scroll"><table><thead><tr><th>ดาว</th><th>นวางค์</th><th>ภพซ้อน</th><th>มาตรฐานในนวางค์</th><th>อ่านว่า</th></tr></thead><tbody>'+nrow.join('')+'</tbody></table></div>';
+
+  // kanet + pairs
+  r+=sec('s-kanet','เกณฑ์พิเศษและคู่ดาว');
+  if(A.kanet.length){r+='<ul>';A.kanet.forEach(function(k){r+='<li><span class="'+(k.good?'t-good':'t-bad')+'"><strong>'+k.t+'</strong></span>: '+esc(k.d)+'</li>'});r+='</ul>'}else r+='<p>ไม่พบเกณฑ์พิเศษเด่น ๆ ในดวงนี้</p>';
+  var mean=A.links.map(function(l){var k=pkey(l.a,l.b);return PAIR[k]?{l:l,m:PAIR[k],bad:BADPAIR.indexOf(k)>=0}:null}).filter(Boolean);
+  if(mean.length){r+='<h3>คู่ดาวที่ทำงานในดวง</h3><ul>';mean.forEach(function(x){r+='<li>ดาว '+x.l.a+'-'+x.l.b+' ('+x.l.why+'): <span class="'+(x.bad?'t-bad':'t-good')+'">'+x.m+'</span></li>'});r+='</ul>'}
+
+  // career
+  r+=sec('s-job','อาชีพที่เหมาะ');
+  var km=A.lordOf(10),ki=A.info[km];
+  r+='<p>ดาว '+km+' เจ้าเรือนกัมมะอยู่'+hn(ki.house)+(ki.std.length?' เป็น'+ki.std.join('และ'):'')+(ki.role?' เป็น'+ki.role+'ทางทักษา':'')+' งานจึงผูกกับเรื่อง'+GIST[ki.house-1]+(ki.house===1?' เหมาะทำกิจการของตัวเองมากกว่าเป็นลูกจ้าง':'')+'</p>';
+  var cand=[1,2,3,4,5,6,7,8,9,0].filter(function(p){return cls(p)!=='bad'&&QQ.info[p]}).map(function(p){var w=sc[p];if(p===km)w+=3;if(QQ.info[p].house===10)w+=2;if(QQ.info[p].rules.indexOf(11)>=0||QQ.info[p].rules.indexOf(2)>=0)w+=1;return [p,w]}).sort(function(a,b){return b[1]-a[1]}).slice(0,3);
+  r+='<ul>'+cand.map(function(x){var p=x[0];return '<li><strong>ดาว '+p+' '+PN[p]+'</strong>: '+CAREER[p]+'</li>'}).join('')+'</ul>';
+  var avoidJ=[1,2,3,4,5,6,7,8,9,0].filter(function(p){return cls(p)==='bad'});
+  if(avoidJ.length)r+='<p class="note">งานสายดาวที่อ่อนในดวง ('+avoidJ.join(', ')+') ทำได้แต่จะเหนื่อยกว่าและสะดุดง่ายกว่า</p>';
+
+  // health
+  r+=sec('s-health','สุขภาพ (เป็นข้อเตือน ไม่ใช่การวินิจฉัย)');
+  var ay=WHEEL.filter(function(p){return role(p,c.day)==='อายุ'})[0],hl=[];
+  hl.push('ดาวอายุ (ดาว '+ay+') อยู่'+hn(A.info[ay].house)+' ให้ดูแลเรื่อง'+ORGAN[ay]);
+  [1,2,3,4,5,6,7,8,9,0].forEach(function(p){var i=QQ.info[p];if(i&&p!==ay&&[6,8,12].indexOf(i.house)>=0)hl.push('ดาว '+p+' ตก'+hn(i.house)+' ระวังเรื่อง'+ORGAN[p])});
+  r+='<ul>'+hl.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><p class="note">ตรวจสุขภาพประจำปีและปรึกษาแพทย์เมื่อมีอาการ</p>';
+
+  // year
+  r+=sec('s-year','ดวงจรและทักษาจร');
+  if(age>=1){for(var y=0;y<3;y++){var st=new Date(last);st.setFullYear(st.getFullYear()+y);var en=new Date(st);en.setFullYear(en.getFullYear()+1);en.setDate(en.getDate()-1);r+=yearBlock(c,A,age+y,st,en,y===0?trs:null)}}
+  r+='<h3>ดาวจรวันนี้กระทบดวงเดิม</h3><div class="scroll"><table><thead><tr><th>ดาวจร</th><th>อยู่</th><th>กระทบ</th></tr></thead><tbody>';
+  [5,7,8,3,1].forEach(function(p){var ts2=trs[p],hh=(ts2-L+12)%12+1,hits=transitHits(c,p,ts2);r+='<tr><td>ดาว '+p+' '+PN[p]+'</td><td>'+SIGN[ts2]+' ('+HOUSE[hh-1]+')</td><td>'+(hits.join(' · ')||'–')+'</td></tr>'});
+  r+='</tbody></table></div><p class="note">ดาว 5 จรไปไหนเรื่องนั้นมีคนหนุน ดาว 7 จรไปไหนเรื่องนั้นหนักและช้า ดาว 8 จรไปไหนเรื่องนั้นผันผวน ระวังหลงเชื่อ</p>';
+
+  // numbers
+  r+=sec('s-num','ตัวเลขที่ควรมีในเบอร์โทรศัพท์');
+  r+='<div class="digits" aria-label="ระดับของแต่ละเลข">';[1,2,3,4,5,6,7,8,9,0].forEach(function(p){r+='<span class="d '+cls(p)+'" title="ดาว '+p+'">'+p+'</span>'});r+='</div>';
+  var goods=gd.slice().sort(function(a,b){return sc[b]-sc[a]});
+  r+='<p><span class="t-good"><strong>เลขเสริมดวง:</strong></span> '+(goods.join(', ')||'–')+' &nbsp; <span class="t-bad"><strong>เลขที่ควรเลี่ยง:</strong></span> '+(bd.join(', ')||'–')+'</p>';
+  var pool=[1,2,3,4,5,6,7,8,9,0].filter(function(p){return cls(p)!=='bad'&&sc[p]!=null}),pairs=[];
+  for(var i=0;i<pool.length;i++)for(var j=i+1;j<pool.length;j++){var a=pool[i],bb=pool[j],k=pkey(a,bb);
+    if((cls(a)==='good'||cls(bb)==='good')&&NICE.indexOf(k)>=0&&BADPAIR.indexOf(k)<0)pairs.push({k:k,s:sc[a]+sc[bb]+(cls(a)==='good'&&cls(bb)==='good'?5:0)})}
+  pairs.sort(function(a,b){return b.s-a.s});
+  if(pairs.length){r+='<h3>คู่เลขที่แนะนำ</h3><ul>';pairs.slice(0,6).forEach(function(x){var ab=x.k.split('-');r+='<li><strong>'+ab[0]+ab[1]+' / '+ab[1]+ab[0]+'</strong>: '+PAIR[x.k]+'</li>'});r+='</ul>'}
+  r+='<h3>คู่เลขที่ห้ามมี</h3><ul>'+(cls(kali)==='bad'?'<li><strong>เลข '+kali+' ทุกคู่</strong>: เป็นกาลีวันเกิดและคุณภาพดาวโดยรวมเสีย</li>':'<li><strong>เลข '+kali+'</strong>: เป็นกาลีวันเกิด แต่คุณภาพดาวโดยรวมยังไม่เสีย ใช้ได้ถ้าประกบคู่ดี</li>');
+  BADPAIR.forEach(function(k){var ab=k.split('-');r+='<li><strong>'+ab[0]+ab[1]+' / '+ab[1]+ab[0]+'</strong>: '+PAIR[k]+'</li>'});r+='</ul>';
+  r+='<p class="note">ส่วนนี้บอกว่าควรเน้นหรือเลี่ยงดาวไหนตามดวง การวางตำแหน่งในเบอร์และผลรวมต้องดูตามหลักเลขศาสตร์ประกอบ</p>';
+
+  // merit
+  r+=sec('s-merit','แก้เคล็ดตามกำลังดาว (แนวในตำรา)')+'<ul>';
+  if(MERIT[kali])r+='<li>กาลีวันเกิดคือดาว '+kali+': ทำบุญตามกำลังดาว '+MERIT[kali]+' บาท</li>';
+  if(bw){var kj=jr('กาลี');if(MERIT[kj])r+='<li>กาลีจรปีนี้คือดาว '+kj+': ทำบุญ '+MERIT[kj]+' บาท ตลอดปีโหรนี้</li>'}
+  if(trs[7]!=null){var h7=(trs[7]-L+12)%12+1;if([6,8,12].indexOf(h7)>=0)r+='<li>ดาว 7 จรตก'+hn(h7)+': ทำบุญ 10 บาทแบบไม่ออกชื่อ</li>'}
+  r+='</ul><p class="note">การแก้เคล็ดตามตำราช่วยผ่อนหนักเป็นเบา ไม่ได้ทำให้เรื่องหายไป</p>';
+  r+='<p class="note">ตำแหน่งดาวคำนวณตามปฏิทินสุริยยาตร์ ลัคนาแบบอันโตนาทีสามัญ สมผุสอาทิตย์อุทัย ผลควรตรงกับ myhora</p>';
+
+  var M4=r.length,UL=isUnlocked(c.key);
+  var shortT=sec('s-topics','ดวงแต่ละด้าน (ย่อ)')+TD.map(function(t){return t.short}).join('')+(UL?'':'<p class="note">ฉบับละเอียดอ่านแต่ละด้านแบบ 2 จังหวะครบ พร้อมดาวที่เกี่ยวข้อง</p>');
+  var free=r.slice(0,M0)+r.slice(M1,M2)+shortT+phoneBlock(c,QQ)+stockBlock(QQ);
+  var paidX=r.slice(M0,M1)+r.slice(M2,M3).replace('id="s-topics">ดวงแต่ละด้าน','id="p-topics">ดวงแต่ละด้าน (เต็ม)')+r.slice(M3,M4);
+  r=free+(UL?renderPaid(c,A,QQ,paidX):paywall(c.key));
+  LASTQ={QQ:QQ,c:c,share:SHARE};
+  var box=document.getElementById('result');box.innerHTML=r;box.style.display='block';box.classList.remove('show');void box.offsetWidth;box.classList.add('show');
+  bindOverride();bindPaywall(c.key);bindPhone();bindShare();
+}
+
+function tsign(TRp,k){return Math.floor(TRp.points[k].longitudeArcMinutes/1800)}
+function rtx(rl){return rl.indexOf('ส่ง')===0?rl+' ถึง':rl}
+function relTo(ts,target,p){var d=(target-ts+12)%12;if(d===0)return 'ทับ';if(d===6)return 'เล็ง';var RE={3:[4,8],5:[5,9],7:[3,10],8:[4,10]}[p]||[];for(var i=0;i<RE.length;i++)if((ts+RE[i]-1)%12===target)return 'ส่งเกณฑ์ '+RE[i];return null}
+function syAt(d){return ThaiAstro.calculateThaiHoroscope({date:{year:d.getFullYear(),era:"CE",month:d.getMonth()+1,day:d.getDate()},time:{hour:12,minute:0}})}
+var AREAS=[['money','การเงิน',[2,11]],['work','การงาน',[10]],['love','ความรักและคู่',[7]],['family','บ้านและครอบครัว',[4]],['health','สุขภาพ',[1]]];
+var ADV={money:{g:'รายได้เข้าดี เหมาะเก็บเงินก้อน หรือต่อยอดงานที่ทำอยู่',m:'การเงินทรงตัว ใช้จ่ายตามแผน',b:'เงินตึง เลี่ยงการกู้ ค้ำประกัน ให้ยืม และการลงทุนก้อนใหญ่'},
+ work:{g:'งานมีคนหนุน เหมาะเริ่มงานใหม่ เสนองาน หรือขยายงาน',m:'งานเดินตามปกติ ทำของเดิมให้ดี',b:'งานหนักและผลช้า ยังไม่ควรเปลี่ยนงานหรือขยายใหญ่'},
+ love:{g:'ความรักราบรื่น คนมีคู่เข้าใจกันดี คนโสดมีโอกาสเจอคนถูกใจ',m:'ความสัมพันธ์ปกติ ไม่มีเรื่องใหญ่',b:'ระวังปากเสียง ความเข้าใจผิด และคนที่สาม ใจเย็นกับคู่'},
+ family:{g:'บ้านสงบ ญาติผู้ใหญ่ช่วย เหมาะเรื่องบ้าน ที่ดิน ยานพาหนะ',m:'เรื่องบ้านทรงตัว',b:'มีเรื่องในบ้านหรือกับญาติ พูดให้น้อย และเลื่อนการซื้อขายบ้านที่ดิน'},
+ health:{g:'สุขภาพและกำลังใจดี',m:'สุขภาพปกติ ดูแลตามเดิม',b:'พักผ่อนให้พอ ระวังความเครียด อุบัติเหตุ และตรวจสุขภาพ'}};
+function lvl(v,t){return v>=t?'g':v<=-t?'b':'m'}
+function areaEval(c,A,T,bw,yearly){
+  var L=c.lagna,res={},why={},js=tsign(T,'jupiter'),ss=tsign(T,'saturn'),rs=tsign(T,'rahu'),ms=tsign(T,'mars'),vs=tsign(T,'venus');
+  var role3=function(rl){return WHEEL.filter(function(p){return role(p,bw)===rl})[0]},sri=role3('ศรี'),mon=role3('มนตรี'),kal=role3('กาลี');
+  var w=yearly?1.5:1;
+  AREAS.forEach(function(ar){var k=ar[0],s=0,rs2=[];
+    ar[2].forEach(function(hh){var sg=(L+hh-1)%12,lord=A.lordOf(hh),ls=c.sign[lord];
+      var rj=relTo(js,sg,5);if(rj){s+=1;rs2.push('ดาว 5 '+rtx(rj)+'ภพ'+HOUSE[hh-1])}else if(relTo(js,ls,5)){s+=0.5;rs2.push('ดาว 5 หนุนดาวเจ้าภพ'+HOUSE[hh-1])}
+      var rsat=relTo(ss,sg,7);if(rsat==='ทับ'||rsat==='เล็ง'){s-=1;rs2.push('ดาว 7 '+rsat+'ภพ'+HOUSE[hh-1])}else if(rsat){s-=0.5;rs2.push('ดาว 7 '+rtx(rsat)+'ภพ'+HOUSE[hh-1])}
+      var rr=relTo(rs,sg,8);if(rr==='ทับ'||rr==='เล็ง'){s-=0.5;rs2.push('ราหู'+rr+'ภพ'+HOUSE[hh-1])}
+      if(!yearly){if(vs===sg){s+=0.5;rs2.push('ดาว 6 จรเข้าภพ'+HOUSE[hh-1])}var rm=relTo(ms,sg,3);if(rm==='ทับ'||rm==='เล็ง'){s-=0.5;rs2.push('ดาว 3 '+rm+'ภพ'+HOUSE[hh-1])}}
+      if(lord===sri){s+=w;rs2.push('เจ้าภพ'+HOUSE[hh-1]+'เป็นศรีจร')}if(lord===mon){s+=w/2;rs2.push('เจ้าภพ'+HOUSE[hh-1]+'เป็นมนตรีจร')}if(lord===kal){s-=w;rs2.push('เจ้าภพ'+HOUSE[hh-1]+'เป็นกาลีจร')}});
+    if(k==='health'){var ay=WHEEL.filter(function(p){return role(p,c.day)==='อายุ'})[0];if(ay===kal){s-=1;rs2.push('ดาวอายุเป็นกาลีจร')}if([6,8,12].indexOf((ss-L+12)%12+1)>=0){s-=0.5;rs2.push('ดาว 7 จรภพ'+HOUSE[((ss-L+12)%12)])}}
+    res[k]=s;why[k]=rs2});
+  return {res:res,why:why,sri:sri,mon:mon,kal:kal,js:js,ss:ss,rs:rs};
+}
+function periodCard(title,ev,extra,yearly){
+  var t=yearly?1.5:1,goods=[],bads=[],mids=[];
+  AREAS.forEach(function(ar){var l=lvl(ev.res[ar[0]],t);(l==='g'?goods:l==='b'?bads:mids).push(ar)});
+  var total=0;AREAS.forEach(function(ar){total+=ev.res[ar[0]]});total+=extra.s||0;
+  var ov=total>=(yearly?3:2)?['ดี','t-good']:total<=(yearly?-3:-2)?['ต้องระวัง','t-bad']:['กลาง ๆ','t-mid'];
+  var o='<div class="topic"><h3>'+title+' <span class="tag '+ov[1]+'">'+ov[0]+'</span></h3>';
+  var sum=goods.length?'เด่นเรื่อง'+goods.map(function(x){return x[1]}).join(' ')+'':'ไม่มีเรื่องที่เด่นชัด';
+  sum+=bads.length?' ส่วนเรื่องที่ต้องระวังคือ'+bads.map(function(x){return x[1]}).join(' '):' และไม่มีเรื่องที่เสียชัด';
+  o+='<p><strong>'+sum+'</strong></p>';
+  if(extra.lead)o+='<p>'+extra.lead+'</p>';
+  o+='<ul class="areas">';
+  goods.concat(bads).forEach(function(ar){var l=lvl(ev.res[ar[0]],t);o+='<li><span class="'+(l==='g'?'t-good':'t-bad')+'"><strong>'+ar[1]+':</strong></span> '+ADV[ar[0]][l]+'</li>'});
+  if(mids.length)o+='<li><strong>'+mids.map(function(x){return x[1]}).join(' ')+':</strong> ทรงตัว ไม่มีเรื่องใหญ่</li>';
+  o+='</ul>';
+  if(extra.notes&&extra.notes.length)o+='<p><strong>จุดที่ต้องรู้:</strong> '+extra.notes.join(' · ')+'</p>';
+  var rs=[];AREAS.forEach(function(ar){if(ev.why[ar[0]].length)rs.push(ar[1]+': '+ev.why[ar[0]].join(', '))});
+  if(rs.length)o+='<p class="note">เหตุผลทางโหร: '+rs.join(' / ')+'</p>';
+  return {html:o+'</div>',total:total,lv:ov[0]};
+}
+function renderPaid(c,A,QQ,paidX){
+  var L=c.lagna,r='',tl=A.lordOf(1),TK={3:'mars',5:'jupiter',7:'saturn',8:'rahu'};
+  var GH={'นระ':7,'อัมพุ':3,'กีฏะ':8,'ปัศวะ':5}[A.type];
+  var now=new Date(),b=c.birth,ageAt=function(d){var a=d.getFullYear()-b.getFullYear();if(d.getMonth()<b.getMonth()||(d.getMonth()===b.getMonth()&&d.getDate()<b.getDate()))a--;return a+1};
+  var MN=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+  // months
+  var mh=[],mGood=[],mBad=[];
+  for(var k=0;k<12;k++){var d=new Date(now.getFullYear(),now.getMonth()+k,15),T=syAt(d),bw=jorBoriwan(c.day,ageAt(d)),ev=areaEval(c,A,T,bw,false),notes=[],s=0;
+    var j=tsign(T,'jupiter'),sa=tsign(T,'saturn'),ra=tsign(T,'rahu'),ma=tsign(T,'mars');
+    var rj=relTo(j,L,5);if(rj){s+=1;notes.push('ดาว 5 '+rtx(rj)+'ลัคนา มีผู้ใหญ่หรือโอกาสเข้ามาหา')}
+    var rsa=relTo(sa,L,7);if(rsa){s-=1;notes.push('ดาว 7 '+rtx(rsa)+'ลัคนา เหนื่อยและกดดัน ต้องอดทน')}
+    var rra=relTo(ra,L,8);if(rra==='ทับ'||rra==='เล็ง'){s-=0.5;notes.push('ราหู'+rra+'ลัคนา ระวังหลงเชื่อคนและการตัดสินใจด้วยอารมณ์')}
+    var rma=relTo(ma,L,3);if(rma==='ทับ'||rma==='เล็ง'){s-=0.5;notes.push('ดาว 3 '+rma+'ลัคนา ใจร้อน ระวังอุบัติเหตุและการปะทะ')}
+    var tk=TK[ev.kal]?tsign(T,TK[ev.kal]):null;if(tk!=null&&relTo(tk,L,ev.kal)){s-=0.5;notes.push('กาลีจรของปี (ดาว '+ev.kal+') มากระทบลัคนา');if(ev.kal===GH){s-=1;notes.push('เข้าเกณฑ์ฆาต'+A.type+' ช่วงนี้ระวังเป็นพิเศษ')}}
+    var su=tsign(T,'sun'),hs=(su-L+12)%12+1,lead='อาทิตย์จรภพ'+HOUSE[hs-1]+' เรื่อง'+GIST[hs-1]+'จะเป็นเรื่องที่ต้องให้ความสนใจในเดือนนี้';
+    var nm=MN[d.getMonth()]+' '+(d.getFullYear()+543),pc=periodCard(nm,ev,{s:s,notes:notes,lead:lead},false);
+    mh.push(pc.html);if(pc.lv==='ดี')mGood.push(nm);if(pc.lv==='ต้องระวัง')mBad.push(nm)}
+  // years
+  var last=new Date(now.getFullYear(),b.getMonth(),b.getDate());if(last>now)last.setFullYear(last.getFullYear()-1);
+  var age0=last.getFullYear()-b.getFullYear()+1,yh=[],best=null,ybest=null,yBad=[];
+  for(var y=0;y<10;y++){var st=new Date(last);st.setFullYear(st.getFullYear()+y);var mid=new Date(st);mid.setMonth(mid.getMonth()+6);var T2=syAt(mid),ag=age0+y,bw2=jorBoriwan(c.day,ag),ev2=areaEval(c,A,T2,bw2,true),notes2=[],s2=0;
+    var gs=function(p){return A.info[p].rules.map(function(x){return GIST[x-1]}).join(' และ')};
+    var lead2='ปีนี้ดาว '+ev2.sri+' เป็นศรีจร เรื่อง'+gs(ev2.sri)+'จะมีโชคและเป็นจุดที่ควรรุก ดาว '+ev2.mon+' เป็นมนตรีจร เรื่อง'+gs(ev2.mon)+'มีคนช่วย ส่วนดาว '+ev2.kal+' เป็นกาลีจร เรื่อง'+gs(ev2.kal)+'เป็นจุดที่ต้องระวังทั้งปี';
+    if(A.info[ev2.kal].role==='กาลี'){s2-=1;notes2.push('กาลีจรซ้อนกาลีวันเกิด ปีนี้เรื่องของดาว '+ev2.kal+' หนักเป็นพิเศษ')}
+    var rj2=relTo(ev2.js,L,5);if(rj2==='ทับ'){s2+=1;notes2.push('ดาว 5 จรทับลัคนา เป็นปีเปลี่ยนแปลงหรือเริ่มต้นสิ่งใหม่ ผลดีจะตามมาหลังจากนั้น')}else if(rj2){s2+=1.5;notes2.push('ดาว 5 '+rtx(rj2)+'ลัคนา มีผู้ใหญ่และโอกาสหนุนทั้งปี')}
+    var rs7=relTo(ev2.ss,L,7);if(rs7==='ทับ'||rs7==='เล็ง'){s2-=2;notes2.push('ดาว 7 '+rs7+'ลัคนา ปีที่เหนื่อยและกดดันที่สุดช่วงหนึ่ง อย่าเพิ่งขยายหรือลงทุนใหญ่')}else if(rs7){s2-=1;notes2.push('ดาว 7 '+rtx(rs7)+'ลัคนา มีภาระหนักขึ้น')}
+    var gk=TK[ev2.kal]?tsign(T2,TK[ev2.kal]):null;if(ev2.kal===GH&&gk!=null&&relTo(gk,L,ev2.kal)){s2-=2;notes2.push('เข้าเกณฑ์ฆาต'+A.type+' ระวังเรื่องตามความหมายของดาว '+ev2.kal+' และสุขภาพ')}
+    var title='ปีโหร '+(st.getFullYear()+543)+'–'+(st.getFullYear()+544)+' (อายุย่าง '+ag+')';
+    var pc2=periodCard(title,ev2,{s:s2,notes:notes2,lead:lead2},true);yh.push(pc2.html);
+    if(best===null||ev2.res.money>best.v)best={v:ev2.res.money,t:title};if(ybest===null||pc2.total>ybest.v)ybest={v:pc2.total,t:title};if(pc2.lv==='ต้องระวัง')yBad.push(title)}
+  // summary
+  r+='<div class="paid-head"><strong>ฉบับละเอียด</strong> ปลดล็อกแล้ว</div>';
+  r+=sec('p-sum','สรุปฉบับละเอียด')+'<div class="sum">';
+  r+='<p><strong class="t-good">เดือนที่ดีใน 12 เดือนข้างหน้า:</strong> '+(mGood.join(' · ')||'ไม่มีเดือนที่เด่นชัด')+'</p>';
+  r+='<p><strong class="t-bad">เดือนที่ต้องระวัง:</strong> '+(mBad.join(' · ')||'ไม่มีเดือนที่เสียชัด')+'</p>';
+  r+='<p><strong>ปีที่ดีที่สุดใน 10 ปีข้างหน้า:</strong> '+ybest.t+'<br><strong>ปีที่การเงินเด่นที่สุด:</strong> '+best.t+'</p>';
+  r+='<p><strong class="t-bad">ปีที่ต้องระวัง:</strong> '+(yBad.join(' · ')||'ไม่มีปีที่เสียชัด')+'</p></div>';
+  r+=sec('p-month','พยากรณ์ 12 เดือนข้างหน้า')+'<p class="note">แต่ละเดือนบอกเรื่องที่เด่น เรื่องที่ต้องระวัง และคำแนะนำ ส่วนเหตุผลทางโหรอยู่บรรทัดท้ายของแต่ละเดือน</p>'+mh.join('');
+  r+=sec('p-year','พยากรณ์ 10 ปีข้างหน้า')+'<p class="note">ปีโหรนับจากวันเกิดถึงวันเกิดปีถัดไป อ่านจากทักษาจรของปีนั้น ดาว 5 7 ราหูจร และเกณฑ์ฆาต</p>'+yh.join('');
+  r+=paidX||'';
+  r+=sec('p-house','ภพทั้ง 12 อ่านครบทุกภพ')+'<p class="note">อ่านเจ้าเรือนของทุกภพแบบ 2 จังหวะ บอกว่าเรื่องนั้นในชีวิตผูกกับอะไร และผลสุดท้ายไปออกที่ไหน</p>';
+  for(var hh=1;hh<=12;hh++)r+=topic(A,hh,'ภพ'+HOUSE[hh-1]+' ('+GIST[hh-1]+')').html;
+  r+='<p class="note">คำพยากรณ์เป็นแนวโน้มตามหลักโหราศาสตร์ไทย ใช้ประกอบการตัดสินใจ</p>';
+  return r;
+}
+function paywall(key){
+  var q=PAY.promptpay?'<br><div id="ppqr" class="qr" aria-label="คิวอาร์พร้อมเพย์"></div><p class="note">สแกนจ่ายด้วยแอปธนาคาร ยอด '+PAY.price+' บาท</p>':'';
+  var bk=PAY.bankNo?'<p>หรือโอนเข้า '+esc(PAY.bankName)+' เลขที่ <strong>'+esc(PAY.bankNo)+'</strong> ชื่อบัญชี '+esc(PAY.accountName)+'</p>':'';
+  
+  var r='<section class="paywall"><h2 id="paywall">ดูฉบับละเอียดที่สุด '+PAY.price+' บาท</h2>';
+  r+='<p>ฉบับละเอียดมีทุกอย่างต่อไปนี้</p><ul><li><strong>คุณภาพดาว 0 ถึง 9:</strong> ดาวแต่ละดวงส่งหรือถ่วง เพราะอะไร</li><li><strong>ดวงแต่ละด้านแบบเต็ม</strong> นวางค์จักร เกณฑ์พิเศษ อาชีพที่เหมาะ และสุขภาพ</li><li><strong>เลขดีเลขเสียตามดวง</strong> คู่เลขที่แนะนำและคู่ที่ห้ามมี พร้อมแก้เคล็ดตามกำลังดาว</li><li><strong>ภพทั้ง 12 ครบทุกภพ:</strong> อ่านเจ้าเรือนแบบ 2 จังหวะ รวมภพมรณะ วินาศ ปุตตะ ศุภะ</li><li><strong>พยากรณ์ 12 เดือนข้างหน้า:</strong> ทีละเดือน เรื่องเงิน งาน ความรัก ครอบครัว สุขภาพ พร้อมคำแนะนำว่าควรทำหรือควรเลี่ยงอะไร</li><li><strong>พยากรณ์ 10 ปีข้างหน้า:</strong> ทีละปี ปีไหนควรรุก ปีไหนควรตั้งรับ ปีที่ดีที่สุด ปีที่การเงินเด่น และปีที่ต้องระวัง</li></ul>';
+  r+='<ol class="steps"><li>สแกนจ่าย '+PAY.price+' บาท'+q+bk+'</li><li>โอนเสร็จแล้ว ติ๊กยืนยันแล้วกดดูฉบับละเอียดได้ทันที</li></ol>';
+  r+='<label class="paid-ok"><input type="checkbox" id="paidchk"> ฉันโอนเงิน '+PAY.price+' บาทเรียบร้อยแล้ว</label><button type="button" id="ubtn" disabled>ดูฉบับละเอียด</button>';
+  return r+'</section>';
+}
+function bindPaywall(key){
+  var b=document.getElementById('ubtn'),ck=document.getElementById('paidchk');if(!b||!ck)return;
+  ck.addEventListener('change',function(){b.disabled=!ck.checked});
+  b.addEventListener('click',function(){if(!ck.checked)return;saveUnlock(key);render();var t=document.getElementById('p-house');if(t&&t.scrollIntoView)t.scrollIntoView()});
+  var qd=document.getElementById('ppqr');if(qd&&window.QRCode){try{new QRCode(qd,{text:promptpayPayload(PAY.promptpay,PAY.price),width:200,height:200,correctLevel:QRCode.CorrectLevel.M})}catch(e){}}
+}
+/* ===== ไพ่ยิปซี 22 ใบ (Major Arcana) ===== */
+var TAROT=[
+['0','คนเดินทาง','The Fool',1,'การเริ่มต้นใหม่ ความกล้า และอิสระ มีโอกาสใหม่เข้ามาแบบไม่ทันตั้งตัว','ประมาท ตัดสินใจเร็วเกินไป ยังไม่พร้อมแต่อยากไปแล้ว','กล้าเริ่ม แต่เตรียมแผนสำรองไว้ด้วย'],
+['I','นักมายากล','The Magician',1,'มีฝีมือและทรัพยากรครบ ลงมือได้ทันที ความสามารถของตัวเองคือทางออก','ใช้ความสามารถผิดทาง หรือมีคนใช้คำพูดหลอกล่อ','เชื่อฝีมือตัวเอง แล้วลงมือทำให้เป็นรูปธรรม'],
+['II','สตรีนักบวช','The High Priestess',0,'ลางสังหรณ์แม่น มีเรื่องที่ยังไม่เปิดเผย ช่วงนี้ควรฟังเสียงในใจ','มองข้ามลางสังหรณ์ หรือมีคนปิดบังบางอย่างอยู่','รอข้อมูลให้ครบก่อนตัดสินใจ และเชื่อความรู้สึกตัวเอง'],
+['III','จักรพรรดินี','The Empress',1,'ความอุดมสมบูรณ์ เงินงอกเงย ความรักอบอุ่น สิ่งที่ลงแรงไว้เริ่มออกผล','ใช้จ่ายเกินตัว หรือพึ่งพาคนอื่นมากไป','ดูแลสิ่งที่มีให้เติบโต และให้ความรักกับคนใกล้ตัว'],
+['IV','จักรพรรดิ','The Emperor',1,'ความมั่นคง การวางระบบ ผู้ใหญ่หรือผู้มีอำนาจหนุน','ดื้อ เผด็จการ หรือถูกคนมีอำนาจกดดัน','วางแผนให้ชัด คุมเกมด้วยเหตุผล ไม่ใช่อารมณ์'],
+['V','พระสังฆราช','The Hierophant',0,'ผู้ใหญ่ ครู คำแนะนำ และการทำตามแบบแผน','ฝืนกฎ ขัดแย้งกับผู้ใหญ่ หรือได้คำแนะนำที่ไม่ตรงกับตัวเอง','ปรึกษาผู้มีประสบการณ์ก่อนตัดสินใจ'],
+['VI','คนรัก','The Lovers',1,'ความรัก ความลงตัว และการต้องเลือกสิ่งสำคัญ','ลังเล ความสัมพันธ์ไม่ลงรอย หรือเลือกด้วยอารมณ์','เลือกสิ่งที่ตรงกับใจจริง แล้วยืนยันในสิ่งที่เลือก'],
+['VII','รถศึก','The Chariot',1,'ชัยชนะจากความมุ่งมั่น ก้าวหน้าเร็ว มีการเดินทาง','เร่งเกินไป เสียการควบคุม หรือหลายเรื่องดึงไปคนละทาง','ตั้งเป้าเดียว แล้วไปให้สุด'],
+['VIII','พลัง','Strength',1,'ชนะด้วยความใจเย็นและความอดทน รับมือปัญหาได้','ขาดความมั่นใจ ปล่อยอารมณ์นำ','ใช้ความอ่อนโยนแก้ปัญหา ไม่ต้องใช้กำลัง'],
+['IX','ฤๅษี','The Hermit',0,'ช่วงทบทวนตัวเอง หาคำตอบจากข้างใน อยู่กับตัวเองมากขึ้น','ปิดกั้นตัวเองเกินไป โดดเดี่ยว ไม่ยอมรับความช่วยเหลือ','ถอยมาคิดให้ชัด แล้วค่อยกลับมาลงมือ'],
+['X','กงล้อแห่งโชคชะตา','Wheel of Fortune',1,'จังหวะชีวิตกำลังเปลี่ยน มีโชคและโอกาสหมุนเข้ามา','ช่วงขาลง เรื่องที่ควบคุมไม่ได้ ต้องรอรอบใหม่','จับจังหวะให้ทัน ของดีมาไม่นาน'],
+['XI','ความยุติธรรม','Justice',0,'เหตุผล สัญญา และผลตามการกระทำ เรื่องที่ทำไว้จะได้ผลอย่างยุติธรรม','ไม่ได้รับความเป็นธรรม หรือเอกสารสัญญามีปัญหา','อ่านเอกสารให้ละเอียด และทำทุกอย่างให้ตรงไปตรงมา'],
+['XII','คนแขวน','The Hanged Man',0,'ช่วงรอ ต้องเสียสละบางอย่าง และมองเรื่องเดิมจากมุมใหม่','ติดค้าง เสียเวลาเปล่า หรือเสียสละแล้วไม่ได้อะไร','อย่าฝืน รอจังหวะ และเปลี่ยนมุมมอง'],
+['XIII','การเปลี่ยนแปลง','Death',-1,'การจบของเก่าเพื่อเริ่มใหม่ บางอย่างต้องปล่อยไป','ไม่ยอมปล่อยของเก่า จึงติดอยู่กับที่','ยอมปิดเรื่องเก่า ทางใหม่ถึงจะเปิด'],
+['XIV','ความพอดี','Temperance',1,'ความสมดุล ค่อยเป็นค่อยไป สุขภาพและความสัมพันธ์ฟื้นตัว','สุดโต่ง ใช้เงินหรือแรงเกินพอดี','ทำทุกอย่างให้พอดี ไม่รีบ ไม่หักโหม'],
+['XV','ปีศาจ','The Devil',-1,'ติดกับดัก หนี้ ความหลงใหล หรือความสัมพันธ์ที่ผูกมัด','เริ่มหลุดพ้น ปลดหนี้ หรือตัดสิ่งที่ฉุดรั้งได้','ระวังสิ่งล่อใจ และเลิกสิ่งที่รู้ว่าทำร้ายตัวเอง'],
+['XVI','หอคอย','The Tower',-1,'เรื่องกะทันหัน สิ่งที่สร้างไว้สั่นคลอน ต้องรื้อเพื่อสร้างใหม่','เลี่ยงเรื่องใหญ่ได้ แต่ยังต้องยอมเปลี่ยนบางอย่าง','เตรียมรับมือเรื่องไม่คาดฝัน อย่าเอาทุกอย่างไปไว้ที่เดียว'],
+['XVII','ดวงดาว','The Star',1,'ความหวัง การฟื้นตัว แรงบันดาลใจ มีคนเห็นคุณค่า','หมดกำลังใจชั่วคราว มองไม่เห็นทาง','ยังมีหวัง ทำต่อไปอย่างสม่ำเสมอ'],
+['XVIII','ดวงจันทร์','The Moon',-1,'ความไม่ชัดเจน ความกังวล อาจถูกหลอกหรือเข้าใจผิด','ความจริงเริ่มเปิดเผย ความกังวลคลายลง','อย่าเพิ่งเชื่อทุกอย่างที่ได้ยิน ตรวจสอบก่อน'],
+['XIX','ดวงอาทิตย์','The Sun',1,'ความสำเร็จ ความสดใส ชื่อเสียง เรื่องดีเปิดเผยต่อหน้าคน','สำเร็จแต่ช้ากว่าที่คิด หรือมั่นใจเกินไป','เดินหน้าอย่างมั่นใจ และแบ่งปันความสำเร็จ'],
+['XX','การฟื้นคืน','Judgement',1,'โอกาสครั้งที่สอง การตัดสินใจครั้งใหญ่ เรื่องเก่ากลับมาให้ผลดี','ลังเล โทษตัวเอง ไม่กล้าตัดสินใจ','ตัดสินใจเรื่องที่ค้างไว้ และให้อภัยตัวเอง'],
+['XXI','โลก','The World',1,'ความสำเร็จสมบูรณ์ จบงานใหญ่ การเดินทางไกลหรือต่างประเทศ','ใกล้สำเร็จแต่ยังขาดอีกนิด','ทำให้จบครบทุกขั้น แล้วค่อยเริ่มบทใหม่']];
+var TPOS=['สถานการณ์ตอนนี้','สิ่งที่ต้องระวัง','คำแนะนำ'];
+var TSTATE={deck:[],picked:[]};
+function rnd(n){try{var a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%n}catch(e){return Math.floor(Math.random()*n)}}
+function tShuffle(){var d=TAROT.map(function(_,i){return {i:i,rev:rnd(10)<3}});for(var i=d.length-1;i>0;i--){var j=rnd(i+1),t=d[i];d[i]=d[j];d[j]=t}
+  TSTATE={deck:d,picked:[]};document.getElementById('tread').innerHTML='';tDraw();
+  document.getElementById('thint').textContent='สับไพ่แล้ว ตั้งจิตแล้วจับไพ่ 3 ใบ';}
+function tDraw(){var dk=document.getElementById('tdeck'),o='';
+  TSTATE.deck.forEach(function(c,k){var used=TSTATE.picked.indexOf(k)>=0;o+='<button type="button" class="cardb'+(used?' picked':'')+'" data-k="'+k+'" aria-label="ไพ่ใบที่ '+(k+1)+'"'+(used||TSTATE.picked.length>=3?' disabled':'')+'>✦</button>'});
+  dk.innerHTML=o;var sp='';for(var s=0;s<3;s++){var k=TSTATE.picked[s];
+    if(k==null)sp+='<div class="slot"><div class="face empty"></div>'+TPOS[s]+'</div>';
+    else{var c=TSTATE.deck[k],t=TAROT[c.i];sp+='<div class="slot"><div class="face show'+(c.rev?' rev':'')+'"><div class="inner"><div class="num">'+t[0]+'</div><div class="nm">'+t[1]+'</div><div class="en">'+t[2]+'</div></div></div>'+TPOS[s]+(c.rev?' (กลับหัว)':'')+'</div>'}}
+  document.getElementById('tspread').innerHTML=sp;
+  [].forEach.call(dk.querySelectorAll('.cardb'),function(b){b.addEventListener('click',function(){var k=+b.getAttribute('data-k');if(TSTATE.picked.length>=3||TSTATE.picked.indexOf(k)>=0)return;TSTATE.picked.push(k);tDraw();
+    var left=3-TSTATE.picked.length;document.getElementById('thint').textContent=left?'จับอีก '+left+' ใบ':'จับครบ 3 ใบแล้ว';if(!left)tRead()})});}
+function tRead(){var topic=document.getElementById('ttopic').value,q=document.getElementById('tq').value.trim(),score=0,o='';
+  var cards=TSTATE.picked.map(function(k){return TSTATE.deck[k]});
+  o+='<h3>คำทำนายเรื่อง'+esc(topic)+(q?' : '+esc(q):'')+'</h3>';
+  cards.forEach(function(c,s){var t=TAROT[c.i],pos=c.rev?-t[3]*0.6:t[3];if(t[3]===0)pos=c.rev?-0.5:0.3;score+=s===1?pos*0.5:pos;
+    var txt=c.rev?t[5]:t[4];if(s===1&&t[3]>0&&!c.rev)txt='อย่าประมาทกับจังหวะดี ด้านที่ต้องระวังของไพ่ใบนี้คือ '+t[5];
+    var lead=s===0?'ตอนนี้เรื่อง'+topic+'ของคุณ':s===1?'สิ่งที่ต้องระวังคือ':'ไพ่แนะนำว่า';
+    o+='<div class="topic"><h3>'+TPOS[s]+': '+t[1]+(c.rev?' (กลับหัว)':'')+'</h3><p>'+lead+(s===2?' '+t[6]:' '+txt)+'</p>'+(s===2?'<p class="note">ความหมายของไพ่ใบนี้: '+txt+'</p>':'')+'</div>'});
+  var v=score>=1.2?['แนวโน้มดี','t-good','สถานการณ์เป็นใจ ลงมือได้ แต่ฟังสิ่งที่ไพ่เตือนไว้ด้วย']:score<=-0.8?['ต้องระวัง','t-bad','ช่วงนี้ยังไม่ใช่จังหวะรุก ตั้งหลักให้ดีก่อน แล้วทำตามคำแนะนำของไพ่ใบสุดท้าย']:['ทรงตัว','t-mid','มีทั้งแรงหนุนและแรงต้าน ผลขึ้นกับการตัดสินใจของคุณเอง'];
+  o+='<p><strong>สรุป:</strong> <span class="tag '+v[1]+'">'+v[0]+'</span> '+v[2]+'</p><p class="note">ไพ่ยิปซีสะท้อนพลัง ณ ช่วงเวลาที่จับ ใช้ประกอบการตัดสินใจ ถ้าอยากถามเรื่องใหม่ ให้กดสับไพ่อีกครั้ง</p>';
+  document.getElementById('tread').innerHTML=o;
+  document.getElementById('tshuffle').textContent='สับไพ่ใหม่';}
+document.getElementById('tshuffle').addEventListener('click',tShuffle);
+var STOCK=[
+  ["0976361446",2990,"AIS ระบบเติมเงิน",""],
+  ["0636628641",2990,"AIS ระบบเติมเงิน",""],
+  ["0818749451",2990,"AIS ระบบเติมเงิน",""],
+  ["0968691946",2990,"True ระบบเติมเงิน",""],
+  ["0628891536",2990,"Dtac ระบบเติมเงิน",""],
+  ["0618891945",2990,"Dtac ระบบเติมเงิน",""],
+  ["0618288915",2990,"Dtac ระบบเติมเงิน",""],
+  ["0903298746",2990,"True ระบบเติมเงิน",""],
+  ["0838298654",2990,"True ระบบเติมเงิน",""],
+  ["0628887745",2990,"Dtac ระบบเติมเงิน",""],
+  ["0902361964",2990,"True ระบบเติมเงิน",""],
+  ["0928786235",2990,"AIS ระบบเติมเงิน",""],
+  ["0911992445",2990,"Dtac ระบบเติมเงิน",""],
+  ["0976241636",2990,"AIS ระบบเติมเงิน",""],
+  ["0644951689",2990,"True ระบบเติมเงิน",""],
+  ["0814516891",2990,"Dtac ระบบเติมเงิน",""],
+  ["0933696899",2990,"Dtac ระบบเติมเงิน",""],
+  ["0864597495",2990,"My NT ระบบเติมเงิน",""],
+  ["0864599746",2990,"My NT ระบบเติมเงิน",""],
+  ["0864561788",2990,"My NT ระบบเติมเงิน",""],
+  ["0996324619",2990,"AIS",""],
+  ["0918966615",2990,"Dtac",""],
+  ["0626419865",2990,"Dtac",""],
+  ["0618866354",2990,"True",""],
+  ["0938899954",3990,"True",""],
+  ["0964239624",6990,"AIS",""],
+  ["0997891585",6990,"AIS",""],
+  ["0928896888",9990,"AIS",""],
+  ["0928886889",9990,"AIS",""],
+  ["0886561954",9990,"AIS",""],
+  ["0633656459",9990,"AIS",""],
+  ["0838796954",9990,"AIS",""],
+  ["0618289615",9990,"AIS",""],
+  ["0976942895",9990,"AIS",""],
+  ["0827893516",9990,"True",""],
+  ["0827893941",9990,"True",""],
+];
+var NUMSITE='palangtuaylek.html',LASTQ=null;
+function phoneEval(num,QQ){var d=num.split('').map(Number),bad=[],good=[],bd=[],s=0;
+  for(var i=0;i<d.length-1;i++){var k=pkey(d[i],d[i+1]),pr=''+d[i]+d[i+1];
+    if(BADPAIR.indexOf(k)>=0){bad.push(pr+' ('+PAIR[k]+')');s-=2}
+    else if(NICE.indexOf(k)>=0&&QQ.cls[d[i]]==='g'&&QQ.cls[d[i+1]]==='g'){good.push(pr+' ('+PAIR[k]+')');s+=2}}
+  d.slice(3).forEach(function(x,j){if(QQ.cls[x]==='b'){s-=(j>=3?1.5:0.5);if(bd.indexOf(x)<0)bd.push(x)}else if(QQ.cls[x]==='g')s+=0.5});
+  return {s:s,bad:bad,good:good,bd:bd}}
+function phoneBlock(c,QQ){return sec('s-phone','เช็กเบอร์ที่ใช้อยู่กับดวง')+'<p class="note">เช็กเบื้องต้นว่าเลขในเบอร์ส่งหรือขัดกับดวงคุณ ส่วนการอ่านทุกตำแหน่งและผลรวมดูได้ที่เว็บทำนายเบอร์</p><div class="unlock"><label for="pnum">เบอร์โทรศัพท์ 10 หลัก</label><input id="pnum" inputmode="numeric" maxlength="12" placeholder="08xxxxxxxx" style="max-width:220px;letter-spacing:1px"><button type="button" id="pbtn">เช็กเบอร์</button></div><div id="pres" aria-live="polite"></div>'}
+function stockBlock(QQ){var list=STOCK.filter(function(x){return !x[4]}).map(function(x){var e=phoneEval(x[0],QQ);return {n:x[0],p:x[1],net:x[2],e:e}}).filter(function(x){return !x.e.bad.length&&!x.e.bd.length}).sort(function(a,b){return b.e.s-a.e.s}).slice(0,5);
+  var o=sec('s-stock','เบอร์ในสต็อกที่เข้ากับดวงคุณ');
+  if(!list.length)return o+'<p>ตอนนี้ยังไม่มีเบอร์ในสต็อกที่เข้ากับดวงนี้ทุกตัว ทักไลน์ให้ช่วยหาเบอร์ที่ใช่ให้ได้ <a class="btn" href="'+PAY.line+'" target="_blank" rel="noopener">ทักไลน์</a></p>';
+  o+='<p class="note">คัดจากสต็อกที่ลงขาย เฉพาะเบอร์ที่ไม่มีคู่เสียและไม่มีเลขที่อ่อนในดวงคุณ เรียงจากเข้ากับดวงมากที่สุด</p><ul class="stock">';
+  list.forEach(function(x){var f=x.n.slice(0,3)+'-'+x.n.slice(3,6)+'-'+x.n.slice(6);o+='<li><strong class="sn">'+f+'</strong> <span class="note">'+esc(x.net)+'</span><br>'+(x.e.good.length?'คู่ดีที่ส่งดวงคุณ: '+x.e.good.slice(0,3).join(' · '):'ไม่มีคู่เสียในดวงคุณ')+'<br><strong>'+x.p.toLocaleString('th-TH')+' บาท</strong></li>'});
+  return o+'</ul><p><a class="btn" href="'+PAY.line+'" target="_blank" rel="noopener">สนใจเบอร์ ทักไลน์</a> <a class="btn ghostlink" href="'+NUMSITE+'">ดูสต็อกทั้งหมด</a></p>'}
+function bindPhone(){var b=document.getElementById('pbtn');if(!b)return;b.addEventListener('click',function(){var v=(document.getElementById('pnum').value||'').replace(/\D/g,''),o=document.getElementById('pres');
+  if(v.length!==10){o.innerHTML='<p class="err">ใส่เบอร์ให้ครบ 10 หลัก</p>';return}
+  var e=phoneEval(v,LASTQ.QQ),vd=e.bad.length>=2||e.s<=-3?['ไม่เข้ากับดวง','t-bad']:e.bad.length||e.bd.length||e.s<1?['กลาง ๆ','t-mid']:['เข้ากับดวง','t-good'];
+  var t='<div class="topic"><h3>'+v.slice(0,3)+'-'+v.slice(3,6)+'-'+v.slice(6)+' <span class="tag '+vd[1]+'">'+vd[0]+'</span></h3>';
+  if(e.good.length)t+='<p><span class="t-good">คู่ที่ส่งดวงคุณ:</span> '+e.good.join(' · ')+'</p>';
+  if(e.bad.length)t+='<p><span class="t-bad">คู่เสีย:</span> '+e.bad.join(' · ')+'</p>';
+  if(e.bd.length)t+='<p><span class="t-bad">เลขที่อ่อนในดวงคุณ:</span> '+e.bd.join(', ')+'</p>';
+  t+='<p class="note">ผลนี้ดูจากดวงอย่างเดียว ยังไม่ได้อ่านตำแหน่งและผลรวม <a href="'+NUMSITE+'">วิเคราะห์ละเอียดที่เว็บทำนายเบอร์</a></p></div>';o.innerHTML=t})}
+function overrideUI(){
+  var c=chart,o='<details id="ovr"><summary>ปรับตำแหน่งดาวให้ตรงกับโปรแกรมที่ใช้</summary><div class="ovr">';
+  var opt=function(cur,allowNone){var s=allowNone?'<option value="">ไม่ระบุ</option>':'';SIGN.forEach(function(n,i){s+='<option value="'+i+'"'+(cur===i?' selected':'')+'>'+n+'</option>'});return s};
+  var dg=function(p){var v=c.deg[p];return '<input id="g-'+p+'" type="number" min="0" max="29.99" step="0.01" inputmode="decimal" aria-label="องศาดาว '+p+'" placeholder="องศา" value="'+(v==null?'':v.toFixed(2))+'" style="margin-top:4px">'};
+  o+='<div><label for="o-l">ลัคนา</label><select id="o-l">'+opt(c.lagna)+'</select></div>';
+  [1,2,3,4,5,6,7,8,9,0].forEach(function(p){o+='<div><label for="o-'+p+'">ดาว '+p+' '+PN[p]+'</label><select id="o-'+p+'">'+opt(c.sign[p]==null?null:c.sign[p],p===9)+'</select>'+dg(p)+'</div>'});
+  return o+'</div><p class="note" style="margin-top:10px">ใส่องศาตาม myhora ได้ ระบบจะคำนวณนวางค์และวรโคตรจากองศาที่ใส่</p></details>';
+}
+function bindOverride(){
+  var d=document.getElementById('ovr');if(chart.open)d.open=true;
+  d.addEventListener('toggle',function(){chart.open=d.open});
+  var redo=function(){chart.open=true;var y=window.scrollY;render();window.scrollTo(0,y)};
+  d.querySelectorAll('select').forEach(function(s){s.addEventListener('change',function(){
+    var id=s.id.slice(2),v=s.value===''?null:+s.value;
+    if(id==='l'){if(chart.lagna!==v){chart.lagna=v;chart.lagDeg=null}}
+    else{var p=+id;if(chart.sign[p]!==v){chart.sign[p]=v;chart.deg[p]=null;chart.nav[p]=null}}
+    redo()})});
+  d.querySelectorAll('input[type=number]').forEach(function(g){g.addEventListener('change',function(){
+    var p=+g.id.slice(2),v=parseFloat(g.value);if(chart.sign[p]==null)return;
+    if(isNaN(v)||v<0||v>=30){chart.deg[p]=null;chart.nav[p]=null}else{chart.deg[p]=v;chart.nav[p]=navamsa(chart.sign[p]*30+v)}
+    redo()})});
+}
+
+/* ===== สร้างดวงจากข้อมูลเกิด (ใช้ร่วมกับสมพงษ์คู่) ===== */
+function buildChart(Y,M,D,hh,mm,pi,meth,noTime){
+  var pv=PROV[pi],J=jd(Y,M,D,hh+mm/60-7),P=positions(J),bm=hh*60+mm;
+  var SYR=ThaiAstro.calculateThaiHoroscope({date:{year:Y,era:"CE",month:M,day:D},time:{hour:hh,minute:mm}}),SYK={1:"sun",2:"moon",3:"mars",4:"mercury",5:"jupiter",6:"venus",7:"saturn",8:"rahu",9:"ketu",0:"uranus"},SY={};
+  for(var k in SYK)SY[k]=SYR.points[SYK[k]].longitudeArcMinutes/60;
+  var ev=sunEvents(Y,M,D,pv[1],pv[2]),before=!noTime&&bm<ev.rise,elapsed=bm-ev.rise;
+  if(before){var pd=new Date(Date.UTC(Y,M-1,D-1));elapsed=bm+1440-sunEvents(pd.getUTCFullYear(),pd.getUTCMonth()+1,pd.getUTCDate(),pv[1],pv[2]).rise}
+  var lag=meth==='st'?ascendant(J,pv[1],pv[2],P.ay):norm(antoLagna(SY[1],elapsed));
+  var wd=new Date(Date.UTC(Y,M-1,D)).getUTCDay();if(before)wd=(wd+6)%7;
+  var day=wd+1;if(!noTime&&day===4&&(before||bm>=ev.set))day=8;
+  var tv=String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0');
+  var rt=function(t){t=Math.round(t);return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')};
+  var c={lagna:Math.floor(lag/30),lagDeg:lag%30,day:day,sign:{},deg:{},nav:{},birth:new Date(Y,M-1,D),noTime:!!noTime,
+    label:D+'/'+M+'/'+(Y+543)+(noTime?' (ไม่ทราบเวลา)':' เวลา '+tv+' น.')+' จ.'+pv[0]+(noTime?'':' (อาทิตย์ขึ้น '+rt(ev.rise)+' น.)'),meth:meth,key:Y+'-'+M+'-'+D+'-'+(noTime?'nt':tv)+'-'+pv[0]};
+  [1,2,3,4,5,6,7,8,9,0].forEach(function(p){c.sign[p]=Math.floor(SY[p]/30);c.deg[p]=SY[p]%30;c.nav[p]=navamsa(SY[p])});
+  return c;
+}
+
+/* ===== บันทึกผลเป็นรูปไว้แชร์ ===== */
+var CMB=/[ัิ-ฺ็-๎]/;
+function cwrap(ctx,text,maxW){var out=[],line='';
+  var toks=String(text).split(/(\s+)/);
+  toks.forEach(function(tk){if(ctx.measureText(line+tk).width<=maxW){line+=tk;return}
+    if(line.trim()){out.push(line.trim());line=''}tk=tk.replace(/^\s+/,'');
+    if(ctx.measureText(tk).width<=maxW){line=tk;return}
+    for(var i=0;i<tk.length;i++){var ch=tk[i];if(ctx.measureText(line+ch).width>maxW&&!CMB.test(ch)&&line){out.push(line);line=''}line+=ch}});
+  if(line.trim())out.push(line.trim());return out}
+function drawCard(ctx,W,s){
+  var P={bg:'#F1ECE1',ink:'#2B2420',muted:'#6B5F51',gold:'#8C6210',seal:'#A3301E',good:'#2F6B3A',line:'#C8BCA8'};
+  var H=ctx.canvas.height,x0=96,mw=W-2*x0,y=150;
+  ctx.fillStyle=P.bg;ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle=P.gold;ctx.lineWidth=6;ctx.strokeRect(36,36,W-72,H-72);ctx.lineWidth=2;ctx.strokeRect(52,52,W-104,H-104);
+  ctx.textAlign='center';ctx.textBaseline='alphabetic';
+  ctx.fillStyle=P.muted;ctx.font='34px Trirong, serif';ctx.fillText('ความลับพลังตัวเลข',W/2,y);y+=30;
+  ctx.fillStyle=P.gold;ctx.font='22px Trirong, serif';ctx.fillText('— '+s.kicker+' —',W/2,y+12);y+=96;
+  ctx.font='66px Chonburi, serif';cwrap(ctx,s.title,mw).forEach(function(l){ctx.fillText(l,W/2,y);y+=84});
+  ctx.fillStyle=P.ink;ctx.font='32px Trirong, serif';if(s.sub)cwrap(ctx,s.sub,mw).forEach(function(l){ctx.fillText(l,W/2,y);y+=46});
+  if(s.score!=null){y+=40;var r=96,cy=y+r;ctx.beginPath();ctx.arc(W/2,cy,r,0,Math.PI*2);ctx.strokeStyle=P.line;ctx.lineWidth=14;ctx.stroke();
+    ctx.beginPath();ctx.arc(W/2,cy,r,-Math.PI/2,-Math.PI/2+Math.PI*2*s.score/100);ctx.strokeStyle=s.score>=60?P.good:s.score>=45?P.gold:P.seal;ctx.stroke();
+    ctx.fillStyle=P.ink;ctx.font='64px Chonburi, serif';ctx.fillText(s.score+'%',W/2,cy+22);y=cy+r+60;
+    if(s.verdict){ctx.fillStyle=ctx.strokeStyle;ctx.font='40px Chonburi, serif';ctx.fillText(s.verdict,W/2,y);y+=24}}
+  y+=30;ctx.strokeStyle=P.line;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(W-x0,y);ctx.stroke();y+=62;
+  ctx.textAlign='left';
+  (s.rows||[]).forEach(function(rw){ctx.fillStyle=P[rw.color]||P.ink;ctx.font='36px Chonburi, serif';ctx.fillText(rw.label,x0,y);y+=52;
+    ctx.fillStyle=P.ink;ctx.font='32px Trirong, serif';cwrap(ctx,rw.text,mw).forEach(function(l){ctx.fillText(l,x0,y);y+=48});y+=26});
+  if(s.digits){[['good','เลขที่ส่งดวง'],['bad','เลขที่ควรเลี่ยง']].forEach(function(g){var ds=s.digits[g[0]];if(!ds||!ds.length)return;
+    ctx.fillStyle=P[g[0]==='good'?'good':'seal'];ctx.font='36px Chonburi, serif';ctx.fillText(g[1],x0,y);y+=34;
+    ds.forEach(function(d,i){var cx=x0+44+i*104,cy=y+44;ctx.beginPath();ctx.arc(cx,cy,42,0,Math.PI*2);ctx.lineWidth=4;ctx.strokeStyle=ctx.fillStyle;ctx.stroke();
+      ctx.textAlign='center';ctx.font='44px Chonburi, serif';ctx.fillText(String(d),cx,cy+16);ctx.textAlign='left'});y+=150})}
+  y+=20;ctx.textAlign='center';ctx.fillStyle=P.gold;ctx.font='30px Chonburi, serif';ctx.fillText('ผูกดวง · สมพงษ์คู่ · เช็กเบอร์มงคล',W/2,y);y+=48;
+  ctx.fillStyle=P.muted;ctx.font='28px Trirong, serif';ctx.fillText('ทักไลน์ '+PAY.line.replace('https://',''),W/2,y);y+=110;
+  return y}
+function makeShare(spec,out,fname){
+  out.innerHTML='<p class="note">กำลังสร้างรูป…</p>';
+  var go=function(){var W=1080,cv=document.createElement('canvas'),ctx;cv.width=W;cv.height=4000;ctx=cv.getContext('2d');
+    var h=Math.max(1350,drawCard(ctx,W,spec));cv.height=h;ctx=cv.getContext('2d');drawCard(ctx,W,spec);
+    var url=cv.toDataURL('image/png');
+    out.innerHTML='<img class="shot" src="'+url+'" alt="รูปสรุปผลสำหรับแชร์"><p class="note">มือถือ: กดค้างที่รูปแล้วเลือกบันทึกรูป หรือกดปุ่มด้านล่าง</p><p><button type="button" class="btn shbtn" hidden>บันทึกรูปลงเครื่อง</button></p><p class="note shmsg" aria-live="polite"></p>';
+    var sb=out.querySelector('.shbtn'),msg=out.querySelector('.shmsg');
+    cv.toBlob(function(bl){if(!bl)return;if(!window.claude||!window.claude.use){sb.hidden=false;sb.addEventListener('click',function(){var a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=fname+'.png';document.body.appendChild(a);a.click();a.remove();msg.textContent='บันทึกรูปแล้ว'});return}
+      window.claude.use('downloads').then(function(dl){if(!dl)return;sb.hidden=false;
+        sb.addEventListener('click',function(){msg.textContent='';dl.save({filename:fname+'.png',data:bl}).then(function(){msg.textContent='บันทึกรูปแล้ว'},function(e){var c=e&&e.code;if(c==='declined')return;if(c==='rate_limited'){msg.textContent='รอสักครู่แล้วกดใหม่';return}sb.hidden=true;msg.textContent='บันทึกจากปุ่มไม่ได้ในหน้านี้ ให้กดค้างที่รูปแทน'})})})},'image/png')};
+  var fl=document.fonts&&document.fonts.load?Promise.all([document.fonts.load('40px Chonburi'),document.fonts.load('32px Trirong')]):Promise.resolve();
+  fl.then(go,go)}
+function bindShare(){var b=document.getElementById('shr');if(!b||!LASTQ||!LASTQ.share)return;
+  b.addEventListener('click',function(){makeShare(LASTQ.share,document.getElementById('shrout'),'ดวง-'+(LASTQ.share.fname||'ของฉัน'))})}
+
+/* ===== สมพงษ์คู่ ===== */
+var LOVE6={1:[2,'รักกันดีมาก มีโอกาสพัฒนาไปไกล'],2:[1,'รักแบบบูชา หวงแหน ให้ความสำคัญมาก'],3:[2,'รักแบบเพื่อนคู่คิด คุยกันได้ทุกเรื่อง'],4:[1,'รักแบบคนในครอบครัว มีพันธะผูกพัน'],5:[2,'รักสนุก หลงใหลกัน อยู่ด้วยกันได้ยืน'],6:[-2,'มีอุปสรรค มีมือที่สามหรือคู่แข่ง'],7:[2,'ดีมาก เติมส่วนที่ขาดให้กัน เกื้อกูลกัน'],8:[-2,'รักแล้วทุกข์ใจ ผิดหวังง่าย'],9:[1,'รักแบบมีเหตุผล เป็นที่พึ่งทางใจ'],10:[1,'รักแบบรับผิดชอบ ให้เกียรติกัน'],11:[2,'รักงอกงาม สนับสนุนกันไปข้างหน้า'],12:[-1,'รักแบบปิดบัง ไม่ค่อยเปิดเผยความรู้สึก']};
+var TALK4={1:[1,'พูดไปทางเดียวกัน ไม่ค่อยทะเลาะ'],2:[0,'คุยกันแต่เรื่องผลประโยชน์'],3:[2,'คุยถูกคอทุกเรื่อง'],4:[1,'คุยแบบญาติ ช่วยเหลือกัน'],5:[1,'คุยสนุก หยอกล้อกันได้'],6:[-2,'มีปากเสียง พูดแล้วขัดกัน'],7:[2,'คุยหวาน ถูกคอมาก'],8:[-2,'คำพูดทำร้ายกัน ทะเลาะแรง'],9:[1,'ชอบสอน ชอบแนะนำ ให้กำลังใจกัน'],10:[0,'คุยกันเป็นงานเป็นการ'],11:[1,'ชอบคุย คุยกันได้ยาว'],12:[-1,'คุยไม่ถูกจังหวะ สื่อสารคลาดกัน']};
+var LAGREL={'1':[2,'ลัคนาร่วมราศี นิสัยและมุมมองคล้ายกัน เข้าใจกันง่าย'],'2-12':[-1,'ลัคนาห่างกัน 2 กับ 12 คนหนึ่งให้ อีกคนรับ ผูกกันด้วยผลประโยชน์ ถ้าไม่ชัดเรื่องเงินจะมีปัญหา'],'3-11':[1,'ลัคนาเป็นมุมเพื่อน ส่งเสริมกัน ช่วยกันหาโอกาส'],'4-10':[1,'ลัคนาเป็นมุมบ้านกับงาน ช่วยกันสร้างหลักฐาน แต่บางเรื่องความเห็นไม่ตรงกัน'],'5-9':[2,'ลัคนาเป็นตรีโกณ เข้าใจกันลึก เป็นมุมที่ส่งเสริมกันดีที่สุดมุมหนึ่ง'],'6-8':[-2,'ลัคนาเป็นมุมอริกับมรณะ มุมที่ร้ายที่สุดในตำรา ทะเลาะ ทำร้ายใจกันง่าย'],'7':[2,'ลัคนาเล็งกัน ดึงดูดกันแรง เติมส่วนที่ขาดให้กัน']};
+var SRI_H={1:'ชีวิตอีกฝ่ายดีขึ้นทั้งชีวิต',2:'ช่วยเรื่องเงิน หาเงินเข้าบ้าน',3:'ช่วยเรื่องเพื่อน พี่น้อง การติดต่อ',4:'ช่วยเรื่องบ้าน ครอบครัว ที่ดิน',5:'ช่วยเรื่องลูก บริวาร ความสุขใจ',6:'ช่วยได้แต่ไม่เห็นผลชัด',7:'ช่วยเรื่องความรักและชีวิตคู่',8:'ช่วยได้แต่ไม่เห็นผลชัด',9:'ช่วยให้ผู้ใหญ่หนุน มีชื่อเสียง',10:'ช่วยเรื่องการงาน ธุรกิจ',11:'ช่วยเรื่องโชคลาภ รายได้เสริม',12:'ช่วยได้แต่ไม่เห็นผลชัด'};
+var KALI_H={1:'ชีวิตอีกฝ่ายสะดุด รู้สึกถูกกดดัน',2:'อีกฝ่ายเสียเงิน เงินรั่วเพราะเรื่องของอีกคน',3:'มีเรื่องกับเพื่อนหรือพี่น้อง',4:'มีปัญหากับญาติ หรือต้องย้ายบ้าน',5:'มีเรื่องกังวลเรื่องลูกหรือบริวาร',6:'กาลีตกถังขยะ ไม่เป็นไร',7:'ชีวิตคู่ทะเลาะกันบ่อย',8:'กาลีตกถังขยะ ไม่เป็นไร',9:'ผู้ใหญ่ไม่สนับสนุน',10:'งานสะดุด หรือต้องลาออก',11:'ลาภผลหาย รายได้ลด',12:'กาลีตกถังขยะ ไม่เป็นไร'};
+function roleP(day,rl){return WHEEL.filter(function(p){return role(p,day)===rl})[0]}
+function hFrom(a,b){return (b-a+12)%12+1}
+function pairEval(a,b,type,na,nb){
+  var it=[],QA=QDAO.quality(a.lagna,a.sign,a.deg,a.day),QB=QDAO.quality(b.lagna,b.sign,b.deg,b.day),lagOK=!a.noTime&&!b.noTime;
+  var W=type==='biz'?{6:0.5,4:1,lag:1,sri:2.5,kali:2.5,pat:1.5}:{6:2,4:1.5,lag:1,sri:1.5,kali:1.5,pat:1};
+  // ดาว 6 / ดาว 4
+  [[6,LOVE6,'ความรู้สึก (ดาว 6)'],[4,TALK4,'การพูดคุย (ดาว 4)']].forEach(function(z){var p=z[0],T=z[1],h1=hFrom(a.sign[p],b.sign[p]),h2=hFrom(b.sign[p],a.sign[p]);
+    var s=(T[h1][0]+T[h2][0])/2;
+    it.push({k:p,w:W[p],s:s,t:z[2],d:(h1===h2?'ดาว '+p+' ของทั้งคู่เป็นภพ'+HOUSE[h1-1]+'แก่กัน: '+T[h1][1]:na+'มอง'+nb+'เป็นภพ'+HOUSE[h1-1]+': '+T[h1][1]+' ส่วน'+nb+'มอง'+na+'เป็นภพ'+HOUSE[h2-1]+': '+T[h2][1])+((h1===6&&h2===8)||(h1===8&&h2===6)?' (มุมอริ-มรณะ ต้องระวังมาก)':'')})});
+  // ลัคนา
+  if(lagOK){var hl=hFrom(a.lagna,b.lagna),k=hl===1?'1':hl===7?'7':[Math.min(hl,14-hl),Math.max(hl,14-hl)].join('-');var LR=LAGREL[k];
+    it.push({k:'lag',w:W.lag,s:LR[0],t:'ลัคนา (นิสัยและการใช้ชีวิต)',d:'ลัคนา'+SIGN[a.lagna]+'กับลัคนา'+SIGN[b.lagna]+': '+LR[1]})}
+  // ศรีและกาลีข้ามดวง
+  var cross=function(x,y,nx,ny,Qx){var sp=roleP(x.day,'ศรี'),kp=roleP(x.day,'กาลี'),res=[];
+    if(!y.noTime){var hs=hFrom(y.lagna,x.sign[sp]),st=stds(sp,x.sign[sp]),strong=st.some(function(s){return ['เกษตร','อุจจ์','มหาจักร','ราชาโชค'].indexOf(s)>=0}),weak=st.some(function(s){return s==='ประ'||s==='นิจ'});
+      var ss=[6,8,12].indexOf(hs)>=0?0:hs===3?1:2;if(weak&&ss>0)ss-=1;
+      res.push({k:'sri',w:W.sri/2,s:ss,t:'ศรีของ'+nx+'ส่งถึง'+ny,d:'ดาวศรีของ'+nx+' (ดาว '+sp+') ตกภพ'+HOUSE[hs-1]+'ของ'+ny+': '+SRI_H[hs]+(strong?' ดาวนี้มีกำลัง ส่งเสริมได้ยาว':weak?' แต่ดาวนี้เป็นประหรือนิจ ส่งเสริมไม่ต่อเนื่อง':'')});
+      var hk=hFrom(y.lagna,x.sign[kp]),ks=[6,8,12].indexOf(hk)>=0?0:[1,2,7,10].indexOf(hk)>=0?-2:-1;
+      var fix=[1,2,3,4,5,6,7,8].filter(function(d){return role(kp,d)==='ศรี'})[0];
+      res.push({k:'kali',w:W.kali/2,s:ks,t:'กาลีของ'+nx+'ตกที่'+ny,d:'ดาวกาลีของ'+nx+' (ดาว '+kp+') ตกภพ'+HOUSE[hk-1]+'ของ'+ny+': '+KALI_H[hk]+(ks<=-2?(type==='biz'&&(hk===1||hk===2)?' ตำราว่าไม่ควรร่วมลงทุน':' ต้องระวังเรื่องนี้ชัด ๆ'):''),fix:ks<0&&fix?nx+'เป็นคนแก้: ทำบุญพระประจำวัน'+DAYNAME[fix]+' หรือทำบุญ '+MERIT[fix]+' บาท (วัน'+DAYNAME[fix]+'ทำให้ดาว '+kp+' กลายเป็นศรี)':''})}
+    return res};
+  it=it.concat(cross(a,b,na,nb,QA),cross(b,a,nb,na,QB));
+  // ปัตนิของแต่ละคน
+  var pat=function(x,Q,nx){if(x.noTime)return null;var lord=RULER[(x.lagna+6)%12],hh=hFrom(x.lagna,x.sign[lord]),s=0,n=[];
+    if(Q.cls[lord]==='g'){s++;n.push('เจ้าเรือนคู่มีกำลังดี')}else if(Q.cls[lord]==='b'){s--;n.push('เจ้าเรือนคู่อ่อนกำลัง')}
+    if([6,8,12].indexOf(hh)>=0){s--;n.push('ตกภพ'+HOUSE[hh-1]+' ชีวิตคู่มีเรื่องให้เหนื่อย'+(hh===8?' ระวังการแยกทาง':''))}else if([1,2,5,7,9,10,11].indexOf(hh)>=0){s++;n.push('อยู่ภพ'+HOUSE[hh-1]+' คู่ช่วยส่งเสริมเรื่องนี้')}
+    if(stds(lord,x.sign[lord]).indexOf('ประ')>=0){s--;n.push('เป็นประ คู่อาจต่างถิ่น อายุห่าง หรือเคยผ่านการมีครอบครัว')}
+    var bad=[7,8,0].filter(function(p){return hFrom(x.lagna,x.sign[p])===7});if(bad.length){s--;n.push('มีดาว '+bad.join(', ')+' อยู่ภพคู่ ไม่ควรมีหุ้นส่วนหรือต้องปรับตัวสูง')}
+    s=Math.max(-2,Math.min(2,s));
+    return {k:'pat',w:W.pat/2,s:s,t:'ภพคู่ของ'+nx,d:'เจ้าเรือนปัตนิของ'+nx+'คือดาว '+lord+' อยู่ภพ'+HOUSE[hh-1]+': '+n.join(' · ')}};
+  [pat(a,QA,na),pat(b,QB,nb)].forEach(function(x){if(x)it.push(x)});
+  var sw=0,sv=0;it.forEach(function(x){sw+=x.w*2;sv+=x.w*x.s});
+  var pct=Math.round(50+50*sv/sw);pct=Math.max(5,Math.min(98,pct));
+  var vd=pct>=75?'เข้ากันดีมาก':pct>=60?'เข้ากันดี':pct>=45?'พอไปได้ ต้องปรับเข้าหากัน':'ขัดกันหลายจุด ต้องระวัง';
+  // เลขสำหรับเบอร์คู่
+  var D=[0,1,2,3,4,5,6,7,8,9],both=D.filter(function(d){return QA.cls[d]==='g'&&QB.cls[d]==='g'}),avoid=D.filter(function(d){return QA.cls[d]==='b'||QB.cls[d]==='b'});
+  return {it:it,pct:pct,vd:vd,QA:QA,QB:QB,both:both,avoid:avoid,lagOK:lagOK}}
+function pairKey(a,b,type){return 'pair:'+type+':'+[a.key,b.key].sort().join('|')}
+var PAIRST=null;
+function pairRender(){
+  var s=PAIRST,a=s.a,b=s.b,E=pairEval(a,b,s.type,s.na,s.nb),key=pairKey(a,b,s.type),UL=isUnlocked(key),o='';
+  var tg=function(v){return v>=1?'<span class="tag t-good">ส่งเสริม</span>':v<=-1?'<span class="tag t-bad">ต้องระวัง</span>':'<span class="tag t-mid">กลาง ๆ</span>'};
+  var col=E.pct>=60?'t-good':E.pct>=45?'t-mid':'t-bad';
+  o+='<div class="pscore"><div class="pnum '+col+'">'+E.pct+'%</div><div><h3 class="'+col+'">'+E.vd+'</h3><p class="note">'+esc(s.na)+' '+esc(a.label)+' · ลัคนา'+(a.noTime?'ไม่ทราบ':SIGN[a.lagna])+' เกิดวัน'+DAYNAME[a.day]+'<br>'+esc(s.nb)+' '+esc(b.label)+' · ลัคนา'+(b.noTime?'ไม่ทราบ':SIGN[b.lagna])+' เกิดวัน'+DAYNAME[b.day]+'</p></div></div>';
+  if(!E.lagOK)o+='<div class="warn">มีคนที่ไม่ทราบเวลาเกิด จึงข้ามการดูลัคนา ภพคู่ และศรีกาลีที่ตกภพของคนนั้น ผลจะละเอียดน้อยลง</div>';
+  var good=E.it.filter(function(x){return x.s>=1}),bad=E.it.filter(function(x){return x.s<=-1});
+  o+='<p><strong class="t-good">จุดที่ส่งเสริมกัน '+good.length+' ข้อ</strong> · <strong class="t-bad">จุดที่ต้องระวัง '+bad.length+' ข้อ</strong></p>';
+  var head=E.it.filter(function(x){return s.type==='biz'?x.k==='sri':x.k===6});
+  o+=head.slice(0,s.type==='biz'?2:1).map(function(x){return '<div class="topic"><h3>'+x.t+tg(x.s)+'</h3><p>'+x.d+'</p></div>'}).join('');
+  o+='<p><button type="button" class="ghost" id="pshr">บันทึกผลสมพงษ์เป็นรูป ไว้แชร์</button></p><div id="pshrout"></div>';
+  if(UL){
+    o+='<div class="paid-head"><strong>ฉบับละเอียด สมพงษ์คู่</strong> · ปลดล็อกแล้วบนเครื่องนี้</div>';
+    var grp=[['ความรักและการพูดคุย',[6,4,'lag']],['ศรีและกาลีข้ามดวง (ใครเสริมใคร ใครทำให้ใครเสีย)',['sri','kali']],['ภพคู่ของแต่ละคน',['pat']]];
+    if(s.type==='biz')grp=[grp[1],grp[2],grp[0]];
+    grp.forEach(function(g){var xs=E.it.filter(function(x){return g[1].indexOf(x.k)>=0});if(!xs.length)return;
+      o+='<h3 style="margin-top:22px">'+g[0]+'</h3>'+xs.map(function(x){return '<div class="topic"><h3>'+x.t+tg(x.s)+'</h3><p>'+x.d+'</p>'+(x.fix?'<p class="note">แก้เคล็ด: '+x.fix+'</p>':'')+'</div>'}).join('')});
+    o+='<h3 style="margin-top:22px">สรุปแบบพูดตรง ๆ</h3><div class="sum">';
+    var worst=bad.sort(function(x,y){return x.s-y.s}).slice(0,3),best=good.sort(function(x,y){return y.s-x.s}).slice(0,3);
+    if(best.length)o+='<p><strong class="t-good">จุดแข็งของคู่นี้:</strong> '+best.map(function(x){return x.t}).join(' · ')+'</p>';
+    if(worst.length)o+='<p><strong class="t-bad">เรื่องที่จะทำให้มีปัญหา:</strong> '+worst.map(function(x){return x.t}).join(' · ')+'</p>';
+    o+='<p>'+(s.type==='biz'?(E.it.some(function(x){return x.k==='kali'&&x.s<=-2})?'ร่วมลงทุนได้แต่ต้องแบ่งหน้าที่และเงินให้ชัดเป็นลายลักษณ์อักษร คนที่กาลีไปตกภพสำคัญของอีกฝ่ายไม่ควรถือเงินหรือคุมบัญชี':'ศรีกาลีไม่ทำลายกัน ร่วมลงทุนกันได้ ให้คนที่ศรีส่งถึงอีกฝ่ายดีกว่าเป็นคนนำเรื่องที่ศรีส่งถึง'):(E.pct>=60?'คู่นี้มีของดีมากกว่าของเสีย จุดที่ต้องระวังแก้ได้ด้วยการคุยกันให้ชัดและแก้เคล็ดตามด้านบน':E.pct>=45?'อยู่ด้วยกันได้ แต่ต้องยอมปรับเข้าหากันในเรื่องที่ขัด ถ้าปล่อยไว้จะสะสมจนทะเลาะใหญ่':'คู่นี้ขัดกันหลายจุด ถ้าจะไปต่อต้องรู้ทันจุดอ่อนของกันและกัน แก้เคล็ดตามที่บอก และอย่าใช้อารมณ์ตัดสินเรื่องใหญ่'))+'</p></div>';
+    o+='<h3 style="margin-top:22px">เลขสำหรับเบอร์ของทั้งคู่</h3><p>เลขที่ส่งดวงทั้งสองคน:</p><div class="digits">'+(E.both.length?E.both.map(function(d){return '<span class="d good">'+d+'</span>'}).join(''):'<span class="note">ไม่มีเลขที่ดีกับทั้งคู่พร้อมกัน ใช้เลขดีของแต่ละคนในเบอร์ของตัวเอง</span>')+'</div>';
+    o+='<p>เลขที่ควรเลี่ยง (อ่อนในดวงคนใดคนหนึ่ง):</p><div class="digits">'+E.avoid.map(function(d){return '<span class="d bad">'+d+'</span>'}).join('')+'</div>';
+    var st=STOCK.filter(function(x){return !x[4]}).map(function(x){var ea=phoneEval(x[0],E.QA),eb=phoneEval(x[0],E.QB);return {n:x[0],p:x[1],net:x[2],ok:!ea.bad.length&&!ea.bd.length&&!eb.bd.length,s:ea.s+eb.s}}).filter(function(x){return x.ok}).sort(function(x,y){return y.s-x.s}).slice(0,3);
+    if(st.length){o+='<p>เบอร์ในสต็อกที่เข้ากับดวงทั้งคู่ (เหมาะเป็นเบอร์ร้านหรือเบอร์ที่ใช้ร่วมกัน):</p><ul class="stock">'+st.map(function(x){return '<li><strong class="sn">'+x.n.slice(0,3)+'-'+x.n.slice(3,6)+'-'+x.n.slice(6)+'</strong> <span class="note">'+esc(x.net)+'</span> · <strong>'+x.p.toLocaleString('th-TH')+' บาท</strong></li>'}).join('')+'</ul>'}
+    o+='<p><a class="btn" href="'+PAY.line+'" target="_blank" rel="noopener">ให้ช่วยหาเบอร์คู่ ทักไลน์</a></p>';
+    o+='<p class="note">อ่านตามหลักสมพงษ์คู่ของครูโอ มงคล ราชาโชค: นับดาวดวงเดียวกันของสองคนไปหากัน ดูทั้งสองทิศ ร่วมกับศรีกาลีข้ามดวงและภพคู่ ใช้เป็นแนวทาง ไม่ใช่คำตัดสินชีวิตคู่</p>';
+  }else{
+    var q=PAY.promptpay?'<br><div id="ppqr2" class="qr" aria-label="คิวอาร์พร้อมเพย์"></div><p class="note">สแกนจ่ายด้วยแอปธนาคาร ยอด '+PAY.pairPrice+' บาท</p>':'';
+    var bk=PAY.bankNo?'<p>หรือโอนเข้า '+esc(PAY.bankName)+' เลขที่ <strong>'+esc(PAY.bankNo)+'</strong> ชื่อบัญชี '+esc(PAY.accountName)+'</p>':'';
+    o+='<section class="paywall"><h2 id="paywall2">สมพงษ์คู่ฉบับละเอียด '+PAY.pairPrice+' บาท</h2><ul>';
+    o+='<li><strong>ครบทุกจุด '+E.it.length+' ข้อ</strong> ทั้งความรู้สึก การพูดคุย ลัคนา และภพคู่ของแต่ละคน</li><li><strong>ศรีกาลีข้ามดวง:</strong> ใครเสริมเรื่องอะไรให้ใคร ใครทำให้ใครเสียเรื่องอะไร</li><li><strong>วิธีแก้เคล็ด</strong> สำหรับจุดที่ขัดกัน ใครต้องแก้ ทำบุญวันไหน กี่บาท</li><li><strong>สรุปแบบพูดตรง ๆ</strong> ว่าคู่นี้ควรไปต่อแบบไหน</li><li><strong>เลขสำหรับเบอร์ของทั้งคู่</strong> เลขที่ส่งทั้งสองคน เลขที่ต้องเลี่ยง และเบอร์ในสต็อกที่เข้ากับดวงทั้งคู่</li></ul>';
+    o+='<ol class="steps"><li>สแกนจ่าย '+PAY.pairPrice+' บาท'+q+bk+'</li><li>โอนเสร็จแล้ว ติ๊กยืนยันแล้วกดดูได้ทันที</li></ol>';
+    o+='<label class="paid-ok"><input type="checkbox" id="paidchk2"> ฉันโอนเงิน '+PAY.pairPrice+' บาทเรียบร้อยแล้ว</label><button type="button" id="ubtn2" disabled>ดูสมพงษ์ฉบับละเอียด</button></section>';
+  }
+  var box=document.getElementById('pres2');box.innerHTML=o;
+  var b2=document.getElementById('ubtn2'),c2=document.getElementById('paidchk2');
+  if(b2&&c2){c2.addEventListener('change',function(){b2.disabled=!c2.checked});b2.addEventListener('click',function(){if(!c2.checked)return;saveUnlock(key);pairRender();var t=box.querySelector('.paid-head');if(t&&t.scrollIntoView)t.scrollIntoView()})}
+  var qd=document.getElementById('ppqr2');if(qd&&window.QRCode){try{new QRCode(qd,{text:promptpayPayload(PAY.promptpay,PAY.pairPrice),width:200,height:200,correctLevel:QRCode.CorrectLevel.M})}catch(e){}}
+  var sh={kicker:s.type==='biz'?'สมพงษ์หุ้นส่วน':'สมพงษ์คู่',title:s.na+' & '+s.nb,sub:(a.noTime?'':'ลัคนา'+SIGN[a.lagna]+' · ')+'วัน'+DAYNAME[a.day]+'  กับ  '+(b.noTime?'':'ลัคนา'+SIGN[b.lagna]+' · ')+'วัน'+DAYNAME[b.day],score:E.pct,verdict:E.vd,
+    rows:[{label:'จุดที่ส่งเสริมกัน',color:'good',text:good.map(function(x){return x.t}).slice(0,4).join(' · ')||'–'},{label:'จุดที่ต้องระวัง',color:'seal',text:bad.map(function(x){return x.t}).slice(0,4).join(' · ')||'ไม่มีจุดที่ขัดกันชัด'}]};
+  if(UL&&E.both.length)sh.digits={good:E.both,bad:E.avoid};
+  document.getElementById('pshr').addEventListener('click',function(){makeShare(sh,document.getElementById('pshrout'),'สมพงษ์-'+s.na+'-'+s.nb)});
+}
+(function(){
+  var ps=['pprov1','pprov2'].map(function(id){return document.getElementById(id)});
+  ps.forEach(function(sl){PROV.forEach(function(p,i){var o=document.createElement('option');o.value=i;o.textContent=p[0];if(p[0]==='เลย')o.selected=true;sl.appendChild(o)})});
+  document.getElementById('pf').addEventListener('submit',function(e){e.preventDefault();var err=document.getElementById('perr');err.textContent='';
+    var get=function(n){var dv=document.getElementById('pdate'+n).value,tv=document.getElementById('ptime'+n).value,nt=document.getElementById('pnt'+n).checked;
+      if(!dv)throw 'ใส่วันเกิดของคนที่ '+n;if(!tv&&!nt)throw 'ใส่เวลาเกิดของคนที่ '+n+' หรือติ๊กว่าไม่ทราบเวลา';
+      var Y=+dv.slice(0,4);if(Y<1900||Y>2100)throw 'ปีเกิดของคนที่ '+n+' ต้องอยู่ระหว่าง ค.ศ. 1900 ถึง 2100';
+      var hh=nt?12:+tv.slice(0,2),mm=nt?0:+tv.slice(3,5);return buildChart(Y,+dv.slice(5,7),+dv.slice(8,10),hh,mm,+document.getElementById('pprov'+n).value,'sy',nt)};
+    try{var a=get(1),b=get(2)}catch(x){err.textContent=String(x);return}
+    var type=document.getElementById('ptype').value;
+    PAIRST={a:a,b:b,type:type,na:document.getElementById('pname1').value.trim()||'คนที่ 1',nb:document.getElementById('pname2').value.trim()||'คนที่ 2'};
+    pairRender();document.getElementById('pres2').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})});
+  ['1','2'].forEach(function(n){var c=document.getElementById('pnt'+n),t=document.getElementById('ptime'+n);c.addEventListener('change',function(){t.disabled=c.checked;if(c.checked)t.value=''})});
+})();
+
+document.getElementById('f').addEventListener('submit',function(e){
+  e.preventDefault();var err=document.getElementById('err');err.textContent='';
+  var dv=document.getElementById('date').value,tv=document.getElementById('time').value;
+  if(!dv){err.textContent='ใส่วันเกิดก่อน';return}if(!tv){err.textContent='ใส่เวลาเกิดก่อน ถ้าไม่ทราบให้ใส่เวลาใกล้เคียงที่สุด';return}
+  var Y=+dv.slice(0,4),M=+dv.slice(5,7),D=+dv.slice(8,10),hh=+tv.slice(0,2),mm=+tv.slice(3,5);
+  if(Y<1900||Y>2100){err.textContent='ปีเกิดต้องอยู่ระหว่าง ค.ศ. 1900 ถึง 2100 (ใส่เป็น ค.ศ.)';return}
+  var c=buildChart(Y,M,D,hh,mm,+sel.value,document.getElementById('meth').value,false);
+  if(!document.getElementById('pdate1').value){document.getElementById('pname1').value=document.getElementById('name').value;document.getElementById('pdate1').value=dv;document.getElementById('ptime1').value=tv;document.getElementById('pprov1').value=sel.value}
+  chart=c;render();document.getElementById('result').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+});
+})();
+</script>
+<script>
+(function(){try{var q=new URLSearchParams(location.search);var d=q.get('d'),t=q.get('t'),p=q.get('p'),n=q.get('n');if(!d)return;
+var g=function(i){return document.getElementById(i)};g('date').value=d;if(t)g('time').value=t;else{g('time').value='';}if(n)g('name').value=n;
+if(p){var sl=g('prov');for(var i=0;i<sl.options.length;i++){if(sl.options[i].text.trim()===p.trim()){sl.selectedIndex=i;break}}}
+if(!t){g('time').focus();return}setTimeout(function(){var f=g('f');if(f.requestSubmit)f.requestSubmit();else f.dispatchEvent(new Event('submit',{cancelable:true}))},50)}catch(e){}})();
+</script>
+</body>
