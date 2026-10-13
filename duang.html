@@ -6,33 +6,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="canonical" href="https://lionizev-cell.github.io/duang.html">
 <meta name="description" content="ผูกดวงราศีจักรฟรี ดูลัคนา ดาว 9 ดวง ดวงแต่ละด้าน ไพ่ยิปซี และสมพงษ์คู่ จากเพจความลับพลังตัวเลข">
+<meta name="theme-color" content="#0b0907">
 <title>ผูกดวงราศีจักร | ความลับพลังตัวเลข</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chonburi&family=Trirong:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#E8E2D4; --sheet:#F1ECE1; --ink:#2B2420; --muted:#6B5F51; --line:#C8BCA8;
-  --gold:#8C6210; --seal:#A3301E; --good:#2F6B3A; --bad:#A3301E;
-  box-sizing:border-box;
+  --paper:#0b0907; --sheet:#16120f; --ink:#f3ece4; --muted:#a8998a; --line:#2f2620;
+  --gold:#e0701f; --seal:#b4530f; --good:#6fd39f; --bad:#f2877b; --mid:#e8c25a; --soft:#3a2312;
+  color-scheme:dark; box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --paper:#221C16; --sheet:#2B241D; --ink:#EDE4D1; --muted:#A8997F; --line:#4B4034;
-    --gold:#E2B33F; --seal:#E0644C; --good:#8FC68F; --bad:#E0644C;
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#221C16; --sheet:#2B241D; --ink:#EDE4D1; --muted:#A8997F; --line:#4B4034;
-  --gold:#E2B33F; --seal:#E0644C; --good:#8FC68F; --bad:#E0644C;
 }
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--paper);color:var(--ink);
-  font-family:"Trirong","Sarabun","Leelawadee UI","Thonburi",Tahoma,serif;font-size:17px;line-height:1.75}
+  font-family:"IBM Plex Sans Thai",system-ui,sans-serif;font-size:16px;line-height:1.7}
 main{max-width:720px;margin:0 auto;padding:28px 20px 64px;overflow-x:clip}
-h1,h2,h3{font-family:"Chonburi","Trirong",serif;font-weight:400;line-height:1.35;margin:0}
+h1,h2,h3{font-family:"Noto Serif Thai",Georgia,serif;font-weight:700;line-height:1.35;margin:0}
 h1{font-size:clamp(34px,8vw,52px);color:var(--gold)}
 h2{font-size:24px;margin:44px 0 12px;color:var(--gold)}
 h3{font-size:18px;margin:0 0 4px}
@@ -45,7 +36,7 @@ label{display:block;font-size:15px;color:var(--muted);margin-bottom:4px}
 input,select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--sheet);
   border:1px solid var(--line);border-radius:6px;padding:10px 12px}
 input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-button{font:inherit;font-family:"Chonburi",serif;font-size:19px;background:var(--seal);color:#FFF6EA;border:0;border-radius:6px;padding:12px 20px;cursor:pointer}
+button{font:inherit;font-weight:600;font-size:17px;background:var(--seal);color:#fff7ef;border:0;border-radius:10px;padding:12px 20px;cursor:pointer}
 .err{color:var(--bad);font-size:15px;grid-column:1/-1;min-height:1em}
 #result{display:none}
 .wheel{display:flex;justify-content:center;margin:20px 0 6px}
@@ -63,7 +54,7 @@ th{color:var(--muted);font-weight:600}
 ul{margin:6px 0 10px;padding-left:22px}
 li{margin:3px 0}
 .digits{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
-.d{font-family:"Chonburi",serif;font-size:22px;width:46px;height:46px;display:grid;place-items:center;border-radius:50%;border:2px solid var(--line)}
+.d{font-family:"Noto Serif Thai",Georgia,serif;font-size:22px;width:46px;height:46px;display:grid;place-items:center;border-radius:50%;border:2px solid var(--line)}
 .d.good{border-color:var(--good);color:var(--good)}
 .d.bad{border-color:var(--bad);color:var(--bad);text-decoration:line-through}
 .d.mid{color:var(--muted)}
@@ -89,7 +80,7 @@ h2[id]{scroll-margin-top:56px}
 .slot{text-align:center;font-size:13px;color:var(--muted)}
 .face{aspect-ratio:2/3;border-radius:8px;border:2px solid var(--gold);background:var(--sheet);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;margin-bottom:6px}
 .face.empty{border-style:dashed;background:transparent}
-.face .num{font-family:"Chonburi",serif;font-size:26px;color:var(--gold)}
+.face .num{font-family:"Noto Serif Thai",Georgia,serif;font-size:26px;color:var(--gold)}
 .face .nm{font-size:14px;line-height:1.35;color:var(--ink)}
 .face .en{font-size:11px;color:var(--muted)}
 .face.rev .inner{transform:rotate(180deg)}
@@ -106,7 +97,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .btn{display:inline-block;background:var(--good);color:#fff;border-radius:6px;padding:7px 14px;text-decoration:none;font-size:15px;margin-top:6px}
 .owner{border:1px dashed var(--gold);padding:8px 12px;margin-top:12px;font-size:15px}
 .areas{margin:6px 0 8px;padding-left:20px}.areas li{margin:5px 0}
-.stock{list-style:none;padding:0}.stock li{padding:10px 0;border-bottom:1px solid var(--line)}.sn{font-family:"Chonburi",serif;font-size:20px;letter-spacing:1px;color:var(--gold)}
+.stock{list-style:none;padding:0}.stock li{padding:10px 0;border-bottom:1px solid var(--line)}.sn{font-family:"Noto Serif Thai",Georgia,serif;font-size:20px;letter-spacing:1px;color:var(--gold)}
 .ghostlink{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .paid-head{margin-top:44px;padding:10px 14px;border-radius:8px;background:var(--sheet);border:2px solid var(--good)}
 .cta{margin-top:44px;padding:20px;border:2px solid var(--gold);border-radius:8px}
@@ -116,13 +107,24 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .pform{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
 .pform fieldset{border:1px solid var(--line);border-radius:8px;padding:10px 14px 14px;margin:0;display:grid;gap:10px;background:var(--sheet)}
 .pform fieldset input,.pform fieldset select{background:var(--paper)}
-.pform legend{font-family:"Chonburi",serif;color:var(--gold);padding:0 6px}
+.pform legend{font-family:"Noto Serif Thai",Georgia,serif;color:var(--gold);padding:0 6px}
 .nt{display:flex;gap:8px;align-items:center;font-size:15px;color:var(--muted)}.nt input{width:20px;height:20px}
 .pscore{display:flex;gap:18px;align-items:center;margin:18px 0 8px;flex-wrap:wrap}
-.pnum{font-family:"Chonburi",serif;font-size:56px;line-height:1;border:3px solid currentColor;border-radius:50%;width:130px;height:130px;display:grid;place-items:center;flex:none}
+.pnum{font-family:"Noto Serif Thai",Georgia,serif;font-size:56px;line-height:1;border:3px solid currentColor;border-radius:50%;width:130px;height:130px;display:grid;place-items:center;flex:none}
 @media (max-width:560px){form{grid-template-columns:1fr}.pform{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:no-preference){#result.show{animation:rise .5s ease-out}@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}}
-.sitebar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.sitebar a{padding:6px 14px;border:1px solid currentColor;border-radius:999px;text-decoration:none;font-size:.9rem}
+h1{color:var(--ink)}h2{color:var(--gold)}
+.brand{color:var(--gold);font-weight:600;letter-spacing:.08em;font-size:13px}
+input,select{background:var(--paper);border-radius:10px}
+.pform fieldset input,.pform fieldset select{background:var(--paper)}
+details,.paywall,.paid-head,.cta,.pform fieldset{border-radius:14px}
+.btn{background:var(--seal);color:#fff7ef;border-radius:999px;font-weight:600}
+.ghostlink,.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+a{color:var(--gold)}
+.d.mid{color:var(--mid);border-color:var(--mid)}
+.qr{background:#fff}
+.sitebar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.sitebar a{padding:6px 14px;border:1px solid var(--line);background:var(--sheet);color:var(--ink);border-radius:999px;text-decoration:none;font-size:.9rem}
+.handoff{margin-top:12px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--sheet)}
 </style>
 </head>
 <body>
@@ -1619,7 +1621,7 @@ var QDAO=(function(){
   var RULER=[3,6,4,2,1,4,6,3,5,7,8,5];
   var KASET={1:[4],2:[3],3:[0,7],4:[2,5],5:[8,11],6:[1,6],7:[9],8:[10]};
   var UJ={1:0,2:1,3:9,4:5,5:3,6:11,7:6,8:7};
-  var MAHA={1:3,2:0,3:5,4:4,5:7,6:8,7:7,8:9};
+  var MAHA={1:3,2:0,3:5,4:4,5:7,6:8,7:1,8:9};
   var RACHA={1:2,2:5,3:1,4:4,5:0,6:3,7:7,8:6};
   var WHEEL=[1,2,3,4,7,5,8,6];
   var ROLES=['บริวาร','อายุ','เดช','ศรี','มูลละ','อุตสาหะ','มนตรี','กาลี'];
@@ -1691,7 +1693,7 @@ var RULER=[3,6,4,2,1,4,6,3,5,7,8,5];
 var GOODH=[1,2,4,5,7,9,10,11], BADH=[6,8,12];
 var KASET={1:[4],2:[3],3:[0,7],4:[2,5],5:[8,11],6:[1,6],7:[9],8:[10]};
 var UJ={1:0,2:1,3:9,4:5,5:3,6:11,7:6,8:7};
-var MAHA={1:3,2:0,3:5,4:4,5:7,6:8,7:7,8:9};
+var MAHA={1:3,2:0,3:5,4:4,5:7,6:8,7:1,8:9};
 var RACHA={1:2,2:5,3:1,4:4,5:0,6:3,7:7,8:6};
 var STDTXT={'เกษตร':'มั่นคง','ประ':'ไม่มั่นคง','อุจจ์':'ยิ่งใหญ่ เด่น','นิจ':'อ่อนกำลัง','มหาจักร':'สำเร็จใหญ่แต่ต้องเหนื่อย','ราชาโชค':'ราบรื่น มีคนเมตตา','วรโคตร':'มีกำลังมาก'};
 var WHEEL=[1,2,3,4,7,5,8,6];
@@ -1705,7 +1707,7 @@ var BADPAIR=['2-3','3-8','2-7','2-8','3-4','3-7','1-3','4-8','6-7'];
 var NICE=['6-9','3-9','8-9','1-5','2-4','3-6','7-8','1-7','2-5','4-6','1-6','2-8','3-5','4-7','5-6','1-4','4-5','5-9','0-5'];
 var SESH={1:'ทะเยอทะยาน รักศักดิ์ศรี จริงจัง ใจร้อน',2:'หัวอ่อน เชื่อคนง่าย ขี้น้อยใจ ไม่มีพิษภัย',3:'หุนหัน โกรธง่ายหายเร็ว ชอบแข่งขัน',4:'ช่างพูด ปรับตัวเก่ง ปากตรงกับใจ มนุษยสัมพันธ์ดี',5:'ยุติธรรม กตัญญู ชอบเรียนรู้ เป็นที่พึ่งทางใจ',6:'รักสวยรักงาม รักสบาย หนีความทุกข์เก่ง',7:'คิดมาก รอบคอบแต่ช้า ใจแข็ง ตัดสินใจแล้วไม่เปลี่ยน'};
 var SESHH=['เชื่อมั่นตัวเอง ชอบทำเอง','คิดเรื่องเงินก่อน','รักเพื่อน ชอบสังคม ชอบเดินทาง','รักบ้าน รักครอบครัว','รักเด็ก ขี้เล่น ชอบเริ่มของใหม่','ขี้กังวล กลัวหนี้และปัญหา','ให้ความสำคัญกับคู่ก่อนตัวเอง','ตกใจง่าย ฝังใจอดีต','เคารพผู้ใหญ่ ใจบุญ ชอบช่วยคน','รักงาน บ้างาน','ชอบต่อยอดฐานะ หาลาภเก่ง','รักอิสระ โลกส่วนตัวสูง'];
-var PROV=[["กรุงเทพมหานคร",13.75,100.50],["กระบี่",8.09,98.91],["กาญจนบุรี",14.02,99.53],["กาฬสินธุ์",16.43,103.51],["กำแพงเพชร",16.48,99.52],["ขอนแก่น",16.43,102.83],["จันทบุรี",12.61,102.10],["ฉะเชิงเทรา",13.69,101.07],["ชลบุรี",13.36,100.98],["ชัยนาท",15.19,100.13],["ชัยภูมิ",15.81,102.03],["ชุมพร",10.49,99.18],["เชียงราย",19.91,99.83],["เชียงใหม่",18.79,98.98],["ตรัง",7.56,99.61],["ตราด",12.24,102.52],["ตาก",16.88,99.13],["นครนายก",14.21,101.21],["นครปฐม",13.82,100.06],["นครพนม",17.41,104.78],["นครราชสีมา",14.97,102.10],["นครศรีธรรมราช",8.43,99.96],["นครสวรรค์",15.70,100.14],["นนทบุรี",13.86,100.51],["นราธิวาส",6.43,101.82],["น่าน",18.78,100.78],["บึงกาฬ",18.36,103.65],["บุรีรัมย์",14.99,103.10],["ปทุมธานี",14.02,100.53],["ประจวบคีรีขันธ์",11.81,99.80],["ปราจีนบุรี",14.05,101.37],["ปัตตานี",6.87,101.25],["พระนครศรีอยุธยา",14.35,100.57],["พะเยา",19.17,99.90],["พังงา",8.45,98.53],["พัทลุง",7.62,100.08],["พิจิตร",16.44,100.35],["พิษณุโลก",16.82,100.26],["เพชรบุรี",13.11,99.94],["เพชรบูรณ์",16.42,101.16],["แพร่",18.14,100.14],["ภูเก็ต",7.88,98.39],["มหาสารคาม",16.18,103.30],["มุกดาหาร",16.54,104.72],["แม่ฮ่องสอน",19.30,97.97],["ยโสธร",15.79,104.15],["ยะลา",6.54,101.28],["ร้อยเอ็ด",16.05,103.65],["ระนอง",9.96,98.64],["ระยอง",12.68,101.28],["ราชบุรี",13.54,99.82],["ลพบุรี",14.80,100.65],["ลำปาง",18.29,99.49],["ลำพูน",18.58,99.01],["เลย",17.49,101.73],["ศรีสะเกษ",15.12,104.32],["สกลนคร",17.16,104.15],["สงขลา",7.19,100.60],["สตูล",6.62,100.07],["สมุทรปราการ",13.60,100.60],["สมุทรสงคราม",13.41,100.00],["สมุทรสาคร",13.55,100.27],["สระแก้ว",13.82,102.07],["สระบุรี",14.53,100.91],["สิงห์บุรี",14.89,100.40],["สุโขทัย",17.01,99.82],["สุพรรณบุรี",14.47,100.12],["สุราษฎร์ธานี",9.14,99.33],["สุรินทร์",14.88,103.49],["หนองคาย",17.88,102.74],["หนองบัวลำภู",17.20,102.44],["อ่างทอง",14.59,100.45],["อำนาจเจริญ",15.86,104.63],["อุดรธานี",17.41,102.79],["อุตรดิตถ์",17.62,100.10],["อุทัยธานี",15.38,100.02],["อุบลราชธานี",15.24,104.85]];
+var PROV=[["กรุงเทพมหานคร",13.75,100.50],["กระบี่",8.09,98.91],["กาญจนบุรี",14.02,99.53],["กาฬสินธุ์",16.43,103.51],["กำแพงเพชร",16.48,99.52],["ขอนแก่น",16.44,102.83],["จันทบุรี",12.61,102.10],["ฉะเชิงเทรา",13.69,101.08],["ชลบุรี",13.36,100.98],["ชัยนาท",15.19,100.13],["ชัยภูมิ",15.81,102.03],["ชุมพร",10.49,99.18],["เชียงราย",19.91,99.83],["เชียงใหม่",18.79,98.98],["ตรัง",7.56,99.61],["ตราด",12.24,102.52],["ตาก",16.88,99.13],["นครนายก",14.21,101.21],["นครปฐม",13.82,100.06],["นครพนม",17.41,104.78],["นครราชสีมา",14.97,102.10],["นครศรีธรรมราช",8.43,99.96],["นครสวรรค์",15.70,100.14],["นนทบุรี",13.86,100.51],["นราธิวาส",6.43,101.82],["น่าน",18.78,100.78],["บึงกาฬ",18.36,103.65],["บุรีรัมย์",14.99,103.10],["ปทุมธานี",14.02,100.53],["ประจวบคีรีขันธ์",11.81,99.80],["ปราจีนบุรี",14.05,101.37],["ปัตตานี",6.87,101.25],["พระนครศรีอยุธยา",14.35,100.57],["พะเยา",19.17,99.90],["พังงา",8.45,98.53],["พัทลุง",7.62,100.08],["พิจิตร",16.44,100.35],["พิษณุโลก",16.82,100.26],["เพชรบุรี",13.11,99.94],["เพชรบูรณ์",16.42,101.16],["แพร่",18.14,100.14],["ภูเก็ต",7.88,98.39],["มหาสารคาม",16.18,103.30],["มุกดาหาร",16.54,104.72],["แม่ฮ่องสอน",19.30,97.97],["ยโสธร",15.79,104.15],["ยะลา",6.54,101.28],["ร้อยเอ็ด",16.05,103.65],["ระนอง",9.96,98.64],["ระยอง",12.68,101.28],["ราชบุรี",13.54,99.82],["ลพบุรี",14.80,100.65],["ลำปาง",18.29,99.49],["ลำพูน",18.58,99.01],["เลย",17.49,101.72],["ศรีสะเกษ",15.12,104.32],["สกลนคร",17.16,104.15],["สงขลา",7.19,100.59],["สตูล",6.62,100.07],["สมุทรปราการ",13.60,100.60],["สมุทรสงคราม",13.41,100.00],["สมุทรสาคร",13.55,100.27],["สระแก้ว",13.82,102.06],["สระบุรี",14.53,100.91],["สิงห์บุรี",14.89,100.40],["สุโขทัย",17.01,99.82],["สุพรรณบุรี",14.47,100.12],["สุราษฎร์ธานี",9.14,99.33],["สุรินทร์",14.88,103.49],["หนองคาย",17.88,102.74],["หนองบัวลำภู",17.20,102.44],["อ่างทอง",14.59,100.45],["อำนาจเจริญ",15.86,104.63],["อุดรธานี",17.41,102.79],["อุตรดิตถ์",17.63,100.10],["อุทัยธานี",15.38,100.02],["อุบลราชธานี",15.24,104.85],["ต่างประเทศ (ใช้กรุงเทพฯ)",13.75,100.50]];
 
 var sel=document.getElementById('prov');
 PROV.forEach(function(p,i){var o=document.createElement('option');o.value=i;o.textContent=p[0];if(p[0]==='เลย')o.selected=true;sel.appendChild(o)});
@@ -1839,7 +1841,7 @@ function topic(A,h,title){
   if(i.std.length)s1+=' เป็น'+i.std.join('และ')+' ('+i.std.map(function(x){return STDTXT[x]}).join(', ')+')';
   if(i.role)s1+=' และเป็น'+i.role+'ทางทักษา ('+ROLETXT[i.role]+')';
   out.push(s1+'.');
-  if(at===h)out.push('เจ้าเรือนอยู่บ้านตัวเอง เรื่อง'+title+'จึงมั่นคง พึ่งตัวเองได้');
+  if(at===h)out.push('เจ้าเรือนอยู่เรือนตัวเอง เรื่อง'+title+'จึงมั่นคง พึ่งตัวเองได้');
   else out.push('เรื่อง'+title+'ผูกกับเรื่อง'+GIST[at-1]);
   var l2=RULER[c.sign[lord]];
   if(l2!==lord){var at2=A.info[l2].house;out.push('อ่านจังหวะสอง: ดาว '+l2+' เจ้าราศีที่ดาว '+lord+' อาศัย อยู่'+hn(at2)+' ผลสุดท้ายไปออกที่เรื่อง'+GIST[at2-1]);
@@ -1862,15 +1864,15 @@ function wheelSVG(c,A){
     o+='<line x1="'+(cx+r3*Math.cos(a0))+'" y1="'+(cy+r3*Math.sin(a0))+'" x2="'+(cx+r1*Math.cos(a0))+'" y2="'+(cy+r1*Math.sin(a0))+'" stroke="var(--line)"/>';
     var isL=s===c.lagna;
     if(isL){var b0=(-90-30*s+15)*R,b1=(-90-30*s-15)*R;o+='<path d="M'+(cx+r2*Math.cos(b0))+' '+(cy+r2*Math.sin(b0))+' A'+r2+' '+r2+' 0 0 0 '+(cx+r2*Math.cos(b1))+' '+(cy+r2*Math.sin(b1))+' L'+(cx+r1*Math.cos(b1))+' '+(cy+r1*Math.sin(b1))+' A'+r1+' '+r1+' 0 0 1 '+(cx+r1*Math.cos(b0))+' '+(cy+r1*Math.sin(b0))+'Z" fill="var(--seal)" opacity=".12"/>'}
-    o+='<text x="'+(cx+(r1-16)*Math.cos(a1))+'" y="'+(cy+(r1-16)*Math.sin(a1)+5)+'" text-anchor="middle" font-size="13" fill="var(--muted)" font-family="Trirong,serif">'+SIGN[s]+'</text>';
+    o+='<text x="'+(cx+(r1-16)*Math.cos(a1))+'" y="'+(cy+(r1-16)*Math.sin(a1)+5)+'" text-anchor="middle" font-size="13" fill="var(--muted)" font-family="IBM Plex Sans Thai,serif">'+SIGN[s]+'</text>';
     var hnum=(s-c.lagna+12)%12;
-    o+='<text x="'+(cx+(r3+12)*Math.cos(a1))+'" y="'+(cy+(r3+12)*Math.sin(a1)+4)+'" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Trirong,serif">'+HOUSE[hnum]+'</text>';
+    o+='<text x="'+(cx+(r3+12)*Math.cos(a1))+'" y="'+(cy+(r3+12)*Math.sin(a1)+4)+'" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="IBM Plex Sans Thai,serif">'+HOUSE[hnum]+'</text>';
     var here=A.planets.filter(function(p){return c.sign[p]===s}).map(function(p){return TH[p]});
     if(isL)here.unshift('ล');
     here.forEach(function(t,i){var n=here.length,rr=(r2+r3)/2+12+(n>3?(i%2?-9:9):0),ang=a1+((i-(n-1)/2)*(n>3?5.5:9))*R;
-      o+='<text x="'+(cx+rr*Math.cos(ang))+'" y="'+(cy+rr*Math.sin(ang)+7)+'" text-anchor="middle" font-size="20" font-family="Chonburi,serif" fill="'+(t==='ล'?'var(--seal)':'var(--ink)')+'">'+t+'</text>'});
+      o+='<text x="'+(cx+rr*Math.cos(ang))+'" y="'+(cy+rr*Math.sin(ang)+7)+'" text-anchor="middle" font-size="20" font-family="Noto Serif Thai,serif" fill="'+(t==='ล'?'var(--seal)':'var(--ink)')+'">'+t+'</text>'});
   }
-  o+='<text x="200" y="194" text-anchor="middle" font-size="13" fill="var(--muted)" font-family="Trirong,serif">ลัคนา</text><text x="200" y="222" text-anchor="middle" font-size="24" fill="var(--gold)" font-family="Chonburi,serif">'+SIGN[c.lagna]+'</text></svg>';
+  o+='<text x="200" y="194" text-anchor="middle" font-size="13" fill="var(--muted)" font-family="IBM Plex Sans Thai,serif">ลัคนา</text><text x="200" y="222" text-anchor="middle" font-size="24" fill="var(--gold)" font-family="Noto Serif Thai,serif">'+SIGN[c.lagna]+'</text></svg>';
   return o;
 }
 
@@ -1933,7 +1935,7 @@ function render(){
   r+='<h2 id="s-top">'+(nm?esc(nm)+' ':'')+'ลัคนา'+SIGN[L]+' เกิดวัน'+DAYNAME[c.day]+'</h2>';
   r+='<p class="note">เกิด '+esc(c.label)+' · ลัคนา '+SIGN[L]+' '+(c.lagDeg!=null?c.lagDeg.toFixed(1)+'°':'(ปรับเอง)')+(c.meth==='st'?' แบบเวลานักษัตร':' แบบอันโตนาทีสามัญ')+' · ราศีประเภท'+A.type+'</p>';
   if(c.lagDeg!=null&&(c.lagDeg<4||c.lagDeg>26))r+='<div class="warn">ลัคนาอยู่ใกล้ขอบราศี โปรแกรมโหรแต่ละตัวอาจได้ลัคนาต่างกัน ควรเทียบกับโปรแกรมที่ใช้ประจำ และปรับลัคนาได้ในส่วนปรับตำแหน่งดาว</div>';
-  r+='<nav class="toc" aria-label="สารบัญ">'+[['s-sum','สรุป'],['s-chart','ผังดวง'],['s-nisai','นิสัย'],['s-topics','ดวงรายด้าน'],['s-phone','เช็กเบอร์'],['s-stock','เบอร์แนะนำ'],['tarot','ไพ่ยิปซี'],['pair','สมพงษ์คู่']].concat(isUnlocked(c.key)?[['p-sum','สรุปฉบับละเอียด'],['p-month','12 เดือน'],['p-year','10 ปี'],['s-dao','คุณภาพดาว'],['s-num','เลขในเบอร์'],['s-year','ทักษาจร']]:[['paywall','ฉบับละเอียด']]).map(function(x){return '<a href="#'+x[0]+'">'+x[1]+'</a>'}).join('')+'</nav>';
+  r+='<nav class="toc" aria-label="สารบัญ">'+[['s-sum','สรุป'],['s-chart','ผังดวง'],['s-nisai','นิสัย'],['s-topics','ดวงรายด้าน'],['s-phone','เช็กเบอร์'],['s-stock','สต็อกเบอร์'],['tarot','ไพ่ยิปซี'],['pair','สมพงษ์คู่']].concat(isUnlocked(c.key)?[['p-sum','สรุปฉบับละเอียด'],['p-month','12 เดือน'],['p-year','10 ปี'],['s-dao','คุณภาพดาว'],['s-num','เลขในเบอร์'],['s-year','ทักษาจร']]:[['paywall','ฉบับละเอียด']]).map(function(x){return '<a href="#'+x[0]+'">'+x[1]+'</a>'}).join('')+'</nav>';
 
   // summary
   var good=TD.filter(function(t){return t.v>=2}).map(function(t){return t.title}),weak=TD.filter(function(t){return t.v<=-2}).map(function(t){return t.title});
@@ -2020,16 +2022,15 @@ function render(){
   // numbers
   r+=sec('s-num','ตัวเลขที่ควรมีในเบอร์โทรศัพท์');
   r+='<div class="digits" aria-label="ระดับของแต่ละเลข">';[1,2,3,4,5,6,7,8,9,0].forEach(function(p){r+='<span class="d '+cls(p)+'" title="ดาว '+p+'">'+p+'</span>'});r+='</div>';
-  var goods=gd.slice().sort(function(a,b){return sc[b]-sc[a]});
-  r+='<p><span class="t-good"><strong>เลขเสริมดวง:</strong></span> '+(goods.join(', ')||'–')+' &nbsp; <span class="t-bad"><strong>เลขที่ควรเลี่ยง:</strong></span> '+(bd.join(', ')||'–')+'</p>';
-  var pool=[1,2,3,4,5,6,7,8,9,0].filter(function(p){return cls(p)!=='bad'&&sc[p]!=null}),pairs=[];
-  for(var i=0;i<pool.length;i++)for(var j=i+1;j<pool.length;j++){var a=pool[i],bb=pool[j],k=pkey(a,bb);
-    if((cls(a)==='good'||cls(bb)==='good')&&NICE.indexOf(k)>=0&&BADPAIR.indexOf(k)<0)pairs.push({k:k,s:sc[a]+sc[bb]+(cls(a)==='good'&&cls(bb)==='good'?5:0)})}
-  pairs.sort(function(a,b){return b.s-a.s});
-  if(pairs.length){r+='<h3>คู่เลขที่แนะนำ</h3><ul>';pairs.slice(0,6).forEach(function(x){var ab=x.k.split('-');r+='<li><strong>'+ab[0]+ab[1]+' / '+ab[1]+ab[0]+'</strong>: '+PAIR[x.k]+'</li>'});r+='</ul>'}
-  r+='<h3>คู่เลขที่ห้ามมี</h3><ul>'+(cls(kali)==='bad'?'<li><strong>เลข '+kali+' ทุกคู่</strong>: เป็นกาลีวันเกิดและคุณภาพดาวโดยรวมเสีย</li>':'<li><strong>เลข '+kali+'</strong>: เป็นกาลีวันเกิด แต่คุณภาพดาวโดยรวมยังไม่เสีย ใช้ได้ถ้าประกบคู่ดี</li>');
-  BADPAIR.forEach(function(k){var ab=k.split('-');r+='<li><strong>'+ab[0]+ab[1]+' / '+ab[1]+ab[0]+'</strong>: '+PAIR[k]+'</li>'});r+='</ul>';
-  r+='<p class="note">ส่วนนี้บอกว่าควรเน้นหรือเลี่ยงดาวไหนตามดวง การวางตำแหน่งในเบอร์และผลรวมต้องดูตามหลักเลขศาสตร์ประกอบ</p>';
+  var goods=gd.slice().sort(function(a,b){return sc[b]-sc[a]}),mids=[1,2,3,4,5,6,7,8,9,0].filter(function(p){return cls(p)==='mid'});
+  r+='<p><span class="t-good"><strong>เลขพลังดี:</strong></span> '+(goods.join(', ')||'–')+' &nbsp; <strong class="t-mid">ปานกลาง:</strong> '+(mids.join(', ')||'–')+' &nbsp; <span class="t-bad"><strong>เลขพลังอ่อน:</strong></span> '+(bd.join(', ')||'–')+'</p>';
+  var RP=recPairsChart(cls,sc,age);
+  if(RP.rec.length){r+='<h3>คู่เลขที่เข้ากับดวงคุณ</h3><ul>';RP.rec.forEach(function(x){r+='<li><strong>'+x.v+' / '+x.r+'</strong>: '+NP[+x.v][1]+' '+NP[+x.v][2]+'</li>'});r+='</ul>'}
+  r+='<h3>คู่เลขที่ต้องระวัง</h3><ul>';
+  if(bd.length)r+='<li><strong>คู่ที่มีเลข '+bd.join(', ')+'</strong>: เลขพลังอ่อนในดวงคุณ ถ้าจะมีในเบอร์ต้องมีเลขพลังดีประกบ และไม่ควรอยู่ท้ายเบอร์</li>';
+  r+=(cls(kali)==='bad'?'<li><strong>เลข '+kali+'</strong>: เป็นกาลีวันเกิดและคุณภาพดาวโดยรวมอ่อน</li>':'<li><strong>เลข '+kali+'</strong>: เป็นกาลีวันเกิด แต่คุณภาพดาวโดยรวมยังไม่เสีย ใช้ได้ถ้าประกบคู่ดี</li>');
+  RP.bad.forEach(function(x){r+='<li><strong>'+x.v+' / '+x.r+'</strong>: '+NP[+x.v][1]+' '+NP[+x.v][2]+'</li>'});r+='</ul>';
+  r+='<p class="note">คู่เลขชุดนี้ใช้ตารางเดียวกับเว็บวิเคราะห์เบอร์ แต่ยังไม่ได้คิดเพศและอาชีพ บางคู่ เช่น 13, 28, 47, 58 ดีหรือไม่ขึ้นกับเพศและงานที่ทำ ใส่เบอร์ในส่วนเช็กเบอร์ ระบบจะอ่านครบทุกตำแหน่งให้</p>';
 
   // merit
   r+=sec('s-merit','แก้เคล็ดตามกำลังดาว (แนวในตำรา)')+'<ul>';
@@ -2205,66 +2206,140 @@ function tRead(){var topic=document.getElementById('ttopic').value,q=document.ge
   document.getElementById('tread').innerHTML=o;
   document.getElementById('tshuffle').textContent='สับไพ่ใหม่';}
 document.getElementById('tshuffle').addEventListener('click',tShuffle);
-var STOCK=[
-  ["0976361446",2990,"AIS ระบบเติมเงิน",""],
-  ["0636628641",2990,"AIS ระบบเติมเงิน",""],
-  ["0818749451",2990,"AIS ระบบเติมเงิน",""],
-  ["0968691946",2990,"True ระบบเติมเงิน",""],
-  ["0628891536",2990,"Dtac ระบบเติมเงิน",""],
-  ["0618891945",2990,"Dtac ระบบเติมเงิน",""],
-  ["0618288915",2990,"Dtac ระบบเติมเงิน",""],
-  ["0903298746",2990,"True ระบบเติมเงิน",""],
-  ["0838298654",2990,"True ระบบเติมเงิน",""],
-  ["0628887745",2990,"Dtac ระบบเติมเงิน",""],
-  ["0902361964",2990,"True ระบบเติมเงิน",""],
-  ["0928786235",2990,"AIS ระบบเติมเงิน",""],
-  ["0911992445",2990,"Dtac ระบบเติมเงิน",""],
-  ["0976241636",2990,"AIS ระบบเติมเงิน",""],
-  ["0644951689",2990,"True ระบบเติมเงิน",""],
-  ["0814516891",2990,"Dtac ระบบเติมเงิน",""],
-  ["0933696899",2990,"Dtac ระบบเติมเงิน",""],
-  ["0864597495",2990,"My NT ระบบเติมเงิน",""],
-  ["0864599746",2990,"My NT ระบบเติมเงิน",""],
-  ["0864561788",2990,"My NT ระบบเติมเงิน",""],
-  ["0996324619",2990,"AIS",""],
-  ["0918966615",2990,"Dtac",""],
-  ["0626419865",2990,"Dtac",""],
-  ["0618866354",2990,"True",""],
-  ["0938899954",3990,"True",""],
-  ["0964239624",6990,"AIS",""],
-  ["0997891585",6990,"AIS",""],
-  ["0928896888",9990,"AIS",""],
-  ["0928886889",9990,"AIS",""],
-  ["0886561954",9990,"AIS",""],
-  ["0633656459",9990,"AIS",""],
-  ["0838796954",9990,"AIS",""],
-  ["0618289615",9990,"AIS",""],
-  ["0976942895",9990,"AIS",""],
-  ["0827893516",9990,"True",""],
-  ["0827893941",9990,"True",""],
-];
+
+var NP={
+11:["m","คู่อัตตา","มั่นใจสูง เป็นผู้นำได้ แต่ดื้อ ไม่ค่อยฟังใคร"],
+12:["m","คู่ผู้นำอ่อนไหว","มีจริตดึงดูดใจ ชื่อเสียงมาพร้อมความเหนื่อยใจ ต้องระวังผิดใจกับคนใกล้ตัว"],
+21:["m","คู่ผู้นำอ่อนไหว","มีเสน่ห์และมีจริต แต่อารมณ์นำ ความสัมพันธ์ต้องประคอง"],
+13:["b","คู่ใจร้อน","ปากไวใจร้อน ปะทะคารม เสี่ยงมีเรื่องมีความ"],
+31:["b","คู่ใจร้อน","ทำงานหนักแต่ขัดแย้งกับหัวหน้าและผู้ใหญ่"],
+14:["g","คู่ข้าราชการ","มีหน้ามีตา ผู้ใหญ่หนุน เหมาะงานราชการและองค์กร"],
+41:["g","คู่ข้าราชการ","พูดมีหลักการ น่าเชื่อถือ เข้ากับงานราชการ"],
+15:["g","คู่ปัญญา","ผู้ใหญ่เมตตา มีคนชี้ทาง คนเชื่อถือ"],
+51:["g","คู่ปัญญา","ใช้ความรู้สร้างชื่อเสียง ผู้ใหญ่ไว้ใจ"],
+16:["g","คู่เมตตา","มีเสน่ห์แบบผู้นำ คนรักใคร่ เมตตามหานิยม"],
+61:["g","คู่เมตตา","ความรักความสุขพาไปสู่หน้าตาทางสังคม"],
+17:["m","คู่จริงจังอดทน","อึด ทน ทำงานหนัก แต่ถูกกดดันและผลงานมักเห็นช้า"],
+71:["m","คู่จริงจังอดทน","แบกภาระได้มาก รับผิดชอบสูง แต่คนมักไม่ค่อยเห็นค่า"],
+18:["m","คู่แข่งขัน","กล้าชน ชอบแข่ง ได้ผลจากการแข่งขัน แต่เสี่ยงขัดแย้งและใช้เงินเร็ว"],
+81:["m","คู่แข่งขัน","อยากได้อยากชนะ ทรัพย์มาจากการแข่ง แต่ต้องระวังศัตรู"],
+19:["g","คู่โดดเด่น","เด่น ได้รับการยอมรับ สิ่งศักดิ์สิทธิ์คุ้มครอง"],
+91:["m","คู่โดดเด่น","เด่นจนคนหมั่นไส้ ระวังโดนแซะ โดนบั่นทอนลับหลัง"],
+22:["m","คู่อ่อนโยน","ใจดี เข้ากับคนง่าย แต่ใจอ่อน ถูกเอาเปรียบง่าย"],
+23:["m","คู่เสน่หา","มีเสน่ห์ ช่างพูดน่าฟัง คนรักใคร่ แต่หวั่นไหวง่าย ปนเรื่องส่วนตัวกับงาน"],
+32:["m","คู่เสน่หา","ขยันและมีเสน่ห์ ทำงานกับคนแล้วคนชอบ แต่ใจร้อนกับคนใกล้ตัว"],
+24:["g","คู่เสน่ห์การค้า","พูดจาดี ค้าขายเก่ง ลูกค้ารัก"],
+42:["g","คู่เสน่ห์การค้า","สื่อสารเก่ง ปิดการขายได้ คนเชื่อคำพูด"],
+25:["m","คู่ผู้ใหญ่เมตตา","อ่อนน้อม ผู้ใหญ่เอ็นดู แต่ใจไม่ค่อยนิ่ง ตัดสินใจลังเล"],
+52:["m","คู่ผู้ใหญ่เมตตา","ผู้ใหญ่ช่วยแต่ใจโลเล ตัดสินใจช้า"],
+26:["g","คู่รักเสน่ห์","ความรักดี มีคนอุปถัมภ์ เด่นงานบริการและความงาม"],
+62:["g","คู่รักเสน่ห์","ความสุขมาจากคนรอบตัว คนรักคนเอ็นดู"],
+27:["b","คู่คิดมาก","คิดมาก เครียดสะสม เก็บเรื่องไว้คนเดียว จิตใจไม่สงบ"],
+72:["b","คู่คิดมาก","ต้องแบกปัญหาคนอื่น ระวังรับหนี้แทนใคร ถูกบีบจนไม่มีทางเลือก"],
+28:["g","คู่หมุนเงิน","เงินเข้าเร็ว หมุนเงินเก่ง แต่ออกเร็วถ้าไม่คุม"],
+82:["g","คู่หมุนเงิน","หาเงินจากคนหมู่มาก ค้าขายคล่อง เงินไหลเวียนดี"],
+29:["g","คู่สัญชาตญาณ","ลางสังหรณ์ดี มีโชคจากสิ่งศักดิ์สิทธิ์"],
+92:["g","คู่สัญชาตญาณ","มีคนช่วยในจังหวะสำคัญ ดวงเมตตาดี"],
+33:["b","คู่ใจร้อนซ้อน","บู๊ ปะทะ เสี่ยงอุบัติเหตุและเรื่องวิวาท"],
+34:["m","คู่เครียด","ขยัน คิดเร็ว แต่เครียด ปากไว นอนไม่ค่อยหลับ"],
+43:["m","คู่เครียด","พูดตรงจนคนเคือง งานเยอะจนเครียด"],
+35:["m","คู่ขยันมีหลัก","ขยัน มีความรู้ เด่นงานเทคนิคและการแพทย์ แต่ดื้อ"],
+53:["m","คู่ขยันมีหลัก","มีหลักการแต่ต้องเหนื่อยเองถึงจะสำเร็จ"],
+36:["g","คู่เสน่ห์นักสู้","ขยันและมีเสน่ห์ ทำงานด้วยใจรัก ทุ่มเทแล้วได้ผล หาเงินเก่งจากงานที่ชอบ"],
+63:["g","คู่เสน่ห์นักสู้","มีเสน่ห์และกล้าลงมือ ความสุขเป็นแรงผลักให้ขยัน คนรอบตัวรักและพร้อมช่วย"],
+37:["b","คู่อุบัติเหตุ","ความพยายามสะดุด เสี่ยงเจ็บตัว อุบัติเหตุ"],
+73:["b","คู่อุบัติเหตุ","ภาระกดดันจนใจร้อน ระวังเจ็บตัวและผ่าตัด"],
+38:["m","คู่ไฟแรง","กล้าได้กล้าเสีย ใช้เงินเก่ง ระวังเสี่ยงเกินตัว"],
+83:["m","คู่ไฟแรง","หาเงินเร็ว แต่ใจร้อนตัดสินใจพลาดได้"],
+39:["g","คู่นักสู้มีโชค","ขยันแล้วมีคนช่วย เสี่ยงแล้วรอด"],
+93:["g","คู่นักสู้มีโชค","โชคหนุนความพยายาม ลงมือแล้วได้ผล"],
+44:["m","คู่ช่างพูด","สื่อสารเก่ง แต่พูดมากจนเสียงาน"],
+45:["g","คู่ฉลาดมีหลัก","พูดมีน้ำหนัก ใช้ความรู้หาเงินได้"],
+54:["g","คู่ฉลาดมีหลัก","ผู้ใหญ่ฟัง มีเหตุผล เป็นที่ปรึกษาได้"],
+46:["g","คู่สื่อสารเสน่ห์","ค้าขายออนไลน์ งานบริการ พูดแล้วคนชอบ"],
+64:["g","คู่สื่อสารเสน่ห์","มีเสน่ห์ทางคำพูด ได้ลูกค้าจากความประทับใจ"],
+47:["m","คู่ขยันเจรจา","ขยันมาก อดทน ทำงานหนักได้ เจรจาจริงจัง ตามงานยาวไม่ทิ้ง ถ้าไม่เข้ากับดวงจะพูดตรงหนักจนมีเรื่องและเครียดง่าย"],
+74:["m","คู่ขยันเจรจา","อดทนแล้วได้ผลจากการเจรจา ปิดดีลที่ใช้เวลานานได้ ถ้าไม่เข้ากับดวงจะเก็บกดแล้วพูดแรง"],
+48:["m","คู่เจรจาทางลัด","เจรจาคล่อง หาเงินทางลัดได้ แต่ระวังพูดเกินจริงและถูกหลอก"],
+84:["m","คู่เจรจาทางลัด","อยากได้เร็ว ระวังสัญญา เอกสาร และคนพูดหวาน"],
+49:["g","คู่วาทะศิลป์","พูดโน้มน้าวเก่ง คนเชื่อถือ"],
+94:["g","คู่วาทะศิลป์","มีลางดีเรื่องคำพูด เจรจาสำเร็จ"],
+55:["m","คู่ผู้ใหญ่","มีหลักการ คนนับถือ แต่หัวแข็ง ไม่ยืดหยุ่น"],
+56:["g","คู่ผู้ใหญ่ให้โชค","เงินดี ความรักดี ผู้ใหญ่อุปถัมภ์"],
+65:["g","คู่ผู้ใหญ่ให้โชค","ความสุขมีผู้ใหญ่หนุนหลัง ชีวิตราบรื่น"],
+57:["b","คู่ทุกข์ใจ","คิดมาก ทุกข์ใจ แบกภาระครอบครัว"],
+75:["b","คู่ทุกข์ใจ","ปัญหาเรื้อรัง ผู้ใหญ่ไม่ช่วย"],
+58:["m","คู่พลิกแพลง","หัวไว แก้ปัญหาเก่ง เหมาะกับงานแก้ปัญหา แก้ปัญหาแล้วได้เงิน แต่บางครั้งเลี่ยงกฎ"],
+85:["m","คู่พลิกแพลง","หาเงินจากการแก้ปัญหา เหมาะกับงานแก้ปัญหา แก้ปัญหาแล้วได้เงิน ต้องระวังเรื่องผิดระเบียบ"],
+59:["g","คู่ศักดิ์สิทธิ์","ปัญญาดี มีสิ่งศักดิ์สิทธิ์คุ้มครอง ผู้ใหญ่ช่วย"],
+95:["g","คู่ศักดิ์สิทธิ์","โชคช่วยในยามคับขัน มีคนนำทาง"],
+66:["m","คู่หลงใหล","สุขสบาย รักสวยรักงาม แต่ใช้เงินเก่ง หลงง่าย"],
+67:["b","คู่รักผิดหวัง","ความรักมีปัญหา เงินรั่ว ภาระหนัก"],
+76:["b","คู่รักผิดหวัง","แบกภาระคนรัก ความสุขไม่เต็ม"],
+68:["m","คู่ฟุ้งเฟ้อ","หาเงินได้ แต่ใช้เก่ง หลงสิ่งยั่วยุ"],
+86:["m","คู่ฟุ้งเฟ้อ","ทรัพย์มาพร้อมความอยาก เก็บเงินยาก"],
+69:["g","คู่สมหวัง","ความรักดี โชคดีจากคนรอบข้าง"],
+96:["g","คู่สมหวัง","สมหวังในสิ่งที่ตั้งใจ มีเมตตา"],
+77:["b","คู่ภาระซ้อน","เหนื่อยหนัก อุปสรรคซ้ำซาก"],
+78:["g","คู่บริหารคน","คุมทีมเก่ง มีเครือข่ายรอบตัว อดทนแล้วได้ใหญ่"],
+87:["g","คู่บริหารคน","เหมาะคนดูแลคน มีทีมมีเครือข่าย ไม่เหมาะงานขายหรืองานบริการทั่วไป"],
+79:["g","คู่โลดโผน มองการณ์ไกล","กล้า มองไกล พึ่งตัวเองได้ เหมาะงานทำคนเดียว"],
+97:["g","คู่โลดโผน มองการณ์ไกล","อิสระ กล้าคิดกล้าทำ ไปไกลด้วยตัวเอง"],
+88:["m","คู่ทะเยอทะยาน","ทรัพย์มาแรง แต่ปัญหาก็มาแรงพอกัน"],
+89:["g","คู่ทรัพย์มีโชค","ได้เงินจากต่างถิ่น งานใหญ่ มีโชคหนุน"],
+98:["g","คู่ทรัพย์มีโชค","โชคนำทรัพย์ ได้งานใหญ่จากคนไกล"],
+99:["m","คู่ศักดิ์สิทธิ์ซ้อน","สัญชาตญาณแรง แต่หลงเชื่อง่าย"]
+};
+var NGSEX={
+ f:{pairs:{
+  "02":["g","ตำราว่าเสีย แต่ผู้หญิงใช้แล้วหาเงินง่าย มีคนเปย์ มีคนซัพพอร์ตเรื่องเงิน ระวังมือที่สาม อารมณ์เอาแต่ใจ และสุขภาพ"],
+  "68":["g","ตำรามองว่ากามราคะ แต่สำหรับผู้หญิงคือเสน่ห์ดึงดูดแรงมาก ดึงทั้งโอกาส เงินทอง และความสนใจจากคนรอบข้าง"],
+  "12":["m","ตำราว่าอารมณ์แปรปรวน แต่ผู้หญิงใช้แล้วปรับตัวเก่ง เอาตัวรอดเก่ง เข้ากับสถานการณ์ได้ดี ระวังอารมณ์ขึ้นลงแรง"],
+  "25":["b","ผู้หญิงใช้มักหาเงินได้แต่ไม่ได้ใช้เอง ต้องแบกภาระ เอาเงินไปดูแลผู้ชาย คนในบ้าน หรือผู้ใหญ่จนตัวเองลำบาก"],
+  "55":["m","ผู้หญิงมีมากไปจะขาดเสน่ห์ ดูสุขุมเกินวัย ดูแก่ ขาดความยืดหยุ่น"]},
+  same:{"20":"02","06":"02","60":"02","86":"68","21":"12","52":"25"},
+  trip:[[["191","919"],"พลังผู้นำแข็งเกินไป กลายเป็นคนดุ เก่งเกินชาย ขาดความนุ่มนวล ตัดเสน่ห์ผู้หญิงทันที"],[["161","616"],"กลายเป็นผู้หญิงเยอะ จู้จี้ จุกจิก เรื่องมาก คนรอบข้างรำคาญ"],[["787","878"],"ดุดัน ใจนักเลงเกินไป ขาดเสน่ห์"],[["151","515"],"กรอบระเบียบหนาเกินไป หลักการเยอะ ยึดติด ขาดความหวานเรื่องความรัก"],[["595","559","959","955"],"คิดเยอะ ปล่อยวางเกินไป ขาดความกระตือรือร้นทางโลก เข้าถึงยาก"],[["797","997","979","799"],"ติดโลกส่วนตัวมากเกินไป เสี่ยงขึ้นคาน"],[["353","535"],"พลังแข็งและเหนื่อยเกินไป ต้องแบกภาระหนักเหมือนผู้ชาย"],[["393","939"],"อารมณ์ร้อนไว แข่งขันสูง ขาดความนุ่มนวล"],[["414","141","441","144"],"ขี้บ่น ขาดเสน่ห์อย่างแรง"],[["898","989","998","899"],"หน้าดุ ขาดเสน่ห์ คนไม่กล้าเข้าหา"]]},
+ m:{pairs:{
+  "13":["g","ตำราว่าเสีย แต่ผู้ชายใช้แล้วเพิ่มพลังความเป็นชาย ตรงไปตรงมา กล้าได้กล้าเสีย กล้าตัดสินใจ เสน่ห์แบบดิบ ๆ ระวังใจร้อนจนเสี่ยง"],
+  "33":["g","ตำราว่าเสีย แต่ผู้ชายใช้แล้วพลังงานสูงมาก เสน่ห์แบบดิบ ๆ มีแรงดึงดูดทางเพศ ระวังมือที่สาม"],
+  "58":["g","ผู้ชายใช้แล้วไหวพริบดี ทันคน ไม่โดนหลอกง่าย แก้ปัญหาเก่ง เป็นเสน่ห์อย่างหนึ่ง"],
+  "88":["g","ผู้ชายใช้แล้วมีพลังอำนาจ กล้าได้กล้าเสีย ดูยิ่งใหญ่ ดูรวย หาเงินเก่ง"],
+  "17":["g","ตำราทั่วไปว่ากลาง ๆ แต่ผู้ชายใช้แล้วเป้าหมายชัด สร้างตัวได้ ไม่กลัวอุปสรรค ฝากชีวิตได้"],
+  "68":["g","เสน่ห์แรงมาก มีแรงดึงดูดที่ทำให้คนอยากเข้าหา ระวังคุมไม่อยู่"],
+  "22":["b","ผู้ชายใช้แล้วจิตใจอ่อนไหว ขาดความเด็ดขาด ไม่กล้าชน ยอมคนง่าย ขาดเสน่ห์แบบผู้ชาย"],
+  "25":["m","เลขนอบน้อมถ่อมตน ผู้ชายใช้พอได้ แต่อย่าเบิลเป็น 252"]},
+  same:{"31":"13","38":"33","83":"33","85":"58","71":"17","86":"68","52":"25"},
+  trip:[[["242"],"หวานเลี่ยนเกินไป พูดจาขาดความหนักแน่น ดูหยุมหยิม"],[["252"],"ยอมคนจนตัวเองลำบาก ขาดความมั่นใจ โดนชี้นำง่าย ขาดความเป็นผู้นำ"],[["262"],"คำพูดหวานลอย ขาดน้ำหนักและความน่าเชื่อถือ"],[["292"],"เพ้อฝัน ไม่อยู่กับความจริง ดราม่าง่าย"],[["232"],"เอาแน่เอานอนไม่ได้ ความรักวุ่นวายไม่จบ"],[["696"],"ติดหรู เจ้าสำอาง สนใจแต่ภาพลักษณ์จนเสียงานใหญ่"],[["444"],"พลังสื่อสารล้น พูดมาก พูดวนจนน่ารำคาญ"],[["464","646","446","664"],"กะล่อน ลื่นไหลเกินไป พูดมีแต่น้ำ ขาดความหนักแน่นแบบผู้ชาย"],[["616","161"],"คิดเยอะ จู้จี้ จุกจิก เรื่องมาก"]]}
+};
+var NADULT=[28,82,89,98,88,78,87,68,86,38,83,18,81,48,84,58,85,36,63,66,13,31,33];
+var NENEMY=[[1,7],[2,8],[3,4],[5,6]];
+function recPairsChart(cls,sc,age){
+  var SX={};['f','m'].forEach(function(x){var G=NGSEX[x];Object.keys(G.pairs).forEach(function(k){SX[k]=1});Object.keys(G.same).forEach(function(k){SX[k]=1})});
+  var CTX={'47':1,'74':1,'58':1,'85':1},rec=[],bad=[];
+  for(var v=11;v<=99;v++){var a=Math.floor(v/10),b=v%10;if(!b||a===b)continue;var k=String(v),rk=''+b+a;
+    var en=NENEMY.some(function(e){return (e[0]===a&&e[1]===b)||(e[0]===b&&e[1]===a)});
+    if(NP[v][0]==='b'&&NP[+rk][0]==='b'&&!SX[k]&&!SX[rk]&&!bad.some(function(x){return x.v===rk}))bad.push({v:k,r:rk});
+    if(SX[k]||SX[rk]||CTX[k])continue;
+    if(age!=null&&age<22&&NADULT.indexOf(v)>=0)continue;
+    if(NP[v][0]!=='g'||NP[+rk][0]==='b')continue;
+    if(cls(a)==='bad'||cls(b)==='bad')continue;
+    if(en&&!(a+b===11&&(a===5||a===6)))continue;
+    var gc=(cls(a)==='good'?1:0)+(cls(b)==='good'?1:0);if(!gc)continue;
+    if(rec.some(function(x){return x.v===rk}))continue;
+    rec.push({v:k,r:rk,s:gc*10+(sc[a]||0)+(sc[b]||0)})}
+  rec.sort(function(x,y){return y.s-x.s});
+  return {rec:rec.slice(0,6),bad:bad.slice(0,6)};
+}
 var NUMSITE='palangtuaylek.html',LASTQ=null;
-function phoneEval(num,QQ){var d=num.split('').map(Number),bad=[],good=[],bd=[],s=0;
-  for(var i=0;i<d.length-1;i++){var k=pkey(d[i],d[i+1]),pr=''+d[i]+d[i+1];
-    if(BADPAIR.indexOf(k)>=0){bad.push(pr+' ('+PAIR[k]+')');s-=2}
-    else if(NICE.indexOf(k)>=0&&QQ.cls[d[i]]==='g'&&QQ.cls[d[i+1]]==='g'){good.push(pr+' ('+PAIR[k]+')');s+=2}}
-  d.slice(3).forEach(function(x,j){if(QQ.cls[x]==='b'){s-=(j>=3?1.5:0.5);if(bd.indexOf(x)<0)bd.push(x)}else if(QQ.cls[x]==='g')s+=0.5});
-  return {s:s,bad:bad,good:good,bd:bd}}
-function phoneBlock(c,QQ){return sec('s-phone','เช็กเบอร์ที่ใช้อยู่กับดวง')+'<p class="note">เช็กเบื้องต้นว่าเลขในเบอร์ส่งหรือขัดกับดวงคุณ ส่วนการอ่านทุกตำแหน่งและผลรวมดูได้ที่เว็บทำนายเบอร์</p><div class="unlock"><label for="pnum">เบอร์โทรศัพท์ 10 หลัก</label><input id="pnum" inputmode="numeric" maxlength="12" placeholder="08xxxxxxxx" style="max-width:220px;letter-spacing:1px"><button type="button" id="pbtn">เช็กเบอร์</button></div><div id="pres" aria-live="polite"></div>'}
-function stockBlock(QQ){var list=STOCK.filter(function(x){return !x[4]}).map(function(x){var e=phoneEval(x[0],QQ);return {n:x[0],p:x[1],net:x[2],e:e}}).filter(function(x){return !x.e.bad.length&&!x.e.bd.length}).sort(function(a,b){return b.e.s-a.e.s}).slice(0,5);
-  var o=sec('s-stock','เบอร์ในสต็อกที่เข้ากับดวงคุณ');
-  if(!list.length)return o+'<p>ตอนนี้ยังไม่มีเบอร์ในสต็อกที่เข้ากับดวงนี้ทุกตัว ทักไลน์ให้ช่วยหาเบอร์ที่ใช่ให้ได้ <a class="btn" href="'+PAY.line+'" target="_blank" rel="noopener">ทักไลน์</a></p>';
-  o+='<p class="note">คัดจากสต็อกที่ลงขาย เฉพาะเบอร์ที่ไม่มีคู่เสียและไม่มีเลขที่อ่อนในดวงคุณ เรียงจากเข้ากับดวงมากที่สุด</p><ul class="stock">';
-  list.forEach(function(x){var f=x.n.slice(0,3)+'-'+x.n.slice(3,6)+'-'+x.n.slice(6);o+='<li><strong class="sn">'+f+'</strong> <span class="note">'+esc(x.net)+'</span><br>'+(x.e.good.length?'คู่ดีที่ส่งดวงคุณ: '+x.e.good.slice(0,3).join(' · '):'ไม่มีคู่เสียในดวงคุณ')+'<br><strong>'+x.p.toLocaleString('th-TH')+' บาท</strong></li>'});
-  return o+'</ul><p><a class="btn" href="'+PAY.line+'" target="_blank" rel="noopener">สนใจเบอร์ ทักไลน์</a> <a class="btn ghostlink" href="'+NUMSITE+'">ดูสต็อกทั้งหมด</a></p>'}
-function bindPhone(){var b=document.getElementById('pbtn');if(!b)return;b.addEventListener('click',function(){var v=(document.getElementById('pnum').value||'').replace(/\D/g,''),o=document.getElementById('pres');
-  if(v.length!==10){o.innerHTML='<p class="err">ใส่เบอร์ให้ครบ 10 หลัก</p>';return}
-  var e=phoneEval(v,LASTQ.QQ),vd=e.bad.length>=2||e.s<=-3?['ไม่เข้ากับดวง','t-bad']:e.bad.length||e.bd.length||e.s<1?['กลาง ๆ','t-mid']:['เข้ากับดวง','t-good'];
-  var t='<div class="topic"><h3>'+v.slice(0,3)+'-'+v.slice(3,6)+'-'+v.slice(6)+' <span class="tag '+vd[1]+'">'+vd[0]+'</span></h3>';
-  if(e.good.length)t+='<p><span class="t-good">คู่ที่ส่งดวงคุณ:</span> '+e.good.join(' · ')+'</p>';
-  if(e.bad.length)t+='<p><span class="t-bad">คู่เสีย:</span> '+e.bad.join(' · ')+'</p>';
-  if(e.bd.length)t+='<p><span class="t-bad">เลขที่อ่อนในดวงคุณ:</span> '+e.bd.join(', ')+'</p>';
-  t+='<p class="note">ผลนี้ดูจากดวงอย่างเดียว ยังไม่ได้อ่านตำแหน่งและผลรวม <a href="'+NUMSITE+'">วิเคราะห์ละเอียดที่เว็บทำนายเบอร์</a></p></div>';o.innerHTML=t})}
+function numHref(ph,hash){var c=LASTQ&&LASTQ.c;if(!c)return NUMSITE+(hash||'');var b=c.birth,p2=function(v){return String(v).padStart(2,'0')};
+  var q='d='+b.getFullYear()+'-'+p2(b.getMonth()+1)+'-'+p2(b.getDate());if(!c.noTime&&c.tv)q+='&t='+c.tv;if(c.prov)q+='&p='+encodeURIComponent(c.prov);
+  var nm=document.getElementById('name').value.trim();if(nm)q+='&n='+encodeURIComponent(nm);if(ph)q+='&ph='+ph+'&go=1';return NUMSITE+'?'+q+(hash||'')}
+function phoneBlock(c,QQ){return sec('s-phone','เช็กเบอร์ที่ใช้อยู่กับดวง')+'<p class="note">ใส่เบอร์แล้วกดปุ่ม ระบบจะพาไปหน้าวิเคราะห์เบอร์พร้อมวันเวลาเกิดชุดนี้ อ่านครบทุกตำแหน่ง ผลรวม และคะแนนเต็ม 1000 ด้วยพื้นดวงเดียวกับหน้านี้</p><div class="unlock"><label for="pnum">เบอร์โทรศัพท์ 10 หลัก</label><input id="pnum" inputmode="numeric" maxlength="12" placeholder="08xxxxxxxx" style="max-width:220px;letter-spacing:1px"><button type="button" id="pbtn">วิเคราะห์เบอร์นี้</button></div><div id="pres" aria-live="polite"></div>'}
+function stockBlock(QQ){return sec('s-stock','เบอร์ในสต็อกที่เข้ากับดวงคุณ')+'<div class="handoff"><p>ระบบคัดเบอร์ในสต็อกจากพื้นดวงชุดนี้รวมกับอาชีพของคุณ ใส่เบอร์ที่ใช้อยู่ในส่วนด้านบน แล้วดูรายการเบอร์แนะนำท้ายผลวิเคราะห์ หรือเปิดสต็อกทั้งหมดดูเอง</p><p><a class="btn" href="'+NUMSITE+'#stock">ดูสต็อกเบอร์ทั้งหมด</a> <a class="btn ghostlink" href="'+PAY.line+'" target="_blank" rel="noopener">ทักไลน์ให้ช่วยเลือก</a></p></div>'}
+function bindPhone(){var b=document.getElementById('pbtn');if(!b)return;b.addEventListener('click',function(){var v=(document.getElementById('pnum').value||'').replace(/[๐-๙]/g,function(c){return '๐๑๒๓๔๕๖๗๘๙'.indexOf(c)}).replace(/\D/g,''),o=document.getElementById('pres');
+  if(v.length===11&&v.indexOf('66')===0)v='0'+v.slice(2);
+  if(!/^0\d{9}$/.test(v)){o.innerHTML='<p class="err">ใส่เบอร์ 10 หลัก ขึ้นต้นด้วย 0</p>';return}
+  location.href=numHref(v)})}
 function overrideUI(){
   var c=chart,o='<details id="ovr"><summary>ปรับตำแหน่งดาวให้ตรงกับโปรแกรมที่ใช้</summary><div class="ovr">';
   var opt=function(cur,allowNone){var s=allowNone?'<option value="">ไม่ระบุ</option>':'';SIGN.forEach(function(n,i){s+='<option value="'+i+'"'+(cur===i?' selected':'')+'>'+n+'</option>'});return s};
@@ -2297,11 +2372,11 @@ function buildChart(Y,M,D,hh,mm,pi,meth,noTime){
   if(before){var pd=new Date(Date.UTC(Y,M-1,D-1));elapsed=bm+1440-sunEvents(pd.getUTCFullYear(),pd.getUTCMonth()+1,pd.getUTCDate(),pv[1],pv[2]).rise}
   var lag=meth==='st'?ascendant(J,pv[1],pv[2],P.ay):norm(antoLagna(SY[1],elapsed));
   var wd=new Date(Date.UTC(Y,M-1,D)).getUTCDay();if(before)wd=(wd+6)%7;
-  var day=wd+1;if(!noTime&&day===4&&(before||bm>=ev.set))day=8;
+  var day=wd+1;if(!noTime&&day===4&&(before||hh>=18))day=8;
   var tv=String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0');
   var rt=function(t){t=Math.round(t);return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')};
   var c={lagna:Math.floor(lag/30),lagDeg:lag%30,day:day,sign:{},deg:{},nav:{},birth:new Date(Y,M-1,D),noTime:!!noTime,
-    label:D+'/'+M+'/'+(Y+543)+(noTime?' (ไม่ทราบเวลา)':' เวลา '+tv+' น.')+' จ.'+pv[0]+(noTime?'':' (อาทิตย์ขึ้น '+rt(ev.rise)+' น.)'),meth:meth,key:Y+'-'+M+'-'+D+'-'+(noTime?'nt':tv)+'-'+pv[0]};
+    label:D+'/'+M+'/'+(Y+543)+(noTime?' (ไม่ทราบเวลา)':' เวลา '+tv+' น.')+' จ.'+pv[0]+(noTime?'':' (อาทิตย์ขึ้น '+rt(ev.rise)+' น.)'),meth:meth,prov:pv[0],tv:tv,key:Y+'-'+M+'-'+D+'-'+(noTime?'nt':tv)+'-'+pv[0]};
   [1,2,3,4,5,6,7,8,9,0].forEach(function(p){c.sign[p]=Math.floor(SY[p]/30);c.deg[p]=SY[p]%30;c.nav[p]=navamsa(SY[p])});
   return c;
 }
@@ -2316,29 +2391,29 @@ function cwrap(ctx,text,maxW){var out=[],line='';
     for(var i=0;i<tk.length;i++){var ch=tk[i];if(ctx.measureText(line+ch).width>maxW&&!CMB.test(ch)&&line){out.push(line);line=''}line+=ch}});
   if(line.trim())out.push(line.trim());return out}
 function drawCard(ctx,W,s){
-  var P={bg:'#F1ECE1',ink:'#2B2420',muted:'#6B5F51',gold:'#8C6210',seal:'#A3301E',good:'#2F6B3A',line:'#C8BCA8'};
+  var P={bg:'#16120f',ink:'#f3ece4',muted:'#a8998a',gold:'#e0701f',seal:'#f2877b',good:'#6fd39f',line:'#2f2620'};
   var H=ctx.canvas.height,x0=96,mw=W-2*x0,y=150;
   ctx.fillStyle=P.bg;ctx.fillRect(0,0,W,H);
   ctx.strokeStyle=P.gold;ctx.lineWidth=6;ctx.strokeRect(36,36,W-72,H-72);ctx.lineWidth=2;ctx.strokeRect(52,52,W-104,H-104);
   ctx.textAlign='center';ctx.textBaseline='alphabetic';
-  ctx.fillStyle=P.muted;ctx.font='34px Trirong, serif';ctx.fillText('ความลับพลังตัวเลข',W/2,y);y+=30;
-  ctx.fillStyle=P.gold;ctx.font='22px Trirong, serif';ctx.fillText('— '+s.kicker+' —',W/2,y+12);y+=96;
-  ctx.font='66px Chonburi, serif';cwrap(ctx,s.title,mw).forEach(function(l){ctx.fillText(l,W/2,y);y+=84});
-  ctx.fillStyle=P.ink;ctx.font='32px Trirong, serif';if(s.sub)cwrap(ctx,s.sub,mw).forEach(function(l){ctx.fillText(l,W/2,y);y+=46});
+  ctx.fillStyle=P.muted;ctx.font='34px IBM Plex Sans Thai, serif';ctx.fillText('ความลับพลังตัวเลข',W/2,y);y+=30;
+  ctx.fillStyle=P.gold;ctx.font='22px IBM Plex Sans Thai, serif';ctx.fillText('— '+s.kicker+' —',W/2,y+12);y+=96;
+  ctx.font='66px Noto Serif Thai, serif';cwrap(ctx,s.title,mw).forEach(function(l){ctx.fillText(l,W/2,y);y+=84});
+  ctx.fillStyle=P.ink;ctx.font='32px IBM Plex Sans Thai, serif';if(s.sub)cwrap(ctx,s.sub,mw).forEach(function(l){ctx.fillText(l,W/2,y);y+=46});
   if(s.score!=null){y+=40;var r=96,cy=y+r;ctx.beginPath();ctx.arc(W/2,cy,r,0,Math.PI*2);ctx.strokeStyle=P.line;ctx.lineWidth=14;ctx.stroke();
     ctx.beginPath();ctx.arc(W/2,cy,r,-Math.PI/2,-Math.PI/2+Math.PI*2*s.score/100);ctx.strokeStyle=s.score>=60?P.good:s.score>=45?P.gold:P.seal;ctx.stroke();
-    ctx.fillStyle=P.ink;ctx.font='64px Chonburi, serif';ctx.fillText(s.score+'%',W/2,cy+22);y=cy+r+60;
-    if(s.verdict){ctx.fillStyle=ctx.strokeStyle;ctx.font='40px Chonburi, serif';ctx.fillText(s.verdict,W/2,y);y+=24}}
+    ctx.fillStyle=P.ink;ctx.font='64px Noto Serif Thai, serif';ctx.fillText(s.score+'%',W/2,cy+22);y=cy+r+60;
+    if(s.verdict){ctx.fillStyle=ctx.strokeStyle;ctx.font='40px Noto Serif Thai, serif';ctx.fillText(s.verdict,W/2,y);y+=24}}
   y+=30;ctx.strokeStyle=P.line;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(W-x0,y);ctx.stroke();y+=62;
   ctx.textAlign='left';
-  (s.rows||[]).forEach(function(rw){ctx.fillStyle=P[rw.color]||P.ink;ctx.font='36px Chonburi, serif';ctx.fillText(rw.label,x0,y);y+=52;
-    ctx.fillStyle=P.ink;ctx.font='32px Trirong, serif';cwrap(ctx,rw.text,mw).forEach(function(l){ctx.fillText(l,x0,y);y+=48});y+=26});
-  if(s.digits){[['good','เลขที่ส่งดวง'],['bad','เลขที่ควรเลี่ยง']].forEach(function(g){var ds=s.digits[g[0]];if(!ds||!ds.length)return;
-    ctx.fillStyle=P[g[0]==='good'?'good':'seal'];ctx.font='36px Chonburi, serif';ctx.fillText(g[1],x0,y);y+=34;
+  (s.rows||[]).forEach(function(rw){ctx.fillStyle=P[rw.color]||P.ink;ctx.font='36px Noto Serif Thai, serif';ctx.fillText(rw.label,x0,y);y+=52;
+    ctx.fillStyle=P.ink;ctx.font='32px IBM Plex Sans Thai, serif';cwrap(ctx,rw.text,mw).forEach(function(l){ctx.fillText(l,x0,y);y+=48});y+=26});
+  if(s.digits){[['good','เลขพลังดี'],['bad','เลขพลังอ่อน']].forEach(function(g){var ds=s.digits[g[0]];if(!ds||!ds.length)return;
+    ctx.fillStyle=P[g[0]==='good'?'good':'seal'];ctx.font='36px Noto Serif Thai, serif';ctx.fillText(g[1],x0,y);y+=34;
     ds.forEach(function(d,i){var cx=x0+44+i*104,cy=y+44;ctx.beginPath();ctx.arc(cx,cy,42,0,Math.PI*2);ctx.lineWidth=4;ctx.strokeStyle=ctx.fillStyle;ctx.stroke();
-      ctx.textAlign='center';ctx.font='44px Chonburi, serif';ctx.fillText(String(d),cx,cy+16);ctx.textAlign='left'});y+=150})}
-  y+=20;ctx.textAlign='center';ctx.fillStyle=P.gold;ctx.font='30px Chonburi, serif';ctx.fillText('ผูกดวง · สมพงษ์คู่ · เช็กเบอร์มงคล',W/2,y);y+=48;
-  ctx.fillStyle=P.muted;ctx.font='28px Trirong, serif';ctx.fillText('ทักไลน์ '+PAY.line.replace('https://',''),W/2,y);y+=110;
+      ctx.textAlign='center';ctx.font='44px Noto Serif Thai, serif';ctx.fillText(String(d),cx,cy+16);ctx.textAlign='left'});y+=150})}
+  y+=20;ctx.textAlign='center';ctx.fillStyle=P.gold;ctx.font='30px Noto Serif Thai, serif';ctx.fillText('ผูกดวง · สมพงษ์คู่ · เช็กเบอร์มงคล',W/2,y);y+=48;
+  ctx.fillStyle=P.muted;ctx.font='28px IBM Plex Sans Thai, serif';ctx.fillText('ทักไลน์ '+PAY.line.replace('https://',''),W/2,y);y+=110;
   return y}
 function makeShare(spec,out,fname){
   out.innerHTML='<p class="note">กำลังสร้างรูป…</p>';
@@ -2350,7 +2425,7 @@ function makeShare(spec,out,fname){
     cv.toBlob(function(bl){if(!bl)return;if(!window.claude||!window.claude.use){sb.hidden=false;sb.addEventListener('click',function(){var a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=fname+'.png';document.body.appendChild(a);a.click();a.remove();msg.textContent='บันทึกรูปแล้ว'});return}
       window.claude.use('downloads').then(function(dl){if(!dl)return;sb.hidden=false;
         sb.addEventListener('click',function(){msg.textContent='';dl.save({filename:fname+'.png',data:bl}).then(function(){msg.textContent='บันทึกรูปแล้ว'},function(e){var c=e&&e.code;if(c==='declined')return;if(c==='rate_limited'){msg.textContent='รอสักครู่แล้วกดใหม่';return}sb.hidden=true;msg.textContent='บันทึกจากปุ่มไม่ได้ในหน้านี้ ให้กดค้างที่รูปแทน'})})})},'image/png')};
-  var fl=document.fonts&&document.fonts.load?Promise.all([document.fonts.load('40px Chonburi'),document.fonts.load('32px Trirong')]):Promise.resolve();
+  var fl=document.fonts&&document.fonts.load?Promise.all([document.fonts.load('700 40px "Noto Serif Thai"'),document.fonts.load('32px "IBM Plex Sans Thai"')]):Promise.resolve();
   fl.then(go,go)}
 function bindShare(){var b=document.getElementById('shr');if(!b||!LASTQ||!LASTQ.share)return;
   b.addEventListener('click',function(){makeShare(LASTQ.share,document.getElementById('shrout'),'ดวง-'+(LASTQ.share.fname||'ของฉัน'))})}
@@ -2422,8 +2497,8 @@ function pairRender(){
     if(best.length)o+='<p><strong class="t-good">จุดแข็งของคู่นี้:</strong> '+best.map(function(x){return x.t}).join(' · ')+'</p>';
     if(worst.length)o+='<p><strong class="t-bad">เรื่องที่จะทำให้มีปัญหา:</strong> '+worst.map(function(x){return x.t}).join(' · ')+'</p>';
     o+='<p>'+(s.type==='biz'?(E.it.some(function(x){return x.k==='kali'&&x.s<=-2})?'ร่วมลงทุนได้แต่ต้องแบ่งหน้าที่และเงินให้ชัดเป็นลายลักษณ์อักษร คนที่กาลีไปตกภพสำคัญของอีกฝ่ายไม่ควรถือเงินหรือคุมบัญชี':'ศรีกาลีไม่ทำลายกัน ร่วมลงทุนกันได้ ให้คนที่ศรีส่งถึงอีกฝ่ายดีกว่าเป็นคนนำเรื่องที่ศรีส่งถึง'):(E.pct>=60?'คู่นี้มีของดีมากกว่าของเสีย จุดที่ต้องระวังแก้ได้ด้วยการคุยกันให้ชัดและแก้เคล็ดตามด้านบน':E.pct>=45?'อยู่ด้วยกันได้ แต่ต้องยอมปรับเข้าหากันในเรื่องที่ขัด ถ้าปล่อยไว้จะสะสมจนทะเลาะใหญ่':'คู่นี้ขัดกันหลายจุด ถ้าจะไปต่อต้องรู้ทันจุดอ่อนของกันและกัน แก้เคล็ดตามที่บอก และอย่าใช้อารมณ์ตัดสินเรื่องใหญ่'))+'</p></div>';
-    o+='<h3 style="margin-top:22px">เลขสำหรับเบอร์ของทั้งคู่</h3><p>เลขที่ส่งดวงทั้งสองคน:</p><div class="digits">'+(E.both.length?E.both.map(function(d){return '<span class="d good">'+d+'</span>'}).join(''):'<span class="note">ไม่มีเลขที่ดีกับทั้งคู่พร้อมกัน ใช้เลขดีของแต่ละคนในเบอร์ของตัวเอง</span>')+'</div>';
-    o+='<p>เลขที่ควรเลี่ยง (อ่อนในดวงคนใดคนหนึ่ง):</p><div class="digits">'+E.avoid.map(function(d){return '<span class="d bad">'+d+'</span>'}).join('')+'</div>';
+    o+='<h3 style="margin-top:22px">เลขสำหรับเบอร์ของทั้งคู่</h3><p>เลขพลังดีของทั้งสองคน:</p><div class="digits">'+(E.both.length?E.both.map(function(d){return '<span class="d good">'+d+'</span>'}).join(''):'<span class="note">ไม่มีเลขที่ดีกับทั้งคู่พร้อมกัน ใช้เลขดีของแต่ละคนในเบอร์ของตัวเอง</span>')+'</div>';
+    o+='<p>เลขพลังอ่อน (อ่อนในดวงคนใดคนหนึ่ง):</p><div class="digits">'+E.avoid.map(function(d){return '<span class="d bad">'+d+'</span>'}).join('')+'</div>';
     var st=STOCK.filter(function(x){return !x[4]}).map(function(x){var ea=phoneEval(x[0],E.QA),eb=phoneEval(x[0],E.QB);return {n:x[0],p:x[1],net:x[2],ok:!ea.bad.length&&!ea.bd.length&&!eb.bd.length,s:ea.s+eb.s}}).filter(function(x){return x.ok}).sort(function(x,y){return y.s-x.s}).slice(0,3);
     if(st.length){o+='<p>เบอร์ในสต็อกที่เข้ากับดวงทั้งคู่ (เหมาะเป็นเบอร์ร้านหรือเบอร์ที่ใช้ร่วมกัน):</p><ul class="stock">'+st.map(function(x){return '<li><strong class="sn">'+x.n.slice(0,3)+'-'+x.n.slice(3,6)+'-'+x.n.slice(6)+'</strong> <span class="note">'+esc(x.net)+'</span> · <strong>'+x.p.toLocaleString('th-TH')+' บาท</strong></li>'}).join('')+'</ul>'}
     o+='<p><a class="btn" href="'+PAY.line+'" target="_blank" rel="noopener">ให้ช่วยหาเบอร์คู่ ทักไลน์</a></p>';
@@ -2474,8 +2549,9 @@ document.getElementById('f').addEventListener('submit',function(e){
 </script>
 <script>
 (function(){try{var q=new URLSearchParams(location.search);var d=q.get('d'),t=q.get('t'),p=q.get('p'),n=q.get('n');if(!d)return;
-var g=function(i){return document.getElementById(i)};g('date').value=d;if(t)g('time').value=t;else{g('time').value='';}if(n)g('name').value=n;
+var g=function(i){return document.getElementById(i)};g('date').value=d;if(t)g('time').value=t;else g('time').value='';if(n)g('name').value=n;
 if(p){var sl=g('prov');for(var i=0;i<sl.options.length;i++){if(sl.options[i].text.trim()===p.trim()){sl.selectedIndex=i;break}}}
-if(!t){g('time').focus();return}setTimeout(function(){var f=g('f');if(f.requestSubmit)f.requestSubmit();else f.dispatchEvent(new Event('submit',{cancelable:true}))},50)}catch(e){}})();
+if(!t){g('time').focus();return}
+setTimeout(function(){var f=g('f');if(f.requestSubmit)f.requestSubmit();else f.dispatchEvent(new Event('submit',{cancelable:true}))},50)}catch(e){}})();
 </script>
 </body>
