@@ -5304,7 +5304,7 @@ function updTarget(name,txt,nextApp){
   const g=name.match(/^(google[0-9a-f]+)/i); if(g&&/google-site-verification/.test(txt)) return [g[1]+".html","ไฟล์ยืนยัน Google"];
   if(/const STOCK=/.test(txt)) return [nextApp,"เว็บวิเคราะห์ (ทับไฟล์เดิม ลิงก์เดิม)"];
   if(/class="btn go"/.test(txt)) return ["index.html","หน้าแรก"];
-  {const m=txt.match(/<!--plk-target:([\w.-]+\.(?:html|xml))-->/); if(m) return [m[1],/^bt-/.test(m[1])?"บทความ "+m[1]:m[1]==="duang.html"?"เว็บดูดวง duang.html":/\.xml$/.test(m[1])?"แผนผังเว็บไซต์":"ลิงก์ "+m[1]+" พาไปเว็บวิเคราะห์"];}
+  {const m=txt.match(/<!--plk-target:([\w.-]+\.(?:html|xml))-->/); if(m) return [m[1],/^bt-/.test(m[1])?"บทความ "+m[1]:m[1]==="duang.html"?"เว็บดูดวง duang.html":m[1]==="ebook.html"?"หน้าอีบุ๊ก ebook.html":/^fan/.test(m[1])?"ทำนายฝัน "+m[1]:/\.xml$/.test(m[1])?"แผนผังเว็บไซต์":"ลิงก์ "+m[1]+" พาไปเว็บวิเคราะห์"];}
   if(/location\.replace/.test(txt)&&txt.length<20000) return ["index-1.html","ลิงก์ index-1.html พาไปเว็บวิเคราะห์"];
   if(/^og\.png$|^post-1080\.png$/i.test(name.replace(/[\s-]*\(\d+\)|-\d+(?=\.png$)/,""))) return [name.replace(/[\s-]*\(\d+\)|-\d+(?=\.png$)/,""),"รูปภาพ"];
   return null;
