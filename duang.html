@@ -1923,6 +1923,25 @@ function isOwnerH(){try{return localStorage.getItem('plk_owner')==='1'}catch(e){
 function setOwnerH(on){try{on?localStorage.setItem('plk_owner','1'):localStorage.removeItem('plk_owner')}catch(e){}}
 function unlockNum(key){var s=String(key)+'|'+PAY.salt+'|num',h=2166136261>>>0;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}
   for(var k=0;k<3;k++){h^=h>>>13;h=Math.imul(h,0x5bd1e995)>>>0}return String(h%1000000).padStart(6,'0')}
+function inApp(){var u=navigator.userAgent||'';return /FBAN|FBAV|FB_IAB|FBIOS|Instagram|Line\/|KAKAOTALK|MicroMessenger|TikTok|musical_ly|Bytedance/i.test(u)||(/Android/i.test(u)&&/; wv\)/.test(u))}
+function pdfLink(key){var g=function(i){return document.getElementById(i)},sl=g('prov'),q=new URLSearchParams();
+ q.set('d',g('date').value);if(g('time').value)q.set('t',g('time').value);if(sl&&sl.selectedIndex>=0)q.set('p',sl.options[sl.selectedIndex].text.trim());if(g('name').value)q.set('n',g('name').value);
+ if(g('meth'))q.set('m',g('meth').value);if(key&&isUnlocked(key))q.set('u',unlockNum(key));q.set('pdf','1');
+ return location.origin+location.pathname+'?'+q.toString()}
+function pdfSave(key){
+ if(!inApp()&&typeof window.print==='function'){try{window.print();return}catch(e){}}
+ var box=document.getElementById('pdfhelp');if(box){box.hidden=!box.hidden;return}
+ var url=pdfLink(key),and=/Android/i.test(navigator.userAgent||''),pb=document.getElementById('pdfbtn');
+ box=document.createElement('div');box.id='pdfhelp';box.className='card';box.style.cssText='margin:10px 0;padding:14px';
+ box.innerHTML='<p style="margin:0 0 8px"><b>แอปที่เปิดอยู่ตอนนี้ (เช่น Facebook หรือ LINE) บันทึก PDF ไม่ได้</b> ให้เปิดหน้านี้ใน '+(and?'Chrome':'Safari')+' ก่อน ผลวิเคราะห์ที่ปลดล็อกแล้วจะเปิดให้อัตโนมัติ ไม่ต้องจ่ายใหม่</p>'+
+  (and?'<p style="margin:0 0 8px"><a class="btn" id="pdfchrome" href="intent://'+url.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+encodeURIComponent(url)+';end">เปิดใน Chrome</a></p>':'')+
+  '<p style="margin:0 0 8px"><button type="button" class="ghost" id="pdfcopy">คัดลอกลิงก์ ไปวางในเบราว์เซอร์</button> <span class="note" id="pdfok" hidden>คัดลอกแล้ว</span></p>'+
+  '<p class="note" style="margin:0">หรือกดปุ่มเมนูมุมขวาบนของแอป แล้วเลือก เปิดในเบราว์เซอร์ จากนั้นกดบันทึก PDF อีกครั้ง</p>';
+ pb.parentNode.insertAdjacentElement('afterend',box);
+ document.getElementById('pdfcopy').addEventListener('click',function(){var ok=function(){document.getElementById('pdfok').hidden=false};
+  try{navigator.clipboard.writeText(url).then(ok,function(){fb()})}catch(e){fb()}
+  function fb(){var t=document.createElement('textarea');t.value=url;document.body.appendChild(t);t.select();try{document.execCommand('copy');ok()}catch(e){prompt('คัดลอกลิงก์นี้',url)}t.remove()}});
+}
 function isUnlocked(key){if(isOwnerH())return true;try{var v=localStorage.getItem('horo-unlock:'+key);return v===unlockNum(key)}catch(e){return false}}
 function saveUnlock(key){try{localStorage.setItem('horo-unlock:'+key,unlockNum(key))}catch(e){}}
 function hSlipB64(file){return new Promise(function(ok,no){var fr=new FileReader();fr.onerror=no;fr.onload=function(){var im=new Image();im.onerror=function(){ok(fr.result)};im.onload=function(){
@@ -2109,14 +2128,14 @@ function render(){
   r+='</ul><p class="note">การแก้เคล็ดตามตำราช่วยผ่อนหนักเป็นเบา ไม่ได้ทำให้เรื่องหายไป</p>';
   r+='<p class="note">ตำแหน่งดาวคำนวณตามปฏิทินสุริยยาตร์ ลัคนาแบบอันโตนาทีสามัญ สมผุสอาทิตย์อุทัย ผลควรตรงกับ myhora</p>';
 
-  var M4=r.length,UL=isUnlocked(c.key);
+  if(window.__U&&window.__U===unlockNum(c.key)){saveUnlock(c.key);window.__U=null}var M4=r.length,UL=isUnlocked(c.key);
   var shortT=sec('s-topics','ดวงแต่ละด้าน (ย่อ)')+TD.map(function(t){return t.short}).join('')+(UL?'':'<p class="note">ฉบับละเอียดอ่านแต่ละด้านแบบ 2 จังหวะครบ พร้อมดาวที่เกี่ยวข้อง</p>');
   var free=r.slice(0,M0)+r.slice(M1,M2)+shortT+phoneBlock(c,QQ)+stockBlock(QQ);
   var paidX=r.slice(M0,M1)+r.slice(M2,M3).replace('id="s-topics">ดวงแต่ละด้าน','id="p-topics">ดวงแต่ละด้าน (เต็ม)')+r.slice(M3,M4);
   r=free+(UL?renderPaid(c,A,QQ,paidX):paywall(c.key));
   LASTQ={QQ:QQ,c:c,share:SHARE};
   var box=document.getElementById('result');box.innerHTML=r;box.style.display='block';box.classList.remove('show');void box.offsetWidth;box.classList.add('show');
-  bindOverride();bindPaywall(c.key);bindPhone();bindShare();var pb=document.getElementById('pdfbtn');if(pb)pb.addEventListener('click',function(){window.print()});
+  bindOverride();bindPaywall(c.key);bindPhone();bindShare();var pb=document.getElementById('pdfbtn');if(pb){pb.addEventListener('click',function(){pdfSave(c.key)});if(window.__PDF){window.__PDF=0;setTimeout(function(){pb.scrollIntoView({block:'center'});pb.classList.add('primary')},400)}}
 }
 
 function tsign(TRp,k){return Math.floor(TRp.points[k].longitudeArcMinutes/1800)}
@@ -2777,7 +2796,7 @@ document.getElementById('f').addEventListener('submit',function(e){
 </script>
 <script>
 (function(){try{var q=new URLSearchParams(location.search);var d=q.get('d'),t=q.get('t'),p=q.get('p'),n=q.get('n');if(!d)return;
-var g=function(i){return document.getElementById(i)};g('date').value=d;if(t)g('time').value=t;else g('time').value='';if(n)g('name').value=n;
+var g=function(i){return document.getElementById(i)};g('date').value=d;if(t)g('time').value=t;else g('time').value='';if(n)g('name').value=n;var m=q.get('m');if(m&&g('meth'))g('meth').value=m;var u=q.get('u');if(u)window.__U=u;if(q.get('pdf'))window.__PDF=1;
 if(p){var sl=g('prov');for(var i=0;i<sl.options.length;i++){if(sl.options[i].text.trim()===p.trim()){sl.selectedIndex=i;break}}}
 if(!t){g('time').focus();return}
 setTimeout(function(){var f=g('f');if(f.requestSubmit)f.requestSubmit();else f.dispatchEvent(new Event('submit',{cancelable:true}))},50)}catch(e){}})();
