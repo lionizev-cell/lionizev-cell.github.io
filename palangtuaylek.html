@@ -304,7 +304,7 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
 @media print{:root{--bg:#fff!important;--surface:#fff!important;--ink:#111!important;--muted:#555!important;--line:#ccc!important;--accent:#b4530f!important;--accent-soft:#fbeadb!important;--good:#1d7a4a!important;--good-bg:#e3f4ea!important;--mid:#8a6400!important;--mid-bg:#fbf0d2!important;--bad:#b3261e!important;--bad-bg:#fbe4e1!important;color-scheme:light}
  html,body{background:#fff!important;color:#111!important}
  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
- body.pr header,body.pr footer,body.pr #appview>section.card:first-child,body.pr .noprint,body.pr .pdfrow,body.pr .sghint,body.pr .cmpbox,body.pr .toc,body.pr button,body.pr .btns,body.pr .stickybar,body.pr .smp,body.pr .unlocked,body.pr .pdfhelp{display:none!important}
+ body.pr header,body.pr footer,body.pr #appview>section.card:first-child,body.pr .noprint,body.pr .pdfrow,body.pr .sghint,body.pr .cmpbox,body.pr .toc,body.pr button,body.pr .btns,body.pr .stickybar,body.pr .paidline,body.pr .smp,body.pr .unlocked,body.pr .pdfhelp{display:none!important}
  body.pr .pronly{display:block!important;margin:0 0 10px;font-size:14px}
  body.pr .card{box-shadow:none!important;border:1px solid #ccc!important;break-inside:auto}
  body.pr h2,body.pr h3{break-after:avoid}
@@ -323,7 +323,7 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
       <a href="#why" id="toWhy">ทำไมเบอร์ถึงส่งผลต่อชีวิต</a><a href="#time" id="toTime">ใช้เบอร์ใหม่นานแค่ไหนถึงส่งผล</a><a href="#learn" id="toLearn">หลักการอ่านเบอร์</a><a href="#digits" id="toDigits">ความหมายเลข 0 ถึง 9</a><a href="#pairs" id="toLib">ความหมายคู่เลข 00 ถึง 99</a><a href="#triples" id="toTri">ความหมายเลข 3 ตัว</a><a href="#sum" id="toSum">ความหมายผลรวม</a><a href="#pyramid" id="toPyr">วิธีอ่านพีระมิด</a><a href="#biz" id="toBiz">คู่เลขกับอาชีพ</a><a href="#policy" id="toPolicy">วิธีซื้อและนโยบายร้าน</a>
     </div></details>
     <details class="navmore"><summary>บทความ</summary><div class="navlist">
-      <a href="#place" id="toPlace">เลือกเบอร์ กับ วางเบอร์ ต่างกันอย่างไร</a><a href="#easy" id="toEasy">เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด</a><a href="#nine" id="toNine">เลข 9 เลขสำคัญของยุคดิจิทัล</a><a href="#chart" id="toChart">ทำไมต้องวางเบอร์จากพื้นดวง</a><a href="#trap" id="toTrap">กับดักเบอร์มงคล 100%</a><a href="#weak" id="toWeak">ไม่มีเลขเสีย แต่ทำไมชีวิตไม่โต</a><a href="#context" id="toCtx">เบอร์เสียคือเบอร์ที่ผิดบริบท</a><a href="#start" id="toStart">ชีวิตติดหล่ม เริ่มแก้จากเบอร์</a>
+      <a href="#place" id="toPlace">เลือกเบอร์ กับ วางเบอร์ ต่างกันอย่างไร</a><a href="#namepick" id="toNamepick">ตั้งชื่อมงคลตามวันเกิด ต้องดูอะไรบ้าง</a><a href="#kali" id="toKali">อักษรกาลกิณี ของคนเกิดแต่ละวัน</a><a href="#easy" id="toEasy">เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด</a><a href="#nine" id="toNine">เลข 9 เลขสำคัญของยุคดิจิทัล</a><a href="#chart" id="toChart">ทำไมต้องวางเบอร์จากพื้นดวง</a><a href="#trap" id="toTrap">กับดักเบอร์มงคล 100%</a><a href="#weak" id="toWeak">ไม่มีเลขเสีย แต่ทำไมชีวิตไม่โต</a><a href="#context" id="toCtx">เบอร์เสียคือเบอร์ที่ผิดบริบท</a><a href="#start" id="toStart">ชีวิตติดหล่ม เริ่มแก้จากเบอร์</a>
     </div></details>
     <a class="horo" href="duang.html" id="toHoro">ดูดวง</a>
     <a href="#review" id="toReview">รีวิว</a>
@@ -372,6 +372,8 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
 
 <section id="reviewpage" hidden aria-labelledby="hrev" style="display:grid;gap:16px"></section>
 <section id="placepage" hidden aria-labelledby="hplace" style="display:grid;gap:16px"></section>
+<section id="kalipage" hidden aria-labelledby="hkali" style="display:grid;gap:16px"></section>
+<section id="namepickpage" hidden aria-labelledby="hnamepick" style="display:grid;gap:16px"></section>
 <section id="startpage" hidden aria-labelledby="hstart" style="display:grid;gap:16px"></section>
 <section id="ctxpage" hidden aria-labelledby="hctx" style="display:grid;gap:16px"></section>
 <section id="weakpage" hidden aria-labelledby="hweak" style="display:grid;gap:16px"></section>
@@ -3921,8 +3923,10 @@ function slipToBase64(file){return new Promise((ok,no)=>{const fr=new FileReader
   const M=1400,sc=Math.min(1,M/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);
   const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);ok(c.toDataURL("image/jpeg",0.9));};im.src=fr.result;};fr.readAsDataURL(file);});}
 // ตรวจสลิปกับ Thunder โดยตรงจากหน้าเว็บ
-async function thunderCheck(dataUrl,phone,amount){const AMT=amount||PAY.amount;
-  const call=async b=>{const r=await fetch("https://api.thunder.in.th/v2/verify/bank",{method:"POST",headers:{"Authorization":"Bearer "+CONFIG.thunderKey,"Content-Type":"application/json"},body:JSON.stringify({base64:b,checkDuplicate:true,matchAccount:true,matchAmount:AMT})});
+// ส่งสลิปผ่านระบบหลังบ้าน (Google Apps Script) คีย์ Thunder อยู่ที่หลังบ้าน ไม่อยู่ในหน้าเว็บ
+async function slipProxy(b,amount){try{const r=await fetch(CONFIG.slipApi,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({base64:b,matchAmount:amount,site:"num"})});return await r.json();}catch(e){return {success:false,error:{message:"proxy "+e.message}};}}
+async function thunderCheck(dataUrl,phone,amount){const AMT=amount||PAY.amount,AMTX=AMT;
+  const call=async b=>{if(CONFIG.slipApi)return slipProxy(b,AMTX);const r=await fetch("https://api.thunder.in.th/v2/verify/bank",{method:"POST",headers:{"Authorization":"Bearer "+CONFIG.thunderKey,"Content-Type":"application/json"},body:JSON.stringify({base64:b,checkDuplicate:true,matchAccount:true,matchAmount:AMT})});
     try{return await r.json();}catch(e){return {success:false,error:{message:"HTTP "+r.status}};}};
   const raw=dataUrl.replace(/^data:image\/\w+;base64,/,"");
   let res=await call(raw);
@@ -4044,6 +4048,7 @@ function render(inp,r,isSample){
   <div id="deepgen"></div>
   <div id="upname"></div>
   <div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="phone">บันทึกผลวิเคราะห์เป็น PDF</button><p class="note" style="margin:6px 0 0">กดแล้วเลือก บันทึกเป็น PDF เก็บไว้อ่านทีหลังได้</p></div>
+  ${paidLineHtml("phone")}
   </div>`;
   $("copyacc").onclick=()=>{const t=PAY.acc.replace(/-/g,"");try{navigator.clipboard.writeText(t).then(()=>{$("copyacc").textContent="คัดลอกแล้ว";},()=>fallback(t,()=>{$("copyacc").textContent="คัดลอกแล้ว";}));}catch(e){fallback(t,()=>{});}};
   const openDeep=scroll=>{
@@ -4066,8 +4071,7 @@ function render(inp,r,isSample){
       try{
         const b64=await slipToBase64(f);
         let j;
-        if(CONFIG.slipApi){const res=await fetch(CONFIG.slipApi,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({phone:inp.phone,base64:b64,amount:PKG})});j=await res.json();}
-        else j=await thunderCheck(b64,inp.phone,PKG);
+        j=await thunderCheck(b64,inp.phone,PKG);
         if(j.ok&&j.code===unlockCode(inp.phone)){st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ "+j.code+" (เก็บไว้ใช้เปิดดูอีกครั้งได้)";
           $("ucode").value=j.code; markUnlocked(inp.phone); cntHit("slip-ok"); if(PKG===599){markUnlocked(nameKey(inp));cntHit("pay-bundle");st.textContent+=" ปลดล็อกวิเคราะห์ชื่อแบบละเอียดของวันเกิดนี้ให้แล้วด้วย กดแท็บวิเคราะห์ชื่อได้เลย";}else cntHit("pay-phone"); openDeep(true);}
         else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
@@ -4124,7 +4128,7 @@ function kalakiniIn(t,day){const g=KALAKINI[day];if(!g)return[];const set=TAKSA_
 // เกรดผลรวมชื่อตามตำรามหามงคล (mahamongkol.com/content.php?id=47)
 const NM_GOOD={2:"เมตตา อ่อนโยน มีคนเอ็นดู",4:"ฉลาด พูดเก่ง ค้าขายดี",5:"ปัญญา คุณธรรม ผู้ใหญ่หนุน",6:"เสน่ห์ ความรัก ทรัพย์มาง่าย",9:"สิ่งศักดิ์สิทธิ์คุ้มครอง โชคดี",14:"งานก้าวหน้าเร็ว ความสำเร็จมั่นคง",15:"ความสุข มีคนอุปถัมภ์ ทรัพย์มาง่าย",19:"โดดเด่น เป็นผู้นำ ประสบความสำเร็จ คนนับถือ",23:"เสน่ห์ เมตตา การเรียนดี",24:"ความสุข เพื่อนช่วย มีเสน่ห์และสติปัญญา",36:"ความรักดี การงานก้าวหน้า มีทรัพย์ มีคนนิยม",41:"สติปัญญาเฉียบ ประสบความสำเร็จยิ่งใหญ่",42:"สุขสมหวัง มีเสน่ห์ มีคนสนับสนุน",45:"มั่นคง มีคุณธรรม ความรู้รอบด้าน",50:"ความสามารถสูง มีโอกาสต่างประเทศ",51:"สุขสมบูรณ์ ร่ำรวย มีสติปัญญาและเสน่ห์",54:"โชคใหญ่ สำเร็จง่าย มีอำนาจบารมี",55:"ชีวิตมั่นคง สุขสบาย ชื่อเสียงดีงาม",56:"ร่ำรวย ผู้ใหญ่หนุน ความรักราบรื่น",59:"สำเร็จใหญ่ สิ่งศักดิ์สิทธิ์คุ้มครอง ติดต่อต่างประเทศดี",63:"ความรักและเสน่ห์ ทำงานแล้วได้ผลตอบแทนดี",65:"ร่ำรวย มีความสุข ครอบครัวอบอุ่น",90:"การเงินมั่นคง สิ่งศักดิ์สิทธิ์หนุน",95:"อำนาจวาสนา คนเคารพ โชคดี",99:"บารมีสูง สิ่งศักดิ์สิทธิ์คุ้มครอง ประสบความสำเร็จ",100:"ความสำเร็จสมบูรณ์ ทรัพย์และเกียรติมั่นคง",104:"สติปัญญาและการสื่อสารพาสำเร็จ งานรุ่งเรือง",105:"ปัญญาบารมี ผู้ใหญ่หนุน ชีวิตมั่นคง"};
 const NM_MIX={32:"เสน่ห์แรง เรียนดี แต่ความรักวุ่นวาย",40:"ฉลาด หัวการค้า แต่ต้องพยายามมากกว่าปกติ",44:"สื่อสารเก่ง เพื่อนมาก แต่ใจไม่นิ่ง",46:"ธุรกิจดี โชคบ่อย แต่ผลดีไม่สม่ำเสมอ",64:"เสน่ห์ทางคำพูด หาเงินได้ แต่ความรักซับซ้อน",79:"มองไกล กล้าลุย แต่ต้องทุ่มเทมาก",89:"ทรัพย์และอำนาจ แต่มีแรงกดดัน",97:"อิสระ มองการณ์ไกล ได้ผลดีบางช่วง",98:"โชคนำทรัพย์ แต่ต้องพยายามมากกว่าปกติ"};
-const NM_BADF=[16,17,18,19,20,109], NM_BADM=[13,23,31,32,46,68,86];
+const NM_BADF=[191,919], NM_BADM=[232]; // ยกเลิกกฎแยกเพศของผลรวม เหลือเฉพาะเลขเบิล 191 919 (หญิง) และ 232 (ชาย)
 function nameSumInfo(sum,sex){
   const base=NM_GOOD[sum]?"g":NM_MIX[sum]?"m":"b";
   let txt=NM_GOOD[sum]||NM_MIX[sum]||("ไม่อยู่ในกลุ่มเลขให้คุณของตำรา"+(sum>=10&&sum<100?" อ่านเป็นคู่ "+sum+" "+pairInfo(sum)[1]+" "+pairInfo(sum)[2]:""));
@@ -4238,7 +4242,7 @@ const BOOK_SUM={
 };
 // ===== ผลรวมชื่อตามตำราเลขศาสตร์ในหนังสือ (ครูโอ มงคล ราชาโชค) =====
 // ระดับตามตำรา ยกเว้นที่เจ้าของเพจกำหนดเอง
-const BOOK_SUM_OVR={64:"m"};
+const BOOK_SUM_OVR={}; // 64 ใช้ตามตำราชุดใหม่ เป็นเลขดี
 // ===== ความหมายผลรวมชื่อ (ใช้เฉพาะศาสตร์ตั้งชื่อ) ตามตำราเลขศาสตร์ที่เจ้าของเพจใช้ เรียบเรียงใหม่ =====
 const DD_SUM={
 1:["ดาวอาทิตย์ ความเชื่อมั่น","g","เชื่อมั่นในตัวเอง ทะเยอทะยาน เป็นผู้นำ กล้าตัดสินใจ ตรงไปตรงมา แต่ใจร้อน"],
@@ -4258,8 +4262,8 @@ const DD_SUM={
 15:["เสน่ห์และการเงิน","g","มีเสน่ห์ทั้งงานและเงิน ฉลาดเรียนรู้เร็ว มีคนรักและคนช่วย เงินทองหาง่าย"],
 16:["เก่งกล้าโลดโผน","b","สำเร็จโลดโผนแต่มีคนอิจฉา ความรักไม่สมหวัง เจอเคราะห์ก่อนจะได้ดี"],
 17:["ชีวิตที่ถูกกดดัน","b","วุ่นวาย เหนื่อย มียศแต่ใช้อำนาจไม่เต็มที่ เสียทรัพย์ ผิดหวังเรื่องความรัก"],
-18:["ดวงขึ้นสลับกับดวงตก","b","ชีวิตขึ้นลง โยกย้ายบ่อย ความรักผิดหวัง ไม่เหมาะกับผู้หญิง"],
-19:["ความสุข หากอยู่ในความพอดี","g","เด่นมากสำหรับผู้ชาย มีเกียรติ ตำแหน่ง อำนาจ ร่ำรวยเร็ว ผู้หญิงจะเก่งเกินจนครอบครัวมีปัญหา"],
+18:["ดวงขึ้นสลับกับดวงตก","b","ชีวิตขึ้นลง โยกย้ายบ่อย ความรักผิดหวัง"],
+19:["ความสุข หากอยู่ในความพอดี","g","มีเกียรติ ตำแหน่ง อำนาจ ร่ำรวยเร็ว เป็นผู้นำ ต้องรู้จักพอดี"],
 20:["พลังแห่งความทะเยอทะยาน","m","ให้คุณปานกลาง คิดการใหญ่ ต้องมีคนช่วยจึงสำเร็จ ระวังปัญหาเรื่องคู่"],
 21:["ความพลิกผันของชีวิต","m","พลิกจากร้ายเป็นดี มีคนยกย่อง แต่มีเรื่องร้ายมาพร้อมความรุ่งเรือง เสียเงินง่าย"],
 22:["ซ่อนบุคลิกทั้งเข้มแข็งและอ่อนไหว","m","ให้คุณปานกลาง อารมณ์ขัดแย้งในตัวเอง อาจมีโชคลาภจากที่ไม่ได้สร้างเอง"],
@@ -4326,7 +4330,7 @@ const DD_SUM={
 83:["ความล้มเหลว","b","แตกหัก ครอบครัวและหุ้นส่วนแตกแยก ทำอะไรดีแต่ตอนต้น ปลายไม่ดี"],
 84:["หลงผิด ลืมตัว","b","เจรจาไม่ถูกหู มีศัตรู ขาดผู้อุปถัมภ์ ถูกชักจูงไปทางผิด"],
 90:["สิ่งศักดิ์สิทธิ์ค้ำจุน","g","สิ่งศักดิ์สิทธิ์คุ้มครอง มีผู้ใหญ่หนุน ชีวิตราบรื่น สำเร็จลุล่วง"],
-91:["ความสุข หากอยู่ในความพอดี","g","เด่นสำหรับผู้ชาย ผู้หญิงก็ใช้ได้ มีเกียรติ มีตำแหน่ง ร่ำรวยเร็ว ต้องรู้จักพอดี"],
+91:["ความสุข หากอยู่ในความพอดี","g","มีเกียรติ มีตำแหน่ง ร่ำรวยเร็ว ต้องรู้จักพอดี"],
 92:["สิ่งศักดิ์สิทธิ์และความงดงาม","g","หน้าตาดี ศรัทธาสิ่งศักดิ์สิทธิ์ ญาณสัมผัสแม่น มีคนช่วยเหลือ"],
 93:["พลังแห่งความเก็บกด","b","ชีวิตยุ่งยาก กดดันจิตใจ ชีวิตสมรสไม่แน่นอน หวังแล้วไม่ได้"],
 94:["ทุกข์และอุปสรรค","b","ความเสียหายและความขัดแย้ง มีมุมหักเห ชีวิตต้องเริ่มใหม่บ่อย"],
@@ -4356,8 +4360,8 @@ const DD_LONG={
 15:{o:"เป็นเลขแห่งเสน่ห์และการเงิน ฉลาด เรียนรู้เร็ว บุคลิกดี คนเห็นแล้วเอ็นดู",w:"เงินทองหาง่าย มีเสน่ห์ทั้งในงานและการค้า เหมาะกับงานที่ต้องพบปะผู้คน งานขาย งานบริการ และงานศิลปะ",l:"มีคนรักและคนช่วยเหลืออยู่รอบตัว ความรักสดใส",c:"ด้วยความที่มีคนเข้าหามาก ควรเลือกคบคนให้ดี"},
 16:{o:"เก่งกล้าและโลดโผน ชีวิตมีสีสัน กล้าทำในสิ่งที่คนอื่นไม่กล้า",w:"สำเร็จได้แต่แบบโลดโผน มีคนอิจฉาคอยขัดขา",l:"ความรักมักไม่สมหวังตามที่ตั้งใจ",c:"ตำราว่าต้องเจอเคราะห์ก่อนจะได้ดี ให้เป็นเลขเสีย ควรพิจารณาแก้ชื่อ"},
 17:{o:"ชีวิตที่ถูกกดดัน วุ่นวาย และเหนื่อย",w:"มียศตำแหน่งแต่ใช้อำนาจได้ไม่เต็มที่ มักเสียทรัพย์",l:"ผิดหวังเรื่องความรัก",c:"ตำราให้เป็นเลขเสีย ควรพิจารณาแก้ชื่อ"},
-18:{o:"ดวงขึ้นสลับกับดวงตก ชีวิตไม่อยู่นิ่ง",w:"มักโยกย้ายงานหรือที่อยู่บ่อย การเงินขึ้นลง",l:"ความรักมักผิดหวัง ตำราว่าไม่เหมาะกับผู้หญิง",c:"ตำราให้เป็นเลขเสีย ควรพิจารณาแก้ชื่อ"},
-19:{o:"เป็นเลขแห่งความสุข ถ้าอยู่ในความพอดี ให้เกียรติยศ ตำแหน่ง และอำนาจ",w:"ร่ำรวยเร็ว การงานก้าวหน้า มีโอกาสได้เป็นหัวหน้าหรือเจ้าของกิจการ",l:"ผู้ชายจะเด่นมาก ส่วนผู้หญิงจะเก่งเกินจนครอบครัวมีปัญหาได้",c:"ความสำเร็จมาเร็ว ต้องรู้จักพอดีและไม่หลงตัว จึงจะรักษาสิ่งที่ได้ไว้ได้"},
+18:{o:"ดวงขึ้นสลับกับดวงตก ชีวิตไม่อยู่นิ่ง",w:"มักโยกย้ายงานหรือที่อยู่บ่อย การเงินขึ้นลง",l:"ความรักมักผิดหวัง",c:"ตำราให้เป็นเลขเสีย ควรพิจารณาแก้ชื่อ"},
+19:{o:"เป็นเลขแห่งความสุข ถ้าอยู่ในความพอดี ให้เกียรติยศ ตำแหน่ง และอำนาจ",w:"ร่ำรวยเร็ว การงานก้าวหน้า มีโอกาสได้เป็นหัวหน้าหรือเจ้าของกิจการ",l:"ทั้งผู้ชายและผู้หญิงมักเป็นผู้นำในบ้าน ความรักมั่นคงถ้ารู้จักฟังอีกฝ่าย",c:"ความสำเร็จมาเร็ว ต้องรู้จักพอดีและไม่หลงตัว จึงจะรักษาสิ่งที่ได้ไว้ได้"},
 20:{o:"พลังแห่งความทะเยอทะยาน คิดการใหญ่ มีความฝันกว้างไกล",w:"ต้องมีคนช่วยจึงจะสำเร็จ ทำคนเดียวจะเหนื่อยและช้า",l:"ระวังปัญหาเรื่องคู่ครอง",c:"เป็นเลขกลาง ให้คุณปานกลาง ถ้าเลือกคนร่วมงานดีจะได้ผลดีขึ้น"},
 21:{o:"ชีวิตพลิกผัน เปลี่ยนจากร้ายเป็นดีได้ มีคนยกย่อง",w:"ความรุ่งเรืองมักมีเรื่องร้ายตามมาด้วย เสียเงินง่าย",l:"ความสัมพันธ์มีขึ้นมีลงตามจังหวะชีวิต",c:"เป็นเลขกลาง ควรเก็บเงินเผื่อช่วงที่ดวงพลิกกลับ"},
 22:{o:"ซ่อนบุคลิกทั้งเข้มแข็งและอ่อนไหวไว้ในคนเดียวกัน อารมณ์ขัดแย้งในตัวเองบ่อย",w:"อาจมีโชคลาภจากสิ่งที่ไม่ได้สร้างเอง เช่น มรดกหรือคนอื่นยื่นให้",l:"คนรอบข้างอ่านใจยาก บางครั้งเข้าใจผิดกัน",c:"เป็นเลขกลาง ให้คุณปานกลาง"},
@@ -4402,7 +4406,7 @@ const DD_LONG={
 61:{o:"เก่งกาจโดดเด่นจนคนอิจฉา สองอารมณ์",w:"สำเร็จเร็ว แต่ถูกอิจฉาและใส่ร้าย",l:"ต้องผ่านเรื่องร้ายก่อนจะได้ดี",c:"เป็นเลขกลาง ควรถ่อมตัวและระวังคำพูด"},
 62:{o:"เป็นเลขที่มีสิ่งดี ๆ และคนอุปถัมภ์ หน้าตาดี มีเสน่ห์ บุคลิกน่าเข้าหา",w:"มีทรัพย์สิน ไม่ขาดผู้อุปถัมภ์ งานมักได้คนช่วยผลักดันให้ก้าวหน้า เหมาะกับงานบริการ งานความงาม และงานที่ต้องพบปะผู้คน",l:"ความรักดี มีคนเอ็นดู มีคนรักที่คอยดูแล",c:"เป็นเลขดี มีคนอิจฉาบ้าง แต่ไม่ทำให้เสียหาย"},
 63:{o:"เป็นเลขที่เด่นทั้งเรื่องงานและความรัก มีเสน่ห์เป็นธรรมชาติ บุคลิกดี คนเห็นแล้วอยากร่วมงานด้วย",w:"การงานสำเร็จแบบก้าวกระโดด มักได้โอกาสใหญ่ในจังหวะที่ไม่คาดคิด เงินไม่ขาดมือ เหมาะกับงานบริการ งานขาย และงานที่ต้องพบปะผู้คน",l:"ความรักหวานชื่น มีคนรักที่คอยส่งเสริม ชีวิตคู่ช่วยให้การงานดีขึ้นด้วย",c:"เป็นเลขดี รักษาความสัมพันธ์ทั้งในงานและในบ้านให้สมดุล"},
-64:{o:"ตำราเรียกว่าเพียบพร้อมทุกอย่าง มีโชควาสนา รสนิยมสูง พูดเก่ง มีบุคลิกที่คนจดจำ",w:"หาเงินเก่ง ชีวิตราบรื่น การงานสำเร็จดี เหมาะกับงานเจรจา การค้า และงานที่ใช้รสนิยม",l:"ความรักมีความซับซ้อนอยู่บ้าง ต้องใช้ความเข้าใจกันมาก",c:"ชีวิตโดยรวมดี จุดที่ต้องระวังคือเรื่องความรัก"},
+64:{o:"ตำราเรียกว่าเพียบพร้อมทุกอย่าง มีโชควาสนา รสนิยมสูง พูดเก่ง มีบุคลิกที่คนจดจำ",w:"หาเงินเก่ง ชีวิตราบรื่น การงานสำเร็จดี เหมาะกับงานเจรจา การค้า และงานที่ใช้รสนิยม",l:"ความรักมีความซับซ้อนอยู่บ้าง ต้องใช้ความเข้าใจกันมาก",c:"เป็นเลขดี จุดเดียวที่ควรใส่ใจคือเรื่องความรัก"},
 65:{o:"ตำราเรียกว่ามีทรัพย์เป็นโชค ชีวิตราบรื่นรุ่งเรือง จิตใจดี มองโลกสดใส",w:"มีทรัพย์สินและโชคลาภเข้ามาเรื่อย ๆ มีผู้ใหญ่ช่วยเหลือและเปิดทางให้ การงานมั่นคง เหมาะกับงานที่ต้องใช้ความน่าเชื่อถือ",l:"ความรักสดใส ครอบครัวมีความสุข",c:"เป็นเลขดี เก็บทรัพย์ที่ได้มาให้เป็นหลักเป็นฐาน"},
 66:{o:"เป็นเลขคู่ ตำราเรียกว่าเลขของจักรวาล มีเสน่ห์มาก ชอบความสวยงามและความสะดวกสบาย",w:"มีผู้อุปถัมภ์ตลอด เงินทองคล่องตัว ชีวิตมีโอกาสได้อยู่อย่างหรูหรา เหมาะกับงานความงาม ศิลปะ และการค้า",l:"เป็นที่รักของคนรอบข้าง มีคนเข้าหาไม่ขาด",c:"เป็นเลขดี แต่อาจลุ่มหลงความสุขสบายง่าย ควรใช้สติไตร่ตรองก่อนตัดสินใจ"},
 67:{o:"ตำราเรียกว่าพระศุกร์เข้าพระเสาร์แทรก อุปสรรคมาก ผิดหวังบ่อย",w:"ใช้จ่ายเกินตัว",l:"ครอบครัวแตกร้าว",c:"ตำราให้เป็นเลขเสีย ควรพิจารณาแก้ชื่อ"},
@@ -4424,7 +4428,7 @@ const DD_LONG={
 83:{o:"ตำราเรียกว่าความล้มเหลว ทำอะไรดีแต่ตอนต้น",w:"หุ้นส่วนแตกแยก ปลายทางไม่ดี",l:"ครอบครัวแตกแยก",c:"ตำราให้เป็นเลขเสีย ควรพิจารณาแก้ชื่อ"},
 84:{o:"ตำราเรียกว่าหลงผิดลืมตัว",w:"ขาดผู้อุปถัมภ์ ถูกชักจูงไปทางผิด",l:"เจรจาไม่ถูกหู มีศัตรู",c:"ตำราให้เป็นเลขเสีย ควรพิจารณาแก้ชื่อ"},
 90:{o:"เป็นเลขที่มีสิ่งศักดิ์สิทธิ์ค้ำจุน มีบุญหนุนนำ จิตใจมั่นคง",w:"มีผู้ใหญ่หนุน ทำอะไรมักสำเร็จลุล่วง ชีวิตราบรื่น เจออุปสรรคก็ผ่านไปได้เพราะมีคนช่วย",l:"ครอบครัวมั่นคง อบอุ่น",c:"เป็นเลขดี หมั่นทำบุญและรักษาความศรัทธาไว้"},
-91:{o:"เป็นเลขแห่งความสุข ถ้าอยู่ในความพอดี มีเกียรติ มีตำแหน่ง มีความเป็นผู้นำ",w:"ร่ำรวยเร็ว การงานก้าวหน้า มีโอกาสได้คุมคนหรือเป็นเจ้าของกิจการ",l:"เด่นมากสำหรับผู้ชาย ผู้หญิงก็ใช้ได้ดี",c:"ความสำเร็จมาเร็ว ต้องรู้จักพอดีจึงจะรักษาไว้ได้นาน"},
+91:{o:"เป็นเลขแห่งความสุข ถ้าอยู่ในความพอดี มีเกียรติ มีตำแหน่ง มีความเป็นผู้นำ",w:"ร่ำรวยเร็ว การงานก้าวหน้า มีโอกาสได้คุมคนหรือเป็นเจ้าของกิจการ",l:"มีเสน่ห์แบบผู้นำ คนรอบข้างให้ความเคารพ",c:"ความสำเร็จมาเร็ว ต้องรู้จักพอดีจึงจะรักษาไว้ได้นาน"},
 92:{o:"เป็นเลขแห่งสิ่งศักดิ์สิทธิ์และความงดงาม หน้าตาดี ศรัทธาในสิ่งศักดิ์สิทธิ์ ญาณสัมผัสแม่น",w:"มีคนช่วยเหลือในยามจำเป็นเสมอ เหมาะกับงานด้านความงาม ศิลปะ และงานที่ใช้ความคิดสร้างสรรค์",l:"เป็นที่เอ็นดูของคนรอบข้าง ความรักอ่อนโยน",c:"เป็นเลขดี รักษาความศรัทธาและทำบุญสม่ำเสมอ"},
 93:{o:"เป็นพลังแห่งความเก็บกด ชีวิตยุ่งยาก กดดันจิตใจ",w:"หวังแล้วไม่ได้",l:"ชีวิตสมรสไม่แน่นอน",c:"ตำราให้เป็นเลขเสีย ควรพิจารณาแก้ชื่อ"},
 94:{o:"ตำราเรียกว่าทุกข์และอุปสรรค มีความเสียหายและความขัดแย้ง",w:"ชีวิตมีจุดหักเห ต้องเริ่มใหม่บ่อย",l:"ความสัมพันธ์มีเรื่องขัดแย้ง",c:"ตำราให้เป็นเลขเสีย ควรพิจารณาแก้ชื่อ"},
@@ -4811,7 +4815,7 @@ function renderMode(inp){
   if(MODE==="cmp"){ renderCmp(inp,cta); return; }
   if(MODE==="name"){
     const nm=analyzeName(inp,{ds}); NMCTX={inp,ds}; const TZ=nameTeaserHtml(inp,nm,ds);
-    $("result").innerHTML=`<section class="card"><h2>ผลวิเคราะห์ชื่อของ${who}</h2><div class="verdict"><div class="score">${nm.score} <small>/ 1000</small></div><div><span class="pill ${nm.verdict[0]}">${nm.verdict[1]}</span></div></div><p class="para" style="text-align:center;margin:6px 0 0">ชื่อนี้เหมาะกับดวง${who} <b>${(nm.score/10).toFixed(1).replace(/\.0$/,"")}%</b></p>${nameSummaryHtml(inp,nm)}</section>${nameHtml(inp,nm)}${TZ.html}${TZ.paid?namePayHtml():""}${nickHtml(inp,nm.bk)}<div id="ndeep" hidden>${TZ.paid?`<p class="unlocked">${isOwner()?"โหมดเจ้าของ ผลวิเคราะห์ชื่อแบบละเอียด":"ขอบคุณที่ใช้บริการครับ ด้านล่างคือผลวิเคราะห์ชื่อแบบละเอียดของคุณ"}</p>`:""}<div id="ndeepgen"></div>${TZ.paid?`<div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="name">บันทึกผลวิเคราะห์เป็น PDF</button><p class="note" style="margin:6px 0 0">กดแล้วเลือก บันทึกเป็น PDF เก็บไว้อ่านทีหลังได้</p></div>`:""}</div>${cta}`;
+    $("result").innerHTML=`<section class="card"><h2>ผลวิเคราะห์ชื่อของ${who}</h2><div class="verdict"><div class="score">${nm.score} <small>/ 1000</small></div><div><span class="pill ${nm.verdict[0]}">${nm.verdict[1]}</span></div></div><p class="para" style="text-align:center;margin:6px 0 0">ชื่อนี้เหมาะกับดวง${who} <b>${(nm.score/10).toFixed(1).replace(/\.0$/,"")}%</b></p>${nameSummaryHtml(inp,nm)}</section>${nameHtml(inp,nm)}${TZ.html}${TZ.paid?namePayHtml():""}${nickHtml(inp,nm.bk)}<div id="ndeep" hidden>${TZ.paid?`<p class="unlocked">${isOwner()?"โหมดเจ้าของ ผลวิเคราะห์ชื่อแบบละเอียด":"ขอบคุณที่ใช้บริการครับ ด้านล่างคือผลวิเคราะห์ชื่อแบบละเอียดของคุณ"}</p>`:""}<div id="ndeepgen"></div>${TZ.paid?`<div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="name">บันทึกผลวิเคราะห์เป็น PDF</button><p class="note" style="margin:6px 0 0">กดแล้วเลือก บันทึกเป็น PDF เก็บไว้อ่านทีหลังได้</p></div>${paidLineHtml("name")}`:""}</div>${nameReadMore()}${cta}`;
     const NKEY=nameKey(inp), openN=sc=>{const g=$("ndeepgen");if(!g.dataset.done){g.innerHTML=nameDetailHtml(inp,nm,ds,{split:true});g.dataset.done="1";}$("ndeep").hidden=false;if(sc)$("ndeep").scrollIntoView({behavior:"smooth",block:"start"});};
     if(TZ.paid){bindNamePay(inp,NKEY,openN);if(wasUnlocked(NKEY))openN(false);}else openN(false);
     const e=nm.bk.ev; addShare({kind:"ผลวิเคราะห์ชื่อ",main:(inp.fname+" "+inp.lname).trim(),score:nm.score,max:1000,verdict:nm.verdict[1],vc:nm.verdict[0],lines:[e?"อักษรตัวแรก "+nm.bk.lead.ch+" นาม"+nbName(e.N)+" "+NB_LV[e.lv][1]:"",nm.fs?"เลขศาสตร์ชื่อ "+nm.fs.sum+" "+(nm.fs.info[5]||""):"",nm.ts?"ผลรวมชื่อนามสกุล "+nm.ts.sum+" "+(nm.ts.info[5]||""):"","ดูตามหลักทักษาและเลขศาสตร์ เทียบกับดวงเจ้าของชื่อ"].filter(Boolean)});
@@ -5028,8 +5032,7 @@ function bindNamePay(inp,key,open){
     $("nslipfile").onchange=()=>{const f=$("nslipfile").files[0];$("nslipname").textContent=f?f.name:"แตะเพื่อเลือกรูปสลิป";$("nslipgo").disabled=!f;$("nslipst").textContent="";};
     $("nslipgo").onclick=async()=>{const f=$("nslipfile").files[0];if(!f)return;const st=$("nslipst"),btn=$("nslipgo");btn.disabled=true;st.style.color="";st.textContent="กำลังตรวจสลิป รอสักครู่...";
       try{const b64=await slipToBase64(f);let j;
-        if(CONFIG.slipApi){const res=await fetch(CONFIG.slipApi,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({phone:key,base64:b64})});j=await res.json();}
-        else j=await thunderCheck(b64,key);
+        j=await thunderCheck(b64,key);
         if(j.ok&&j.code===unlockCode(key)){st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ "+j.code+" (เก็บไว้ใช้เปิดดูอีกครั้ง)";$("nucode").value=j.code;markUnlocked(key);cntHit("slip-ok");cntHit("pay-name");open(true);}
         else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
       }catch(err){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}};
@@ -5098,8 +5101,7 @@ function upNameRender(inp){const el=$("upname");if(!el)return;const key=nameKey(
   if(slip){$("uslipfile").onchange=()=>{const f=$("uslipfile").files[0];$("uslipname").textContent=f?f.name:"แตะเพื่อเลือกรูปสลิป";$("uslipgo").disabled=!f;};
     $("uslipgo").onclick=async()=>{const f=$("uslipfile").files[0];if(!f)return;const st=$("uslipst"),btn=$("uslipgo");btn.disabled=true;st.style.color="";st.textContent="กำลังตรวจสลิป รอสักครู่...";
       try{const b64=await slipToBase64(f);let j;
-        if(CONFIG.slipApi){const res=await fetch(CONFIG.slipApi,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({phone:key,base64:b64,amount:200})});j=await res.json();}
-        else j=await thunderCheck(b64,key,200);
+        j=await thunderCheck(b64,key,200);
         if(j.ok&&j.code===unlockCode(key)){cntHit("slip-ok");cntHit("pay-upgrade");done();}
         else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
       }catch(e){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}};}
@@ -5114,6 +5116,20 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
   const draw=()=>{ov.innerHTML=`<div class="smpbar"><span>หน้า ${i+1} จาก ${L.length}</span><span>${i>0?'<button type="button" class="ghost" data-nav="-1">ก่อนหน้า</button>':""}${i<L.length-1?'<button type="button" class="ghost" data-nav="1">ถัดไป</button>':""}<button type="button" class="primary" data-close>ปิด</button></span></div><div class="smpimg"><img src="${L[i]}" alt="ตัวอย่างหน้า ${i+1}"></div>`;};
   draw();document.body.appendChild(ov);document.body.style.overflow="hidden";
   ov.addEventListener("click",ev=>{const n=ev.target.closest("[data-nav]");if(n){i+=+n.dataset.nav;draw();return;}if(ev.target.closest("[data-close]")||ev.target===ov){ov.remove();document.body.style.overflow="";}});}});
+
+
+// ===== หลังจ่ายเงิน ชวนแอดไลน์ ปรึกษาเพิ่ม 1 คำถามฟรี =====
+function paidLineHtml(kind){return `<section class="card paidline" style="margin-top:14px"><h2>ปรึกษาผมเพิ่มได้ 1 คำถาม ฟรี</h2>
+  <p class="para">สำหรับลูกค้าที่ปลดล็อกแล้ว อ่านผลแล้วสงสัยตรงไหน หรืออยากถามเรื่องที่กำลังตัดสินใจ ${kind==="name"?"เช่น ชื่อไหนในรายการเหมาะกับคุณที่สุด":"เช่น ควรเปลี่ยนเบอร์ตอนไหน หรือเบอร์ในสต็อกเบอร์ไหนเหมาะ"} แอดไลน์แล้วพิมพ์คำถามมาได้เลย ผมตอบเองครับ</p>
+  <div class="btns"><button type="button" class="primary" data-paidline="${kind}">แอดไลน์ ถามผมได้เลย</button></div>
+  <p class="note" style="margin:6px 0 0">ระบบคัดลอกข้อความยืนยันว่าคุณปลดล็อกแล้วไว้ให้ วางในแชตได้เลย</p></section>`;}
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-paidline]");if(!b)return;const k=b.dataset.paidline;
+  const i=readFormLoose(), bd=pad(i.d)+"/"+pad(i.m)+"/"+(i.y+543);
+  const t=k==="name"?`ปลดล็อกวิเคราะห์ชื่อแบบละเอียดแล้วครับ/ค่ะ (ชื่อ ${($("fname").value+" "+$("lname").value).trim()||"-"} วันเกิด ${bd}) ขอปรึกษาเพิ่ม 1 คำถาม: `:`ปลดล็อกวิเคราะห์เบอร์แบบเจาะลึกแล้วครับ/ค่ะ (เบอร์ ${i.phone} วันเกิด ${bd}) ขอปรึกษาเพิ่ม 1 คำถาม: `;
+  cntHit("line-paid");
+  const go=CONFIG.lineOA?"https://line.me/R/oaMessage/"+encodeURIComponent(CONFIG.lineOA)+"/?"+encodeURIComponent(t):CONFIG.chatUrl;
+  const open=()=>{const w=window.open(go,"_blank");if(w){try{w.opener=null;}catch(_){}}else location.href=go;};
+  try{navigator.clipboard.writeText(t).then(open,()=>fallback(t,open));}catch(_){fallback(t,open);}});
 
 // ===== บันทึกผลเป็นรูป =====
 let SHARE=null;
@@ -5359,7 +5375,7 @@ function cntHit(key){
   }catch(e){}
 }
 (function(){try{if(!sessionStorage.getItem("plk_v")){sessionStorage.setItem("plk_v","1");cntHit("visit");}}catch(e){cntHit("visit");}})();
-const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-bundle","จ่ายแพ็กเบอร์ + ชื่อ 599"],["pay-upgrade","จ่ายเพิ่มชื่อ 200"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
+const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-bundle","จ่ายแพ็กเบอร์ + ชื่อ 599"],["pay-upgrade","จ่ายเพิ่มชื่อ 200"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
 async function cntGet(k){try{const r=await fetch(`${CNT.base}/get/${CNT.ns}/${k}`);if(!r.ok)return 0;const j=await r.json();return +j.value||0;}catch(e){return null;}}
 async function admStatsUI(){
   const box=$("admstats"); if(!box) return;
@@ -5573,8 +5589,8 @@ function rsvMark(ph){
   RSV[ph]=Math.max(RSV[ph]||0,1)+1000; try{const loc=JSON.parse(localStorage.getItem("plk_rsv")||"{}");loc[ph]=RSV[ph];localStorage.setItem("plk_rsv",JSON.stringify(loc));}catch(e){}
   try{fetch(`${CNT.base}/hit/${CNT.ns}/${rsvKey(ph)}`).catch(()=>{});}catch(e){}
 }
-async function thunderCheckAmt(dataUrl,amount){
-  const call=async b=>{const r=await fetch("https://api.thunder.in.th/v2/verify/bank",{method:"POST",headers:{"Authorization":"Bearer "+CONFIG.thunderKey,"Content-Type":"application/json"},body:JSON.stringify({base64:b,checkDuplicate:true,matchAccount:true,matchAmount:amount})});
+async function thunderCheckAmt(dataUrl,amount){const AMTX=amount;
+  const call=async b=>{if(CONFIG.slipApi)return slipProxy(b,AMTX);const r=await fetch("https://api.thunder.in.th/v2/verify/bank",{method:"POST",headers:{"Authorization":"Bearer "+CONFIG.thunderKey,"Content-Type":"application/json"},body:JSON.stringify({base64:b,checkDuplicate:true,matchAccount:true,matchAmount:amount})});
     try{return await r.json();}catch(e){return {success:false,error:{message:"HTTP "+r.status}};}};
   const raw=dataUrl.replace(/^data:image\/\w+;base64,/,"");
   let res=await call(raw);
@@ -5621,7 +5637,7 @@ function buyWire(box){
   q("nm").oninput=chk; q("ct").oninput=chk; q("ad").oninput=chk;
   go.onclick=async()=>{const ph=go.dataset.buygo, price=+go.dataset.price, st=q("st");
     if(stockState(STOCK.find(r=>String(r[0]).replace(/\D/g,"")===ph)||[ph,price])!=="ok"){st.textContent="เบอร์นี้มีคนจองไปแล้ว";return;}
-    if(!CONFIG.thunderKey){st.textContent="ระบบตรวจสลิปยังไม่เปิด ทักไลน์ส่งสลิปมาได้เลย";return;}
+    if(!CONFIG.thunderKey&&!CONFIG.slipApi){st.textContent="ระบบตรวจสลิปยังไม่เปิด ทักไลน์ส่งสลิปมาได้เลย";return;}
     go.disabled=true; st.style.color=""; st.textContent="กำลังตรวจสลิป...";
     let r; try{r=await thunderCheckAmt(await slipToBase64(q("slip").files[0]),price);}catch(e){r={ok:false,msg:"เชื่อมต่อระบบตรวจสลิปไม่ได้ ลองใหม่อีกครั้ง หรือทักไลน์ส่งสลิปมา"};}
     if(!r.ok){st.style.color="var(--bad)";st.textContent=r.msg;go.disabled=false;return;}
@@ -6215,6 +6231,57 @@ function placeRender(){
   el.insertAdjacentHTML("beforeend",`<section class="card"><h2>แชร์บทความนี้</h2>${shareBar("place")}</section>`+relatedHtml("place"));
   el.dataset.built=1;
 }
+
+function nameReadMore(){return `<section class="card"><h2>อ่านต่อ เรื่องการตั้งชื่อ</h2><ul class="pairs"><li style="display:block"><div><h3><a href="#namepick" class="flink">${ARTS.namepick}</a></h3><p>ชื่อที่ดีต้องผ่านอะไรบ้าง และทำไมดูแค่วันเกิดไม่พอ</p></div></li><li style="display:block"><div><h3><a href="#kali" class="flink">${ARTS.kali}</a></h3><p>ตารางอักษรที่ไม่ควรมีในชื่อ แยกตามวันเกิด รวมพุธกลางคืน</p></div></li></ul></section>`;}
+function kaliRender(){
+  const el=$("kalipage"); if(el.dataset.built) return;
+  const P=t=>`<p class="para">${t}</p>`;
+  const DAYS_ORDER=["อาทิตย์","จันทร์","อังคาร","พุธ","พุธ (กลางคืน)","พฤหัสบดี","ศุกร์","เสาร์"];
+  const row=d=>{const base=DAY_PLANET[d],k=nbAt(base,7),dj=nbAt(base,2);return `<li style="display:block"><div><h3>เกิดวัน${d}${d==="พุธ"?" (กลางวัน)":""}</h3><p><b>อักษรกาลกิณี</b> ${LETW(k)}<br><span class="note">อักษรเดชของวันนี้คือ ${LETW(dj)} ใช้ในชื่อได้ แต่ตำราไม่ให้ใช้เป็นตัวแรกของชื่อ</span></p></div></li>`;};
+  el.innerHTML=`<div><a href="#" class="libback">กลับไปวิเคราะห์</a></div>
+  <section class="card"><h2 id="hkali">อักษรกาลกิณี ของคนเกิดแต่ละวัน</h2><div class="prose">
+   ${P("เวลาตั้งชื่อ เรื่องแรกที่ผมเช็กเสมอคืออักษรกาลกิณี ตำราทักษาถือว่าคนเกิดแต่ละวันมีดาวดวงหนึ่งเป็นกาลกิณี คือดาวที่นำเรื่องเดือดร้อนและความเสียหายมาให้ อักษรที่เป็นตัวแทนของดาวดวงนั้นจึงเป็นอักษรที่ไม่ควรมีอยู่ในชื่อ")}
+   ${P("หลายคนตั้งชื่อเพราะเสียงเพราะหรือความหมายดี แต่ไม่ได้เช็กข้อนี้ ชื่อสวยแต่มีอักษรกาลกิณีอยู่ ผลดีของชื่อจะถูกดึงลงไปตลอด")}
+  </div></section>
+  <section class="card"><h2>ตารางอักษรกาลกิณีตามวันเกิด</h2>
+   <ul class="pairs">${DAYS_ORDER.map(row).join("")}</ul>
+   <p class="note">ตารางนี้คำนวณจากหลักทักษาชุดเดียวกับที่ระบบวิเคราะห์ชื่อในเว็บใช้</p></section>
+  <section class="card"><h2>วันเกิดแบบไทย นับต่างจากปฏิทิน</h2><div class="prose">
+   ${P("<b>เกิดก่อนพระอาทิตย์ขึ้น</b> ตำราไทยนับเป็นวันก่อนหน้า เช่น เกิดวันพฤหัสบดีตอนตีห้า ก่อนพระอาทิตย์ขึ้น จะนับเป็นคนเกิดวันพุธกลางคืน")}
+   ${P("<b>วันพุธแบ่งเป็นสองช่วง</b> เกิดตั้งแต่หกโมงเย็นวันพุธจนถึงก่อนพระอาทิตย์ขึ้นวันพฤหัสบดี นับเป็นพุธกลางคืน ใช้ดาวราหูเป็นดาววันเกิด อักษรกาลกิณีจึงต่างจากคนเกิดพุธกลางวัน")}
+   ${P("ถ้าไม่แน่ใจว่าตัวเองเกิดวันอะไรแบบไทย ใส่วันเวลาเกิดในช่องวิเคราะห์ชื่อ ระบบจะคำนวณให้เอง")}
+  </div></section>
+  <section class="card"><h2>ชื่อมีอักษรกาลกิณีแล้ว ต้องเปลี่ยนไหม</h2><div class="prose">
+   ${P("<b>ถ้าอักษรกาลกิณีอยู่เป็นตัวแรกของชื่อ</b> ผมแนะนำให้เปลี่ยน เพราะอักษรตัวแรกส่งผลแรงที่สุด ตำราห้ามข้อนี้ชัดเจน")}
+   ${P("<b>ถ้าอยู่ตำแหน่งอื่นในชื่อ</b> ผลดีของชื่อจะลดลง แต่ไม่ถึงขั้นต้องเปลี่ยนเพราะข้อนี้ข้อเดียว ต้องดูภาพรวมทั้งชื่อ ทั้งอักษรตัวแรก ผลรวม และพลังแฝง")}
+   ${P("<b>ถ้าอยู่ในนามสกุล</b> ส่งผลน้อยกว่าในชื่อจริง เพราะนามสกุลเป็นของทั้งครอบครัว")}
+   ${P("อยากรู้ว่าชื่อของคุณผ่านไหม กดปุ่มด้านล่างแล้วใส่ชื่อกับวันเวลาเกิด ระบบตรวจให้ฟรีทุกข้อ")}
+  </div><div class="btns"><a href="#" class="libback" data-gomode="name">ตรวจชื่อของฉันฟรี</a><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener">ให้ผมช่วยตั้งชื่อ</a></div></section>`;
+  el.insertAdjacentHTML("beforeend",`<section class="card"><h2>แชร์บทความนี้</h2>${shareBar("kali")}</section>`+relatedHtml("kali"));
+  el.dataset.built=1;
+}
+function namepickRender(){
+  const el=$("namepickpage"); if(el.dataset.built) return;
+  const P=t=>`<p class="para">${t}</p>`, LI=a=>`<ul class="pairs">${a.map(([h,t])=>`<li style="display:block"><div><h3>${h}</h3><p>${t}</p></div></li>`).join("")}</ul>`;
+  el.innerHTML=`<div><a href="#" class="libback">กลับไปวิเคราะห์</a></div>
+  <section class="card"><h2 id="hnamepick">ตั้งชื่อมงคลตามวันเกิด ต้องดูอะไรบ้าง</h2><div class="prose">
+   ${P("ลูกค้าหลายคนถามผมว่า ตั้งชื่อตามวันเกิดแค่ดูว่าอักษรไหนห้ามใช้ก็พอใช่ไหม คำตอบคือไม่พอครับ ชื่อที่ดีจริงต้องผ่านหลายข้อพร้อมกัน และที่สำคัญ อักษรที่ดีสำหรับคนเกิดวันเดียวกัน ยังไม่เหมือนกันทุกคน เพราะต้องดูพื้นดวงประกอบด้วย")}
+  </div></section>
+  <section class="card"><h2>สิ่งที่ผมตรวจทุกครั้งก่อนตั้งชื่อ</h2>
+   ${LI([["1. อักษรตัวแรกของชื่อ","อักษรแต่ละกลุ่มเป็นตัวแทนของดาวหนึ่งดวง อักษรตัวแรกสำคัญที่สุด ผมดูว่าดาวของอักษรนั้นอยู่ตรงไหนในดวงคุณ ดีหรือเสีย คุมเรือนอะไร คนเกิดวันเดียวกันจึงอาจได้อักษรตัวแรกที่เหมาะต่างกัน"],
+       ["2. ไม่มีอักษรกาลกิณี","อักษรกาลกิณีของวันเกิดไม่ควรอยู่ในชื่อ โดยเฉพาะตัวแรก ดูตารางของแต่ละวันได้ในบทความอักษรกาลกิณี"],
+       ["3. ความหมายของผลรวม","นำค่าของอักษรทุกตัวมาบวกกัน ตัวเลขที่ได้มีความหมายประจำตัว ต้องเป็นเลขดี ทั้งผลรวมชื่อ และผลรวมเมื่อรวมกับนามสกุล"],
+       ["4. พลังแฝงและอายตนะ 6","คิดจากกำลังดาวของอักษรแต่ละตัว เป็นพลังที่ซ่อนอยู่ในชื่อ ส่งผลลึก ๆ ต่อนิสัยและเรื่องในใจ ต้องไม่ให้โทษ"],
+       ["5. เสียงและความหมาย","สุดท้ายต้องเรียกง่าย ความหมายดี และเจ้าของชื่อชอบ ชื่อที่ถูกตำราแต่ไม่มีใครอยากเรียก ก็ไม่ได้ช่วยอะไร"]])}</section>
+  <section class="card"><h2>ทำไมดูแค่วันเกิดไม่พอ</h2><div class="prose">
+   ${P("ตำราตั้งชื่อแบบทั่วไปบอกแค่ว่าคนเกิดวันนี้ใช้อักษรอะไรได้ แต่ดาวดวงเดียวกัน ในดวงคนหนึ่งอาจอยู่ในเรือนดี อีกคนอาจอยู่ในเรือนเสีย หรือเป็นดาวที่อ่อนกำลัง ชื่อที่ขึ้นต้นด้วยอักษรของดาวที่เสียในดวง ก็ไม่ได้ช่วยหนุนดวงอย่างที่ควรเป็น")}
+   ${P("ผมจึงตรวจชื่อจากวันเกิด เวลาเกิด และจังหวัดที่เกิด ผูกดวงก่อน แล้วค่อยเลือกอักษรตัวแรกที่ดาวดีจริงในดวงคุณ")}
+   ${P("ในเว็บนี้ ช่องวิเคราะห์ชื่อตรวจให้ครบทั้ง 5 ข้อ ให้คะแนนเต็ม 1000 ฟรี ถ้าอยากได้รายชื่อและนามสกุลที่ผ่านครบทุกข้อสำหรับดวงคุณ เลือกแบบละเอียดได้ในหน้าผลวิเคราะห์")}
+  </div><div class="btns"><a href="#" class="libback" data-gomode="name">ตรวจชื่อของฉันฟรี</a><a href="#kali" class="flink">ดูอักษรกาลกิณีของแต่ละวัน</a><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener">ให้ผมช่วยตั้งชื่อ</a></div></section>`;
+  el.insertAdjacentHTML("beforeend",`<section class="card"><h2>แชร์บทความนี้</h2>${shareBar("namepick")}</section>`+relatedHtml("namepick"));
+  el.dataset.built=1;
+}
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("[data-gomode]");if(!a)return;const m=a.dataset.gomode;setTimeout(()=>{const b=document.querySelector(`.modetabs button[data-m="${m}"]`);if(b)b.click();const f=$("f");if(f)f.scrollIntoView({behavior:"smooth",block:"start"});},60);});
 function startRender(){
   const el=$("startpage"); if(el.dataset.built) return;
   const P=t=>`<p class="para">${t}</p>`, LI=a=>`<ul class="pairs">${a.map(([h,t])=>`<li style="display:block"><div><h3>${h}</h3><p>${t}</p></div></li>`).join("")}</ul>`;
@@ -6397,7 +6464,7 @@ function easyRender(){
   el.dataset.built=1;
 }
 // ===== บทความ: รายการกลาง ใช้ทั้งเมนู ลิงก์อ่านต่อ และปุ่มแชร์ =====
-const ARTS={easy:"เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด",nine:"เลข 9 เลขสำคัญของยุคดิจิทัล",chart:"ทำไมต้องวางเบอร์จากพื้นดวง",trap:"กับดักเบอร์มงคล 100%",weak:"ไม่มีเลขเสีย แต่ทำไมชีวิตไม่โต",context:"เบอร์เสียคือเบอร์ที่ผิดบริบท",place:"เลือกเบอร์ กับ วางเบอร์ ต่างกันอย่างไร",start:"ชีวิตติดหล่ม เริ่มแก้จากเบอร์"};
+const ARTS={easy:"เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด",nine:"เลข 9 เลขสำคัญของยุคดิจิทัล",chart:"ทำไมต้องวางเบอร์จากพื้นดวง",trap:"กับดักเบอร์มงคล 100%",weak:"ไม่มีเลขเสีย แต่ทำไมชีวิตไม่โต",context:"เบอร์เสียคือเบอร์ที่ผิดบริบท",place:"เลือกเบอร์ กับ วางเบอร์ ต่างกันอย่างไร",start:"ชีวิตติดหล่ม เริ่มแก้จากเบอร์",kali:"อักษรกาลกิณี ของคนเกิดแต่ละวัน",namepick:"ตั้งชื่อมงคลตามวันเกิด ต้องดูอะไรบ้าง"};
 const SITE="https://lionizev-cell.github.io/";
 function readMoreHtml(inp,r){
   try{
@@ -6450,13 +6517,13 @@ function policyRender(){
 }
 function showLib(on){
   const v=on===true?"pairs":on||"";
-  $("lib").hidden=v!=="pairs"; $("tri").hidden=v!=="triples"; $("about").hidden=v!=="about"; $("stock").hidden=v!=="stock"; $("biz").hidden=v!=="biz"; $("learn").hidden=v!=="learn"; $("pyrpage").hidden=v!=="pyramid"; $("sumpage").hidden=v!=="sum"; $("digitpage").hidden=v!=="digits"; $("adminpage").hidden=v!=="admin"; $("whypage").hidden=v!=="why"; $("timepage").hidden=v!=="time"; $("reviewpage").hidden=v!=="review"; $("consignpage").hidden=v!=="consign"; $("policypage").hidden=v!=="policy"; $("easypage").hidden=v!=="easy"; $("ninepage").hidden=v!=="nine"; $("chartpage").hidden=v!=="chart"; $("trappage").hidden=v!=="trap"; $("weakpage").hidden=v!=="weak"; $("ctxpage").hidden=v!=="context"; $("startpage").hidden=v!=="start"; $("placepage").hidden=v!=="place"; $("appview").style.display=v?"none":"grid"; document.querySelector(".topnav").hidden=!!v;
-  if(v==="pairs") libRender(); if(v==="triples") triRender(); if(v==="about") aboutRender(); if(v==="stock") stockRender(); if(v==="biz") bizRender(); if(v==="learn") learnRender(); if(v==="pyramid") pyrPageRender(); if(v==="sum") sumPageRender(); if(v==="digits") digitPageRender(); if(v==="admin") adminRender(); if(v==="why") whyRender(); if(v==="time") timeRender(); if(v==="review") reviewRender(); if(v==="consign") consignRender(); if(v==="policy") policyRender(); if(v==="easy") easyRender(); if(v==="nine") nineRender(); if(v==="chart") chartArtRender(); if(v==="trap") trapRender(); if(v==="weak") weakRender(); if(v==="context") ctxRender(); if(v==="start") startRender(); if(v==="place") placeRender();
+  $("lib").hidden=v!=="pairs"; $("tri").hidden=v!=="triples"; $("about").hidden=v!=="about"; $("stock").hidden=v!=="stock"; $("biz").hidden=v!=="biz"; $("learn").hidden=v!=="learn"; $("pyrpage").hidden=v!=="pyramid"; $("sumpage").hidden=v!=="sum"; $("digitpage").hidden=v!=="digits"; $("adminpage").hidden=v!=="admin"; $("whypage").hidden=v!=="why"; $("timepage").hidden=v!=="time"; $("reviewpage").hidden=v!=="review"; $("consignpage").hidden=v!=="consign"; $("policypage").hidden=v!=="policy"; $("easypage").hidden=v!=="easy"; $("ninepage").hidden=v!=="nine"; $("chartpage").hidden=v!=="chart"; $("trappage").hidden=v!=="trap"; $("weakpage").hidden=v!=="weak"; $("ctxpage").hidden=v!=="context"; $("startpage").hidden=v!=="start"; $("placepage").hidden=v!=="place"; $("kalipage").hidden=v!=="kali"; $("namepickpage").hidden=v!=="namepick"; $("appview").style.display=v?"none":"grid"; document.querySelector(".topnav").hidden=!!v;
+  if(v==="pairs") libRender(); if(v==="triples") triRender(); if(v==="about") aboutRender(); if(v==="stock") stockRender(); if(v==="biz") bizRender(); if(v==="learn") learnRender(); if(v==="pyramid") pyrPageRender(); if(v==="sum") sumPageRender(); if(v==="digits") digitPageRender(); if(v==="admin") adminRender(); if(v==="why") whyRender(); if(v==="time") timeRender(); if(v==="review") reviewRender(); if(v==="consign") consignRender(); if(v==="policy") policyRender(); if(v==="easy") easyRender(); if(v==="nine") nineRender(); if(v==="chart") chartArtRender(); if(v==="trap") trapRender(); if(v==="weak") weakRender(); if(v==="context") ctxRender(); if(v==="start") startRender(); if(v==="place") placeRender(); if(v==="kali") kaliRender(); if(v==="namepick") namepickRender();
   window.scrollTo(0,0);
 }
-function route(){ showLib(location.hash==="#pairs"?"pairs":location.hash==="#triples"?"triples":location.hash==="#about"?"about":location.hash==="#stock"?"stock":location.hash==="#biz"?"biz":location.hash==="#learn"?"learn":location.hash==="#pyramid"?"pyramid":location.hash==="#sum"?"sum":location.hash==="#digits"?"digits":location.hash==="#admin"?"admin":location.hash==="#why"?"why":location.hash==="#time"?"time":location.hash==="#review"?"review":location.hash==="#consign"?"consign":location.hash==="#policy"?"policy":location.hash==="#easy"?"easy":location.hash==="#nine"?"nine":location.hash==="#chart"?"chart":location.hash==="#trap"?"trap":location.hash==="#weak"?"weak":location.hash==="#context"?"context":location.hash==="#start"?"start":location.hash==="#place"?"place":""); }
+function route(){ showLib(location.hash==="#pairs"?"pairs":location.hash==="#triples"?"triples":location.hash==="#about"?"about":location.hash==="#stock"?"stock":location.hash==="#biz"?"biz":location.hash==="#learn"?"learn":location.hash==="#pyramid"?"pyramid":location.hash==="#sum"?"sum":location.hash==="#digits"?"digits":location.hash==="#admin"?"admin":location.hash==="#why"?"why":location.hash==="#time"?"time":location.hash==="#review"?"review":location.hash==="#consign"?"consign":location.hash==="#policy"?"policy":location.hash==="#easy"?"easy":location.hash==="#nine"?"nine":location.hash==="#chart"?"chart":location.hash==="#trap"?"trap":location.hash==="#weak"?"weak":location.hash==="#context"?"context":location.hash==="#start"?"start":location.hash==="#place"?"place":location.hash==="#kali"?"kali":location.hash==="#namepick"?"namepick":""); }
 document.addEventListener("click",e=>{
-  const a=e.target.closest('a[href="#pairs"],a[href="#triples"],a[href="#about"],a[href="#stock"],a[href="#biz"],a[href="#learn"],a[href="#pyramid"],a[href="#sum"],a[href="#digits"],a[href="#why"],a[href="#time"],a[href="#review"],a[href="#consign"],a[href="#policy"],a[href="#easy"],a[href="#nine"],a[href="#chart"],a[href="#trap"],a[href="#weak"],a[href="#context"],a[href="#start"],a[href="#place"]');
+  const a=e.target.closest('a[href="#pairs"],a[href="#triples"],a[href="#about"],a[href="#stock"],a[href="#biz"],a[href="#learn"],a[href="#pyramid"],a[href="#sum"],a[href="#digits"],a[href="#why"],a[href="#time"],a[href="#review"],a[href="#consign"],a[href="#policy"],a[href="#easy"],a[href="#nine"],a[href="#chart"],a[href="#trap"],a[href="#weak"],a[href="#context"],a[href="#start"],a[href="#place"],a[href="#kali"],a[href="#namepick"]');
   document.querySelectorAll(".navmore[open]").forEach(d=>{if(a||!d.contains(e.target))d.open=false;});
   if(a){e.preventDefault();const h=a.getAttribute("href");try{if(location.hash!==h)history.pushState(null,"",h);}catch(_){}showLib(h.slice(1));return;}
   const b=e.target.closest("a.libback");
@@ -7376,7 +7443,7 @@ function jobChipsInit(){const box=$("jobchips"); if(!box||box.dataset.w) return;
   $("job").addEventListener("input",jobHint); jobHint();}
 try{jobChipsInit();}catch(e){}
 try{$("hlogo").src=LOGO;}catch(e){}
-if(["#pairs","#triples","#about","#stock","#biz","#learn","#pyramid","#sum","#digits","#admin","#why","#time","#review","#consign","#policy","#easy","#nine","#chart","#trap","#weak","#context","#start","#place"].includes(location.hash)) route();
+if(["#pairs","#triples","#about","#stock","#biz","#learn","#pyramid","#sum","#digits","#admin","#why","#time","#review","#consign","#policy","#easy","#nine","#chart","#trap","#weak","#context","#start","#place","#kali","#namepick"].includes(location.hash)) route();
 if(/^#(buy|shop)/.test(location.hash)) buyDeep();
 
 // ===== จำข้อมูลผู้ใช้ไว้ในเครื่อง (localStorage) =====
