@@ -310,6 +310,26 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
  body.pr h2,body.pr h3{break-after:avoid}
  body.pr #deep,body.pr #ndeep{display:block!important}
  @page{margin:12mm}}
+
+.topnav{align-items:center}.navmenu>summary{background:var(--accent);color:#fff;border-color:var(--accent)}.navmenu>summary::after{content:" ☰"}.navmenu[open]>summary::after{content:" ✕"}
+.navmenu .navlist{max-height:70vh;overflow:auto}.navh{margin:8px 12px 2px;font-size:13px;font-weight:700;color:var(--muted,#a99)}.navh:first-child{margin-top:2px}
+.modetabs{display:grid;gap:10px;margin:0 0 14px}.mgrp{display:grid;gap:6px}.mlab{font-size:13px;font-weight:700;color:var(--muted,#a99)}.mrow{display:flex;flex-wrap:wrap;gap:6px}
+.jobchips .jx{display:none}.jobchips.all .jx{display:inline-block}.jobchips .jmore{border-style:dashed}
+.jobchips{gap:4px!important}.jobchips button{font-size:12px!important;padding:3px 9px!important;line-height:1.35}.jobpick .note,#jobhint{font-size:12px!important;line-height:1.4}
+#result.smpcol{max-height:1150px;overflow:hidden;position:relative}#result.smpcol::after{content:"";position:absolute;left:0;right:0;bottom:0;height:160px;background:linear-gradient(transparent,var(--bg));pointer-events:none}
+.smpmore{display:flex;justify-content:center;margin:-6px 0 0}
+footer .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));font-size:14px;gap:14px 20px;text-align:left;margin-bottom:12px}footer .fh{margin:0 0 6px;font-weight:700;color:var(--ink)}footer ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}footer .fnote{margin:4px 0}
+
+.hl{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}.hlb{display:grid;gap:2px;padding:10px 12px;border-radius:12px;border:1px solid var(--line)}.hlb b{font-size:13px}.hlb.g{background:var(--good-bg)}.hlb.g b{color:var(--good)}.hlb.b{background:var(--bad-bg)}.hlb.b b{color:var(--bad)}.hlb.m{background:var(--mid-bg)}.hlb.m b{color:var(--mid)}
+.sub.sm{font-size:15px;margin:10px 0 2px;color:var(--accent)}
+.arc .at{display:none}.arc.open .at{display:block}
+.ppw .ppx{display:none!important}.ppw.open .ppx{display:grid!important}
+.tgl{margin-top:8px;font-size:14px;padding:6px 14px}
+.rjump{position:sticky;top:0;z-index:15;display:flex;gap:6px;overflow-x:auto;margin:4px -4px 10px;padding:6px 4px;background:var(--surface);scrollbar-width:none}.rjump::-webkit-scrollbar{display:none}.rjump a{flex:none;font-size:13px;font-weight:600;padding:5px 12px;border-radius:99px;border:1px solid var(--line);color:var(--ink);text-decoration:none;background:var(--bg)}
+#stockrec .stkd summary{border:0;padding:0;font-size:14px;color:var(--accent);text-decoration:underline}
+#stockrec .stkact{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:6px}#stockrec .stkbuy{background:var(--accent);color:#fff;font-weight:600;padding:7px 16px;border-radius:99px;text-decoration:none}#stockrec .stklink{background:none;border:0;padding:0;font:inherit;font-size:14px;color:var(--accent);text-decoration:underline;cursor:pointer}
+@media print{.rjump,.tgl{display:none!important}.arc .at{display:block!important}.ppw .ppx{display:grid!important}}body.pr .rjump{display:none}
+.sumline{text-align:center;margin:6px 0 0;font-size:15px}.sumline b{font-family:var(--f-mono);font-size:20px;margin:0 2px}.sumline span:last-child{display:block;font-size:14px;opacity:.85;margin-top:2px}.hlb span{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -317,27 +337,25 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
 <header>
   <div class="brand"><img class="logo" id="hlogo" alt="โลโก้เพจความลับพลังตัวเลข" width="56" height="56"><div class="eyebrow">ความลับพลังตัวเลข</div></div>
   <h1>ตัวเลขของคุณเข้ากับดวงไหม</h1>
-  <p>เลือกสิ่งที่อยากวิเคราะห์ เบอร์มือถือ ชื่อ ทะเบียนรถ บ้านเลขที่ หรือเลขบัตรประชาชน ใส่วันเวลาเกิด ระบบจะผูกดวงหาเลขพลังดีและพลังอ่อนของคุณ แล้วอ่านให้ทันที</p>
-  <nav class="topnav" aria-label="เมนู"><a href="#stock" id="toStock">สต็อกเบอร์</a><a href="#consign" id="toConsign">ฝากขายเบอร์</a>
-    <details class="navmore"><summary>ความรู้</summary><div class="navlist">
-      <a href="#why" id="toWhy">ทำไมเบอร์ถึงส่งผลต่อชีวิต</a><a href="#time" id="toTime">ใช้เบอร์ใหม่นานแค่ไหนถึงส่งผล</a><a href="#learn" id="toLearn">หลักการอ่านเบอร์</a><a href="#digits" id="toDigits">ความหมายเลข 0 ถึง 9</a><a href="#pairs" id="toLib">ความหมายคู่เลข 00 ถึง 99</a><a href="#triples" id="toTri">ความหมายเลข 3 ตัว</a><a href="#sum" id="toSum">ความหมายผลรวม</a><a href="#pyramid" id="toPyr">วิธีอ่านพีระมิด</a><a href="#biz" id="toBiz">คู่เลขกับอาชีพ</a><a href="#policy" id="toPolicy">วิธีซื้อและนโยบายร้าน</a>
-    </div></details>
-    <details class="navmore"><summary>บทความ</summary><div class="navlist">
-      <a href="#place" id="toPlace">เลือกเบอร์ กับ วางเบอร์ ต่างกันอย่างไร</a><a href="#namepick" id="toNamepick">ตั้งชื่อมงคลตามวันเกิด ต้องดูอะไรบ้าง</a><a href="#kali" id="toKali">อักษรกาลกิณี ของคนเกิดแต่ละวัน</a><a href="#easy" id="toEasy">เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด</a><a href="#nine" id="toNine">เลข 9 เลขสำคัญของยุคดิจิทัล</a><a href="#chart" id="toChart">ทำไมต้องวางเบอร์จากพื้นดวง</a><a href="#trap" id="toTrap">กับดักเบอร์มงคล 100%</a><a href="#weak" id="toWeak">ไม่มีเลขเสีย แต่ทำไมชีวิตไม่โต</a><a href="#context" id="toCtx">เบอร์เสียคือเบอร์ที่ผิดบริบท</a><a href="#start" id="toStart">ชีวิตติดหล่ม เริ่มแก้จากเบอร์</a>
-    </div></details>
-    <a class="horo" href="duang.html" id="toHoro">ดูดวง</a>
-    <a href="https://lionizev-cell.github.io/duang.html#dream" id="toDream">ทำนายฝัน</a>
-    <a href="https://lionizev-cell.github.io/ebook.html" id="toEbook">อีบุ๊ก</a>
-    <a href="#review" id="toReview">รีวิว</a>
-    <a href="#about" id="toAbout">แนะนำตัว</a></nav>
+  <p>วิเคราะห์เบอร์มือถือ ชื่อ ทะเบียนรถ บ้านเลขที่ เลขบัญชี หาฤกษ์มงคล และดวงคู่ ใส่วันเวลาเกิดครั้งเดียว ระบบผูกดวงให้ แล้วอ่านผลตามพื้นดวงของคุณทันที</p>
+  <nav class="topnav" aria-label="เมนู"><a href="#stock" id="toStock">สต็อกเบอร์</a><a class="horo" href="duang.html" id="toHoro">ดูดวง</a><a href="https://lionizev-cell.github.io/ebook.html" id="toEbook">อีบุ๊ก</a>
+    <details class="navmore navmenu"><summary>เมนูทั้งหมด</summary><div class="navlist">
+      <p class="navh">บริการ</p><a href="#consign" id="toConsign">ฝากขายเบอร์</a><a href="https://lionizev-cell.github.io/duang.html#dream" id="toDream">ทำนายฝัน</a><a href="#review" id="toReview">รีวิว</a><a href="#about" id="toAbout">แนะนำตัว</a>
+      <p class="navh">ความรู้เรื่องตัวเลข</p><a href="#why" id="toWhy">ทำไมเบอร์ถึงส่งผลต่อชีวิต</a><a href="#time" id="toTime">ใช้เบอร์ใหม่นานแค่ไหนถึงส่งผล</a><a href="#learn" id="toLearn">หลักการอ่านเบอร์</a><a href="#digits" id="toDigits">ความหมายเลข 0 ถึง 9</a><a href="#pairs" id="toLib">ความหมายคู่เลข 00 ถึง 99</a><a href="#triples" id="toTri">ความหมายเลข 3 ตัว</a><a href="#sum" id="toSum">ความหมายผลรวม</a><a href="#pyramid" id="toPyr">วิธีอ่านพีระมิด</a><a href="#biz" id="toBiz">คู่เลขกับอาชีพ</a><a href="#policy" id="toPolicy">วิธีซื้อและนโยบายร้าน</a>
+      <p class="navh">บทความ</p><a href="#place" id="toPlace">เลือกเบอร์ กับ วางเบอร์ ต่างกันอย่างไร</a><a href="#namepick" id="toNamepick">ตั้งชื่อมงคลตามวันเกิด ต้องดูอะไรบ้าง</a><a href="#kali" id="toKali">อักษรกาลกิณี ของคนเกิดแต่ละวัน</a><a href="#easy" id="toEasy">เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด</a><a href="#nine" id="toNine">เลข 9 เลขสำคัญของยุคดิจิทัล</a><a href="#chart" id="toChart">ทำไมต้องวางเบอร์จากพื้นดวง</a><a href="#trap" id="toTrap">กับดักเบอร์มงคล 100%</a><a href="#weak" id="toWeak">ไม่มีเลขเสีย แต่ทำไมชีวิตไม่โต</a><a href="#context" id="toCtx">เบอร์เสียคือเบอร์ที่ผิดบริบท</a><a href="#start" id="toStart">ชีวิตติดหล่ม เริ่มแก้จากเบอร์</a>
+    </div></details></nav>
 </header>
 
 <div id="appview" style="display:grid;gap:20px">
 <section class="card" aria-labelledby="fh">
-  <div class="modetabs" role="group" aria-label="เลือกสิ่งที่ต้องการวิเคราะห์"><button type="button" data-m="phone" aria-pressed="true">เบอร์มือถือ</button><button type="button" data-m="name" aria-pressed="false">ชื่อ</button><button type="button" data-m="plate" aria-pressed="false">ทะเบียนรถ</button><button type="button" data-m="house" aria-pressed="false">บ้านเลขที่</button><button type="button" data-m="idcard" aria-pressed="false">บัตรประชาชน</button><button type="button" data-m="biz" aria-pressed="false">ชื่อร้าน</button><button type="button" data-m="cmp" aria-pressed="false">เทียบเบอร์</button></div>
+  <div class="modetabs" role="group" aria-label="เลือกสิ่งที่ต้องการวิเคราะห์">
+    <div class="mgrp"><span class="mlab">ตัวเลข</span><div class="mrow"><button type="button" data-m="phone" aria-pressed="true">เบอร์มือถือ</button><button type="button" data-m="plate" aria-pressed="false">ทะเบียนรถ</button><button type="button" data-m="house" aria-pressed="false">บ้านเลขที่</button><button type="button" data-m="bank" aria-pressed="false">เลขบัญชี</button><button type="button" data-m="idcard" aria-pressed="false">บัตรประชาชน</button><button type="button" data-m="cmp" aria-pressed="false">เทียบเบอร์</button></div></div>
+    <div class="mgrp"><span class="mlab">ชื่อและดวง</span><div class="mrow"><button type="button" data-m="name" aria-pressed="false">ชื่อ</button><button type="button" data-m="biz" aria-pressed="false">ชื่อร้าน</button><button type="button" data-m="rk" aria-pressed="false">หาฤกษ์</button><button type="button" data-m="love" aria-pressed="false">ดวงคู่</button></div></div>
+  </div>
   <h2 id="fh">วิเคราะห์เบอร์มือถือ</h2>
   <form id="f" novalidate>
-    <div class="row" data-show="phone name plate house idcard cmp">
+    <h3 class="sub" data-show="love" style="margin:0">คนที่ 1 ข้อมูลของคุณ</h3>
+    <div class="row" data-show="phone name plate house idcard cmp rk love bank">
       <label for="nick">ชื่อเล่น (ไม่ใส่ก็ได้)<input id="nick" autocomplete="nickname"></label>
       <label for="sex">เพศ<select id="sex"><option value="m">ชาย</option><option value="f">หญิง</option></select></label>
     </div>
@@ -345,8 +363,8 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
       <label for="fname"><span id="fnhint">ชื่อจริง (ไม่ใส่ก็ได้)</span><input id="fname" autocomplete="given-name" maxlength="40"></label>
       <label for="lname" data-show="phone name"><span id="lnhint">นามสกุล (ไม่ใส่ก็ได้)</span><input id="lname" autocomplete="family-name" maxlength="40"></label>
     </div>
-    <label for="job" data-show="phone name plate house idcard cmp">อาชีพ<input id="job" placeholder="พิมพ์อาชีพ เช่น ขายของออนไลน์" maxlength="80"></label>
-    <div class="jobpick" data-show="phone name plate house idcard cmp"><span class="note">พิมพ์เองในช่องนี้ หรือแตะเลือกกลุ่มอาชีพด้านล่าง</span><div id="jobchips" class="jobchips"></div><p class="note" id="jobhint" aria-live="polite"></p></div>
+    <label for="job" data-show="phone name plate house idcard cmp bank">อาชีพ<input id="job" placeholder="พิมพ์อาชีพ เช่น ขายของออนไลน์" maxlength="80"></label>
+    <div class="jobpick" data-show="phone name plate house idcard cmp bank"><span class="note">พิมพ์เองในช่องนี้ หรือแตะเลือกกลุ่มอาชีพด้านล่าง</span><div id="jobchips" class="jobchips"></div><p class="note" id="jobhint" aria-live="polite"></p></div>
     <div class="row">
       <label for="dd"><span id="t_dd">วันเกิด</span><select id="dd"></select></label>
       <label for="mm">เดือน<select id="mm"></select></label>
@@ -358,8 +376,18 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
     </div>
     <label class="check" for="notime"><input type="checkbox" id="notime"> <span id="t_nt">ไม่ทราบเวลาเกิด</span></label>
     <label for="prov"><span id="t_pv">จังหวัดที่เกิด</span><select id="prov"></select></label>
+    <div class="row" data-show="rk"><label for="rkact">งานที่จะทำ<select id="rkact"></select></label><label for="rkmon">ช่วงเวลาที่ต้องการ<select id="rkmon"></select></label></div>
+    <div data-show="love" style="display:grid;gap:12px;border-top:1px solid var(--line);padding-top:12px">
+      <h3 class="sub" style="margin:0">คนที่ 2 คู่ของคุณ</h3>
+      <div class="row"><label for="nick2">ชื่อเล่น (ไม่ใส่ก็ได้)<input id="nick2"></label><label for="sex2">เพศ<select id="sex2"><option value="f">หญิง</option><option value="m">ชาย</option></select></label></div>
+      <div class="row"><label for="dd2">วันเกิด<select id="dd2"></select></label><label for="mm2">เดือน<select id="mm2"></select></label><label for="yy2">ปี พ.ศ.<select id="yy2"></select></label></div>
+      <div class="row"><label for="hh2">เวลาเกิด (ชั่วโมง)<select id="hh2"></select></label><label for="mi2">นาที<select id="mi2"></select></label></div>
+      <label class="check" for="notime2"><input type="checkbox" id="notime2"> ไม่ทราบเวลาเกิด</label>
+      <label for="prov2">จังหวัดที่เกิด<select id="prov2"></select></label>
+    </div>
     <label for="plate" data-show="plate">ทะเบียนรถ (ใส่ตัวอักษรและตัวเลข ไม่ต้องใส่จังหวัด)<input id="plate" placeholder="เช่น 1กข 2345" maxlength="12" autocomplete="off"></label>
     <label for="house" data-show="house">บ้านเลขที่<input id="house" placeholder="เช่น 123/45" maxlength="20" autocomplete="off"></label>
+    <label for="bank" data-show="bank">เลขบัญชีธนาคาร<input id="bank" inputmode="numeric" placeholder="123-4-56789-0" maxlength="22" autocomplete="off"></label>
     <label for="idcard" data-show="idcard">เลขบัตรประชาชน 13 หลัก<input id="idcard" inputmode="numeric" placeholder="1 2345 67890 12 3" maxlength="17" autocomplete="off"></label>
     <label for="phone" data-show="phone cmp"><span id="t_ph">เบอร์มือถือที่ต้องการวิเคราะห์</span><input id="phone" inputmode="numeric" placeholder="0812345678" maxlength="12"></label>
     <label for="phone2" data-show="cmp">เบอร์ที่ 2<input id="phone2" inputmode="numeric" placeholder="0898765432" maxlength="12"></label>
@@ -398,7 +426,15 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
 <section id="tri" hidden aria-labelledby="htri" style="display:grid;gap:16px"></section>
 <section id="lib" hidden aria-labelledby="hlib" style="display:grid;gap:16px"></section>
 
-<footer><a href="#stock" class="flink">สต็อกเบอร์</a> · <a href="#why" class="flink">ทำไมเบอร์ส่งผลต่อชีวิต</a> · <a href="#time" class="flink">ใช้เบอร์ใหม่นานแค่ไหนถึงส่งผล</a> · <a href="#learn" class="flink">หลักการอ่านเบอร์</a> · <a href="#pyramid" class="flink">วิธีอ่านพีระมิด</a> · <a href="#sum" class="flink">ความหมายผลรวม</a> · <a href="#digits" class="flink">ความหมายเลข 0 ถึง 9</a> · <a href="#pairs" class="flink">ความหมายคู่เลข 00 ถึง 99</a> · <a href="#triples" class="flink">ความหมายเลข 3 ตัว</a> · <a href="#biz" class="flink">คู่เลขกับอาชีพ</a> · <a href="#review" class="flink">รีวิวลูกค้า</a> · <a href="#about" class="flink">แนะนำตัว</a> · <a href="#policy" class="flink">วิธีซื้อและนโยบายร้าน</a><br>บทความ: <a href="#place" class="flink">เลือกเบอร์ กับ วางเบอร์ ต่างกันอย่างไร</a> · <a href="#easy" class="flink">เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด</a> · <a href="#nine" class="flink">เลข 9 เลขสำคัญของยุคดิจิทัล</a> · <a href="#chart" class="flink">ทำไมต้องวางเบอร์จากพื้นดวง</a> · <a href="#trap" class="flink">กับดักเบอร์มงคล 100%</a> · <a href="#weak" class="flink">ไม่มีเลขเสีย แต่ทำไมชีวิตไม่โต</a> · <a href="#context" class="flink">เบอร์เสียคือเบอร์ที่ผิดบริบท</a> · <a href="#start" class="flink">ชีวิตติดหล่ม เริ่มแก้จากเบอร์</a><br>ตอบไลน์ทุกวัน 9.00 ถึง 21.00 น. · ส่งซิมฟรีทั่วประเทศ<br>ความลับพลังตัวเลข · การวิเคราะห์ตัวเลขเป็นศาสตร์ความเชื่อ ใช้ประกอบการตัดสินใจ ไม่ใช่การรับประกันผล · ข้อมูลที่คุณกรอกอยู่ในเครื่องคุณ ไม่ส่งออกไปที่ไหน</footer>
+<footer>
+  <div class="fgrid">
+    <div><p class="fh">บริการ</p><ul><li><a href="#stock" class="flink">สต็อกเบอร์</a></li><li><a href="#policy" class="flink">วิธีซื้อและนโยบายร้าน</a></li><li><a href="#review" class="flink">รีวิวลูกค้า</a></li><li><a href="#about" class="flink">แนะนำตัว</a></li><li><a href="duang.html" class="flink">ดูดวง</a></li><li><a href="https://lionizev-cell.github.io/duang.html#dream" class="flink">ทำนายฝัน</a></li><li><a href="https://lionizev-cell.github.io/ebook.html" class="flink">อีบุ๊ก</a></li></ul></div>
+    <div><p class="fh">ความรู้เรื่องตัวเลข</p><ul><li><a href="#why" class="flink">ทำไมเบอร์ส่งผลต่อชีวิต</a></li><li><a href="#time" class="flink">ใช้เบอร์ใหม่นานแค่ไหนถึงส่งผล</a></li><li><a href="#learn" class="flink">หลักการอ่านเบอร์</a></li><li><a href="#pyramid" class="flink">วิธีอ่านพีระมิด</a></li><li><a href="#sum" class="flink">ความหมายผลรวม</a></li><li><a href="#digits" class="flink">ความหมายเลข 0 ถึง 9</a></li><li><a href="#pairs" class="flink">ความหมายคู่เลข 00 ถึง 99</a></li><li><a href="#triples" class="flink">ความหมายเลข 3 ตัว</a></li><li><a href="#biz" class="flink">คู่เลขกับอาชีพ</a></li></ul></div>
+    <div><p class="fh">บทความ</p><ul><li><a href="#place" class="flink">เลือกเบอร์ กับ วางเบอร์ ต่างกันอย่างไร</a></li><li><a href="#easy" class="flink">เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด</a></li><li><a href="#nine" class="flink">เลข 9 เลขสำคัญของยุคดิจิทัล</a></li><li><a href="#chart" class="flink">ทำไมต้องวางเบอร์จากพื้นดวง</a></li><li><a href="#trap" class="flink">กับดักเบอร์มงคล 100%</a></li><li><a href="#weak" class="flink">ไม่มีเลขเสีย แต่ทำไมชีวิตไม่โต</a></li><li><a href="#context" class="flink">เบอร์เสียคือเบอร์ที่ผิดบริบท</a></li><li><a href="#start" class="flink">ชีวิตติดหล่ม เริ่มแก้จากเบอร์</a></li><li><a href="#namepick" class="flink">ตั้งชื่อมงคลตามวันเกิด</a></li><li><a href="#kali" class="flink">อักษรกาลกิณีของคนเกิดแต่ละวัน</a></li></ul></div>
+  </div>
+  <p class="fnote">ตอบไลน์ทุกวัน 9.00 ถึง 21.00 น. · ส่งซิมฟรีทั่วประเทศ</p>
+  <p class="fnote">ความลับพลังตัวเลข · การวิเคราะห์ตัวเลขเป็นศาสตร์ความเชื่อ ใช้ประกอบการตัดสินใจ ไม่ใช่การรับประกันผล · ข้อมูลที่คุณกรอกอยู่ในเครื่องคุณ ไม่ส่งออกไปที่ไหน</p>
+</footer>
 </main>
 <script>
 /* thai-astrology (MIT License, (c) 2026 Kongesque) bundled */
@@ -3216,7 +3252,7 @@ function simpleSummary(inp,r,nm){
   const yp=[...new Set(r.pos.filter(p=>p.info[5]==="young").map(p=>p.s))];
   if(yp.length) P3.push([(r.age<15?"สำหรับเด็กอายุ "+r.age+" ปี":"สำหรับวัยเรียน")+" เบอร์นี้มีคู่ "+yp.join(" ")+" ซึ่งเป็นพลังเงินและความทะเยอทะยานของผู้ใหญ่ แรงเกินวัย อาจทำให้ใจร้อนหรือไม่โฟกัสการเรียน",-1]);
   const con=r.pos.find(p=>p.k==="A2"); if(con.info[0]==="b"&&!(failWhy&&/ตัวเชื่อม/.test(failWhy))) P3.push(["ตัวเชื่อมหัวเบอร์กับเลขเจ็ดตัวเป็น "+con.s+" ซึ่งเป็นคู่เสีย แต่ส่งผลน้อย ให้ดูเลข 7 ตัวท้ายเป็นหลัก",0]);
-  const ov=[P1.join(" "),joinS(P2),joinS(P3)].filter(Boolean);
+  const ovH=[["ภาพรวม",P1.join(" ")],["ท้ายเบอร์และผลรวม",joinS(P2)],["ช่วงวัยของคุณ",joinS(P3)]].filter(x=>x[1]);
   let advice={fail:"แนะนำให้เปลี่ยนเบอร์",bad:"แนะนำให้เปลี่ยนเบอร์",mid:"ควรพิจารณาเปลี่ยนเบอร์",ok:"ใช้ต่อได้ แต่ถ้าอยากให้เบอร์ช่วยชีวิตมากขึ้น ควรหาเบอร์ที่เข้ากับดวงกว่านี้",good:"ใช้ต่อได้เลย"}[r.level];
   advice+=r.stg==="child"?" เบอร์ของเด็กควรร้อยเรียงให้เหมาะกับวัย เน้นคู่เลขที่หนุนการเรียน สมาธิ และให้ผู้ใหญ่เอ็นดู ไม่ควรมีคู่พลังเงินหรือความทะเยอทะยานของผู้ใหญ่":r.stg?" เบอร์ช่วงวัยเรียนควรร้อยเรียงให้หนุนการเรียน สมาธิ และเพื่อนที่ดี ไม่ควรมีคู่พลังเงินหรือความทะเยอทะยานที่แรงเกินวัย":" และเบอร์ที่ดีควรร้อยเรียงให้เหมาะสมกับอาชีพ"+(inp.jobText?esc(inp.jobText):"")+"ของคุณด้วย";
   const good=[],mid=[],bad=[];for(let d=0;d<10;d++){(r.ds.cls[d]==="g"?good:r.ds.cls[d]==="b"?bad:mid).push(d);}
@@ -3228,11 +3264,12 @@ function simpleSummary(inp,r,nm){
   const chips=(arr,c)=>arr.map(d=>`<b class="ch ${c}">${d}</b>`).join("")||"<span class='note'>ไม่มี</span>";
   return `<div class="easy">
     <div class="meter" role="img" aria-label="คะแนน ${r.s1000} จาก 1000"><span style="width:${r.s1000/10}%"></span></div>
-    <h3 class="sub">สรุป</h3>
-    <div class="sumtxt">${ov.map(x=>`<p class="para">${x}</p>`).join("")}</div>
+    <div class="hl">${gA.length?`<div class="hlb g"><b>จุดเด่น</b><span>${joinTh(gA)}</span></div>`:""}${bA.length||mA.length?`<div class="hlb ${bA.length?"b":"m"}"><b>${bA.length?"ต้องระวัง":"พอใช้"}</b><span>${joinTh(bA.length?bA:mA)}</span></div>`:""}</div>
     <p class="adv"><b>คำแนะนำ</b> ${advice}</p>
+    <div class="sumtxt">${ovH.map(x=>`<h3 class="sub sm">${x[0]}</h3><p class="para">${x[1]}</p>`).join("")}</div>
     <h3 class="sub">เบอร์นี้ส่งผลกับชีวิตคุณอย่างไร</h3>
-    <ul class="areas">${rows.map(x=>`<li><span class="an">${x.name}</span><span class="pill ${x.g}">${x.pct}% ${PLAIN[x.g]}</span><span class="apb"><i class="${x.g}" style="width:${x.pct}%"></i></span><span class="at">${x.t}</span></li>`).join("")}</ul>
+    <ul class="areas arc">${rows.map(x=>`<li><span class="an">${x.name}</span><span class="pill ${x.g}">${x.pct}% ${PLAIN[x.g]}</span><span class="apb"><i class="${x.g}" style="width:${x.pct}%"></i></span><span class="at">${x.t}</span></li>`).join("")}</ul>
+    <button type="button" class="ghost tgl" data-tgl="arc" data-on="ย่อคำอธิบาย">อ่านคำอธิบายทีละเรื่อง</button>
     <p class="note" style="margin:6px 0 0">เปอร์เซ็นต์บอกว่าเบอร์นี้หนุนเรื่องนั้นได้แค่ไหน เต็ม 100 ตั้งแต่ 70% ขึ้นไปถือว่าดี 45 ถึง 69% พอใช้ ต่ำกว่า 45% ต้องระวัง</p>
     <h3 class="sub">พลังของเลขแต่ละตัวในดวงคุณ</h3>
     <div class="lucky"><span class="lbl">เลขพลังดีที่ควรมีในเบอร์</span><div class="chs">${chips(good,"g")}</div></div>
@@ -3550,8 +3587,9 @@ function rerkCalc(inp,r){
     }
     // ช่วงเวลาที่ดีที่สุดของวัน
     if(!slots.length) continue;
-    let best=slots.reduce((a,b)=>b.s>a.s?b:a,slots[0]);
-    const win=slots.filter(x=>x.dp===best.dp&&x.ls===best.ls&&x.s>=best.s-0.75);
+    const okS=slots.filter(x=>![6,8,12].includes(x.hm)), pool=okS.length?okS:slots;
+    let best=pool.reduce((a,b)=>b.s>a.s?b:a,pool[0]);
+    const win=pool.filter(x=>x.dp===best.dp&&x.ls===best.ls&&x.s>=best.s-0.75);
     let a=slots.indexOf(best), b2=a;
     while(a>0&&win.includes(slots[a-1]))a--; while(b2<slots.length-1&&win.includes(slots[b2+1]))b2++;
     const day={dt,Y,M,D,best,from:slots[a].t,to:slots[b2].t+20,slots};
@@ -3559,8 +3597,9 @@ function rerkCalc(inp,r){
     const am=slots.find(x=>x.hh===9)||slots[Math.floor(slots.length/3)], av=[];
     if(am.role==="กาลี") av.push("เป็นวัน"+RK_DAY[am.dp]+" ซึ่งเป็นกาลีของคนเกิดวัน"+RK_DAY[nday]+(cls[am.dp]==="b"?" และดาว "+am.dp+" อ่อนในดวงคุณ":""));
     else if(cls[am.dp]==="b") av.push("ดาวประจำวัน"+RK_DAY[am.dp]+" (ดาว "+am.dp+") เป็นพลังอ่อนในดวงคุณ");
-    if(am.hm===8) av.push("จันทร์จรอยู่ภพมรณะจาก"+baseTxt);
-    else if(am.hm===6||am.hm===12) av.push("จันทร์จรอยู่ภพ"+(am.hm===6?"อริ":"วินาศ")+"จาก"+baseTxt);
+    if(!okS.length) av.push("จันทร์จรอยู่ภพเสียจาก"+baseTxt+"ทั้งวัน");
+    else if(am.hm===8&&best.hm===8) av.push("จันทร์จรอยู่ภพมรณะจาก"+baseTxt);
+    else if((am.hm===6||am.hm===12)&&am.hm===best.hm) av.push("จันทร์จรอยู่ภพ"+(am.hm===6?"อริ":"วินาศ")+"จาก"+baseTxt);
     if(am.el<12||am.el>348) av.push("ตรงกับช่วงเดือนดับ");
     day.avoid=av; day.score=best.s; days.push(day);
   }
@@ -3859,7 +3898,7 @@ function deepFull(inp,r,NM){
     <p class="para"><b>รวมได้ ${pwSum}</b> แล้วรวมต่อจนเหลือหลักเดียว ${String(pwSum).split("").join(" + ")} = ${pwRoot}${pwRoot!==String(pwSum).split("").reduce((x,y)=>x+ +y,0)?" (รวมซ้ำอีกรอบจนเหลือหลักเดียว)":""}</p><p class="para"><b>ผลรวมกำลังดาวเป็นเลข ${pwRoot}</b> <span class="pill ${pc}">${DL[pc]}</span> ${pwTxt}</p>`;
   const PYR_DONE=1;
   const sec5=`<section class="card"><h2>ภาพรวมทั้งเบอร์</h2>
-    <p class="para"><b>ผลรวม ${r.sum}</b> <span class="pill ${r.sumInfo[0]}">${GL[r.sumInfo[0]]}</span> ผลรวมส่งผลกับชีวิตระยะยาว 5 ปีขึ้นไป เบอร์นี้ส่งผลไปทาง${r.sumInfo[2]}${r.sumInfo[3]?" สำหรับ"+(f?"ผู้หญิง":"ผู้ชาย")+" "+r.sumInfo[3]:""}</p>
+    <p class="para"><b>ผลรวม ${r.sum}</b> <span class="pill ${r.sumInfo[0]}">${({g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"})[r.sumInfo[0]]}</span> ผลรวมส่งผลกับชีวิตระยะยาว 5 ปีขึ้นไป เบอร์นี้ส่งผลไปทาง${r.sumInfo[2]}${r.sumInfo[3]?" สำหรับ"+(f?"ผู้หญิง":"ผู้ชาย")+" "+r.sumInfo[3]:""}</p>
     <p class="para"><b>การร้อยเรียง</b> คือการดูว่าเลขแต่ละคู่ที่ติดกันต่อกันได้ราบรื่นไหม ${badC.length?"เบอร์นี้มีคู่ที่สะดุดคือ "+badC.join(" ")+" ทำให้พลังของเบอร์ไหลไม่ต่อเนื่อง":"เบอร์นี้ร้อยเรียงได้ราบรื่น ไม่มีคู่เสียคั่นกลาง"}</p>
     ${r.rescued.length?`<p class="para">${r.rescued.map(esc).join(" ")}</p>`:""}
     <h3 class="sub">พีระมิดตัวเลข</h3>
@@ -3908,6 +3947,11 @@ function adminRender(){
     <div id="admebout" aria-live="polite"></div>
     <label for="admbd" style="margin-top:12px;display:block">รหัสวิเคราะห์ชื่อ ใส่วันเกิดลูกค้า วว ดด ปปปป (พ.ศ.) 8 หลัก<input id="admbd" inputmode="numeric" maxlength="10" placeholder="12052533"></label>
     <div id="admbout" aria-live="polite"></div>
+    <label for="admrk" style="margin-top:12px;display:block">รหัสหาฤกษ์ ใส่วันเกิดลูกค้า วว ดด ปปปป (พ.ศ.) 8 หลัก<input id="admrk" inputmode="numeric" maxlength="10" placeholder="12052533"></label>
+    <div id="admrkout" aria-live="polite"></div>
+    <label for="admlv1" style="margin-top:12px;display:block">รหัสดวงคู่ ใส่วันเกิดทั้งสองคน วว ดด ปปปป (พ.ศ.)<input id="admlv1" inputmode="numeric" maxlength="10" placeholder="คนที่ 1 เช่น 12052533"></label>
+    <input id="admlv2" inputmode="numeric" maxlength="10" placeholder="คนที่ 2 เช่น 03081995" aria-label="วันเกิดคนที่ 2" style="margin-top:6px">
+    <div id="admlvout" aria-live="polite"></div>
    </div></section>`;
   el.dataset.built=1;
   $("admgo").onclick=()=>{if(pinOk(normDigits($("admpin").value))){$("admlock").hidden=true;$("admerr").hidden=true;$("admin").hidden=false;setOwner(true);ownUI();admStockUI();admUpdUI();admStatsUI();}else $("admerr").hidden=false;};
@@ -3922,6 +3966,12 @@ function adminRender(){
     const c=unlockCode("7"+v), msg="ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกวิเคราะห์ชื่อแบบละเอียด วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ";
     $("admbout").innerHTML=`<p class="admcode">${c}</p><p class="para">${msg}</p><button type="button" class="primary" id="admbcopy">คัดลอกข้อความส่งลูกค้า</button> <span class="note" id="admbok" hidden>คัดลอกแล้ว</span>`;
     $("admbcopy").onclick=()=>{const done=()=>{$("admbok").hidden=false;};try{navigator.clipboard.writeText(msg).then(done,()=>fallback(msg,done));}catch(e){fallback(msg,done);}};};
+  const admMsg=(out,c,msg)=>{$(out).innerHTML=`<p class="admcode">${c}</p><p class="para">${msg}</p><button type="button" class="primary">คัดลอกข้อความส่งลูกค้า</button> <span class="note" hidden>คัดลอกแล้ว</span>`;const bt=$(out).querySelector("button"),ok=$(out).querySelector("span");bt.onclick=()=>{const done=()=>{ok.hidden=false;};try{navigator.clipboard.writeText(msg).then(done,()=>fallback(msg,done));}catch(e){fallback(msg,done);}};};
+  $("admrk").oninput=()=>{const v=normDigits($("admrk").value);if(v.length!==8){$("admrkout").innerHTML="";return;}
+    const c=unlockCode("6"+v);admMsg("admrkout",c,"ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกฤกษ์มงคล วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ ใช้หาฤกษ์งานอื่นหรือเดือนอื่นได้ด้วยรหัสเดิม");};
+  const lvA=()=>{const a=normDigits($("admlv1").value),b=normDigits($("admlv2").value);if(a.length!==8||b.length!==8){$("admlvout").innerHTML="";return;}
+    const s=[a,b].sort(),c=unlockCode("4"+s[0]+s[1]);admMsg("admlvout",c,"ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกดวงคู่ คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ");};
+  $("admlv1").oninput=lvA;$("admlv2").oninput=lvA;
   $("admph").oninput=()=>{const v=$("admph").value.replace(/\D/g,"");
     if(v.length!==10){$("admout").innerHTML="";return;}
     const c=unlockCode(v), msg="ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกผลวิเคราะห์เจาะลึกของเบอร์ "+v+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ";
@@ -3996,15 +4046,16 @@ function shortTxt(t,n){t=String(t||"").trim();if(t.length<=n)return t;const c=t.
 function freePairsHtml(inp,r){
   const GT={g:"ดี",m:"กลาง",b:"ระวัง"};
   const DG={};dblFit(inp,r).forEach(x=>{DG[x.v]=x.g;});
-  const rows=r.pos.map(p=>{const g=DG[p.s]||gradeOf(pairScore(p,r));return `<li><span class="pv sm ${g}">${p.s}</span><span><b>${p.n}</b> <span class="pill ${g}">${GT[g]}</span><br><span class="fpm">${esc(p.info[1])}</span> ${esc(shortTxt(p.info[2],70))}</span></li>`;}).join("");
-  const tri=(r.tri3||[]).map(t=>{const sx=(r.trips||[]).find(x=>x.pt===t.t);const v=sx?"b":t.v;
-    return `<li><span class="pv sm ${v}">${t.t}</span><span><b>${esc(t.name)}</b> <span class="pill ${v}">${GT[v]}</span>${t.tail?' <span class="note">ท้ายเบอร์</span>':""}<br>${sx?"เลขเบิลที่ไม่เหมาะกับ"+(inp.sex==="f"?"ผู้หญิง":"ผู้ชาย")+" "+esc(sx.txt):esc(shortTxt(t.short,90))}</span></li>`;}).join("");
+  const rows=r.pos.map((p,i)=>{const g=DG[p.s]||gradeOf(pairScore(p,r));return `<li${i>=5?' class="ppx"':""}><span class="pv sm ${g}">${p.s}</span><span><b>${p.n}</b> <span class="pill ${g}">${GT[g]}</span><br><span class="fpm">${esc(p.info[1])}</span> ${esc(shortTxt(p.info[2],70))}</span></li>`;}).join("");
+  const tri=(r.tri3||[]).map((t,i)=>{const sx=(r.trips||[]).find(x=>x.pt===t.t);const v=sx?"b":t.v;
+    return `<li${i>=2?' class="ppx"':""}><span class="pv sm ${v}">${t.t}</span><span><b>${esc(t.name)}</b> <span class="pill ${v}">${GT[v]}</span>${t.tail?' <span class="note">ท้ายเบอร์</span>':""}<br>${sx?"เลขเบิลที่ไม่เหมาะกับ"+(inp.sex==="f"?"ผู้หญิง":"ผู้ชาย")+" "+esc(sx.txt):esc(shortTxt(t.short,90))}</span></li>`;}).join("");
   return `<section class="card" aria-labelledby="hfp"><h2 id="hfp">ความหมายคู่เลขในเบอร์นี้</h2>
    <p class="note" style="margin:0 0 8px">อ่านจากท้ายเบอร์ซึ่งส่งผลแรงที่สุด ไปหาหัวเบอร์ ระดับดี กลาง ระวัง คิดรวมกับพื้นดวงของคุณแล้ว</p>
-   <ul class="pp">${rows}</ul>
+   <div class="ppw" id="ppw"><ul class="pp">${rows}</ul>
    <h3 class="sub">ชุดเลข 3 ตัว</h3>
    <p class="note" style="margin:0 0 8px">อ่านเลขสามตัวที่ต่อกันเป็นชุด ดูว่าพลังส่งต่อกันราบรื่นหรือสะดุด ชุดท้ายเบอร์แรงที่สุด</p>
-   <ul class="pp">${tri}</ul>
+   <ul class="pp">${tri}</ul></div>
+   ${r.pos.length>5||(r.tri3||[]).length>2?`<button type="button" class="ghost tgl" data-tgl="ppw" data-on="ย่อกลับ">ดูทุกคู่ (${r.pos.length} คู่ และชุด 3 ตัว ${(r.tri3||[]).length} ชุด)</button>`:""}
    <p class="note" style="margin-top:8px">นี่คือความหมายแบบย่อ ถ้าอยากรู้ว่าแต่ละคู่ส่งผลกับชีวิตคุณอย่างไร ควรวางเลขตรงไหน และเบอร์ที่เหมาะกับดวงคุณ ดูได้ในแบบเจาะลึกด้านล่าง</p></section>`;
 }
 function render(inp,r,isSample){
@@ -4039,16 +4090,18 @@ function render(inp,r,isSample){
   ${isSample?'<span class="sample">ตัวอย่างผลวิเคราะห์ ลองใส่ข้อมูลของคุณด้านบน</span>':""}
   <section class="card" aria-labelledby="h1r">
     <h2 id="h1r">ผลเบอร์ของ${who}</h2>
+    ${isSample?"":`<nav class="rjump" aria-label="ไปยังส่วนของผล"><a href="#" data-j="h1r">สรุป</a><a href="#" data-j="hfp">คู่เลข</a><a href="#" data-j="hpay">เจาะลึก 399</a><a href="#" data-j="hsr">เบอร์แนะนำ</a></nav>`}
     <div class="num" aria-label="เบอร์ ${inp.phone}">${numHtml}</div>
     <div class="verdict"><div class="score">${r.s1000} <small>/ 1000</small></div><div><span class="pill ${r.band[0]}">${r.band[1]}</span></div></div>
+    <p class="sumline">ผลรวม <b>${r.sum}</b> <span class="pill ${r.sumInfo[0]}">${({g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"})[r.sumInfo[0]]}</span> <span>${esc(r.sumInfo[1]||"")}</span></p>
     ${simpleSummary(inp,r,NM)}
   </section>
   ${s1000Html(r)}
   ${freePairsHtml(inp,r)}
-  ${isSample?"":readMoreHtml(inp,r)}
-  ${isSample?"":stockRecHtml(inp,r)}
   ${payHtml()}
+  ${isSample?"":stockRecHtml(inp,r)}
   ${CTA}
+  ${isSample?"":readMoreHtml(inp,r)}
   <div class="expert" id="deep" hidden>
   <p class="unlocked">${isOwner()?"โหมดเจ้าของ ผลวิเคราะห์เจาะลึกของ"+who:"ขอบคุณที่ใช้บริการครับ ด้านล่างคือผลวิเคราะห์เจาะลึกของ"+who}</p>
   <div id="deepgen"></div>
@@ -4731,6 +4784,9 @@ opt($("mi"),Array.from({length:60},(_,i)=>[i,pad(i)]));
 opt($("prov"),PROV.map((p,i)=>[i,p[0]]));
 
 $("notime").onchange=()=>{$("hh").disabled=$("mi").disabled=$("notime").checked;};
+opt($("dd2"),Array.from({length:31},(_,i)=>[i+1,i+1]));opt($("mm2"),MONTHS.map((m,i)=>[i+1,m]));opt($("yy2"),Array.from({length:2569-2480+1},(_,i)=>[2569-i,2569-i]));
+opt($("hh2"),Array.from({length:24},(_,i)=>[i,pad(i)]));opt($("mi2"),Array.from({length:60},(_,i)=>[i,pad(i)]));opt($("prov2"),PROV.map((p,i)=>[i,p[0]]));$("yy2").value="2535";
+$("notime2").onchange=()=>{$("hh2").disabled=$("mi2").disabled=$("notime2").checked;};
 
 function readForm(){
   ["phone","phone2","plate","house","idcard"].forEach(id=>{const el=$(id); if(el&&/[๐-๙]/.test(el.value)) el.value=el.value.replace(/[๐-๙]/g,c=>String("๐๑๒๓๔๕๖๗๘๙".indexOf(c)));});
@@ -4752,6 +4808,9 @@ const MODES={
  house:{btn:"วิเคราะห์บ้านเลขที่",title:"วิเคราะห์บ้านเลขที่"},
  idcard:{btn:"วิเคราะห์เลขบัตรประชาชน",title:"วิเคราะห์เลขบัตรประชาชน"},
  biz:{btn:"วิเคราะห์ชื่อร้าน",title:"วิเคราะห์ชื่อร้าน ชื่อบริษัท"},
+ rk:{btn:"หาฤกษ์",title:"หาฤกษ์มงคล เฉพาะดวงของคุณ"},
+ love:{btn:"ดูดวงคู่",title:"ดวงคู่ เข้ากันแค่ไหน"},
+ bank:{btn:"วิเคราะห์เลขบัญชี",title:"วิเคราะห์เลขบัญชีธนาคาร"},
  cmp:{btn:"เทียบเบอร์",title:"เทียบเบอร์ 2 เบอร์ ว่าเบอร์ไหนเข้ากับดวงมากกว่า"}};
 function setMode(m,init){
   MODE=m;
@@ -4760,7 +4819,7 @@ function setMode(m,init){
   $("fh").textContent=MODES[m].title; $("gobtn").textContent=MODES[m].btn;
   $("fnhint").textContent=m==="name"?"ชื่อจริง":m==="biz"?"ชื่อร้านหรือชื่อบริษัท (ภาษาไทย)":"ชื่อจริง (ไม่ใส่ก็ได้)"; $("lnhint").textContent=m==="name"?"นามสกุล":"นามสกุล (ไม่ใส่ก็ได้)";
   const bz=m==="biz"; $("t_dd").textContent=bz?"วันเปิดร้าน":"วันเกิด"; $("t_hh").textContent=bz?"เวลาเปิดร้าน (ชั่วโมง)":"เวลาเกิด (ชั่วโมง)"; $("t_nt").textContent=bz?"ไม่ทราบเวลาเปิดร้าน":"ไม่ทราบเวลาเกิด"; $("t_pv").textContent=bz?"จังหวัดที่ตั้งร้าน":"จังหวัดที่เกิด"; $("t_ph").textContent=m==="cmp"?"เบอร์ที่ 1":"เบอร์มือถือที่ต้องการวิเคราะห์";
-  $("err").hidden=true; if(!init) $("result").innerHTML="";
+  $("err").hidden=true; if(!init){ $("result").innerHTML=""; smpClear(); }
 }
 // ผูกดวงอย่างเดียว ใช้กับทุกช่อง
 function chartOnly(inp){
@@ -4788,6 +4847,7 @@ function numSum(sum,kind,inp){
 const KIND={
  plate:{name:"ทะเบียนรถ",lead:"ทะเบียนรถอยู่กับเราทุกครั้งที่เดินทาง ส่งผลเรื่องความปลอดภัย การเดินทาง โชค และงานที่ต้องใช้รถ หลักการอ่านคือรวมค่าตัวอักษรตามเลขศาสตร์กับตัวเลข ได้ผลรวมของทะเบียน แล้วอ่านคู่เลขในส่วนตัวเลข โดยเลขท้ายส่งผลแรงที่สุด",tail:"เลขท้ายทะเบียน"},
  house:{name:"บ้านเลขที่",lead:"บ้านเลขที่คือพลังของที่อยู่อาศัย ส่งผลกับความสงบในบ้าน ความสัมพันธ์ของคนในครอบครัว การเงินที่ไหลเข้าออกบ้าน และสุขภาพของคนที่อยู่ หลักการอ่านคือรวมทุกตัวเลข รวมเลขหลังเครื่องหมาย / ด้วย แล้วอ่านคู่เลขที่อยู่ติดกัน โดยเลขท้ายส่งผลแรงที่สุด",tail:"เลขท้ายบ้านเลขที่"},
+ bank:{name:"เลขบัญชีธนาคาร",lead:"เลขบัญชีธนาคารคือเลขที่เงินเข้าออกทุกวัน ส่งผลเรื่องการเงิน การเก็บเงิน และเงินที่ไหลเข้ามา คนค้าขายออนไลน์ที่ให้ลูกค้าโอนเข้าบัญชียิ่งควรดู หลักการอ่านคือรวมทุกตัวเลข แล้วอ่านคู่เลขที่อยู่ติดกัน โดยช่วงท้ายส่งผลแรงที่สุด",tail:"คู่ท้ายเลขบัญชี"},
  idcard:{name:"เลขบัตรประชาชน",lead:"เลขบัตรประชาชนเป็นเลขประจำตัวที่ติดตัวไปตลอดชีวิตและเปลี่ยนไม่ได้ จึงบอกพลังพื้นฐานที่ติดตัวเรามา การอ่านมีไว้เพื่อรู้จุดแข็งจุดอ่อน แล้วใช้เบอร์มือถือ ชื่อ หรือทะเบียนรถช่วยเสริมส่วนที่ขาด หลักการอ่านคือรวมทั้ง 13 หลัก และอ่านคู่เลขที่อยู่ติดกัน โดยช่วงท้ายส่งผลแรงที่สุด",tail:"คู่ท้ายบัตร"}};
 function readMode(){
   const d=+$("dd").value,m=+$("mm").value,y=+$("yy").value-543;
@@ -4803,6 +4863,10 @@ function readMode(){
   if(MODE==="biz"){ if(!/[ก-ฮ]/.test(inp.fname)) return {error:"ใส่ชื่อร้านหรือชื่อบริษัทเป็นภาษาไทย"}; inp.lname=""; }
   if(MODE==="cmp"){ const nz=v=>{let p=v.replace(/\D/g,"");if(p.length===11&&p.startsWith("66"))p="0"+p.slice(2);return p;}; inp.p1=nz($("phone").value); inp.p2=nz($("phone2").value);
     if(!/^0\d{9}$/.test(inp.p1)||!/^0\d{9}$/.test(inp.p2)) return {error:"ใส่เบอร์มือถือ 10 หลักให้ครบทั้ง 2 เบอร์"}; if(inp.p1===inp.p2) return {error:"ใส่เบอร์ที่ต่างกัน 2 เบอร์"}; }
+  if(MODE==="rk"){ inp.act=$("rkact").value; inp.ms=$("rkmon").value; }
+  if(MODE==="bank"){ const D=[...normDigits($("bank").value)].map(Number); if(D.length<10||D.length>15) return {error:"ใส่เลขบัญชีให้ครบ 10 ถึง 15 หลัก"}; inp.digits=D; inp.house=D.join(""); }
+  if(MODE==="love"){ const d2=+$("dd2").value,m2=+$("mm2").value,y2=+$("yy2").value-543; const t2=new Date(Date.UTC(y2,m2-1,d2)); if(t2.getUTCMonth()!==m2-1) return {error:"วันเกิดของคนที่ 2 ไม่มีในปฏิทิน ลองเช็กอีกครั้ง"};
+    const nt2=$("notime2").checked, pv2=PROV[+$("prov2").value]; inp.B={nick:$("nick2").value.trim(),sex:$("sex2").value,d:d2,m:m2,y:y2,h:nt2?6:+$("hh2").value,mi:nt2?0:+$("mi2").value,notime:nt2,lat:pv2[1],lon:pv2[2]}; }
   if(MODE==="idcard"){ const D=[...$("idcard").value].filter(c=>/\d/.test(c)).map(Number);
     if(D.length!==13) return {error:"ใส่เลขบัตรประชาชนให้ครบ 13 หลัก"}; inp.digits=D; }
   return inp;
@@ -4817,6 +4881,8 @@ function renderMode(inp){
   const cta=`<section class="cta"><h2>อยากให้ผมดูแบบละเอียด</h2><p>ผมดูให้ได้ว่าควรแก้ หรือควรเสริมด้วยอะไร ให้เข้ากับดวง งาน และช่วงวัยของคุณ แอดไลน์มาคุยกันได้เลยครับ</p><div class="btns"><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener">แอดไลน์</a></div></section>`;
   if(MODE==="biz"){ renderBiz(inp,ch,ds,cta); return; }
   if(MODE==="cmp"){ renderCmp(inp,cta); return; }
+  if(MODE==="rk"){ rkRender(inp,ds,who,cta); return; }
+  if(MODE==="love"){ loveRender(inp,inp.B,cta); return; }
   if(MODE==="name"){
     const nm=analyzeName(inp,{ds}); NMCTX={inp,ds}; const TZ=nameTeaserHtml(inp,nm,ds);
     $("result").innerHTML=`<section class="card"><h2>ผลวิเคราะห์ชื่อของ${who}</h2><div class="verdict"><div class="score">${nm.score} <small>/ 1000</small></div><div><span class="pill ${nm.verdict[0]}">${nm.verdict[1]}</span></div></div><p class="para" style="text-align:center;margin:6px 0 0">ชื่อนี้เหมาะกับดวง${who} <b>${(nm.score/10).toFixed(1).replace(/\.0$/,"")}%</b></p>${nameSummaryHtml(inp,nm)}</section>${nameHtml(inp,nm)}${TZ.html}${TZ.paid?namePayHtml():""}${nickHtml(inp,nm.bk)}<div id="ndeep" hidden>${TZ.paid?`<p class="unlocked">${isOwner()?"โหมดเจ้าของ ผลวิเคราะห์ชื่อแบบละเอียด":"ขอบคุณที่ใช้บริการครับ ด้านล่างคือผลวิเคราะห์ชื่อแบบละเอียดของคุณ"}</p>`:""}<div id="ndeepgen"></div>${TZ.paid?`<div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="name">บันทึกผลวิเคราะห์เป็น PDF</button><p class="note" style="margin:6px 0 0">กดแล้วเลือก บันทึกเป็น PDF เก็บไว้อ่านทีหลังได้</p></div>${paidLineHtml("name")}`:""}</div>${nameReadMore()}${cta}`;
@@ -4845,6 +4911,7 @@ function renderMode(inp){
   if(last) summary.push(K.tail+" "+last.s+" "+(last.g==="g"?"เป็นคู่ดี ส่งผลดีแรงที่สุด":last.g==="b"?"เป็นคู่ที่ต้องระวัง และส่งผลแรงที่สุด":"ให้ผลกลาง ๆ"));
   summary.push("ผลรวม "+sum+" "+(si[0]==="g"?"เป็นเลขดี":si[0]==="b"?"ไม่ค่อยส่งเสริม":"ให้ผลกลาง ๆ")+" "+si[2]);
   if(badP.length) summary.push("มีคู่ที่ต้องระวังคือ "+badP.join(" "));
+  if(MODE==="bank"&&score<60) summary.push("ถ้าบัญชีนี้ใช้รับเงินหลัก และยังไม่อยากเปลี่ยน ให้เสริมด้วยเบอร์มือถือที่ผูกพร้อมเพย์ให้มีเลขพลังดีในดวงคุณ ("+(good.join(" ")||"ทักไลน์ให้ผมดู")+") หรือเปิดบัญชีใหม่สำหรับรับเงินค้าขาย แล้วเช็กเลขก่อนใช้");
   if(MODE==="idcard") summary.push("เลขบัตรเปลี่ยนไม่ได้ ส่วนที่อ่อนให้เสริมด้วยเบอร์มือถือที่มีเลขพลังดีในดวงคุณ ("+(good.join(" ")||"ทักไลน์ให้ผมดู")+") แทน");
   if(MODE==="house"&&score<60) summary.push("บ้านเลขที่เปลี่ยนยาก ถ้าพลังไม่หนุน ให้เสริมด้วยเบอร์มือถือของคนในบ้าน และการจัดบ้านให้โปร่ง สะอาด");
   if(MODE==="plate"&&score<60) summary.push("ถ้ากำลังจะเปลี่ยนรถหรือประมูลทะเบียนใหม่ ควรเลือกทะเบียนที่เลขท้ายเป็นเลขพลังดีในดวง");
@@ -4852,14 +4919,14 @@ function renderMode(inp){
     <div class="num" style="font-size:28px;letter-spacing:2px;text-align:center;font-family:var(--f-mono)">${showNum}</div>
     <div class="verdict"><div class="score">${score} / 100</div><div><span class="pill ${band[0]}">${band[1]}</span></div></div>
     <div class="easy"><h3 class="sub">สรุป</h3><p class="para">${summary.join(" ")}</p>${chartBox}</div></section>
-  <section class="card"><h2>หลักการอ่าน${K.name}</h2><p class="para">${K.lead}</p>${MODE==="idcard"?`<p class="note">ระบบคำนวณในเครื่องของคุณเท่านั้น ไม่ได้ส่งหรือเก็บเลขบัตรไว้ที่ไหน</p>`:""}</section>
+  <section class="card"><h2>หลักการอ่าน${K.name}</h2><p class="para">${K.lead}</p>${MODE==="idcard"||MODE==="bank"?`<p class="note">ระบบคำนวณในเครื่องของคุณเท่านั้น ไม่ได้ส่งหรือเก็บเลข${MODE==="bank"?"บัญชี":"บัตร"}ไว้ที่ไหน</p>`:""}</section>
   <section class="card"><h2>ผลรวม ${sum}</h2>${letterChips}<p class="para">${sumLine}</p>
     <p><span class="pill ${si[0]}">${GL[si[0]]}</span> <b>${si[1]}</b> ${si[2]}${si[3]?" "+si[3]:""}</p>
     <p class="note">ตัวเลขในผลรวม ${String(sum).split("").map(d=>d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงคุณ</p></section>
   <section class="card"><h2>อ่านทีละคู่</h2><p class="note" style="margin:0 0 8px">เรียงจากคู่ท้ายซึ่งส่งผลแรงที่สุด</p>
     <ul class="pairs">${pairs.slice().reverse().map(p=>`<li><div class="pv ${p.g}">${p.s}</div><div><h3>${p.info[1]} <span class="pill ${p.g}">${GL[p.g]}</span></h3><p class="note" style="margin:0">${p.w===3?"คู่ท้าย ส่งผลแรงที่สุด":p.w===2?"ส่งผลรองลงมา":"ส่งผลน้อย"}</p><p>${p.info[2]}${p.info[3]?" "+p.info[3]:""}</p><p class="note">${p.s.split("").map(d=>"เลข "+d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงคุณ</p></div></li>`).join("")}</ul></section>
   ${cta}`;
-  addShare({kind:"ผลวิเคราะห์"+K.name,main:MODE==="idcard"?"บัตรประชาชน":MODE==="plate"?inp.plate:inp.house,mono:MODE!=="idcard",score,verdict:band[1],vc:band[0],lines:summary.slice(0,3).map(t=>t.length>120?t.slice(0,118)+"…":t)});
+  addShare({kind:"ผลวิเคราะห์"+K.name,main:MODE==="idcard"?"บัตรประชาชน":MODE==="bank"?"เลขบัญชี":MODE==="plate"?inp.plate:inp.house,mono:MODE!=="idcard",score,verdict:band[1],vc:band[0],lines:summary.slice(0,3).map(t=>t.length>120?t.slice(0,118)+"…":t)});
 }
 const TH_NAMES={m:["อนันต์","อรุณ","อภิชาติ","เอกชัย","องอาจ","อรรถพล","อมรเทพ","อดิศักดิ์","อดิศร","อนุชา","อนุวัฒน์","อนุพงษ์","อนุสรณ์","อภิสิทธิ์","อภิรักษ์","อภิวัฒน์","อภินันท์","อภิชัย","อัครพล","อัครเดช","อัษฎาวุธ","อำนาจ","อุดม","อุดมศักดิ์","อุทัย","อิทธิพล","อิทธิพัทธ์","อิสระ","อาทิตย์","อานนท์","อำพล","อัมรินทร์","เอกพล","เอกราช","เอกรินทร์","เอกวัฒน์","เอกสิทธิ์","เอกภพ","อธิป","อธิวัฒน์","อธิคม","อรรถชัย","อรรถสิทธิ์","อนาวิน","อติวิชญ์","อชิรวิทย์","อัครวินท์","อัศวิน","อุกฤษฏ์","อุเทน","อนุรักษ์","อภิเดช","อาคม","อนุศักดิ์","อมรศักดิ์","อัฐพงษ์","อำนวย","อรรณพ","อัครินทร์","อดุลย์","อิทธิกร","กฤษดา","กฤษณะ","กิตติ","กิตติพงษ์","กิตติศักดิ์","กิตติพัฒน์","กิตติภูมิ","กิตติพศ","กิตติธัช","กมล","กมลภพ","กรกฎ","กฤตภาส","กฤติน","กฤษฎา","กวิน","กวินท์","กษิดิศ","กันตพงศ์","กันตภณ","กันต์","กัมพล","กานต์","กรวิชญ์","ก้องภพ","ก้องเกียรติ","เกรียงไกร","เกรียงศักดิ์","เกียรติศักดิ์","เกียรติพงษ์","เกียรติภูมิ","ไกรสร","ไกรวิทย์","ขจรศักดิ์","ขวัญชัย","เขมทัต","เขมินทร์","คณิน","คณิศร","คมกริช","คมสัน","คมสันต์","คุณากร","คุณานนต์","คุณัชญ์","คเชนทร์","ครรชิต","คงเดช","คงศักดิ์","คำรณ","กฤตเมธ","กรินทร์","กำพล","กิตติชัย","เกษม","คณาธิป","คมกฤช","ขจรเกียรติ","ฆนากร","จักรพันธ์","จักรพงษ์","จักริน","จักรกฤษณ์","จิรายุ","จิรวัฒน์","จิรพงศ์","จิรภัทร","จิรศักดิ์","จตุรงค์","จตุพล","จารุวัฒน์","จีรศักดิ์","เจษฎา","เจริญ","เจริญชัย","ฉัตรชัย","ฉัตรมงคล","ฉัตรพล","ฉลอง","เฉลิมชัย","เฉลิมพล","ชนินทร์","ชนาธิป","ชนกันต์","ชนะชัย","ชยพล","ชยกร","ชยางกูร","ชลสิทธิ์","ชลธี","ชวลิต","ชัชวาล","ชัยวัฒน์","ชัยพร","ชัยณรงค์","ชาญชัย","ชาตรี","ชินดนัย","ชินพัฒน์","ชิษณุพงศ์","ชุติพนธ์","ชุติวัต","ชูชาติ","โชคชัย","ไชยา","ไชยวัฒน์","ญาณพล","ญาณวุฒิ","ญาณภัทร","จิรเมธ","จารุพงศ์","เจตน์","ชวกร","ชาคริต","ชัยยศ","ชนสรณ์","ชานน","ฉัตรดนัย","จักรินทร์","ณัฐพล","ณัฐวุฒิ","ณัฐพงศ์","ณัฐดนัย","ณัฐกิตติ์","ณัฐชนน","ณัฐภัทร","ณัฐพัฒน์","ณัฐวัฒน์","ณัฐนนท์","ณัฐสิทธิ์","ณัฐกร","ณัฐชัย","ณัฐวัตร","ณภัทร","ณรงค์","ณรงค์ศักดิ์","ณรงค์ชัย","ณัฏฐ์","ณัชพล","ณพล","ณพงศ์","ณกรณ์","ณธกร","ณธีร์","ณัฐวีร์","ณัฐนันท์","ฐิติพงศ์","ฐิติวัฒน์","ฐิติกร","ฐิติพันธ์","ฐิติศักดิ์","ฐาปนา","ฐาปกรณ์","ฐานพัฒน์","ฐากูร","ฐิตินันท์","ฐิติวุฒิ","ฐิติภูมิ","ฑิฆัมพร","ฑีฆายุ","ณัฐเศรษฐ์","ณัฐธีร์","ฐิติโชติ","ฐิติเชษฐ์","ฐณวัฒน์","ณัฐชานนท์","ดนัย","ดนุพล","ดิเรก","ดำรง","ดำรงศักดิ์","ดุสิต","เดชา","เดชาวัต","เดชาธร","ตะวัน","ไตรภพ","ไตรรัตน์","ไตรทศ","ตรีภพ","ถิรวัฒน์","ถนอม","ทรงพล","ทรงศักดิ์","ทวีศักดิ์","ทวีชัย","ทศพล","ทศพร","ทินกร","ทินภัทร","ธนกร","ธนพล","ธนวัฒน์","ธนากร","ธนาธิป","ธนภัทร","ธนกฤต","ธนดล","ธนพัฒน์","ธนวินท์","ธนาวุฒิ","ธีรพงศ์","ธีรภัทร","ธีรวัฒน์","ธีรเดช","ธีรศักดิ์","ธีรวุฒิ","ธวัชชัย","ธัชพล","ธราธิป","ธรรมนูญ","นพดล","นพพร","นนทวัฒน์","นที","นิพนธ์","นิรันดร์","นิติพงษ์","นิธิ","นิธิศ","นราธิป","นรินทร์","นวพล","นันทวัฒน์","ธนาคิม","ธีรโชติ","ธนวรรธน์","ตุลยวัต","ทัศนัย","นิพิฐพนธ์","บรรพต","บวรศักดิ์","บุญชัย","บุญเลิศ","บุญญฤทธิ์","บดินทร์","บารมี","ปกรณ์","ปฏิภาณ","ประพันธ์","ประเสริฐ","ปรัชญา","ปริญญา","ปรีชา","ปวริศ","ปัณณวิชญ์","ปิยะ","ปิยพงษ์","ปิยวัฒน์","ผดุงศักดิ์","ผไท","พงศกร","พงษ์ศักดิ์","พงศธร","พชร","พรชัย","พรเทพ","พสิษฐ์","พัชรพล","พิชัย","พิชิต","พิทักษ์","พีรพล","พีรพัฒน์","พีรวิชญ์","พุฒิพงศ์","เพชร","ภาคิน","ภานุ","ภานุวัฒน์","ภาณุพงศ์","ภูมิ","ภูมิพัฒน์","ภูริ","ภูริภัทร","ภูวดล","ภัทรพล","ภัทรดนัย","มนตรี","มานพ","มงคล","เมธา","เมธี","มนัส","มารุต","ปัณณธร","ปุณณวิช","พิสิษฐ์","ภาณุวิชญ์","ภูบดินทร์","บุรินทร์","มหิศร","ยศพล","ยศวริศ","ยุทธนา","ยุทธพงษ์","ยุทธศักดิ์","ยงยุทธ","ยุรนันท์","รณกร","รณชัย","รัฐพล","รัฐภูมิ","รัชพล","รัชชานนท์","รัตนพล","เรวัต","เรืองศักดิ์","รุ่งโรจน์","รุ่งเรือง","ราเมศ","ลิขิต","เลิศชัย","เลิศพงษ์","ลือชัย","วรพล","วรเชษฐ์","วรวุฒิ","วรากร","วรัญญู","วชิรวิทย์","วชิระ","วสันต์","วัชระ","วัฒนา","วิชัย","วิชาญ","วิทยา","วิวัฒน์","วิศรุต","วีรพล","วีรยุทธ","วีระ","วุฒิชัย","วิษณุ","วิโรจน์","วิรัช","วิสุทธิ์","เวชยันต์","ยศกร","ยุทธการ","รพีภัทร","รัฐนันท์","ลภัส","วรินทร์","วิรุฬห์","วีรภัทร","ศักดิ์ชัย","ศักดิ์ดา","ศรายุทธ","ศราวุธ","ศิวกร","ศิวัช","ศุภกร","ศุภชัย","ศุภณัฐ","ศุภวิชญ์","ศิริชัย","ศรัณย์","ศรัณยู","สมชาย","สมศักดิ์","สมพงษ์","สมเกียรติ","สรวิศ","สรศักดิ์","สหรัฐ","สิทธิชัย","สิทธิพล","สิรภพ","สิรวิชญ์","สุทธิพงษ์","สุรเชษฐ์","สุรศักดิ์","สุรพล","สุริยา","สุเมธ","สุวิทย์","เสกสรร","เสฏฐวุฒิ","โสภณ","สรยุทธ","สรวิชญ์","หาญณรงค์","หิรัญ","เหมราช","ศุภโชค","ศิวพงศ์","สุรเดช","สุทธิพัฒน์","สรสิช","เสถียร","สมบัติ","ศรัณยพงศ์","สุรชัย"],f:["อัญชลี","อรทัย","ไอรดา","อุไรวรรณ","อาทิตยา","อรอุมา","อรวรรณ","อรนุช","อรพรรณ","อรุณี","อรุณรัตน์","อมรรัตน์","อมรา","อัจฉรา","อัญชิสา","อัญญา","อาภา","อาภาพร","อารีรัตน์","อารยา","อำไพ","อินทิรา","อิงฟ้า","อิสริยา","อุมาพร","อุษา","อุบลรัตน์","อุษณีย์","เอมอร","เอื้อมพร","เอมิกา","ไอลดา","ไอยวริญ","ไอริณ","อธิชา","อนัญญา","อนงค์","อนุสรา","อภิญญา","อภิสรา","อภัสรา","อริสา","อลิสา","อัมพร","อัมพิกา","อัญมณี","อารีย์","อุทัยวรรณ","อัญรินทร์","อมลวรรณ","อาริยา","อรอนงค์","อรสา","อรัญญา","อำพร","อิศริยา","กัญญา","กาญจนา","กมลชนก","กมลวรรณ","กมลา","กนกวรรณ","กนกพร","กรรณิการ์","กรองทอง","กฤติยา","กัลยา","กัลยาณี","กัญญาณัฐ","กชกร","กชพร","กนิษฐา","กวินธิดา","กวินทรา","กานต์ธิดา","กิตติยา","กุลธิดา","เกศินี","เกศรา","แก้วตา","ขวัญใจ","ขวัญจิรา","ขวัญฤทัย","ขนิษฐา","เขมิกา","เขมจิรา","เขมนิจ","คณิตา","คนึงนิจ","ครองขวัญ","คัทลียา","เครือวัลย์","เกวลิน","เกศแก้ว","กชกานต์","กฤษณา","กรวรรณ","กัลยรัตน์","กาญจนาภรณ์","กุลนันทน์","ขวัญตา","ขวัญเรือน","คุณัญญา","กมลเนตร","จันทร์เพ็ญ","จันทิมา","จารุวรรณ","จารุณี","จิราพร","จิราภรณ์","จิรัชญา","จิดาภา","จิตรลดา","จิรนันท์","จิรประภา","จุฑามาศ","จุฬาลักษณ์","จินตนา","จีรนันท์","เจนจิรา","เจษฎาพร","ฉัตรธิดา","ฉวีวรรณ","ฉันทนา","เฉลิมขวัญ","ชญานิษฐ์","ชนิดา","ชนิกานต์","ชนัญชิดา","ชนากานต์","ชไมพร","ชลธิชา","ชลดา","ชุติมา","ชุติกาญจน์","ชุลีพร","ชลิตา","ชิดชนก","ชญาดา","ชาลิสา","ญาดา","ญาณิศา","ญาณิดา","ญาณินท์","จิตติมา","จินดารัตน์","ชนกนันท์","ชนาภา","ชมพูนุท","ชัชฎาภรณ์","ฉัตรสุดา","จิรสุดา","ณิชา","ฐิตินันท์","ณัฐธิดา","ฐิติมา","ณัฐชา","ณัฐนันท์","ณัฐณิชา","ณัฐกมล","ณัฐวรรณ","ณัฐพร","ณัฐริกา","ณัฐฐา","ณัฐมน","ณัฐสุดา","ณัฐกานต์","ณัฐชยา","ณัฐนรี","ณัฐวดี","ณิชาภัทร","ณิชกานต์","ณิชาพร","ณิชมน","ณัชชา","ณัฏฐณิชา","ณภัทร","ณัฏฐา","ณีรนุช","ฐิติรัตน์","ฐิติพร","ฐิตาภา","ฐิติกาญจน์","ฐานิดา","ฐิติยา","ฐิตาพร","ฐปนีย์","ฐิตารีย์","ฐาปนีย์","ณัฐพัชร์","ณัฐปภัสร์","ณิชนันทน์","ฐิติวรดา","ณัฐนิชา","ฑิฆัมพร","ดารุณี","ดวงใจ","ดวงพร","ดวงกมล","ดวงฤทัย","ดารินทร์","ดาริกา","ดาราวรรณ","ดุจดาว","ตรีชฎา","ตวงพร","ทิพวรรณ","ทิพย์สุดา","ทิพาพร","ทัศนีย์","ทานตะวัน","ธนพร","ธนัชชา","ธนัญญา","ธนิดา","ธนาภา","ธมลวรรณ","ธัญญา","ธัญญารัตน์","ธัญชนก","ธัญลักษณ์","ธิดารัตน์","ธิติมา","นงลักษณ์","นภัสสร","นภาพร","นฤมล","นันทนา","นันทิดา","นันทิชา","นาตยา","นิตยา","นิภาพร","นิชาภา","นุชจรี","นวลจันทร์","นพวรรณ","นิรมล","นริศรา","นันท์นภัส","ดลยา","ทิพานัน","ธัญพิชชา","ธนวรรณ","นภัสกร","นันทพร","ตรีรัตน์","บุษบา","บุษกร","บุปผา","บุญญิสา","บงกช","เบญจมาศ","เบญจวรรณ","เบญญาภา","ปนัดดา","ปภาวดี","ปวีณา","ประภาพร","ประภัสสร","ปรียา","ปริยากร","ปาริชาติ","ปิยะนุช","ปิยธิดา","ปิยาภรณ์","ปุณยวีร์","ผกามาศ","ผ่องพรรณ","พรทิพย์","พรรณี","พรพรรณ","พรรณราย","พัชรา","พัชราภรณ์","พัชรินทร์","พิมพ์ชนก","พิมพ์ลภัส","พิมลพรรณ","พิชญา","พิชชาพร","พัณณิตา","เพ็ญศรี","เพ็ญพักตร์","เพียงขวัญ","ภัทรา","ภัทราภรณ์","ภัทรวดี","ภาวิณี","มณีรัตน์","มยุรี","มาลัย","มาลินี","มัลลิกา","มนัสนันท์","มนัสวี","เมธาวี","ปภัสรา","ภัทรภร","มณฑิรา","ปาณิสรา","ผุสดี","ยุพิน","ยุวดี","ยุพา","ยุพาพร","ยลดา","รัชนี","รัตนา","รัตนาภรณ์","รุ่งนภา","รุ่งทิวา","ระพีพรรณ","รมิดา","รินรดา","รสริน","รวิษฎา","ลัดดา","ลลิตา","ลักขณา","ลลิดา","ลัลนา","ลำดวน","วรรณา","วรรณวิสา","วรรณภา","วราภรณ์","วรัญญา","วรินทร","วริศรา","วาสนา","วิภาวดี","วิมลรัตน์","วิไลวรรณ","วนิดา","วรางคณา","วิชุดา","วีรยา","วรารัตน์","วชิราภรณ์","เยาวลักษณ์","เยาวภา","ยุวธิดา","รัชดา","รัญชนา","ลินดารัตน์","วิมลมาศ","วรรณิดา","รวิวรรณ","อัมรา","อุษามณี","อรปรียา","อัจฉริยา","อาภัสรา","เอมวลี","กฤตยา","กนกนาถ","กมลทิพย์","กัญญารัตน์","ขวัญชนก","คณิศา","กันต์ฤทัย","จารุภา","จันทร์จิรา","ชนัดดา","ชลลดา","ชวิศา","ชุติกานต์","ฉัตรวดี","ญาณิกา","ณัฐชนก","ฐิติชญา","ดวงหทัย","ธนิสร","นภัสวรรณ","นิศารัตน์","นันทิยา","ทักษพร","ธันยกานต์","ปวีณ์ธิดา","พรรณิภา","พิชามญชุ์","เบญจรัตน์","ปัณฑิตา","พิมพ์มาดา","มนัสชนก","ภาวิดา","รัชนีกร","รุจิรา","ลักษมี","วิลาสินี","วรนุช","ระวีวรรณ","เรณู","วีรวรรณ","สุจิตรา","สุภัสสรา","ศิรประภา","สร้อยทิพย์","หทัยภัทร","สุวรรณี","เสาวนีย์","สุนันทา","ศศิธร","ศศิประภา","ศศิกานต์","ศิริพร","ศิริรัตน์","ศุภรัตน์","ศุภิสรา","ศิรินภา","ศรีสุดา","สมใจ","สมฤดี","สายสุนีย์","สาวิตรี","สุดารัตน์","สุนิสา","สุพัตรา","สุภาพร","สุมาลี","สุวนันท์","สุกัญญา","สุชาดา","สุธิดา","สุนทรี","สิริกร","สิริมา","สิรินทร์","เสาวลักษณ์","โสภิดา","หทัยรัตน์","หทัยชนก","หฤทัย","หรรษา","ศรัณยา","ศิรดา","ศิริขวัญ","สโรชา","สลิลทิพย์","สุพิชชา","แสงเดือน","ศุภนิดา","สุชานันท์","สิริยากร","ศศิวิมล"]};
 // ===== ชื่อมงคลที่แนะนำ (คัดจากรายชื่อจริง ผ่านทั้งนามดาวและเลขศาสตร์) =====
@@ -5049,10 +5116,12 @@ function bindNamePay(inp,key,open){
 // ===== บันทึกผลวิเคราะห์ 399 เป็น PDF (รองรับเบราว์เซอร์ในแอป Facebook LINE IG) =====
 function inAppBrowser(){const u=navigator.userAgent||"";return /FBAN|FBAV|FB_IAB|FBIOS|Instagram|Line\/|KAKAOTALK|MicroMessenger|TikTok|musical_ly|Bytedance/i.test(u)||(/Android/i.test(u)&&/; wv\)/.test(u));}
 function pdfLink(kind){const q=new URLSearchParams(),v=id=>$(id)?$(id).value:"";
-  q.set("r",kind);["dd","mm","yy","hh","mi","prov","sex","fname","lname","nick","job","phone"].forEach(id=>{const x=v(id);if(x!=="")q.set(id,x);});
-  if($("notime").checked)q.set("notime","1");
-  try{const i=readFormLoose();if(i){const key=kind==="name"?nameKey(i):i.phone;if(key&&wasUnlocked(key))q.set("u",unlockCode(key));}}catch(e){}
+  q.set("r",kind);["dd","mm","yy","hh","mi","prov","sex","fname","lname","nick","job","phone","rkact","rkmon","nick2","sex2","dd2","mm2","yy2","hh2","mi2","prov2"].forEach(id=>{const x=v(id);if(x!=="")q.set(id,x);});
+  if($("notime").checked)q.set("notime","1"); if($("notime2").checked)q.set("notime2","1");
+  try{const key=pdfKeyOf(kind);if(key&&wasUnlocked(key))q.set("u",unlockCode(key));}catch(e){}
   return location.origin+location.pathname+"?"+q.toString();}
+function pdfKeyOf(k){const i=readFormLoose();if(k==="name")return nameKey(i);if(k==="rk")return rkKey(i);if(k==="love"){const B2={d:+$("dd2").value,m:+$("mm2").value,y:+$("yy2").value-543};return lvKey(i,B2);}return i.phone;}
+const PDF_K={phone:["deep",1,"ผลวิเคราะห์เบอร์แบบละเอียด"],name:["ndeep",2,"ผลวิเคราะห์ชื่อแบบละเอียด"],rk:["xdeep",1,"ฤกษ์มงคลเฉพาะดวง"],love:["vdeep",1,"ดวงคู่แบบละเอียด"]};
 function readFormLoose(){const d=+$("dd").value,m=+$("mm").value,y=+$("yy").value-543;return {d,m,y,phone:$("phone").value.replace(/\D/g,"")};}
 function pdfHelp(btn,kind){let box=btn.parentNode.querySelector(".pdfhelp");if(box){box.hidden=!box.hidden;return;}
   const url=pdfLink(kind),and=/Android/i.test(navigator.userAgent||"");
@@ -5061,12 +5130,12 @@ function pdfHelp(btn,kind){let box=btn.parentNode.querySelector(".pdfhelp");if(b
   btn.insertAdjacentElement("afterend",box);
   box.querySelector(".pdfcp").onclick=()=>{const ok=()=>{box.querySelector(".pdfok").hidden=false;};try{navigator.clipboard.writeText(url).then(ok,()=>fallback(url,ok));}catch(e){fallback(url,ok);}};}
 function pdfPrint(kind){
-  const R=$("result"), deepId=kind==="name"?"ndeep":"deep", kids=[...R.children];
-  let secN=0; const keepN=kind==="name"?2:1;
+  const R=$("result"), PK0=PDF_K[kind]||PDF_K.phone, deepId=PK0[0], kids=[...R.children];
+  let secN=0; const keepN=PK0[1];
   kids.forEach(el=>{let keep=false;if(el.id===deepId)keep=true;else if(el.tagName==="SECTION"&&secN<keepN){keep=true;}if(el.tagName==="SECTION")secN++;if(!keep)el.classList.add("noprint");});
   const opened=[...R.querySelectorAll("details:not([open])")];opened.forEach(d=>d.open=true);
-  const hd=document.createElement("div");hd.className="pronly";hd.innerHTML=`<b>ความลับพลังตัวเลข</b> ผลวิเคราะห์${kind==="name"?"ชื่อ":"เบอร์"}แบบละเอียด · ทักไลน์ lin.ee/ujF7VHa`;R.prepend(hd);
-  const t0=document.title;document.title="ผลวิเคราะห์"+(kind==="name"?"ชื่อ "+($("fname").value+" "+$("lname").value).trim():"เบอร์ "+$("phone").value);
+  const hd=document.createElement("div");hd.className="pronly";hd.innerHTML=`<b>ความลับพลังตัวเลข</b> ${PK0[2]} · ทักไลน์ lin.ee/ujF7VHa`;R.prepend(hd);
+  const t0=document.title;document.title=kind==="rk"?"ฤกษ์"+(RKA[$("rkact").value]||{n:""}).n:kind==="love"?"ดวงคู่":"ผลวิเคราะห์"+(kind==="name"?"ชื่อ "+($("fname").value+" "+$("lname").value).trim():"เบอร์ "+$("phone").value);
   document.body.classList.add("pr");
   const done=()=>{document.body.classList.remove("pr");kids.forEach(el=>el.classList.remove("noprint"));opened.forEach(d=>d.open=false);hd.remove();document.title=t0;window.removeEventListener("afterprint",done);};
   window.addEventListener("afterprint",done);
@@ -5075,13 +5144,14 @@ function pdfPrint(kind){
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("button[data-pdf]");if(!b)return;const k=b.dataset.pdf;
   if(inAppBrowser()||typeof window.print!=="function"){pdfHelp(b,k);return;} cntHit("pdf-"+k); pdfPrint(k);});
 // เปิดจากลิงก์บันทึก PDF: เติมฟอร์ม ปลดล็อก แล้ววิเคราะห์ให้เลย
-function pdfRestore(){try{const q=new URLSearchParams(location.search),k=q.get("r");if(k!=="phone"&&k!=="name")return;
+function pdfRestore(){try{const q=new URLSearchParams(location.search),k=q.get("r");if(!PDF_K[k])return;
   const b=document.querySelector(`.modetabs button[data-m="${k}"]`);if(b&&MODE!==k)b.click();
-  ["dd","mm","yy","sex","prov"].forEach(id=>{if(q.has(id)&&$(id)){$(id).value=q.get(id);$(id).dispatchEvent(new Event("change",{bubbles:true}));}});
+  ["dd","mm","yy","sex","prov","rkact","rkmon","sex2","dd2","mm2","yy2","prov2"].forEach(id=>{if(q.has(id)&&$(id)){$(id).value=q.get(id);$(id).dispatchEvent(new Event("change",{bubbles:true}));}});
   const nt=q.get("notime")==="1";if($("notime").checked!==nt){$("notime").checked=nt;$("notime").dispatchEvent(new Event("change",{bubbles:true}));}
-  ["hh","mi"].forEach(id=>{if(q.has(id)){$(id).value=q.get(id);}});
-  ["fname","lname","nick","job","phone"].forEach(id=>{if($(id)){$(id).value=q.get(id)||"";$(id).dispatchEvent(new Event("input",{bubbles:true}));}});
-  const u=q.get("u");if(u){const i=readFormLoose();const key=k==="name"?nameKey(i):i.phone;if(key&&u===unlockCode(key))markUnlocked(key);}
+  const nt2=q.get("notime2")==="1";if($("notime2").checked!==nt2){$("notime2").checked=nt2;$("notime2").dispatchEvent(new Event("change",{bubbles:true}));}
+  ["hh","mi","hh2","mi2"].forEach(id=>{if(q.has(id)){$(id).value=q.get(id);}});
+  ["fname","lname","nick","job","phone","nick2"].forEach(id=>{if($(id)){$(id).value=q.get(id)||"";$(id).dispatchEvent(new Event("input",{bubbles:true}));}});
+  const u=q.get("u");if(u){const key=pdfKeyOf(k);if(key&&u===unlockCode(key))markUnlocked(key);}
   setTimeout(()=>{$("gobtn").click();setTimeout(()=>{const pb=document.querySelector(`button[data-pdf="${k}"]`);if(pb&&pb.offsetParent){pb.scrollIntoView({block:"center"});pb.classList.add("primary");}},500);},80);
 }catch(e){}}
 setTimeout(pdfRestore,30);
@@ -5100,12 +5170,12 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
 
 // ===== หลังจ่ายเงิน ชวนแอดไลน์ ปรึกษาเพิ่ม 1 คำถามฟรี =====
 function paidLineHtml(kind){return `<section class="card paidline" style="margin-top:14px"><h2>ปรึกษาผมเพิ่มได้ 1 คำถาม ฟรี</h2>
-  <p class="para">สำหรับลูกค้าที่ปลดล็อกแล้ว อ่านผลแล้วสงสัยตรงไหน หรืออยากถามเรื่องที่กำลังตัดสินใจ ${kind==="name"?"เช่น ชื่อไหนในรายการเหมาะกับคุณที่สุด":"เช่น ควรเปลี่ยนเบอร์ตอนไหน หรือเบอร์ในสต็อกเบอร์ไหนเหมาะ"} แอดไลน์แล้วพิมพ์คำถามมาได้เลย ผมตอบเองครับ</p>
+  <p class="para">สำหรับลูกค้าที่ปลดล็อกแล้ว อ่านผลแล้วสงสัยตรงไหน หรืออยากถามเรื่องที่กำลังตัดสินใจ ${kind==="rk"?"เช่น วันไหนในรายการเหมาะกับคุณที่สุด หรือเวลาที่สะดวกไม่ตรงกับฤกษ์":kind==="love"?"เช่น เรื่องที่คู่ของคุณกำลังมีปัญหา หรือควรเลือกเลขอะไรร่วมกัน":kind==="name"?"เช่น ชื่อไหนในรายการเหมาะกับคุณที่สุด":"เช่น ควรเปลี่ยนเบอร์ตอนไหน หรือเบอร์ในสต็อกเบอร์ไหนเหมาะ"} แอดไลน์แล้วพิมพ์คำถามมาได้เลย ผมตอบเองครับ</p>
   <div class="btns"><button type="button" class="primary" data-paidline="${kind}">แอดไลน์ ถามผมได้เลย</button></div>
   <p class="note" style="margin:6px 0 0">ระบบคัดลอกข้อความยืนยันว่าคุณปลดล็อกแล้วไว้ให้ วางในแชตได้เลย</p></section>`;}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-paidline]");if(!b)return;const k=b.dataset.paidline;
   const i=readFormLoose(), bd=pad(i.d)+"/"+pad(i.m)+"/"+(i.y+543);
-  const t=k==="name"?`ปลดล็อกวิเคราะห์ชื่อแบบละเอียดแล้วครับ/ค่ะ (ชื่อ ${($("fname").value+" "+$("lname").value).trim()||"-"} วันเกิด ${bd}) ขอปรึกษาเพิ่ม 1 คำถาม: `:`ปลดล็อกวิเคราะห์เบอร์แบบเจาะลึกแล้วครับ/ค่ะ (เบอร์ ${i.phone} วันเกิด ${bd}) ขอปรึกษาเพิ่ม 1 คำถาม: `;
+  const t=k==="rk"?`ปลดล็อกฤกษ์มงคลแล้วครับ/ค่ะ (${(RKA[$("rkact").value]||{n:""}).n} วันเกิด ${bd}) ขอปรึกษาเพิ่ม 1 คำถาม: `:k==="love"?`ปลดล็อกดวงคู่แล้วครับ/ค่ะ (วันเกิดคนที่ 1 ${bd} คนที่ 2 ${pad(+$("dd2").value)}/${pad(+$("mm2").value)}/${$("yy2").value}) ขอปรึกษาเพิ่ม 1 คำถาม: `:k==="name"?`ปลดล็อกวิเคราะห์ชื่อแบบละเอียดแล้วครับ/ค่ะ (ชื่อ ${($("fname").value+" "+$("lname").value).trim()||"-"} วันเกิด ${bd}) ขอปรึกษาเพิ่ม 1 คำถาม: `:`ปลดล็อกวิเคราะห์เบอร์แบบเจาะลึกแล้วครับ/ค่ะ (เบอร์ ${i.phone} วันเกิด ${bd}) ขอปรึกษาเพิ่ม 1 คำถาม: `;
   cntHit("line-paid");
   const go=CONFIG.lineOA?"https://line.me/R/oaMessage/"+encodeURIComponent(CONFIG.lineOA)+"/?"+encodeURIComponent(t):CONFIG.chatUrl;
   const open=()=>{const w=window.open(go,"_blank");if(w){try{w.opener=null;}catch(_){}}else location.href=go;};
@@ -5206,7 +5276,7 @@ function cmpCard(inp,r,lab){
   const nG=r.pos.filter(q=>q.info[0]==="g").length, nB=r.pos.filter(q=>q.info[0]==="b").length;
   return `<div class="cmpc"><p class="note" style="margin:0">${lab}</p><b class="cmpn">${p.slice(0,3)}-${p.slice(3,6)}-${p.slice(6)}</b>
    <div class="score" style="font-size:26px">${r.s1000} <small>/ 1000</small></div><span class="pill ${r.band[0]}">${r.band[1]}</span>
-   <ul class="plain"><li>ท้ายเบอร์ ${tail.s} <span class="pill ${tail.info[0]}">${GL[tail.info[0]]}</span></li>${t3?`<li>ชุดท้าย ${t3.t} <span class="pill ${t3.v}">${GL[t3.v]}</span></li>`:""}<li>ผลรวม ${r.sum} <span class="pill ${r.sumInfo[0]}">${GL[r.sumInfo[0]]}</span></li><li>คู่ดี ${nG} คู่ คู่ที่ต้องระวัง ${nB} คู่</li></ul>
+   <ul class="plain"><li>ท้ายเบอร์ ${tail.s} <span class="pill ${tail.info[0]}">${GL[tail.info[0]]}</span></li>${t3?`<li>ชุดท้าย ${t3.t} <span class="pill ${t3.v}">${GL[t3.v]}</span></li>`:""}<li>ผลรวม ${r.sum} <span class="pill ${r.sumInfo[0]}">${({g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"})[r.sumInfo[0]]}</span></li><li>คู่ดี ${nG} คู่ คู่ที่ต้องระวัง ${nB} คู่</li></ul>
    <button type="button" class="cmpgo" data-ph="${p}">ดูผลเต็ม</button></div>`;
 }
 function renderCmp(inp,cta){
@@ -5355,7 +5425,7 @@ function cntHit(key){
   }catch(e){}
 }
 (function(){try{if(!sessionStorage.getItem("plk_v")){sessionStorage.setItem("plk_v","1");cntHit("visit");}}catch(e){cntHit("visit");}})();
-const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
+const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
 async function cntGet(k){try{const r=await fetch(`${CNT.base}/get/${CNT.ns}/${k}`);if(!r.ok)return 0;const j=await r.json();return +j.value||0;}catch(e){return null;}}
 async function admStatsUI(){
   const box=$("admstats"); if(!box) return;
@@ -5370,7 +5440,7 @@ async function admStatsUI(){
       <tr><td>ทักไลน์ ต่อการวิเคราะห์</td><td>${pc(L[0],an[0])}</td><td>${pc(L[1],an[1])}</td></tr>
       <tr><td>ปลดล็อกด้วยสลิป ต่อการวิเคราะห์</td><td>${pc(S[0],an[0])}</td><td>${pc(S[1],an[1])}</td></tr>
       <tr><td>ซื้อเบอร์ ต่อการวิเคราะห์</td><td>${pc(B[0],an[0])}</td><td>${pc(B[1],an[1])}</td></tr></tbody></table>
-      ${(()=>{const P=[["pay-phone",399,"วิเคราะห์เบอร์ 399"],["pay-name",399,"วิเคราะห์ชื่อ 399"],["pay-ebook",399,"อีบุ๊ก 399"]].map(([k,pr,l])=>{const v=V(k);return {l,pr,a:v[0],b:v[1]};});
+      ${(()=>{const P=[["pay-phone",399,"วิเคราะห์เบอร์ 399"],["pay-name",399,"วิเคราะห์ชื่อ 399"],["pay-rk",399,"ฤกษ์ 399"],["pay-love",399,"ดวงคู่ 399"],["pay-ebook",399,"อีบุ๊ก 399"]].map(([k,pr,l])=>{const v=V(k);return {l,pr,a:v[0],b:v[1]};});
         const t0=P.reduce((x,p)=>x+p.a*p.pr,0),t1=P.reduce((x,p)=>x+p.b*p.pr,0),f=n=>n.toLocaleString("th-TH");
         return `<h2 style="margin-top:14px">ยอดขายจากสลิปที่ผ่าน</h2><p class="note" style="margin:0">นับเฉพาะสลิปที่ระบบตรวจผ่าน ไม่รวมรหัสที่แอดมินส่งทางไลน์ และไม่รวมเว็บดูดวง</p><table class="admtb"><thead><tr><th>สินค้า</th><th>วันนี้</th><th>ทั้งหมด</th></tr></thead><tbody>${P.map(p=>`<tr><td>${p.l}</td><td>${p.a} ครั้ง</td><td>${p.b} ครั้ง</td></tr>`).join("")}<tr><td><b>รายได้โดยประมาณ</b></td><td><b>${f(t0)} บาท</b></td><td><b>${f(t1)} บาท</b></td></tr></tbody></table>`;})()}`;})()}`;
 }
@@ -5638,7 +5708,7 @@ function modeTabsInit(){
 }
 
 $("f").addEventListener("submit",e=>{
-  e.preventDefault(); cntHit("an-"+MODE); memSave();
+  e.preventDefault(); smpClear(); cntHit("an-"+MODE); memSave();
   if(MODE!=="phone"){const mi=readMode();if(mi.error){$("err").textContent=mi.error;$("err").hidden=false;return;}$("err").hidden=true;renderMode(mi);$("result").scrollIntoView({behavior:"smooth",block:"start"});return;}
   const inp=readForm();
   if(inp.error){$("err").textContent=inp.error;$("err").hidden=false;return;}
@@ -6457,7 +6527,7 @@ function readMoreHtml(inp,r){
   if(sc>=650&&hasBad) add("trap","เบอร์นี้มีคู่เลขที่ตำราว่าเสียอยู่บ้าง แต่ภาพรวมยังดี ก่อนรีบเปลี่ยน อ่านเรื่องกับดักเบอร์มงคล 100% ก่อน");
   add("place","ก่อนจะซื้อเบอร์ใหม่ อ่านก่อนว่าการเลือกเบอร์จากความชอบ กับการวางเบอร์จากดวงของคุณ ต่างกันอย่างไร");
   add("chart","อยากรู้ว่าทำไมผมต้องเทียบเบอร์กับพื้นดวงทุกครั้ง อ่านบทความนี้");
-  return `<section class="card"><h2>อ่านต่อ เรื่องที่ตรงกับเบอร์ของคุณ</h2><ul class="pairs">${out.map(o=>`<li style="display:block"><div><h3><a href="#${o.k}" class="flink">${ARTS[o.k]}</a></h3><p>${o.why}</p></div></li>`).join("")}</ul></section>`+horoCard();
+  return `<section class="card"><h2>อ่านต่อ เรื่องที่ตรงกับเบอร์ของคุณ</h2><ul class="pairs">${out.map(o=>`<li style="display:block"><div><h3><a href="#${o.k}" class="flink">${ARTS[o.k]}</a></h3><p>${o.why}</p></div></li>`).join("")}<li style="display:block"><div><h3><a href="${HORO_URL}" class="flink">ดูดวงชะตาของคุณแบบละเอียด</a></h3><p>ผูกดวงจากวันเวลาเกิดเดียวกัน ดูพื้นดวง ไพ่ทาโรต์ และดวงสมพงษ์คู่รัก ได้ที่เว็บดูดวงของเพจ</p></div></li></ul></section>`;
   }catch(e){return horoCard();}
 }
 const HORO_ART="https://claude.ai/artifact/Ewch7F88G3NEzKw6oDMjUe", HORO_URL=/github\.io$/.test(location.hostname)?"duang.html":"https://lionizev-cell.github.io/duang.html";
@@ -7356,7 +7426,7 @@ function stockRecHtml(inp,r){
      <div class="note">${o.net?esc(o.net)+" · ":""}คะแนนกับดวงคุณ <span class="pill ${o.x.score>=75?"g":"m"}">${o.x.score*10} / 1000</span></div>
      <p style="margin:2px 0 0">${o.why.join(" ")||"ไม่มีคู่เสียในตำแหน่งสำคัญ"}</p>
      <details class="libd stkd"><summary>ดูความหมายเบอร์</summary>${recMeaning(o.x)}</details>
-     <div class="btns"><button type="button" class="ghost" data-ph="${o.ph}">ดูผลเบอร์นี้กับดวงคุณ</button><a class="ghost" href="${CONFIG.chatUrl}" target="_blank" rel="noopener">สนใจเบอร์นี้</a></div></li>`).join("")}</ul>
+     <div class="stkact"><a class="stkbuy" href="${CONFIG.chatUrl}" target="_blank" rel="noopener">สนใจเบอร์นี้</a><button type="button" class="stklink" data-ph="${o.ph}">ดูผลเบอร์นี้กับดวงคุณ</button></div></li>`).join("")}</ul>
    <p class="note"><a href="#stock" class="flink">ดูสต็อกเบอร์ทั้งหมด</a></p>`
    :`<p class="para">ตอนนี้ยังไม่มีเบอร์ในสต็อกที่เข้ากับดวงและงานของคุณพอที่ผมจะแนะนำ ทักไลน์มาได้ครับ ผมหาและร้อยเรียงเบอร์ให้เฉพาะคุณได้</p><div class="btns" style="margin-top:8px"><a class="ghost" href="${CONFIG.chatUrl}" target="_blank" rel="noopener">ทักไลน์ให้ผมหาเบอร์</a></div>`}
   </section>`;
@@ -7397,7 +7467,10 @@ function jobFit(k,jt){
   $("nick").value="";$("sex").value="f";$("job").value="ขายของออนไลน์";$("dd").value="15";$("mm").value="3";$("yy").value="2535";$("hh").value="9";$("mi").value="20";
   $("prov").value=String(PROV.findIndex(p=>p[0]==="ขอนแก่น"));$("phone").value="0896245639";
   const inp=readForm();render(inp,analyze(inp),true);
+  const R=$("result");R.classList.add("smpcol");const mb=document.createElement("div");mb.className="smpmore";mb.id="smpmore";mb.innerHTML=`<button type="button" class="ghost">ดูตัวอย่างผลวิเคราะห์เต็ม</button>`;R.after(mb);
+  mb.querySelector("button").onclick=()=>{R.classList.remove("smpcol");mb.remove();};
 })();
+function smpClear(){const R=$("result");if(R)R.classList.remove("smpcol");const m=$("smpmore");if(m)m.remove();}
 
 function recMeaning(x){
   const keys=["GF","FG","FE","DE","AB","GA"];
@@ -7410,12 +7483,12 @@ modeTabsInit();
 // ===== ปุ่มเลือกกลุ่มอาชีพ =====
 const JOB_CHIP=[["ค้าขาย ขายออนไลน์","ค้าขาย"],["ราชการ","ข้าราชการ"],["พนักงานบริษัท","พนักงานบริษัท"],["เจ้าของกิจการ","เจ้าของกิจการ"],["บริการ ความงาม","งานบริการ"],["การเงิน บัญชี","การเงิน"],["ช่าง ไอที","ช่าง"],["แพทย์ พยาบาล","แพทย์"],["ครู ที่ปรึกษา","ครู"],["ฟรีแลนซ์","ฟรีแลนซ์"],["เกษตร รับจ้าง","เกษตร"],["ขนส่ง ขับรถ","ขนส่ง"],["นักเรียน","นักเรียน"],["แม่บ้าน","แม่บ้าน"],["อาหาร เครื่องดื่ม","ร้านอาหาร"],["นายหน้าอสังหา","นายหน้าอสังหา"],["ปล่อยเงินกู้ หมุนเงิน","ปล่อยเงินกู้"]];
 function jobHint(){const el=$("job"),h=$("jobhint"),box=$("jobchips"); if(!el||!h) return; const v=el.value.trim(), ks=matchJobs(v);
-  if(box) box.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(ks.includes(+b.dataset.k))));
+  if(box){box.querySelectorAll("button[data-k]").forEach(b=>b.setAttribute("aria-pressed",String(ks.includes(+b.dataset.k))));if(box.querySelector(".jx[aria-pressed=true]")&&!box.classList.contains("all")){const m=box.querySelector(".jmore");if(m)m.click();}}
   const unk=jobPieces(v).filter(x=>!jobSpans(x).length);
   h.textContent=!v?"ถ้าไม่มีอาชีพของคุณในปุ่ม พิมพ์เองในช่องด้านบนได้เลย ทำหลายงานก็เลือกหรือพิมพ์ได้หลายอาชีพ":ks.length>1?"ระบบอ่านเป็น "+ks.length+" อาชีพ: "+ks.map(k=>JOBS[k][0]).join(" และ ")+(unk.length?" (ยังไม่รู้จัก: "+unk.join(", ")+")":""):ks.length?"ระบบอ่านเป็นกลุ่ม "+JOBS[ks[0]][0]+(unk.length?" (ยังไม่รู้จัก: "+unk.join(", ")+")":"")+" แตะเพิ่มได้ถ้าทำหลายงาน":"ระบบยังไม่รู้จักอาชีพนี้ ใช้วิเคราะห์ได้ตามปกติ แต่ถ้าแตะเลือกกลุ่มที่ใกล้ที่สุดเพิ่ม ผลเรื่องงานจะแม่นขึ้น";}
 function jobChipsInit(){const box=$("jobchips"); if(!box||box.dataset.w) return; box.dataset.w=1;
-  box.innerHTML=JOB_CHIP.map(([lab,kw])=>`<button type="button" data-k="${matchJob(kw)}" data-kw="${kw}" aria-pressed="false">${lab}</button>`).join("");
-  box.onclick=e=>{const b=e.target.closest("button"); if(!b) return; const el=$("job"), k=+b.dataset.k;
+  box.innerHTML=JOB_CHIP.map(([lab,kw],i)=>`<button type="button" data-k="${matchJob(kw)}" data-kw="${kw}" aria-pressed="false"${i>=6?' class="jx"':""}>${lab}</button>`).join("")+`<button type="button" class="jmore" aria-expanded="false">ดูอาชีพทั้งหมด</button>`;
+  box.onclick=e=>{const b=e.target.closest("button"); if(!b) return; if(b.classList.contains("jmore")){const on=box.classList.toggle("all");b.setAttribute("aria-expanded",String(on));b.textContent=on?"ย่ออาชีพ":"ดูอาชีพทั้งหมด";return;} const el=$("job"), k=+b.dataset.k;
     let v=el.value;
     if(matchJobs(v).includes(k)){const toks=jobSpans(v).filter(x=>x.g===k).map(x=>jobTok(v,x)).sort((x,y)=>y.a-x.a);toks.forEach(x=>{v=v.slice(0,x.a)+v.slice(x.b);});v=v.replace(/\s*,\s*(,\s*)+/g,", ").replace(/^[\s,]+|[\s,]+$/g,"").replace(/\s{2,}/g," ");}
     else v=(v.trim()?v.trim().replace(/[\s,]+$/,"")+", ":"")+b.dataset.kw;
@@ -7454,5 +7527,215 @@ function urlPrefill(){try{const q=new URLSearchParams(location.search),d=q.get("
   setTimeout(()=>{$("f").scrollIntoView({block:"start"});const s=$("sex");if(s)s.focus({preventScroll:true});},60);
 }catch(e){}}
 setTimeout(urlPrefill,20);
+
+// ===== กล่องจ่ายเงิน 399 ใช้ร่วม (ฤกษ์ / ดวงคู่) =====
+function payKitHtml(P){const slip=CONFIG.slipApi||CONFIG.thunderKey;
+  return `<section class="card pay" aria-labelledby="h${P}pay">
+    <h2 id="h${P}pay">${PK[P].title} ${PAY.amount} บาท</h2>
+    <p style="margin:0">ได้ทันทีหลังโอน</p>
+    <ul class="plain">${PK[P].items.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <div class="paybox">
+      <img src="${PAY.qr}" alt="คิวอาร์พร้อมเพย์ ${PAY.amount} บาท" width="200" height="200">
+      <div class="payinfo">
+        <p><span class="note">สแกนจ่าย</span><br><b>${PAY.amount} บาท</b> (ยอดขึ้นอัตโนมัติ)</p>
+        <p><span class="note">หรือโอนเข้า</span><br>${PAY.bank}<br><b class="acc">${PAY.acc}</b><br>${PAY.name}</p>
+        <button type="button" class="ghost" id="${P}copyacc">คัดลอกเลขบัญชี</button>
+      </div>
+    </div>
+    ${slip?`<h3 class="sub">โอนแล้ว แนบสลิปตรงนี้ได้เลย</h3>
+    <p class="para">ระบบจะตรวจสลิปอัตโนมัติ ถ้าถูกต้องจะเปิดผลให้ทันที ไม่ต้องรอแอดมิน</p>
+    <label class="slipup" for="${P}slipfile"><input type="file" id="${P}slipfile" accept="image/*"><span id="${P}slipname">แตะเพื่อเลือกรูปสลิป</span></label>
+    <button type="button" class="primary" id="${P}slipgo" disabled>ตรวจสลิปและเปิดผล</button>
+    <p class="note" id="${P}slipst" aria-live="polite"></p>
+    <details class="libd"><summary>มีรหัสปลดล็อกแล้ว หรือส่งสลิปทางไลน์แทน</summary>`:""}
+    <div class="btns"><button type="button" class="ghost" id="${P}sendslip">คัดลอกข้อความ แล้วส่งสลิปทางไลน์</button></div>
+    <p class="note" id="${P}slipok" hidden>คัดลอกแล้ว วางในไลน์พร้อมสลิปได้เลย</p>
+    <label for="${P}ucode">รหัสปลดล็อก 6 หลัก</label>
+    <div class="codebox"><input id="${P}ucode" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="000000"><button type="button" class="primary" id="${P}unlock">${PK[P].btn}</button></div>
+    <p class="err" id="${P}unlockerr" hidden>รหัสไม่ถูกต้อง ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ</p>
+    <p class="note">${PK[P].codeNote}</p>${slip?"</details>":""}
+  </section>`;}
+function bindPayKit(P,key,open,lineMsg){
+  const ca=$(P+"copyacc"); if(ca) ca.onclick=()=>{const t=PAY.acc.replace(/-/g,"");const d=()=>{ca.textContent="คัดลอกแล้ว";};try{navigator.clipboard.writeText(t).then(d,()=>fallback(t,d));}catch(e){fallback(t,d);}};
+  $(P+"unlock").onclick=()=>{const c=normDigits($(P+"ucode").value);
+    if(pinOk(c)){$(P+"unlockerr").hidden=true;setOwner(true);open(true);return;}
+    if(c!==unlockCode(key)){$(P+"unlockerr").hidden=false;return;}
+    $(P+"unlockerr").hidden=true;markUnlocked(key);open(true);};
+  $(P+"ucode").onkeydown=e=>{if(e.key==="Enter")$(P+"unlock").click();};
+  if($(P+"slipfile")){
+    $(P+"slipfile").onchange=()=>{const f=$(P+"slipfile").files[0];$(P+"slipname").textContent=f?f.name:"แตะเพื่อเลือกรูปสลิป";$(P+"slipgo").disabled=!f;$(P+"slipst").textContent="";};
+    $(P+"slipgo").onclick=async()=>{const f=$(P+"slipfile").files[0];if(!f)return;const st=$(P+"slipst"),btn=$(P+"slipgo");btn.disabled=true;st.style.color="";st.textContent="กำลังตรวจสลิป รอสักครู่...";
+      try{const b64=await slipToBase64(f);const j=await thunderCheck(b64,key);
+        if(j.ok&&j.code===unlockCode(key)){st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ "+j.code+" (เก็บไว้ใช้เปิดดูอีกครั้ง)";$(P+"ucode").value=j.code;markUnlocked(key);cntHit("slip-ok");cntHit("pay-"+PK[P].cnt);open(true);}
+        else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
+      }catch(err){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}};
+  }
+  $(P+"sendslip").onclick=()=>{const t=lineMsg;const done=()=>{$(P+"slipok").hidden=false;setTimeout(()=>{location.href=CONFIG.chatUrl;},700);};
+    try{navigator.clipboard.writeText(t).then(done,()=>fallback(t,done));}catch(e){fallback(t,done);}};
+}
+const PK={
+ x:{title:"ฤกษ์มงคลเฉพาะดวง",btn:"เปิดฤกษ์ของฉัน",cnt:"rk",codeNote:"รหัสใช้ได้กับวันเกิดนี้ หาฤกษ์งานไหน เดือนไหนก็เปิดดูได้ ไม่ต้องจ่ายใหม่",
+  items:["วันและเวลาฤกษ์ที่ดีที่สุดสำหรับงานนี้ เรียงจากดีที่สุด พร้อมเหตุผลทีละวัน","วันที่ควรเลี่ยงทั้งหมดในช่วงที่เลือก","วิธีทำในวันฤกษ์ ให้ได้ผลเต็มที่","หาฤกษ์งานอื่นหรือเดือนอื่นต่อได้ด้วยรหัสเดิม"]},
+ v:{title:"ดวงคู่แบบละเอียด",btn:"เปิดดวงคู่",cnt:"love",codeNote:"รหัสใช้ได้กับวันเกิดของทั้งสองคนคู่นี้",
+  items:["ความรัก การเงิน และการงาน ของคู่นี้แยกทีละเรื่อง","จุดที่ทำให้ทะเลาะกัน และวิธีอยู่ด้วยกันให้ราบรื่น","เลขที่ถูกกับดวงทั้งสองคน ใช้เลือกเบอร์ ทะเบียนรถ บ้านเลขที่ร่วมกัน","วันดีสำหรับทำเรื่องสำคัญด้วยกันในเดือนนี้"]}};
+
+// ===== หาฤกษ์มงคล =====
+const RKA={
+ shop:{n:"เปิดร้าน เปิดกิจการ",fav:{2:2,10:2,11:2.5,1:1,5:1,9:1},moon:{2:1,11:1,10:0.5},tip:["เปิดประตูร้านหรือเริ่มขายชิ้นแรกตรงเวลาฤกษ์ ไม่ต้องเริ่มพิธีทั้งหมดในเวลานั้น ขอแค่การเริ่มต้นจริงอยู่ในช่วงฤกษ์","ลูกค้าคนแรกขายให้เต็มราคา และรับเงินด้วยมือขวา","จุดธูปไหว้เจ้าที่ก่อนถึงเวลาฤกษ์ แล้วค่อยเปิดร้านตรงเวลา"]},
+ home:{n:"ขึ้นบ้านใหม่ ย้ายเข้าบ้าน",fav:{4:2.5,1:1,2:1,11:1,9:1},moon:{4:1.5,2:0.5},taboo:{3:"ตำราไม่นิยมขึ้นบ้านใหม่วันอังคาร",7:"ตำราไม่นิยมขึ้นบ้านใหม่วันเสาร์"},tip:["ก้าวเข้าบ้านครั้งแรกตรงเวลาฤกษ์ คนเป็นเจ้าบ้านเข้าก่อน ถือของมงคล เช่น ข้าวสาร น้ำ หรือพระประจำบ้าน","ทำบุญเลี้ยงพระก่อนหรือหลังวันฤกษ์ได้ ไม่จำเป็นต้องวันเดียวกัน","วันแรกในบ้านให้หุงข้าวหรือต้มน้ำ บ้านจะได้อุดมสมบูรณ์"]},
+ car:{n:"ออกรถ รับรถใหม่",fav:{3:1.5,11:2,1:1,9:1,10:0.5},moon:{3:1,9:1},mars:true,tip:["เวลาฤกษ์คือเวลาที่ขับรถออกจากศูนย์หรือรับกุญแจครั้งแรก","เส้นทางแรกขับไปที่ดี เช่น วัด บ้านพ่อแม่ หรือที่ทำงาน ไม่ขับไปที่ไม่ดี","ช่วงเดือนแรกขับให้ใจเย็น ไม่เร่ง"]},
+ wed:{n:"แต่งงาน หมั้น จดทะเบียนสมรส",fav:{7:2.5,5:1.5,1:1,11:1,2:0.5},moon:{7:1.5,5:1},taboo:{3:"ตำราไม่นิยมทำการมงคลสมรสวันอังคาร"},wax:1,tip:["เวลาฤกษ์ใช้กับพิธีหลัก เช่น สวมแหวน หลั่งน้ำ หรือเซ็นทะเบียน","ฤกษ์นี้ดูจากดวงของคุณคนเดียว ถ้าจะให้ดีที่สุด ควรดูดวงคู่ด้วย ช่องดวงคู่บนเว็บนี้ดูได้","ถ้ามีหลายวันให้เลือก เลือกวันที่สะดวกกับผู้ใหญ่ทั้งสองฝ่าย ในรายการที่ผมจัดไว้"]},
+ deal:{n:"เซ็นสัญญา ซื้อขาย โอนที่ดิน",fav:{2:1.5,7:1.5,10:1.5,11:2},moon:{11:1,7:0.5},tip:["เวลาฤกษ์คือเวลาที่เซ็นชื่อหรือรับเงินก้อนแรก","อ่านสัญญาให้จบก่อนถึงเวลาฤกษ์ ฤกษ์ดีไม่ช่วยสัญญาที่ไม่ดี","ใช้ปากกาหมึกน้ำเงินหรือดำ"]},
+ job:{n:"เริ่มงานใหม่ ยื่นสมัครงาน รับตำแหน่ง",fav:{10:2.5,1:1,11:1.5,9:1},moon:{10:1,1:0.5},tip:["เข้าที่ทำงานหรือกดส่งใบสมัครตรงเวลาฤกษ์","วันแรกไปก่อนเวลา แต่งกายเรียบร้อย ไหว้หัวหน้าและคนที่อาวุโสกว่า","งานแรกที่ได้รับมอบหมาย ทำให้เสร็จเร็วและดีที่สุด"]}};
+let _RKA={};
+function rkActCalc(inp,ds,act,ms){
+  const A=RKA[act]||RKA.shop, ck=[inp.y,inp.m,inp.d,inp.h,inp.mi,inp.lat,inp.lon,inp.notime?1:0,act,ms].join(","); if(_RKA[ck]) return _RKA[ck];
+  const nat=chartSY(inp.y,inp.m,inp.d,inp.h,inp.mi,inp.lat,inp.lon), cls=ds.cls;
+  const noT=!!inp.notime, base=noT?Math.floor(nat.p[2]/30):Math.floor(nat.lagna/30), baseTxt=noT?"ราศีจันทร์เดิม":"ลัคนาเดิม", nday=nat.day;
+  const hFrom=s=>(s-base+12)%12+1, now=new Date(), days=[];
+  let start, end;
+  if(!ms){start=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);end=new Date(start.getTime()+30*864e5);}
+  else {const Y=+String(ms).slice(0,4),M=+String(ms).slice(4);start=new Date(Y,M-1,1);end=new Date(Y,M,1);const tm=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);if(start<tm)start=tm;}
+  for(let dt=new Date(start);dt<end;dt=new Date(dt.getFullYear(),dt.getMonth(),dt.getDate()+1)){
+    const Y=dt.getFullYear(),M=dt.getMonth()+1,D=dt.getDate(),slots=[];
+    for(let t=6*60;t<=20*60+40;t+=20){
+      const hh=Math.floor(t/60),mm=t%60,c=chartSY(Y,M,D,hh,mm,inp.lat,inp.lon);
+      const civ=dt.getDay()+1; if(!(c.day===civ||(civ===4&&c.day===8))) continue;
+      const dp=c.day, role=QDAO.role(dp,nday), q=cls[dp];
+      const msg=Math.floor(c.p[2]/30), hm=hFrom(msg), el=((c.p[2]-c.p[1])%360+360)%360;
+      const ls=Math.floor(c.lagna/30), hl=hFrom(ls), lord=RK_RULER[ls];
+      let s=(RK_ROLE[role]||0)+(q==="g"?2:q==="b"?-3:0)+(RK_MOON[hm]||0)+(A.moon[hm]||0)+(el<180?1+(A.wax||0):-0.5)+(el<12||el>348?-1.5:0);
+      if(A.taboo&&A.taboo[civ]) s-=4;
+      if(!noT){s+=[1,2,5,9,10,11].includes(hl)?2:[6,8,12].includes(hl)?-3:0; s+=(A.fav[hl]||0); s+=cls[lord]==="g"?1.5:cls[lord]==="b"?-2:0;
+        [7,8,3].forEach(p=>{if(Math.floor(c.p[p]/30)===ls)s-=1.5;});
+        if(A.mars&&hFrom(Math.floor(c.p[3]/30))===8)s-=2;}
+      slots.push({t,hh,mm,dp,role,q,hm,el,ls,hl,lord,s,civ});
+    }
+    if(!slots.length) continue;
+    const okS=slots.filter(x=>![6,8,12].includes(x.hm)), pool=okS.length?okS:slots;
+    const best=pool.reduce((a,b)=>b.s>a.s?b:a,pool[0]);
+    const win=pool.filter(x=>x.dp===best.dp&&x.ls===best.ls&&x.s>=best.s-0.75);
+    let a=slots.indexOf(best),b2=a; while(a>0&&win.includes(slots[a-1]))a--; while(b2<slots.length-1&&win.includes(slots[b2+1]))b2++;
+    const day={dt,Y,M,D,best,from:slots[a].t,to:slots[b2].t+20,slots};
+    const am=slots.find(x=>x.hh===9)||slots[Math.floor(slots.length/3)], av=[];
+    if(am.role==="กาลี") av.push("เป็นวัน"+RK_DAY[am.dp]+" ซึ่งเป็นกาลีของคนเกิดวัน"+RK_DAY[nday]);
+    else if(cls[am.dp]==="b") av.push("ดาวประจำวัน"+RK_DAY[am.dp]+" (ดาว "+am.dp+") อ่อนในดวงคุณ");
+    if(!okS.length) av.push("จันทร์จรอยู่ภพเสียจาก"+baseTxt+"ทั้งวัน");
+    else if(am.hm===8&&best.hm===8) av.push("จันทร์จรอยู่ภพมรณะจาก"+baseTxt);
+    else if((am.hm===6||am.hm===12)&&am.hm===best.hm) av.push("จันทร์จรอยู่ภพ"+(am.hm===6?"อริ":"วินาศ")+"จาก"+baseTxt);
+    if(am.el<12||am.el>348) av.push("ตรงกับช่วงเดือนดับ");
+    if(A.taboo&&A.taboo[am.civ]) av.push(A.taboo[am.civ]);
+    day.avoid=av; day.score=best.s; days.push(day);
+  }
+  const good=days.filter(d=>!d.avoid.length&&d.best.s>0).sort((x,y)=>y.score-x.score);
+  const bad=days.filter(d=>d.avoid.length);
+  return _RKA[ck]={good,bad,days,noT,baseTxt,nday,cls,A};
+}
+function rkWhy(R,d){const b=d.best,o=[],qt=q=>q==="g"?"พลังดี":q==="b"?"พลังอ่อน":"พลังปานกลาง";
+  o.push("วัน"+RK_DAY[b.dp]+"เป็น"+b.role+"ของคนเกิดวัน"+RK_DAY[R.nday]+" ดาว "+b.dp+" เป็น"+qt(b.q)+"ในดวงคุณ");
+  o.push("จันทร์จรอยู่ภพ"+HOUSE[b.hm]+"จาก"+R.baseTxt+(b.el<180?" ช่วงข้างขึ้น":""));
+  if(!R.noT) o.push("ลัคนาฤกษ์ราศี"+RK_SIGN[b.ls]+" ตกภพ"+HOUSE[b.hl]+"ของคุณ"+(R.A.fav[b.hl]>=2?" ตรงกับเรื่องที่จะทำ":""));
+  return o;}
+function rkDayLi(R,d,i,top){return `<li style="display:block"><div><b style="font-size:1.1em">${i+1}. วัน${RK_DAY[d.best.dp]} ${rkDate(d)}</b>${top&&i===0?' <span class="pill g">ดีที่สุด</span>':""}</div>
+  <p style="margin:4px 0 0"><b>เวลา ${rkTime(d.from)} ถึง ${rkTime(d.to)} น.</b>${R.noT?" (ไม่ทราบเวลาเกิด ใช้ช่วงเวลานี้เป็นแนวทาง)":""}</p>
+  <p class="note" style="margin:4px 0 0">${rkWhy(R,d).join(" · ")}</p></li>`;}
+function rkKey(inp){const y=inp.y<2400?inp.y+543:inp.y;return "6"+pad(inp.d)+pad(inp.m)+y;}
+function rkRender(inp,ds,who,cta){
+  const act=inp.act, R=rkActCalc(inp,ds,act,inp.ms), A=R.A, KEY=rkKey(inp);
+  const rng=inp.ms?"เดือน"+MONTHS[+String(inp.ms).slice(4)-1]+" "+(+String(inp.ms).slice(0,4)+543):" 30 วันข้างหน้า";
+  const g=R.good, bd=R.bad;
+  const free=`<section class="card"><h2>ฤกษ์${esc(A.n)}ของ${who}</h2>
+    <p class="note" style="margin:0 0 10px">ช่วง${rng} คำนวณจากพื้นดวง${who}ทีละวัน ทีละ 20 นาที ดูวันที่ดาวประจำวันเป็นศรี มนตรี หรือเดชของวันเกิด ดาวนั้นดีในดวง จันทร์จรไม่ตกภพเสีย${R.noT?"":" และลัคนาของเวลาฤกษ์ตกภพที่หนุนเรื่องที่จะทำ"}</p>
+    ${g.length?`<h3 class="sub">ฤกษ์ที่ดีที่สุดในช่วงนี้ <span class="pill g">ฟรี</span></h3><ul class="pairs">${rkDayLi(R,g[0],0,true)}</ul>
+    <p class="para">ในช่วงนี้มีวันที่ผ่านเกณฑ์ทั้งหมด <b>${g.length}</b> วัน และวันที่ควรเลี่ยง <b>${bd.length}</b> วัน</p>`:`<p class="para">ช่วงนี้ไม่มีวันที่ผ่านเกณฑ์ครบสำหรับ${esc(A.n)} ลองเลือกเดือนถัดไป</p>`}
+    ${bd.length?`<h3 class="sub">ตัวอย่างวันที่ควรเลี่ยง</h3><ul class="plain">${bd.slice(0,3).map(d=>`<li>วัน${RK_DAY[(d.slots.find(x=>x.hh===9)||d.slots[0]).dp]} ${rkDate(d)}: ${d.avoid.join(" และ")}</li>`).join("")}</ul>`:""}</section>`;
+  const deep=`<section class="card"><h2>ฤกษ์${esc(A.n)} เรียงจากดีที่สุด</h2>
+    ${g.length?`<ul class="pairs">${g.slice(0,10).map((d,i)=>rkDayLi(R,d,i,true)).join("")}</ul>`:`<p class="para">ช่วงนี้ไม่มีวันที่ผ่านเกณฑ์ครบ ลองเลือกเดือนถัดไป</p>`}
+    <p class="note">ถ้าวันที่ดีที่สุดไม่สะดวก เลือกวันถัดไปในรายการได้เลย ทุกวันในรายการผ่านเกณฑ์ครบแล้ว</p></section>
+   ${bd.length?`<section class="card"><h2>วันที่ควรเลี่ยงทั้งหมด</h2><ul class="plain">${bd.map(d=>`<li>วัน${RK_DAY[(d.slots.find(x=>x.hh===9)||d.slots[0]).dp]} ${rkDate(d)}: ${d.avoid.join(" และ")}</li>`).join("")}</ul></section>`:""}
+   <section class="card"><h2>วิธีทำในวันฤกษ์</h2><ol class="plain">${A.tip.map(x=>`<li>${x}</li>`).join("")}<li>ทำใจให้สบาย ไม่ทะเลาะกับใครในวันนั้น ฤกษ์ดีต้องมาพร้อมใจที่ดี</li></ol></section>`;
+  const paid=g.length>1||bd.length>3;
+  $("result").innerHTML=free+(paid?payKitHtml("x"):"")+`<div id="xdeep" hidden><p class="unlocked">${isOwner()?"โหมดเจ้าของ ฤกษ์แบบละเอียด":"ขอบคุณที่ใช้บริการครับ ด้านล่างคือฤกษ์ทั้งหมดของคุณ"}</p><div id="xdeepgen"></div><div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="rk">บันทึกฤกษ์เป็น PDF</button></div>${paidLineHtml("rk")}</div>${cta}`;
+  const open=sc=>{const el=$("xdeepgen");if(!el.dataset.done){el.innerHTML=deep;el.dataset.done="1";}$("xdeep").hidden=false;if(sc)$("xdeep").scrollIntoView({behavior:"smooth",block:"start"});};
+  if(paid){bindPayKit("x",KEY,open,"โอนค่าฤกษ์มงคล "+PAY.amount+" บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อก วันเกิด "+pad(inp.d)+"/"+pad(inp.m)+"/"+(inp.y+543)+" (แนบสลิป)");if(wasUnlocked(KEY))open(false);}
+  else open(false);
+  if(g.length) addShare({kind:"ฤกษ์"+A.n,main:"วัน"+RK_DAY[g[0].best.dp]+" "+rkDate(g[0]),verdict:"เวลา "+rkTime(g[0].from)+" ถึง "+rkTime(g[0].to)+" น.",vc:"g",lines:rkWhy(R,g[0])});
+}
+
+// ===== ดวงคู่ =====
+const LV_REL={1:[7,"ราศีเดียวกัน คิดคล้ายกัน เข้าใจกันง่าย แต่ข้อเสียก็เหมือนกัน"],5:[10,"อยู่ตรีโกณกัน (ภพที่ 5) เข้ากันดีมาก รักกันแบบเพื่อนใจ ส่งเสริมกัน"],9:[10,"อยู่ตรีโกณกัน (ภพที่ 9) เข้ากันดีมาก อีกฝ่ายเป็นเหมือนคนนำโชค"],3:[5,"อยู่ภพที่ 3 กัน คุยกันสนุก เป็นทั้งคู่ชีวิตและเพื่อน"],11:[6,"อยู่ภพที่ 11 กัน อีกฝ่ายนำโชคและรายได้มาให้"],7:[3,"อยู่ตรงข้ามกัน (เล็งกัน) ดึงดูดกันแรง แต่ความคิดสวนกันบ่อย ต้องยอมกันคนละครึ่ง"],4:[1,"ทำมุมฉากกัน (ภพที่ 4) ต้องปรับตัวเรื่องการใช้ชีวิตในบ้าน"],10:[1,"ทำมุมฉากกัน (ภพที่ 10) อีกฝ่ายผลักดันเรื่องงาน แต่ชอบคุมกัน"],2:[-2,"อยู่ภพที่ 2 และ 12 กัน เรื่องเงินและการใช้จ่ายมองไม่ตรงกัน"],12:[-2,"อยู่ภพที่ 12 และ 2 กัน คนหนึ่งเสียสละมากกว่าอีกคน"],6:[-5,"อยู่ภพที่ 6 และ 8 กัน (ฉัฏฐะอัฏฐะ) มีเรื่องขัดใจกันบ่อย ต้องระวังคำพูด"],8:[-5,"อยู่ภพที่ 8 และ 6 กัน (ฉัฏฐะอัฏฐะ) มีเรื่องขัดใจกันบ่อย ต้องระวังคำพูด"]};
+const LV_ROLE={"ศรี":4,"มนตรี":4,"เดช":3,"มูลละ":2,"บริวาร":2,"อายุ":1,"อุตสาหะ":0,"กาลี":-6};
+function lvKey(a,b){const f=x=>pad(x.d)+pad(x.m)+(x.y<2400?x.y+543:x.y);const s=[f(a),f(b)].sort();return "4"+s[0]+s[1];}
+function lvChart(x){const c=chartSY(x.y,x.m,x.d,x.h,x.mi,x.lat,x.lon);return {c,ds:digitScores(c)};}
+function lvCalc(A,B){
+  const a=lvChart(A), b=lvChart(B), useL=!A.notime&&!B.notime;
+  const sg=(x,inp)=>useL?Math.floor(x.c.lagna/30):Math.floor(x.c.p[2]/30);
+  const ra=(s,t)=>(t-s+12)%12+1;
+  const pts=[]; let S=0;
+  const lr=ra(sg(a,A),sg(b,B)), r1=LV_REL[lr];
+  S+=r1[0]; pts.push([r1[0]>=5?"g":r1[0]<0?"b":"m","ตัวตน",(useL?"ลัคนา":"ราศีจันทร์")+"ของทั้งสองคน"+r1[1]]);
+  const ma=Math.floor(a.c.p[2]/30), mb=Math.floor(b.c.p[2]/30), mr=LV_REL[ra(ma,mb)];
+  if(useL){S+=mr[0]*0.8; pts.push([mr[0]>=5?"g":mr[0]<0?"b":"m","ความรู้สึก","ดาวจันทร์ (ใจและอารมณ์) "+mr[1]]);}
+  const ab=QDAO.role(b.c.day,a.c.day), ba=QDAO.role(a.c.day,b.c.day);
+  S+=(LV_ROLE[ab]||0)+(LV_ROLE[ba]||0);
+  pts.push([(ab==="กาลี"||ba==="กาลี")?"b":(LV_ROLE[ab]+LV_ROLE[ba]>=6?"g":"m"),"วันเกิด","วันเกิดของอีกฝ่ายเป็น"+ab+"ของคุณ และวันเกิดของคุณเป็น"+ba+"ของอีกฝ่าย"+((ab==="กาลี"||ba==="กาลี")?" ตำราถือว่าเป็นคู่กาลี ต้องระวังเรื่องที่ทำให้ผิดใจกัน":((LV_ROLE[ab]+LV_ROLE[ba])>=6?" หนุนกันดี":""))]);
+  const vm=(x,y)=>{const v=Math.floor(x.c.p[6]/30), m=Math.floor(y.c.p[3]/30), r=ra(v,m);return [1,5,9].includes(r)?2:r===7?1.5:[6,8].includes(r)?-1:0;};
+  const att=vm(a,b)+vm(b,a); S+=att;
+  pts.push([att>=2?"g":att<0?"b":"m","แรงดึงดูด","ดาวศุกร์ (ความรัก) กับดาวอังคาร (ความปรารถนา) ของทั้งคู่"+(att>=2?" ทำมุมดีต่อกัน ยังดึงดูดกันได้นาน":att<0?" ทำมุมขัดกัน ความหวานจางเร็วถ้าไม่ดูแล":" ให้ผลกลาง ๆ")]);
+  const la=sg(a,A), lb=sg(b,B), mon=[2,11].includes(ra(la,lb))||[2,11].includes(ra(lb,la)), wrk=[10].includes(ra(la,lb))||[10].includes(ra(lb,la));
+  if(mon)S+=3;
+  const jp=(x,y)=>{const r=ra(sg(y,0),Math.floor(x.c.p[5]/30));return [1,5,7,9].includes(r);}, jpb=jp(a,b)||jp(b,a); if(jpb)S+=2;
+  const mal=(x,y)=>[3,7,8].filter(p=>ra(sg(y,0),Math.floor(x.c.p[p]/30))===7).length;
+  const ml=mal(a,b)+mal(b,a); S-=ml*1.5;
+  const hotA=hotChart({ds:a.ds}).length>0, hotB=hotChart({ds:b.ds}).length>0;
+  if(hotA&&hotB)S-=3;
+  const both=[],bothBad=[];for(let d=0;d<10;d++){if(a.ds.cls[d]==="g"&&b.ds.cls[d]==="g")both.push(d);if(a.ds.cls[d]==="b"&&b.ds.cls[d]==="b")bothBad.push(d);}
+  const score=Math.max(20,Math.min(97,Math.round(58+S*1.6)));
+  const band=score>=80?["g","เข้ากันดีมาก"]:score>=68?["g","เข้ากันดี"]:score>=55?["m","เข้ากันได้ ต้องปรับตัวบางเรื่อง"]:["b","ต้องปรับตัวเยอะ"];
+  return {a,b,useL,lr,score,band,pts,ab,ba,att,mon,wrk,jpb,ml,hotA,hotB,both,bothBad,la,lb};
+}
+function lvGoodDays(a,b){const out=[],now=new Date();
+  for(let k=1;k<=30&&out.length<4;k++){const dt=new Date(now.getFullYear(),now.getMonth(),now.getDate()+k),Y=dt.getFullYear(),M=dt.getMonth()+1,D=dt.getDate();
+    const c=chartSY(Y,M,D,10,0,13.75,100.5), dp=c.day, el=((c.p[2]-c.p[1])%360+360)%360;
+    const r1=QDAO.role(dp,a.c.day), r2=QDAO.role(dp,b.c.day);
+    if(r1==="กาลี"||r2==="กาลี"||el>=180||el<12)continue;
+    if(a.ds.cls[dp]==="b"||b.ds.cls[dp]==="b")continue;
+    if((RK_ROLE[r1]||0)+(RK_ROLE[r2]||0)<3)continue;
+    out.push({dt,Y,M,D,dp,r1,r2});}
+  return out;}
+function loveRender(A,B,cta){
+  const L=lvCalc(A,B), KEY=lvKey(A,B), w1=A.nick?"คุณ"+esc(A.nick):"คุณ", w2=B.nick?esc(B.nick):"คู่ของคุณ";
+  const top=L.pts.filter(p=>p[0]==="g")[0], warn=L.pts.filter(p=>p[0]==="b")[0];
+  const free=`<section class="card"><h2>ดวงคู่ ${w1} กับ ${w2}</h2>
+    <div class="verdict"><div class="score">${L.score} <small>/ 100</small></div><div><span class="pill ${L.band[0]}">${L.band[1]}</span></div></div>
+    ${top?`<p class="para"><b>จุดแข็ง</b> ${top[2]}</p>`:""}${warn?`<p class="para"><b>จุดที่ต้องระวัง</b> ${warn[2]}</p>`:""}
+    ${(!L.useL)?`<p class="note">มีคนที่ไม่ทราบเวลาเกิด ระบบจึงใช้ราศีจันทร์แทนลัคนา ผลจะละเอียดน้อยลง</p>`:""}</section>`;
+  const ptsH=L.pts.map(p=>`<li style="display:block"><span class="pill ${p[0]}">${p[1]}</span><p style="margin:6px 0 0">${p[2]}</p></li>`).join("");
+  const love=[L.att>=2?"แรงดึงดูดระหว่างกันดี ความรักไม่จืดง่าย":L.att<0?"ความหวานจะจางเร็วถ้าปล่อยไว้ ต้องหาเวลาทำอะไรด้วยกันสม่ำเสมอ":"ความรักไปได้เรื่อย ๆ ไม่หวือหวา",
+    L.lr===7?"เป็นคู่ที่ดึงดูดกันแรงแต่เถียงกันบ่อย ทะเลาะเสร็จก็ดีกันเร็ว":[6,8].includes(L.lr)?"เรื่องเล็กมักกลายเป็นเรื่องใหญ่ ต้องตกลงกันว่าเวลาโกรธจะไม่พูดทันที":"",
+    L.jpb?"ดาวพฤหัส (ความเมตตา) ของคนหนึ่งหนุนอีกคน มีผู้ใหญ่และครอบครัวช่วยประคอง":""].filter(Boolean).join(" ");
+  const money=L.mon?"ลัคนาของคนหนึ่งตกภพการเงินหรือภพลาภของอีกคน อยู่ด้วยกันแล้วเงินเข้าง่ายขึ้น เหมาะทำธุรกิจด้วยกัน":"เรื่องเงินไม่ได้หนุนกันเป็นพิเศษ แนะนำให้แยกเงินส่วนตัวกับเงินกองกลางให้ชัด แล้วตกลงกันว่าใครดูแลเรื่องไหน";
+  const work=L.wrk?"คนหนึ่งช่วยผลักดันงานของอีกคน ทำงานด้วยกันได้ แต่ต้องแบ่งหน้าที่ให้ชัด เพราะจะเผลอสั่งกัน":"ถ้าทำงานด้วยกัน ให้แต่ละคนดูแลคนละส่วน ไม่ก้าวก่ายกัน จะไปได้ดีกว่า";
+  const clash=[L.ml?"มีดาวแรง (อังคาร เสาร์ หรือราหู) ของคนหนึ่งไปทับภพคู่ครองของอีกคน ระวังการใช้คำพูดแรงและการตัดสินใจแทนกัน":"",L.hotA&&L.hotB?"พื้นดวงของทั้งสองคนใจร้อนทั้งคู่ เวลามีปัญหาให้แยกกันไปสงบใจก่อนค่อยคุย":"",(L.ab==="กาลี"||L.ba==="กาลี")?"วันเกิดเป็นกาลีกัน ตำราแก้ด้วยการไม่ทำเรื่องสำคัญในวันกาลีของกันและกัน และให้ทำบุญร่วมกันบ่อย ๆ":""].filter(Boolean);
+  const gd=lvGoodDays(L.a,L.b);
+  const deep=`<section class="card"><h2>ผลดวงคู่ทีละข้อ</h2><ul class="pairs">${ptsH}</ul></section>
+   <section class="card"><h2>ความรัก</h2><p class="para">${love}</p><h3 class="sub">การเงิน</h3><p class="para">${money}</p><h3 class="sub">การงาน</h3><p class="para">${work}</p></section>
+   <section class="card"><h2>จุดที่ทำให้ผิดใจกัน และวิธีอยู่ด้วยกัน</h2>${clash.length?`<ul class="plain">${clash.map(x=>`<li>${x}</li>`).join("")}</ul>`:`<p class="para">ไม่มีจุดขัดแรงในดวง ปัญหาที่เกิดส่วนใหญ่มาจากเรื่องเล็กในชีวิตประจำวัน คุยกันตรง ๆ ก็จบ</p>`}</section>
+   <section class="card"><h2>เลขที่ถูกกับดวงทั้งสองคน</h2>
+    <div class="lucky"><span class="lbl">เลขพลังดีของทั้งคู่</span><div class="chs">${L.both.map(d=>`<b class="ch g">${d}</b>`).join("")||"<span class='note'>ไม่มีเลขที่ดีตรงกันทั้งสองดวง</span>"}</div></div>
+    <div class="lucky"><span class="lbl">เลขที่อ่อนในดวงทั้งคู่</span><div class="chs">${L.bothBad.map(d=>`<b class="ch b">${d}</b>`).join("")||"<span class='note'>ไม่มี</span>"}</div></div>
+    <p class="note">ใช้เลือกบ้านเลขที่ ทะเบียนรถ หรือเบอร์ร้านที่ใช้ร่วมกัน ให้มีเลขพลังดีของทั้งคู่ และเลี่ยงเลขที่อ่อนในดวงทั้งสองคน${L.both.length?"":" ถ้าไม่มีเลขที่ดีตรงกัน ให้แต่ละคนใช้เบอร์มือถือที่ถูกกับดวงตัวเอง"}</p></section>
+   <section class="card"><h2>วันดีสำหรับทำเรื่องสำคัญด้วยกัน</h2>${gd.length?`<ul class="plain">${gd.map(d=>`<li>วัน${RK_DAY[d.dp]} ${rkDate(d)} เป็น${d.r1}ของ${w1} และเป็น${d.r2}ของ${w2} ตรงกับช่วงข้างขึ้น</li>`).join("")}</ul><p class="note">เหมาะกับคุยเรื่องสำคัญ ตัดสินใจซื้อของใหญ่ หรือไปทำบุญด้วยกัน ถ้าจะหาฤกษ์แต่งงาน ใช้ช่องหาฤกษ์บนเว็บนี้ได้</p>`:`<p class="para">ใน 30 วันข้างหน้าไม่มีวันที่ดีกับทั้งสองคนพร้อมกัน ลองดูใหม่เดือนหน้า</p>`}</section>`;
+  $("result").innerHTML=free+payKitHtml("v")+`<div id="vdeep" hidden><p class="unlocked">${isOwner()?"โหมดเจ้าของ ดวงคู่แบบละเอียด":"ขอบคุณที่ใช้บริการครับ ด้านล่างคือดวงคู่แบบละเอียด"}</p><div id="vdeepgen"></div><div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="love">บันทึกดวงคู่เป็น PDF</button></div>${paidLineHtml("love")}</div>${cta}`;
+  const open=sc=>{const el=$("vdeepgen");if(!el.dataset.done){el.innerHTML=deep;el.dataset.done="1";}$("vdeep").hidden=false;if(sc)$("vdeep").scrollIntoView({behavior:"smooth",block:"start"});};
+  const bd=x=>pad(x.d)+"/"+pad(x.m)+"/"+(x.y+543);
+  bindPayKit("v",KEY,open,"โอนค่าดวงคู่ "+PAY.amount+" บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อก วันเกิดคนที่ 1 "+bd(A)+" คนที่ 2 "+bd(B)+" (แนบสลิป)");
+  if(wasUnlocked(KEY))open(false);
+  addShare({kind:"ดวงคู่",main:(A.nick||"คุณ")+" กับ "+(B.nick||"คู่ของคุณ"),score:L.score,max:100,verdict:L.band[1],vc:L.band[0],lines:[top?top[2]:"",warn?"ระวัง "+warn[2]:""].filter(Boolean).map(t=>t.length>120?t.slice(0,118)+"…":t)});
+}
+opt($("rkact"),Object.keys(RKA).map(k=>[k,RKA[k].n]));
+(()=>{const n=new Date(),a=[["","30 วันข้างหน้า"]];for(let i=0;i<6;i++){const d=new Date(n.getFullYear(),n.getMonth()+i,1);a.push([String(d.getFullYear())+pad(d.getMonth()+1),MONTHS[d.getMonth()]+" "+(d.getFullYear()+543)]);}opt($("rkmon"),a);})();
+document.addEventListener("click",e=>{const t=e.target.closest&&e.target.closest("button.tgl[data-tgl]");if(t){const box=document.querySelector("#result ."+t.dataset.tgl+",#result #"+t.dataset.tgl);if(!box)return;const on=box.classList.toggle("open");if(!t.dataset.off)t.dataset.off=t.textContent;t.textContent=on?t.dataset.on:t.dataset.off;if(!on)box.scrollIntoView({block:"nearest"});return;}
+  const j=e.target.closest&&e.target.closest(".rjump a[data-j]");if(j){e.preventDefault();const el=$(j.dataset.j);if(el)(el.closest("section")||el).scrollIntoView({behavior:"smooth",block:"start"});}});
 </script>
 </body></html>
