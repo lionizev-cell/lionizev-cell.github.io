@@ -260,7 +260,7 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
 .steps{margin:0;padding-left:22px;display:grid;gap:8px}.steps b{color:var(--accent)}
 #pyrpage .houses li{display:grid;gap:2px}
 #stockrec .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.sgl{list-style:none;padding:0;margin:8px 0;display:grid;gap:6px}.sgn{display:grid;gap:0;padding:8px 12px;background:var(--bg);border:1px solid var(--line);border-radius:10px}.sgn b{font-family:var(--f-display);font-size:19px;color:var(--ink)}.sgn .note{font-size:13px}
+.sgl{list-style:none;padding:0;margin:8px 0;display:grid;gap:6px}.sgn{display:grid;gap:0;padding:8px 12px;background:var(--bg);border:1px solid var(--line);border-radius:10px}.sgn b{font-family:var(--f-display);font-size:19px;color:var(--ink)}.sgn .note{font-size:13px}.sgc{cursor:pointer}.sgc:hover{border-color:var(--accent)}.sghint{font-size:12px;color:var(--accent)}.cmpbox{margin-top:8px;padding-top:8px;border-top:1px solid var(--line);cursor:default}.ncmp{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:6px 8px;align-items:center;font-size:14px}.ncmp>*{min-width:0;overflow-wrap:anywhere}.nch{font-weight:600;color:var(--ink)}.tzl .tz{filter:blur(3px);user-select:none;pointer-events:none}.sgn b.nsc{font-family:var(--f-body,inherit);font-size:14px;color:var(--accent)}
 .sharebox{display:grid;gap:10px}
 .shmodal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:50;display:grid;place-items:center;padding:16px;overflow:auto}
 .shbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:10px;max-width:420px;width:100%}
@@ -296,6 +296,18 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
 .ch.chw{width:auto!important;min-width:0!important;padding:2px 10px!important;margin:0 6px 6px 0;display:inline-block}
 .card .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .card .btns>a:not(.ghost){display:inline-block;font-weight:600;color:var(--accent);border:1px solid var(--accent-deep);border-radius:99px;padding:8px 14px;text-decoration:none;background:var(--accent-soft)}
+.pronly{display:none}
+.smp{margin:12px 0;min-width:0;max-width:100%}.pay>*{min-width:0}.smpl{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}.smpb{flex:0 0 auto;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;cursor:zoom-in;scroll-snap-align:start;min-height:0}.smpb img{display:block;width:150px;height:auto}.smpov{position:fixed;inset:0;z-index:999;background:#0b0907;display:flex;flex-direction:column}.smpbar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;color:#fff;font-size:14px;flex-wrap:wrap}.smpbar span:last-child{display:flex;gap:6px}.smpbar button{padding:6px 12px;min-height:0;width:auto}.smpimg{flex:1;overflow:auto;padding:0 10px 20px}.smpimg img{display:block;width:100%;max-width:700px;margin:0 auto;border-radius:6px}
+.pkgsel{display:grid;gap:8px;margin:12px 0}.pkg{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:var(--bg)}.pkg:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}.pkg input{width:18px!important;height:18px;min-height:0;flex:0 0 18px;margin:4px 0 0;padding:0;accent-color:var(--accent)}.pkg span{display:grid;gap:2px}.pkg small{color:var(--muted);font-size:13px;line-height:1.5}
+@media print{:root{--bg:#fff!important;--surface:#fff!important;--ink:#111!important;--muted:#555!important;--line:#ccc!important;--accent:#b4530f!important;--accent-soft:#fbeadb!important;--good:#1d7a4a!important;--good-bg:#e3f4ea!important;--mid:#8a6400!important;--mid-bg:#fbf0d2!important;--bad:#b3261e!important;--bad-bg:#fbe4e1!important;color-scheme:light}
+ html,body{background:#fff!important;color:#111!important}
+ *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ body.pr header,body.pr footer,body.pr #appview>section.card:first-child,body.pr .noprint,body.pr .pdfrow,body.pr .sghint,body.pr .cmpbox,body.pr .toc,body.pr button,body.pr .btns,body.pr .stickybar,body.pr .paidline,body.pr .smp,body.pr .unlocked,body.pr .pdfhelp{display:none!important}
+ body.pr .pronly{display:block!important;margin:0 0 10px;font-size:14px}
+ body.pr .card{box-shadow:none!important;border:1px solid #ccc!important;break-inside:auto}
+ body.pr h2,body.pr h3{break-after:avoid}
+ body.pr #deep,body.pr #ndeep{display:block!important}
+ @page{margin:12mm}}
 </style>
 
 </head>
@@ -324,7 +336,7 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
   </div><div class="btns"><a href="palangtuaylek.html" class="flink">เช็กเบอร์ที่ใช้อยู่ฟรี</a><a href="palangtuaylek.html#stock" class="flink">ดูเบอร์ในสต็อก</a><a href="https://lin.ee/ujF7VHa" target="_blank" rel="noopener">ให้ผมวางเบอร์ให้</a></div></section>
 <section class="card"><h2>แชร์บทความนี้</h2><div class="btns"><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flionizev-cell.github.io%2Fbt-place.html" target="_blank" rel="noopener">แชร์ Facebook</a><a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Flionizev-cell.github.io%2Fbt-place.html" target="_blank" rel="noopener">ส่งทางไลน์</a><button type="button" class="ghost" id="cp">คัดลอกลิงก์</button></div></section>
 <section class="cta"><h2>อยากรู้ว่าเบอร์ของคุณเข้ากับดวงและอาชีพไหม</h2><p>กรอกวันเกิด อาชีพ และเบอร์ ระบบเทียบกับพื้นดวงของคุณให้ทันที ฟรี ไม่ต้องสมัคร</p><div class="btns"><a href="palangtuaylek.html">วิเคราะห์เบอร์ฟรี</a><a href="https://lin.ee/ujF7VHa" target="_blank" rel="noopener">แอดไลน์</a></div></section>
-<section class="card"><h2>บทความอื่นที่น่าอ่าน</h2><ul class="plain"><li><a href="bt-easy.html" class="flink">เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด</a></li><li><a href="bt-nine.html" class="flink">เลข 9 เลขสำคัญของยุคดิจิทัล</a></li><li><a href="bt-chart.html" class="flink">ทำไมต้องวางเบอร์จากพื้นดวง</a></li></ul></section>
+<section class="card"><h2>บทความอื่นที่น่าอ่าน</h2><ul class="plain"><li><a href="bt-kali.html" class="flink">อักษรกาลกิณี ของคนเกิดแต่ละวัน</a></li><li><a href="bt-namepick.html" class="flink">ตั้งชื่อมงคลตามวันเกิด ต้องดูอะไรบ้าง</a></li><li><a href="bt-easy.html" class="flink">เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด</a></li></ul></section>
 </div>
 <footer>ความลับพลังตัวเลข · ตอบไลน์ทุกวัน 9.00 ถึง 21.00 น.<br>การวิเคราะห์ตัวเลขเป็นศาสตร์ความเชื่อ ใช้ประกอบการตัดสินใจ ไม่ใช่การรับประกันผล</footer>
 </main>
