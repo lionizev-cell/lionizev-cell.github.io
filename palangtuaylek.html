@@ -4715,8 +4715,8 @@ function admUpdUI(){
   $("updscan").onclick=async()=>{const box2=$("updold");box2.textContent="กำลังโหลด...";
     try{const L=await ghList();const apps=L.filter(f=>verKey(f.name)).sort((a,b)=>{const x=verKey(a.name),y=verKey(b.name);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]??-1)-(y[i]??-1);if(d)return d;}return 0;});
       const latest=APP_FILE;
-      const junk=L.filter(f=>/^index-\d+\.html$/.test(f.name)||/\(\d+\)/.test(f.name)||(verKey(f.name)&&f.name!==latest)).filter(f=>f.name!=="index-1-3-1.html");
-      box2.innerHTML=junk.length?`<p class="note">ไฟล์เว็บวิเคราะห์ ${esc(latest)} กับลิงก์เก่า index-1-3-1.html ไม่อยู่ในรายการลบ</p><ul class="plain">${junk.map(f=>`<li>${esc(f.name)} <button type="button" class="ghost" data-del="${esc(f.name)}" data-sha="${f.sha}">ลบ</button></li>`).join("")}</ul>`:`<p class="note">ไม่มีไฟล์ที่ต้องลบ</p>`;
+      const junk=L.filter(f=>/^index-\d+\.html$/.test(f.name)||/\(\d+\)/.test(f.name)||(verKey(f.name)&&f.name!==latest)).filter(f=>!["index-1-3-1.html","index-1.html","index.html"].includes(f.name));
+      box2.innerHTML=junk.length?`<p class="note">ไฟล์เว็บวิเคราะห์ ${esc(latest)} หน้าแรก และลิงก์เก่า index-1.html กับ index-1-3-1.html ไม่อยู่ในรายการลบ</p><ul class="plain">${junk.map(f=>`<li>${esc(f.name)} <button type="button" class="ghost" data-del="${esc(f.name)}" data-sha="${f.sha}">ลบ</button></li>`).join("")}</ul>`:`<p class="note">ไม่มีไฟล์ที่ต้องลบ</p>`;
       box2.onclick=async ev=>{const d=ev.target.closest("button[data-del]");if(!d)return;d.disabled=true;d.textContent="กำลังลบ...";try{await ghDel(d.dataset.del,d.dataset.sha);d.closest("li").remove();}catch(err){d.textContent=err.message;}};}
     catch(err){box2.textContent=err.message;}};
 }
