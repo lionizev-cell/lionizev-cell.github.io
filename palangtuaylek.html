@@ -298,6 +298,16 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
 .ch.chw{width:auto!important;min-width:0!important;padding:2px 10px!important;margin:0 6px 6px 0;display:inline-block}
 .card .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .card .btns>a:not(.ghost){display:inline-block;font-weight:600;color:var(--accent);border:1px solid var(--accent-deep);border-radius:99px;padding:8px 14px;text-decoration:none;background:var(--accent-soft)}
+.pronly{display:none}
+@media print{:root{--bg:#fff!important;--surface:#fff!important;--ink:#111!important;--muted:#555!important;--line:#ccc!important;--accent:#b4530f!important;--accent-soft:#fbeadb!important;--good:#1d7a4a!important;--good-bg:#e3f4ea!important;--mid:#8a6400!important;--mid-bg:#fbf0d2!important;--bad:#b3261e!important;--bad-bg:#fbe4e1!important;color-scheme:light}
+ html,body{background:#fff!important;color:#111!important}
+ *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ body.pr header,body.pr footer,body.pr #appview>section.card:first-child,body.pr .noprint,body.pr .pdfrow,body.pr .sghint,body.pr .cmpbox,body.pr .toc,body.pr button,body.pr .btns,body.pr .stickybar,body.pr .unlocked,body.pr .pdfhelp{display:none!important}
+ body.pr .pronly{display:block!important;margin:0 0 10px;font-size:14px}
+ body.pr .card{box-shadow:none!important;border:1px solid #ccc!important;break-inside:auto}
+ body.pr h2,body.pr h3{break-after:avoid}
+ body.pr #deep,body.pr #ndeep{display:block!important}
+ @page{margin:12mm}}
 </style>
 </head>
 <body>
@@ -4022,6 +4032,7 @@ function render(inp,r,isSample){
   <div class="expert" id="deep" hidden>
   <p class="unlocked">${isOwner()?"โหมดเจ้าของ ผลวิเคราะห์เจาะลึกของ"+who:"ขอบคุณที่ใช้บริการครับ ด้านล่างคือผลวิเคราะห์เจาะลึกของ"+who}</p>
   <div id="deepgen"></div>
+  <div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="phone">บันทึกผลวิเคราะห์เป็น PDF</button><p class="note" style="margin:6px 0 0">กดแล้วเลือก บันทึกเป็น PDF เก็บไว้อ่านทีหลังได้</p></div>
   </div>`;
   $("copyacc").onclick=()=>{const t=PAY.acc.replace(/-/g,"");try{navigator.clipboard.writeText(t).then(()=>{$("copyacc").textContent="คัดลอกแล้ว";},()=>fallback(t,()=>{$("copyacc").textContent="คัดลอกแล้ว";}));}catch(e){fallback(t,()=>{});}};
   const openDeep=scroll=>{
@@ -4787,7 +4798,7 @@ function renderMode(inp){
   if(MODE==="cmp"){ renderCmp(inp,cta); return; }
   if(MODE==="name"){
     const nm=analyzeName(inp,{ds}); NMCTX={inp,ds}; const TZ=nameTeaserHtml(inp,nm,ds);
-    $("result").innerHTML=`<section class="card"><h2>ผลวิเคราะห์ชื่อของ${who}</h2><div class="verdict"><div class="score">${nm.score} <small>/ 1000</small></div><div><span class="pill ${nm.verdict[0]}">${nm.verdict[1]}</span></div></div><p class="para" style="text-align:center;margin:6px 0 0">ชื่อนี้เหมาะกับดวง${who} <b>${(nm.score/10).toFixed(1).replace(/\.0$/,"")}%</b></p>${nameSummaryHtml(inp,nm)}</section>${nameHtml(inp,nm)}${TZ.html}${TZ.paid?namePayHtml():""}${nickHtml(inp,nm.bk)}<div id="ndeep" hidden>${TZ.paid?`<p class="unlocked">${isOwner()?"โหมดเจ้าของ ผลวิเคราะห์ชื่อแบบละเอียด":"ขอบคุณที่ใช้บริการครับ ด้านล่างคือผลวิเคราะห์ชื่อแบบละเอียดของคุณ"}</p>`:""}<div id="ndeepgen"></div></div>${cta}`;
+    $("result").innerHTML=`<section class="card"><h2>ผลวิเคราะห์ชื่อของ${who}</h2><div class="verdict"><div class="score">${nm.score} <small>/ 1000</small></div><div><span class="pill ${nm.verdict[0]}">${nm.verdict[1]}</span></div></div><p class="para" style="text-align:center;margin:6px 0 0">ชื่อนี้เหมาะกับดวง${who} <b>${(nm.score/10).toFixed(1).replace(/\.0$/,"")}%</b></p>${nameSummaryHtml(inp,nm)}</section>${nameHtml(inp,nm)}${TZ.html}${TZ.paid?namePayHtml():""}${nickHtml(inp,nm.bk)}<div id="ndeep" hidden>${TZ.paid?`<p class="unlocked">${isOwner()?"โหมดเจ้าของ ผลวิเคราะห์ชื่อแบบละเอียด":"ขอบคุณที่ใช้บริการครับ ด้านล่างคือผลวิเคราะห์ชื่อแบบละเอียดของคุณ"}</p>`:""}<div id="ndeepgen"></div>${TZ.paid?`<div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="name">บันทึกผลวิเคราะห์เป็น PDF</button><p class="note" style="margin:6px 0 0">กดแล้วเลือก บันทึกเป็น PDF เก็บไว้อ่านทีหลังได้</p></div>`:""}</div>${cta}`;
     const NKEY=nameKey(inp), openN=sc=>{const g=$("ndeepgen");if(!g.dataset.done){g.innerHTML=nameDetailHtml(inp,nm,ds,{split:true});g.dataset.done="1";}$("ndeep").hidden=false;if(sc)$("ndeep").scrollIntoView({behavior:"smooth",block:"start"});};
     if(TZ.paid){bindNamePay(inp,NKEY,openN);if(wasUnlocked(NKEY))openN(false);}else openN(false);
     const e=nm.bk.ev; addShare({kind:"ผลวิเคราะห์ชื่อ",main:(inp.fname+" "+inp.lname).trim(),score:nm.score,max:1000,verdict:nm.verdict[1],vc:nm.verdict[0],lines:[e?"อักษรตัวแรก "+nm.bk.lead.ch+" นาม"+nbName(e.N)+" "+NB_LV[e.lv][1]:"",nm.fs?"เลขศาสตร์ชื่อ "+nm.fs.sum+" "+(nm.fs.info[5]||""):"",nm.ts?"ผลรวมชื่อนามสกุล "+nm.ts.sum+" "+(nm.ts.info[5]||""):"","ดูตามหลักทักษาและเลขศาสตร์ เทียบกับดวงเจ้าของชื่อ"].filter(Boolean)});
@@ -5012,6 +5023,47 @@ function bindNamePay(inp,key,open){
     const done=()=>{$("nslipok").hidden=false;setTimeout(()=>{location.href=CONFIG.chatUrl;},700);};
     try{navigator.clipboard.writeText(t).then(done,()=>fallback(t,done));}catch(e){fallback(t,done);}};
 }
+
+
+// ===== บันทึกผลวิเคราะห์ 399 เป็น PDF (รองรับเบราว์เซอร์ในแอป Facebook LINE IG) =====
+function inAppBrowser(){const u=navigator.userAgent||"";return /FBAN|FBAV|FB_IAB|FBIOS|Instagram|Line\/|KAKAOTALK|MicroMessenger|TikTok|musical_ly|Bytedance/i.test(u)||(/Android/i.test(u)&&/; wv\)/.test(u));}
+function pdfLink(kind){const q=new URLSearchParams(),v=id=>$(id)?$(id).value:"";
+  q.set("r",kind);["dd","mm","yy","hh","mi","prov","sex","fname","lname","nick","job","phone"].forEach(id=>{const x=v(id);if(x!=="")q.set(id,x);});
+  if($("notime").checked)q.set("notime","1");
+  try{const i=readFormLoose();if(i){const key=kind==="name"?nameKey(i):i.phone;if(key&&wasUnlocked(key))q.set("u",unlockCode(key));}}catch(e){}
+  return location.origin+location.pathname+"?"+q.toString();}
+function readFormLoose(){const d=+$("dd").value,m=+$("mm").value,y=+$("yy").value-543;return {d,m,y,phone:$("phone").value.replace(/\D/g,"")};}
+function pdfHelp(btn,kind){let box=btn.parentNode.querySelector(".pdfhelp");if(box){box.hidden=!box.hidden;return;}
+  const url=pdfLink(kind),and=/Android/i.test(navigator.userAgent||"");
+  box=document.createElement("div");box.className="pdfhelp card";box.style.cssText="margin:10px 0 0;padding:14px";
+  box.innerHTML=`<p style="margin:0 0 8px"><b>แอปที่เปิดอยู่ตอนนี้ (เช่น Facebook หรือ LINE) บันทึก PDF ไม่ได้</b> ให้เปิดหน้านี้ใน ${and?"Chrome":"Safari"} ก่อน ผลวิเคราะห์ที่ปลดล็อกแล้วจะเปิดให้อัตโนมัติ ไม่ต้องจ่ายใหม่</p>${and?`<p style="margin:0 0 8px"><a class="btn" href="intent://${url.replace(/^https?:\/\//,"")}#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(url)};end">เปิดใน Chrome</a></p>`:""}<p style="margin:0 0 8px"><button type="button" class="ghost pdfcp">คัดลอกลิงก์ ไปวางในเบราว์เซอร์</button> <span class="note pdfok" hidden>คัดลอกแล้ว</span></p><p class="note" style="margin:0">หรือกดปุ่มเมนูมุมขวาบนของแอป แล้วเลือก เปิดในเบราว์เซอร์ จากนั้นกดบันทึก PDF อีกครั้ง</p>`;
+  btn.insertAdjacentElement("afterend",box);
+  box.querySelector(".pdfcp").onclick=()=>{const ok=()=>{box.querySelector(".pdfok").hidden=false;};try{navigator.clipboard.writeText(url).then(ok,()=>fallback(url,ok));}catch(e){fallback(url,ok);}};}
+function pdfPrint(kind){
+  const R=$("result"), deepId=kind==="name"?"ndeep":"deep", kids=[...R.children];
+  let secN=0; const keepN=kind==="name"?2:1;
+  kids.forEach(el=>{let keep=false;if(el.id===deepId)keep=true;else if(el.tagName==="SECTION"&&secN<keepN){keep=true;}if(el.tagName==="SECTION")secN++;if(!keep)el.classList.add("noprint");});
+  const opened=[...R.querySelectorAll("details:not([open])")];opened.forEach(d=>d.open=true);
+  const hd=document.createElement("div");hd.className="pronly";hd.innerHTML=`<b>ความลับพลังตัวเลข</b> ผลวิเคราะห์${kind==="name"?"ชื่อ":"เบอร์"}แบบละเอียด · ทักไลน์ lin.ee/ujF7VHa`;R.prepend(hd);
+  const t0=document.title;document.title="ผลวิเคราะห์"+(kind==="name"?"ชื่อ "+($("fname").value+" "+$("lname").value).trim():"เบอร์ "+$("phone").value);
+  document.body.classList.add("pr");
+  const done=()=>{document.body.classList.remove("pr");kids.forEach(el=>el.classList.remove("noprint"));opened.forEach(d=>d.open=false);hd.remove();document.title=t0;window.removeEventListener("afterprint",done);};
+  window.addEventListener("afterprint",done);
+  try{window.print();}catch(e){done();}
+  setTimeout(()=>{if(document.body.classList.contains("pr")&&!matchMedia("print").matches)done();},1500);}
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("button[data-pdf]");if(!b)return;const k=b.dataset.pdf;
+  if(inAppBrowser()||typeof window.print!=="function"){pdfHelp(b,k);return;} cntHit("pdf-"+k); pdfPrint(k);});
+// เปิดจากลิงก์บันทึก PDF: เติมฟอร์ม ปลดล็อก แล้ววิเคราะห์ให้เลย
+function pdfRestore(){try{const q=new URLSearchParams(location.search),k=q.get("r");if(k!=="phone"&&k!=="name")return;
+  const b=document.querySelector(`.modetabs button[data-m="${k}"]`);if(b&&MODE!==k)b.click();
+  ["dd","mm","yy","sex","prov"].forEach(id=>{if(q.has(id)&&$(id)){$(id).value=q.get(id);$(id).dispatchEvent(new Event("change",{bubbles:true}));}});
+  const nt=q.get("notime")==="1";if($("notime").checked!==nt){$("notime").checked=nt;$("notime").dispatchEvent(new Event("change",{bubbles:true}));}
+  ["hh","mi"].forEach(id=>{if(q.has(id)){$(id).value=q.get(id);}});
+  ["fname","lname","nick","job","phone"].forEach(id=>{if($(id)){$(id).value=q.get(id)||"";$(id).dispatchEvent(new Event("input",{bubbles:true}));}});
+  const u=q.get("u");if(u){const i=readFormLoose();const key=k==="name"?nameKey(i):i.phone;if(key&&u===unlockCode(key))markUnlocked(key);}
+  setTimeout(()=>{$("gobtn").click();setTimeout(()=>{const pb=document.querySelector(`button[data-pdf="${k}"]`);if(pb&&pb.offsetParent){pb.scrollIntoView({block:"center"});pb.classList.add("primary");}},500);},80);
+}catch(e){}}
+setTimeout(pdfRestore,30);
 
 // ===== บันทึกผลเป็นรูป =====
 let SHARE=null;
