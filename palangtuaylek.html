@@ -311,6 +311,7 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
     <details class="navmore"><summary>บทความ</summary><div class="navlist">
       <a href="#easy" id="toEasy">เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด</a><a href="#nine" id="toNine">เลข 9 เลขสำคัญของยุคดิจิทัล</a><a href="#chart" id="toChart">ทำไมต้องวางเบอร์จากพื้นดวง</a><a href="#trap" id="toTrap">กับดักเบอร์มงคล 100%</a><a href="#weak" id="toWeak">ไม่มีเลขเสีย แต่ทำไมชีวิตไม่โต</a><a href="#context" id="toCtx">เบอร์เสียคือเบอร์ที่ผิดบริบท</a><a href="#start" id="toStart">ชีวิตติดหล่ม เริ่มแก้จากเบอร์</a>
     </div></details>
+    <a class="horo" href="duang.html" id="toHoro">ดูดวง</a>
     <a href="#review" id="toReview">รีวิว</a>
     <a href="#about" id="toAbout">แนะนำตัว</a></nav>
 </header>
@@ -4683,7 +4684,7 @@ function updTarget(name,txt,nextApp){
   const g=name.match(/^(google[0-9a-f]+)/i); if(g&&/google-site-verification/.test(txt)) return [g[1]+".html","ไฟล์ยืนยัน Google"];
   if(/const STOCK=/.test(txt)) return [nextApp,"เว็บวิเคราะห์ (ทับไฟล์เดิม ลิงก์เดิม)"];
   if(/class="btn go"/.test(txt)) return ["index.html","หน้าแรก"];
-  {const m=txt.match(/<!--plk-target:([\w.-]+\.(?:html|xml))-->/); if(m) return [m[1],/^bt-/.test(m[1])?"บทความ "+m[1]:/\.xml$/.test(m[1])?"แผนผังเว็บไซต์":"ลิงก์ "+m[1]+" พาไปเว็บวิเคราะห์"];}
+  {const m=txt.match(/<!--plk-target:([\w.-]+\.(?:html|xml))-->/); if(m) return [m[1],/^bt-/.test(m[1])?"บทความ "+m[1]:m[1]==="duang.html"?"เว็บดูดวง duang.html":/\.xml$/.test(m[1])?"แผนผังเว็บไซต์":"ลิงก์ "+m[1]+" พาไปเว็บวิเคราะห์"];}
   if(/location\.replace/.test(txt)&&txt.length<20000) return ["index-1.html","ลิงก์ index-1.html พาไปเว็บวิเคราะห์"];
   if(/^og\.png$|^post-1080\.png$/i.test(name.replace(/[\s-]*\(\d+\)|-\d+(?=\.png$)/,""))) return [name.replace(/[\s-]*\(\d+\)|-\d+(?=\.png$)/,""),"รูปภาพ"];
   return null;
@@ -4715,7 +4716,7 @@ function admUpdUI(){
   $("updscan").onclick=async()=>{const box2=$("updold");box2.textContent="กำลังโหลด...";
     try{const L=await ghList();const apps=L.filter(f=>verKey(f.name)).sort((a,b)=>{const x=verKey(a.name),y=verKey(b.name);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]??-1)-(y[i]??-1);if(d)return d;}return 0;});
       const latest=APP_FILE;
-      const junk=L.filter(f=>/^index-\d+\.html$/.test(f.name)||/\(\d+\)/.test(f.name)||(verKey(f.name)&&f.name!==latest)).filter(f=>!["index-1-3-1.html","index-1.html","index.html"].includes(f.name));
+      const junk=L.filter(f=>/^index-\d+\.html$/.test(f.name)||/\(\d+\)/.test(f.name)||(verKey(f.name)&&f.name!==latest)).filter(f=>!["index-1-3-1.html","index-1.html","index.html","duang.html"].includes(f.name));
       box2.innerHTML=junk.length?`<p class="note">ไฟล์เว็บวิเคราะห์ ${esc(latest)} หน้าแรก และลิงก์เก่า index-1.html กับ index-1-3-1.html ไม่อยู่ในรายการลบ</p><ul class="plain">${junk.map(f=>`<li>${esc(f.name)} <button type="button" class="ghost" data-del="${esc(f.name)}" data-sha="${f.sha}">ลบ</button></li>`).join("")}</ul>`:`<p class="note">ไม่มีไฟล์ที่ต้องลบ</p>`;
       box2.onclick=async ev=>{const d=ev.target.closest("button[data-del]");if(!d)return;d.disabled=true;d.textContent="กำลังลบ...";try{await ghDel(d.dataset.del,d.dataset.sha);d.closest("li").remove();}catch(err){d.textContent=err.message;}};}
     catch(err){box2.textContent=err.message;}};
@@ -5753,9 +5754,15 @@ function readMoreHtml(inp,r){
   if(N9&&N9.c===0) add("nine","7 ตัวหลังของเบอร์นี้ไม่มีเลข 9 อ่านต่อว่าทำไมเลข 9 ถึงสำคัญในยุคออนไลน์");
   if(sc>=650&&hasBad) add("trap","เบอร์นี้มีคู่เลขที่ตำราว่าเสียอยู่บ้าง แต่ภาพรวมยังดี ก่อนรีบเปลี่ยน อ่านเรื่องกับดักเบอร์มงคล 100% ก่อน");
   add("chart","อยากรู้ว่าทำไมผมต้องเทียบเบอร์กับพื้นดวงทุกครั้ง อ่านบทความนี้");
-  return `<section class="card"><h2>อ่านต่อ เรื่องที่ตรงกับเบอร์ของคุณ</h2><ul class="pairs">${out.map(o=>`<li style="display:block"><div><h3><a href="#${o.k}" class="flink">${ARTS[o.k]}</a></h3><p>${o.why}</p></div></li>`).join("")}</ul></section>`;
-  }catch(e){return "";}
+  return `<section class="card"><h2>อ่านต่อ เรื่องที่ตรงกับเบอร์ของคุณ</h2><ul class="pairs">${out.map(o=>`<li style="display:block"><div><h3><a href="#${o.k}" class="flink">${ARTS[o.k]}</a></h3><p>${o.why}</p></div></li>`).join("")}</ul></section>`+horoCard();
+  }catch(e){return horoCard();}
 }
+const HORO_ART="https://claude.ai/artifact/Ewch7F88G3NEzKw6oDMjUe", HORO_URL=/github\.io$/.test(location.hostname)?"duang.html":"https://lionizev-cell.github.io/duang.html";
+function horoHref(){try{const y=+$("yy").value,m=+$("mm").value,d=+$("dd").value;if(!y||!m||!d)return HORO_URL;const p2=v=>String(v).padStart(2,"0");
+  const q=new URLSearchParams({d:(y-543)+"-"+p2(m)+"-"+p2(d)});if(!$("notime").checked)q.set("t",p2(+$("hh").value)+":"+p2(+$("mi").value));
+  const pv=PROV[+$("prov").value];if(pv)q.set("p",pv[0]);const nk=($("nick")&&$("nick").value.trim())||"";if(nk)q.set("n",nk);return HORO_URL+"?"+q.toString();}catch(e){return HORO_URL;}}
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a.horo");if(!a)return;a.href=horoHref();});
+function horoCard(){return `<section class="card"><h2>อยากรู้ดวงชะตาของคุณละเอียดกว่านี้</h2><p>ผูกดวงราศีจักรจากวันเวลาเกิดเดียวกัน ดูพื้นดวง ไพ่ทาโรต์ และดวงสมพงษ์คู่รัก ได้ที่เว็บดูดวงของเพจ</p><div class="btns"><a class="horo" href="${HORO_URL}">ไปดูดวงชะตา</a></div></section>`;}
 function shareBar(k){
   const url=SITE+"bt-"+k+".html", t=ARTS[k]||"";
   return `<div class="btns sharebar"><a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" rel="noopener">แชร์ Facebook</a><a href="https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}" target="_blank" rel="noopener">ส่งทางไลน์</a><button type="button" class="ghost" data-copy="${url}">คัดลอกลิงก์</button></div>`;
