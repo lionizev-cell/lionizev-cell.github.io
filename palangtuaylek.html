@@ -6732,5 +6732,24 @@ function memLoad(){try{const o=JSON.parse(localStorage.getItem("plk_mem")||"null
 (function(){const c=$("memclr");if(c)c.addEventListener("click",e=>{e.preventDefault();try{localStorage.removeItem("plk_mem");}catch(_){}
   ["nick","fname","lname","job"].forEach(k=>{const el=$(k);if(el){el.value="";el.dispatchEvent(new Event("input",{bubbles:true}));}});$("memnote").hidden=true;});
   setTimeout(memLoad,0);})();
+// ===== รับวันเวลาเกิดจากหน้าดูดวง (duang.html) =====
+function urlPrefill(){try{const q=new URLSearchParams(location.search),d=q.get("d");if(!d||!/^\d{4}-\d{2}-\d{2}$/.test(d))return;
+  const set=(id,v)=>{const el=$(id);if(!el||v==null)return;if(el.tagName==="SELECT"&&![...el.options].some(o=>o.value===String(v)))return;el.value=String(v);el.dispatchEvent(new Event(el.tagName==="SELECT"?"change":"input",{bubbles:true}));};
+  if(MODE!=="phone"){const b=document.querySelector('.modetabs button[data-m="phone"]');if(b)b.click();}
+  set("dd",+d.slice(8,10));set("mm",+d.slice(5,7));set("yy",+d.slice(0,4)+543);
+  const t=q.get("t"),nt=$("notime");
+  if(t&&/^\d{2}:\d{2}$/.test(t)){if(nt.checked){nt.checked=false;nt.dispatchEvent(new Event("change",{bubbles:true}));}set("hh",+t.slice(0,2));set("mi",+t.slice(3,5));}
+  else if(!nt.checked){nt.checked=true;nt.dispatchEvent(new Event("change",{bubbles:true}));}
+  const p=q.get("p");if(p){const i=PROV.findIndex(x=>x[0]===p.trim());if(i>=0)set("prov",i);}
+  let hasMem=false;try{hasMem=!!localStorage.getItem("plk_mem");}catch(_){}
+  if(!hasMem){$("job").value="";$("job").dispatchEvent(new Event("input",{bubbles:true}));if($("nick"))$("nick").value="";}
+  const n=q.get("n");if(n&&$("nick"))set("nick",n.slice(0,40));
+  const ph=(q.get("ph")||"").replace(/\D/g,"");if(/^0\d{9}$/.test(ph))set("phone",ph);
+  const hint=document.createElement("p");hint.className="note";hint.id="fromHoro";hint.style.cssText="border:1px solid var(--accent);border-radius:10px;padding:10px 12px;margin:0 0 4px;color:var(--ink)";
+  hint.textContent="ใส่วันเวลาเกิดจากหน้าดูดวงให้แล้ว เลือกเพศและใส่อาชีพ แล้วกดปุ่มวิเคราะห์ด้านล่าง";
+  if(!$("fromHoro"))$("f").prepend(hint);
+  setTimeout(()=>{$("f").scrollIntoView({block:"start"});const s=$("sex");if(s)s.focus({preventScroll:true});},60);
+}catch(e){}}
+setTimeout(urlPrefill,20);
 </script>
 </body></html>
