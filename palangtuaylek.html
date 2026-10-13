@@ -327,6 +327,7 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
     </div></details>
     <a class="horo" href="duang.html" id="toHoro">ดูดวง</a>
     <a href="https://lionizev-cell.github.io/duang.html#dream" id="toDream">ทำนายฝัน</a>
+    <a href="https://lionizev-cell.github.io/ebook.html" id="toEbook">อีบุ๊ก</a>
     <a href="#review" id="toReview">รีวิว</a>
     <a href="#about" id="toAbout">แนะนำตัว</a></nav>
 </header>
@@ -3899,6 +3900,8 @@ function adminRender(){
     <div class="card" style="margin:0 0 14px;padding:14px"><p class="para" id="ownst"></p><button type="button" class="ghost" id="owntog"></button></div>
     <label for="admph">เบอร์ที่ลูกค้าวิเคราะห์ (10 หลัก)<input id="admph" inputmode="numeric" maxlength="12" placeholder="0812345678"></label>
     <div id="admout" aria-live="polite"></div>
+    <label for="admeb" style="margin-top:12px;display:block">รหัสอีบุ๊ก ใส่เบอร์มือถือของผู้ซื้อ (10 หลัก)<input id="admeb" inputmode="numeric" maxlength="12" placeholder="0812345678"></label>
+    <div id="admebout" aria-live="polite"></div>
     <label for="admbd" style="margin-top:12px;display:block">รหัสวิเคราะห์ชื่อ ใส่วันเกิดลูกค้า วว ดด ปปปป (พ.ศ.) 8 หลัก<input id="admbd" inputmode="numeric" maxlength="10" placeholder="12052533"></label>
     <div id="admbout" aria-live="polite"></div>
    </div></section>`;
@@ -3907,6 +3910,10 @@ function adminRender(){
   const ownUI=()=>{const o=isOwner();$("ownst").innerHTML=o?"<b>โหมดเจ้าของเปิดอยู่ในเครื่องนี้</b> วิเคราะห์เบอร์ไหนก็เห็นผลวิเคราะห์เจาะลึกทันที ไม่ต้องแนบสลิป":"โหมดเจ้าของปิดอยู่ เครื่องนี้จะเห็นหน้าเว็บเหมือนลูกค้า";$("owntog").textContent=o?"ปิดโหมดเจ้าของ (ดูแบบลูกค้า)":"เปิดโหมดเจ้าของในเครื่องนี้";};
   $("owntog").onclick=()=>{setOwner(!isOwner());ownUI();};
   $("admpin").onkeydown=e=>{if(e.key==="Enter")$("admgo").click();};
+  $("admeb").oninput=()=>{const v=normDigits($("admeb").value);if(!/^0\d{9}$/.test(v)){$("admebout").innerHTML="";return;}
+    const c=unlockCode("3"+v), msg="ได้รับยอดโอนค่าอีบุ๊กเรียบร้อยครับ เปิดหน้า lionizev-cell.github.io/ebook.html ใส่เบอร์ "+v+" และรหัส "+c+" ในช่องมีรหัสแล้ว แล้วกดเปิดอ่านได้เลยครับ";
+    $("admebout").innerHTML=`<p class="admcode">${c}</p><p class="para">${msg}</p><button type="button" class="primary" id="admebcopy">คัดลอกข้อความส่งลูกค้า</button> <span class="note" id="admebok" hidden>คัดลอกแล้ว</span>`;
+    $("admebcopy").onclick=()=>{const done=()=>{$("admebok").hidden=false;};try{navigator.clipboard.writeText(msg).then(done,()=>fallback(msg,done));}catch(e){fallback(msg,done);}};};
   $("admbd").oninput=()=>{const v=normDigits($("admbd").value);if(v.length!==8){$("admbout").innerHTML="";return;}
     const c=unlockCode("7"+v), msg="ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกวิเคราะห์ชื่อแบบละเอียด วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ";
     $("admbout").innerHTML=`<p class="admcode">${c}</p><p class="para">${msg}</p><button type="button" class="primary" id="admbcopy">คัดลอกข้อความส่งลูกค้า</button> <span class="note" id="admbok" hidden>คัดลอกแล้ว</span>`;
@@ -5344,7 +5351,7 @@ function cntHit(key){
   }catch(e){}
 }
 (function(){try{if(!sessionStorage.getItem("plk_v")){sessionStorage.setItem("plk_v","1");cntHit("visit");}}catch(e){cntHit("visit");}})();
-const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
+const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
 async function cntGet(k){try{const r=await fetch(`${CNT.base}/get/${CNT.ns}/${k}`);if(!r.ok)return 0;const j=await r.json();return +j.value||0;}catch(e){return null;}}
 async function admStatsUI(){
   const box=$("admstats"); if(!box) return;
@@ -5359,7 +5366,7 @@ async function admStatsUI(){
       <tr><td>ทักไลน์ ต่อการวิเคราะห์</td><td>${pc(L[0],an[0])}</td><td>${pc(L[1],an[1])}</td></tr>
       <tr><td>ปลดล็อกด้วยสลิป ต่อการวิเคราะห์</td><td>${pc(S[0],an[0])}</td><td>${pc(S[1],an[1])}</td></tr>
       <tr><td>ซื้อเบอร์ ต่อการวิเคราะห์</td><td>${pc(B[0],an[0])}</td><td>${pc(B[1],an[1])}</td></tr></tbody></table>
-      ${(()=>{const P=[["pay-phone",399,"วิเคราะห์เบอร์ 399"],["pay-name",399,"วิเคราะห์ชื่อ 399"]].map(([k,pr,l])=>{const v=V(k);return {l,pr,a:v[0],b:v[1]};});
+      ${(()=>{const P=[["pay-phone",399,"วิเคราะห์เบอร์ 399"],["pay-name",399,"วิเคราะห์ชื่อ 399"],["pay-ebook",399,"อีบุ๊ก 399"]].map(([k,pr,l])=>{const v=V(k);return {l,pr,a:v[0],b:v[1]};});
         const t0=P.reduce((x,p)=>x+p.a*p.pr,0),t1=P.reduce((x,p)=>x+p.b*p.pr,0),f=n=>n.toLocaleString("th-TH");
         return `<h2 style="margin-top:14px">ยอดขายจากสลิปที่ผ่าน</h2><p class="note" style="margin:0">นับเฉพาะสลิปที่ระบบตรวจผ่าน ไม่รวมรหัสที่แอดมินส่งทางไลน์ และไม่รวมเว็บดูดวง</p><table class="admtb"><thead><tr><th>สินค้า</th><th>วันนี้</th><th>ทั้งหมด</th></tr></thead><tbody>${P.map(p=>`<tr><td>${p.l}</td><td>${p.a} ครั้ง</td><td>${p.b} ครั้ง</td></tr>`).join("")}<tr><td><b>รายได้โดยประมาณ</b></td><td><b>${f(t0)} บาท</b></td><td><b>${f(t1)} บาท</b></td></tr></tbody></table>`;})()}`;})()}`;
 }
