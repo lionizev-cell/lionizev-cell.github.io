@@ -384,9 +384,9 @@ a.dgo{display:inline-block;background:var(--accent-deep);color:var(--on-accent);
       <label for="nick">ชื่อเล่น (ไม่ใส่ก็ได้)<input id="nick" autocomplete="nickname"></label>
       <label for="sex">เพศ<select id="sex"><option value="m">ชาย</option><option value="f">หญิง</option></select></label>
     </div>
-    <div class="row" data-show="phone name biz">
+    <div class="row" data-show="name biz">
       <label for="fname"><span id="fnhint">ชื่อจริง (ไม่ใส่ก็ได้)</span><input id="fname" autocomplete="given-name" maxlength="40"></label>
-      <label for="lname" data-show="phone name"><span id="lnhint">นามสกุล (ไม่ใส่ก็ได้)</span><input id="lname" autocomplete="family-name" maxlength="40"></label>
+      <label for="lname" data-show="name"><span id="lnhint">นามสกุล (ไม่ใส่ก็ได้)</span><input id="lname" autocomplete="family-name" maxlength="40"></label>
     </div>
     <label for="job" data-show="phone name plate house idcard cmp bank">อาชีพ<input id="job" placeholder="พิมพ์อาชีพ เช่น ขายของออนไลน์" maxlength="80"></label>
     <div class="jobpick" data-show="phone name plate house idcard cmp bank"><span class="note">พิมพ์เองในช่องนี้ หรือแตะเลือกกลุ่มอาชีพด้านล่าง</span><div id="jobchips" class="jobchips"></div><p class="note" id="jobhint" aria-live="polite"></p></div>
@@ -4851,7 +4851,7 @@ function readForm(){
   const dt=new Date(Date.UTC(y,m-1,d));
   if(dt.getUTCMonth()!==m-1) return {error:"วันที่นี้ไม่มีในปฏิทิน ลองเช็กวันและเดือนเกิดอีกครั้ง"};
   const notime=$("notime").checked, pv=PROV[+$("prov").value];
-  return {fname:$("fname").value.trim(),lname:$("lname").value.trim(),nick:$("nick").value.trim(),sex:$("sex").value,jobText:$("job").value.trim(),job:jobOf($("job").value),jobs:matchJobs($("job").value),d,m,y,h:notime?6:+$("hh").value,mi:notime?0:+$("mi").value,notime,lat:pv[1],lon:pv[2],provName:pv[0],phone:ph,lagOv:-1};
+  return {fname:/^(name|biz)$/.test(MODE)?$("fname").value.trim():"",lname:MODE==="name"?$("lname").value.trim():"",nick:$("nick").value.trim(),sex:$("sex").value,jobText:$("job").value.trim(),job:jobOf($("job").value),jobs:matchJobs($("job").value),d,m,y,h:notime?6:+$("hh").value,mi:notime?0:+$("mi").value,notime,lat:pv[1],lon:pv[2],provName:pv[0],phone:ph,lagOv:-1};
 }
 // ===== แยกช่องวิเคราะห์: เบอร์ ชื่อ ทะเบียนรถ บ้านเลขที่ บัตรประชาชน =====
 let MODE="phone";
@@ -4913,7 +4913,7 @@ function readMode(){
   const dt=new Date(Date.UTC(y,m-1,d));
   if(dt.getUTCMonth()!==m-1) return {error:"วันที่นี้ไม่มีในปฏิทิน ลองเช็กวันและเดือนเกิดอีกครั้ง"};
   const notime=$("notime").checked, pv=PROV[+$("prov").value];
-  const inp={fname:$("fname").value.trim(),lname:$("lname").value.trim(),nick:$("nick").value.trim(),sex:$("sex").value,jobText:$("job").value.trim(),job:jobOf($("job").value),jobs:matchJobs($("job").value),d,m,y,h:notime?6:+$("hh").value,mi:notime?0:+$("mi").value,notime,lat:pv[1],lon:pv[2],provName:pv[0],lagOv:-1};
+  const inp={fname:/^(name|biz)$/.test(MODE)?$("fname").value.trim():"",lname:MODE==="name"?$("lname").value.trim():"",nick:$("nick").value.trim(),sex:$("sex").value,jobText:$("job").value.trim(),job:jobOf($("job").value),jobs:matchJobs($("job").value),d,m,y,h:notime?6:+$("hh").value,mi:notime?0:+$("mi").value,notime,lat:pv[1],lon:pv[2],provName:pv[0],lagOv:-1};
   if(MODE==="name"){ if(!inp.fname&&!inp.lname) return {error:"ใส่ชื่อจริง หรือนามสกุล อย่างน้อยหนึ่งช่อง"}; }
   if(MODE==="plate"){ const t=$("plate").value.replace(/\s+/g,""); const L=[...t].filter(c=>/[ก-ฮ]/.test(c)); const D=[...t].filter(c=>/\d/.test(c)).map(Number);
     if(!D.length||!L.length) return {error:"ใส่ทะเบียนรถให้มีทั้งตัวอักษรและตัวเลข เช่น 1กข 2345"}; inp.plate=t; inp.letters=L; inp.digits=D; }
