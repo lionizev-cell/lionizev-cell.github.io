@@ -330,6 +330,7 @@ footer .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1f
 #stockrec .stkact{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:6px}#stockrec .stkbuy{background:var(--accent);color:#fff;font-weight:600;padding:7px 16px;border-radius:99px;text-decoration:none}#stockrec .stklink{background:none;border:0;padding:0;font:inherit;font-size:14px;color:var(--accent);text-decoration:underline;cursor:pointer}
 @media print{.rjump,.tgl{display:none!important}.arc .at{display:block!important}.ppw .ppx{display:grid!important}}body.pr .rjump{display:none}
 .sumline{text-align:center;margin:6px 0 0;font-size:15px}.sumline b{font-family:var(--f-mono);font-size:20px;margin:0 2px}.sumline span:last-child{display:block;font-size:14px;opacity:.85;margin-top:2px}.hlb span{color:var(--ink)}
+.pctbox{margin:10px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}.pctl{margin:0 0 8px;font-weight:600;text-align:center}.pctl b{font-family:var(--f-mono);font-size:22px;margin-left:4px}.pctl b{background:none!important;padding:0}.pctl b.pcg{color:var(--good)}.pctl b.pcm{color:var(--mid)}.pctl b.pcb{color:var(--bad)}.pctbar{position:relative;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--bad-bg),var(--mid-bg),var(--good-bg));border:1px solid var(--line)}.pctbar i{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:2px solid var(--surface)}.pctbar i.g{background:var(--good)}.pctbar i.m{background:var(--mid)}.pctbar i.b{background:var(--bad)}.pctbar .pmed{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--muted);opacity:.6}
 </style>
 </head>
 <body>
@@ -2427,6 +2428,7 @@ function s1000Html(r){
   const k=r.k1000; if(!k) return "";
   return `<section class="card" aria-labelledby="hk1"><h2 id="hk1">คะแนน ${r.s1000} จาก 1000 แยกตามหมวด</h2>
    <p class="note" style="margin:0 0 10px">ระบบให้คะแนนจากทุกมุมที่ผมใช้ดูเบอร์จริง ทั้งคู่เลข การร้อยเรียง พื้นดวง อาชีพ เพศ ช่วงวัย และผลรวม เบอร์ที่ดีมากสำหรับคนคนหนึ่งมักได้ราว 800 ถึง 900 ไม่มีเบอร์ไหนได้เต็ม</p>
+   ${(()=>{const R=S1K.map(([key,lab,max])=>({lab,pc:k.P[key]/max})).sort((a,b)=>b.pc-a.pc);const hi=R[0],lo=R[R.length-1];return `<div class="hl" style="margin-bottom:10px"><div class="hlb g"><b>หมวดที่ได้คะแนนดีที่สุด</b><span>${hi.lab} ${Math.round(hi.pc*100)}%</span></div><div class="hlb ${lo.pc<0.55?"b":"m"}"><b>หมวดที่ฉุดคะแนน</b><span>${lo.lab} ${Math.round(lo.pc*100)}%</span></div></div>`;})()}
    <div class="k1k">${S1K.map(([key,lab,max])=>{const v=k.P[key],pc=Math.round(v/max*100),c=pc>=75?"g":pc>=55?"m":"b";
      return `<details class="k1row"><summary><span class="k1l">${lab}</span><span class="k1v"><b>${v}</b> / ${max}</span><span class="k1bar"><i class="${c}" style="width:${pc}%"></i></span></summary><ul class="plain">${k.why[key].map(t=>`<li>${t}</li>`).join("")}</ul></details>`;}).join("")}</div>
    ${k.caps.length?`<p class="note" style="margin-top:8px">${k.caps.join(" ")}</p>`:""}
@@ -4058,13 +4060,35 @@ function freePairsHtml(inp,r){
    ${r.pos.length>5||(r.tri3||[]).length>2?`<button type="button" class="ghost tgl" data-tgl="ppw" data-on="ย่อกลับ">ดูทุกคู่ (${r.pos.length} คู่ และชุด 3 ตัว ${(r.tri3||[]).length} ชุด)</button>`:""}
    <p class="note" style="margin-top:8px">นี่คือความหมายแบบย่อ ถ้าอยากรู้ว่าแต่ละคู่ส่งผลกับชีวิตคุณอย่างไร ควรวางเลขตรงไหน และเบอร์ที่เหมาะกับดวงคุณ ดูได้ในแบบเจาะลึกด้านล่าง</p></section>`;
 }
-function render(inp,r,isSample){
-  // ทำให้คะแนน ป้าย และคำทำนายทุกส่วนไปทางเดียวกัน
+// ทำให้คะแนน ป้าย และคำทำนายทุกส่วนไปทางเดียวกัน
+function finalScore(inp,r){
   r.rows=AREAS.map(a=>areaPara(a,r,inp));
   const nG=r.rows.filter(x=>x.g==="g").length, nB=r.rows.filter(x=>x.g==="b").length;
   r.level=r.strong?"fail":(r.score>=75&&nG>=3&&nB===0)?"good":(r.score>=60&&nB<=1)||nG>=3?"ok":(nB>=3||r.score<45)?"bad":"mid";
   const cap={fail:40,bad:44,mid:59,ok:74,good:98}[r.level], flo={fail:0,bad:0,mid:45,ok:60,good:75}[r.level];
   r.s1000=Math.max(flo*10,Math.min(cap===98?985:cap*10+9,r.s1000)); r.score=Math.round(r.s1000/10);
+  return r.s1000;
+}
+// เทียบกับเบอร์ทั่วไป: สุ่มเบอร์มือถือ 400 เบอร์ (คงที่ต่อดวง) แล้วดูว่าเบอร์นี้ดีกว่ากี่เปอร์เซ็นต์ เมื่อเทียบกับดวงเดียวกัน
+let _PCT={};
+function pctRank(inp,s){
+  const ck=[inp.y,inp.m,inp.d,inp.h,inp.mi,inp.lat,inp.lon,inp.sex,inp.jobText||"",inp.fname||"",inp.lname||""].join(",");
+  if(!_PCT[ck]){let seed=0;for(const ch of ck)seed=(seed*31+ch.charCodeAt(0))>>>0;const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
+    const P=["06","08","09"],arr=[];
+    for(let i=0;i<400;i++){const ph=P[Math.floor(rnd()*3)]+String(Math.floor(rnd()*1e8)).padStart(8,"0");try{const x=analyze({...inp,phone:ph});arr.push(finalScore({...inp,phone:ph},x));}catch(e){}}
+    analyze(inp); _PCT[ck]=arr.sort((a,b)=>a-b);}
+  const a=_PCT[ck]; if(!a.length) return null;
+  const below=a.filter(v=>v<s).length, eq=a.filter(v=>v===s).length;
+  return {pct:Math.round((below+eq/2)/a.length*100),med:a[Math.floor(a.length/2)],top10:a[Math.floor(a.length*0.9)]};
+}
+function pctHtml(inp,r){let P;try{P=pctRank(inp,r.s1000);}catch(e){return "";} if(!P) return "";
+  const p=Math.max(1,Math.min(99,P.pct)), c=p>=80?"g":p>=50?"m":"b";
+  const t=p>=90?"อยู่กลุ่มท็อป 10% เบอร์ที่เข้ากับดวงคุณได้ดีมาก":p>=70?"ดีกว่าเบอร์ส่วนใหญ่":p>=40?"ใกล้เคียงเบอร์ทั่วไป":"ยังด้อยกว่าเบอร์ส่วนใหญ่";
+  return `<div class="pctbox"><p class="pctl">ดีกว่าเบอร์ทั่วไป <b class="pc${c}">${p}%</b></p>
+    <div class="pctbar" role="img" aria-label="ดีกว่าเบอร์ทั่วไป ${p} เปอร์เซ็นต์"><span class="pmed" style="left:50%"></span><i class="${c}" style="left:${p}%"></i></div>
+    <p class="note" style="margin:8px 0 0">${t} เทียบกับเบอร์สุ่ม 400 เบอร์ที่วิเคราะห์กับดวงของคุณแบบเดียวกัน เบอร์ทั่วไปได้ราว ${P.med} คะแนน ท็อป 10% ได้ ${P.top10} ขึ้นไป</p></div>`;}
+function render(inp,r,isSample){
+  finalScore(inp,r);
   r.band=({fail:["b","ไม่แนะนำให้ใช้"],bad:["b","ไม่แนะนำให้ใช้"],mid:["m","กลาง ๆ ยังไม่ใช่เบอร์ที่ใช่"],ok:["g","ใช้ได้ มีจุดต้องระวัง"],good:r.s1000>=850?["g","เบอร์ดีมาก เข้ากับคุณ"]:["g","เบอร์ดี ใช้ได้เลย"]}[r.level]);
   const lag=r.ds.lag, lords=LORD[lag];
   const lordTxt=lords.map(p=>{const f=r.ds.info[p];return "ดาว"+PL[p]+" ("+p+") อยู่ราศี"+SIGNS[f.sign]+" สถิต"+hn(f.house)+(f.dg?" เป็น"+f.dg:"");}).join(" และ ");
@@ -4093,6 +4117,7 @@ function render(inp,r,isSample){
     ${isSample?"":`<nav class="rjump" aria-label="ไปยังส่วนของผล"><a href="#" data-j="h1r">สรุป</a><a href="#" data-j="hfp">คู่เลข</a><a href="#" data-j="hpay">เจาะลึก 399</a><a href="#" data-j="hsr">เบอร์แนะนำ</a></nav>`}
     <div class="num" aria-label="เบอร์ ${inp.phone}">${numHtml}</div>
     <div class="verdict"><div class="score">${r.s1000} <small>/ 1000</small></div><div><span class="pill ${r.band[0]}">${r.band[1]}</span></div></div>
+    ${pctHtml(inp,r)}
     <p class="sumline">ผลรวม <b>${r.sum}</b> <span class="pill ${r.sumInfo[0]}">${({g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"})[r.sumInfo[0]]}</span> <span>${esc(r.sumInfo[1]||"")}</span></p>
     ${simpleSummary(inp,r,NM)}
   </section>
