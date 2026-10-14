@@ -2154,7 +2154,7 @@ function render(){
 
   if(window.__U&&window.__U===unlockNum(c.key)){saveUnlock(c.key);window.__U=null}var M4=r.length,UL=isUnlocked(c.key);
   var shortT=sec('s-topics','ดวงแต่ละด้าน (ย่อ)')+TD.map(function(t){return t.short}).join('')+(UL?'':'<p class="note">ฉบับละเอียดอ่านแต่ละด้านแบบ 2 จังหวะครบ พร้อมดาวที่เกี่ยวข้อง</p>');
-  var free=r.slice(0,M0)+r.slice(M1,M2)+shortT+phoneBlock(c,QQ)+stockBlock(QQ);
+  var free=r.slice(0,M0)+r.slice(M1,M2)+shortT+timeFree(c,A,QQ,UL)+phoneBlock(c,QQ)+stockBlock(QQ);
   var paidX=r.slice(M0,M1)+r.slice(M2,M3).replace('id="s-topics">ดวงแต่ละด้าน','id="p-topics">ดวงแต่ละด้าน (เต็ม)')+r.slice(M3,M4);
   r=free+(UL?renderPaid(c,A,QQ,paidX):paywall(c.key));
   LASTQ={QQ:QQ,c:c,share:SHARE};
@@ -2373,8 +2373,7 @@ function closingHtml(c,A,QQ){
   return sec('d-end','คำแนะนำส่งท้ายจากผม')+'<ol>'+tips.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ol><p><button type="button" class="ghost" id="pdfbtn">บันทึกฉบับละเอียดเป็น PDF</button></p><p class="note">กดแล้วเลือก บันทึกเป็น PDF เก็บไว้อ่านทีหลังได้</p>'+paidLineH();
 }
 
-function renderPaid(c,A,QQ,paidX){
-  var L=c.lagna,r='',tl=A.lordOf(1),TK={3:'mars',5:'jupiter',7:'saturn',8:'rahu'};
+function timeCalc(c,A){var L=c.lagna,TK={3:'mars',5:'jupiter',7:'saturn',8:'rahu'},TCM=[],TCY=[];
   var GH={'นระ':7,'อัมพุ':3,'กีฏะ':8,'ปัศวะ':5}[A.type];
   var now=new Date(),b=c.birth,ageAt=function(d){var a=d.getFullYear()-b.getFullYear();if(d.getMonth()<b.getMonth()||(d.getMonth()===b.getMonth()&&d.getDate()<b.getDate()))a--;return a+1};
   var MN=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
@@ -2389,7 +2388,7 @@ function renderPaid(c,A,QQ,paidX){
     var tk=TK[ev.kal]?tsign(T,TK[ev.kal]):null;if(tk!=null&&relTo(tk,L,ev.kal)){s-=0.5;notes.push('กาลีจรของปี (ดาว '+ev.kal+') มากระทบลัคนา');if(ev.kal===GH){s-=1;notes.push('เข้าเกณฑ์ฆาต'+A.type+' ช่วงนี้ระวังเป็นพิเศษ')}}
     var su=tsign(T,'sun'),hs=(su-L+12)%12+1,lead='อาทิตย์จรภพ'+HOUSE[hs-1]+' เรื่อง'+GIST[hs-1]+'จะเป็นเรื่องที่ต้องให้ความสนใจในเดือนนี้';
     var nm=MN[d.getMonth()]+' '+(d.getFullYear()+543),pc=periodCard(nm,ev,{s:s,notes:notes,lead:lead},false);
-    mh.push(pc.html);if(pc.lv==='ดี')mGood.push(nm);if(pc.lv==='ต้องระวัง')mBad.push(nm)}
+    mh.push(pc.html);TCM.push({nm:nm,pc:pc,ev:ev,d:d});if(pc.lv==='ดี')mGood.push(nm);if(pc.lv==='ต้องระวัง')mBad.push(nm)}
   // years
   var last=new Date(now.getFullYear(),b.getMonth(),b.getDate());if(last>now)last.setFullYear(last.getFullYear()-1);
   var age0=last.getFullYear()-b.getFullYear()+1,yh=[],best=null,ybest=null,yBad=[];
@@ -2401,8 +2400,53 @@ function renderPaid(c,A,QQ,paidX){
     var rs7=relTo(ev2.ss,L,7);if(rs7==='ทับ'||rs7==='เล็ง'){s2-=2;notes2.push('ดาว 7 '+rs7+'ลัคนา ปีที่เหนื่อยและกดดันที่สุดช่วงหนึ่ง อย่าเพิ่งขยายหรือลงทุนใหญ่')}else if(rs7){s2-=1;notes2.push('ดาว 7 '+rtx(rs7)+'ลัคนา มีภาระหนักขึ้น')}
     var gk=TK[ev2.kal]?tsign(T2,TK[ev2.kal]):null;if(ev2.kal===GH&&gk!=null&&relTo(gk,L,ev2.kal)){s2-=2;notes2.push('เข้าเกณฑ์ฆาต'+A.type+' ระวังเรื่องตามความหมายของดาว '+ev2.kal+' และสุขภาพ')}
     var title='ปีโหร '+(st.getFullYear()+543)+'–'+(st.getFullYear()+544)+' (อายุย่าง '+ag+')';
-    var pc2=periodCard(title,ev2,{s:s2,notes:notes2,lead:lead2},true);yh.push(pc2.html);
+    var pc2=periodCard(title,ev2,{s:s2,notes:notes2,lead:lead2},true);yh.push(pc2.html);TCY.push({title:title,ev2:ev2,pc2:pc2,s2:s2,ag:ag,st:st});
     if(best===null||ev2.res.money>best.v)best={v:ev2.res.money,t:title};if(ybest===null||pc2.total>ybest.v)ybest={v:pc2.total,t:title};if(pc2.lv==='ต้องระวัง')yBad.push(title)}
+  return {mh:mh,mGood:mGood,mBad:mBad,yh:yh,best:best,ybest:ybest,yBad:yBad,M:TCM,Y:TCY};}
+
+var ZOD=['ชวด (หนู)','ฉลู (วัว)','ขาล (เสือ)','เถาะ (กระต่าย)','มะโรง (งูใหญ่)','มะเส็ง (งูเล็ก)','มะเมีย (ม้า)','มะแม (แพะ)','วอก (ลิง)','ระกา (ไก่)','จอ (สุนัข)','กุน (หมู)'];
+function zodOf(d){var y=d.getFullYear();if(d.getMonth()<1||(d.getMonth()===1&&d.getDate()<4))y--;return ((y-4)%12+12)%12}
+function chongRel(a,b){var H={0:7,7:0,1:6,6:1,2:5,5:2,3:4,4:3,8:11,11:8,9:10,10:9},P={0:9,9:0,1:4,4:1,2:11,11:2,3:6,6:3,5:8,8:5,7:10,10:7},
+  X={0:3,3:0,2:5,5:8,8:2,1:10,10:7,7:1},SELF=[4,6,9,11],SIX={0:1,1:0,2:11,11:2,3:10,10:3,4:9,9:4,5:8,8:5,6:7,7:6},TRI=[[8,0,4],[2,6,10],[5,9,1],[11,3,7]];
+  if((a+6)%12===b)return ['b','ชงตรง','ปีที่ชนกับปีเกิดโดยตรง เรื่องเปลี่ยนแปลงมาแรง มีโยกย้าย เสียเงินก้อน หรือเรื่องไม่คาดคิด',3];
+  if(a===b)return ['b','ชงร่วม (ปีเกิดตัวเอง)','ปีนักษัตรเดียวกับปีเกิด ตำราจีนถือว่าชง มีเรื่องให้ตัดสินใจเยอะ อารมณ์ขึ้นลง',2];
+  if(X[a]===b||X[b]===a)return ['b','ชงเบียด','มีเรื่องขัดแย้ง คดีความ เอกสาร หรือคนรอบตัวเบียดเบียน',2];
+  if(H[a]===b)return ['m','ชงอ้อม','มีเรื่องกวนใจจากคนใกล้ตัว ข่าวลือ หรือถูกเข้าใจผิด',1];
+  if(P[a]===b)return ['m','ชงแตก','ของเสีย ซ่อมบ่อย แผนงานสะดุดเล็กน้อย',1];
+  if(SIX[a]===b)return ['g','ปีเสริม (ฮะ)','ปีที่เข้ากับปีเกิด มีคนช่วย มีโอกาสดี',0];
+  for(var i=0;i<TRI.length;i++)if(TRI[i].indexOf(a)>=0&&TRI[i].indexOf(b)>=0)return ['g','ปีเสริม (ซาฮะ)','ปีที่อยู่กลุ่มเดียวกับปีเกิด ทำอะไรมีแรงหนุน',0];
+  return ['m','ไม่ชง','ปีปกติ ไม่มีเกณฑ์ชง',0]}
+function chongHtml(c,A,QQ){var b=c.birth,z=zodOf(b),now=new Date(),y0=now.getFullYear(),o=sec('s-chong','ปีชงของคุณ');
+  o+='<p>คุณเกิดปี<strong>'+ZOD[z]+'</strong> (นับปีนักษัตรแบบจีน เปลี่ยนปีวันที่ 4 กุมภาพันธ์)</p><ul>';
+  for(var k=0;k<3;k++){var yy=y0+k,yz=((yy-4)%12+12)%12,R=chongRel(z,yz);
+    o+='<li><strong>ปี '+(yy+543)+' ('+ZOD[yz].split(' ')[0]+'):</strong> <span class="'+(R[0]==='g'?'t-good':R[0]==='b'?'t-bad':'')+'">'+R[1]+'</span> '+R[2]+'</li>'}
+  o+='</ul><p class="note">ปีชงเป็นเกณฑ์ของจีนที่ดูจากปีเกิดอย่างเดียว คนเกิดปีเดียวกันได้เหมือนกันหมด ผมจึงให้ดูคู่กับดวงจรไทยด้านบน ถ้าปีชงตรงกับปีที่ดวงจรของคุณต้องระวัง ให้ชะลอเรื่องใหญ่ ถ้าดวงจรดี ผลของปีชงจะเบาลงมาก</p>';
+  return o}
+function timeFree(c,A,QQ,UL){var TC=timeCalc(c,A),o='';
+  o+=sec('s-now','ดวงเดือนนี้และปีนี้')+'<p class="note">อ่านจากดาวจรเทียบกับดวงกำเนิดของคุณ และทักษาจรตามอายุ</p>'+TC.mh[0]+TC.yh[0];
+  if(!UL)o+='<p class="note">ฉบับละเอียดมีพยากรณ์ครบ 12 เดือนและ 10 ปีข้างหน้า แยกทุกเรื่อง</p>';
+  var cls=function(p){return QQ.cls[p]};
+  var mW=topic(A,2,'การเงิน').v<=-2,wW=topic(A,10,'การงาน').v<=-2;
+  var rows=TC.Y.map(function(y){var e=y.ev2,res=e.res,t=1.5,mo=lvl(res.money,t),wk=lvl(res.work,t),bad=y.pc2.lv==='ต้องระวัง',heavy=y.s2<=-2;
+    var inv=(mo==='g'&&!heavy)?['g','เหมาะลงทุน']:(mo==='b'||heavy)?['b','เลี่ยงลงทุนใหญ่']:['m','ลงทุนเล็กได้'];
+    var job=(wk==='g'&&!heavy)?['g','เหมาะเปลี่ยนงาน ขยับตำแหน่ง']:(wk==='b'||heavy)?['b','อยู่ที่เดิมก่อน']:['m','ทำงานเดิมให้มั่นคง'];
+    var dg=[e.sri,e.mon].filter(function(p,i,a){return a.indexOf(p)===i&&cls(p)!=='b'});
+    var ph=(!bad&&cls(e.sri)!=='b')?['g','เหมาะเปลี่ยนเบอร์ เน้นเลข '+dg.join(' ')]:['m','ยังไม่ต้องเปลี่ยนเบอร์'+(dg.length?' ถ้าจะเปลี่ยนให้มีเลข '+dg.join(' '):'')];
+    if(inv[0]==='g'&&mW)inv=['g','จังหวะลงทุนดี แต่พื้นดวงการเงินอ่อน ลงทุนแบบคุมความเสี่ยง'];if(job[0]==='g'&&wW)job=['g','จังหวะเปลี่ยนงานดี แต่พื้นดวงการงานอ่อน เตรียมให้พร้อมก่อนขยับ'];
+    return {y:y,inv:inv,job:job,ph:ph}});
+  var show=UL?rows:rows.slice(0,3),pill=function(x){return '<span class="'+(x[0]==='g'?'t-good':x[0]==='b'?'t-bad':'')+'">'+x[1]+'</span>'};
+  o+=sec('s-time','จังหวะชีวิต ปีไหนควรเปลี่ยนเบอร์ เปลี่ยนงาน หรือลงทุน');
+  o+='<p class="note">ดูจากดาว 5 ดาว 7 ราหูจร และทักษาจรของแต่ละปี เทียบกับเรือนการเงินและเรือนการงานในดวงคุณ ส่วนเลขที่ควรมีในเบอร์มาจากศรีจรและมนตรีจรของปีนั้นที่ไม่อ่อนในดวง</p>';
+  show.forEach(function(r){o+='<div class="topic"><h3>'+r.y.title+' <span class="tag '+(r.y.pc2.lv==='ดี'?'t-good':r.y.pc2.lv==='ต้องระวัง'?'t-bad':'t-mid')+'">'+r.y.pc2.lv+'</span></h3><ul><li><strong>ลงทุน:</strong> '+pill(r.inv)+'</li><li><strong>งาน:</strong> '+pill(r.job)+'</li><li><strong>เบอร์โทร:</strong> '+pill(r.ph)+'</li></ul></div>'});
+  var pick=function(f){var x=rows.filter(f)[0];return x?x.y.title:'ไม่มีปีที่เด่นชัด'};
+  if(UL)o+='<div class="sum"><p><strong>ปีที่เหมาะลงทุนที่สุด:</strong> '+pick(function(r){return r.inv[0]==='g'})+'</p><p><strong>ปีที่เหมาะเปลี่ยนงาน:</strong> '+pick(function(r){return r.job[0]==='g'})+'</p><p><strong>ปีที่เหมาะเปลี่ยนเบอร์:</strong> '+pick(function(r){return r.ph[0]==='g'})+'</p>'+(TC.mGood.length?'<p><strong>เดือนที่เหมาะลงมือเรื่องใหญ่ใน 12 เดือนนี้:</strong> '+TC.mGood.slice(0,4).join(' · ')+'</p>':'')+'</div>';
+  else o+='<p class="note">ฉบับละเอียดมีจังหวะชีวิตครบ 10 ปี พร้อมสรุปปีที่เหมาะลงทุน เปลี่ยนงาน และเปลี่ยนเบอร์ที่สุด และเดือนที่เหมาะลงมือ</p>';
+  if(rows[0].ph[0]==='g')o+='<p><a class="btn" href="'+NUMSITE+'#stock">ปีนี้เหมาะเปลี่ยนเบอร์ ดูเบอร์ในสต็อกที่เข้ากับดวง</a></p>';
+  return o+chongHtml(c,A,QQ)}
+
+function renderPaid(c,A,QQ,paidX){
+  var L=c.lagna,r='',tl=A.lordOf(1),TK={3:'mars',5:'jupiter',7:'saturn',8:'rahu'};
+  var TC=timeCalc(c,A),mh=TC.mh,mGood=TC.mGood,mBad=TC.mBad,yh=TC.yh,best=TC.best,ybest=TC.ybest,yBad=TC.yBad;
   // summary
   r+=ownerBox(c.key,'ดวง')+'<div class="paid-head"><strong>ฉบับละเอียด</strong> ปลดล็อกแล้ว</div>';
   r+=sec('p-sum','สรุปฉบับละเอียด')+'<div class="sum">';
@@ -2815,7 +2859,7 @@ document.getElementById('f').addEventListener('submit',function(e){
   if(Y<1900||Y>2100){err.textContent='ปีเกิดต้องอยู่ระหว่าง ค.ศ. 1900 ถึง 2100 (ใส่เป็น ค.ศ.)';return}
   var c=buildChart(Y,M,D,hh,mm,+sel.value,document.getElementById('meth').value,false);
   if(!document.getElementById('pdate1').value){document.getElementById('pname1').value=document.getElementById('name').value;document.getElementById('pdate1').value=dv;document.getElementById('ptime1').value=tv;document.getElementById('pprov1').value=sel.value}
-  chart=c;render();document.getElementById('result').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  chart=c;render();if(/^#s-(now|time|chong)$/.test(location.hash)){var _h=document.getElementById(location.hash.slice(1));if(_h){setTimeout(function(){_h.scrollIntoView({behavior:'smooth',block:'start'})},80);}}else document.getElementById('result').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 });
 })();
 </script>
