@@ -4941,6 +4941,7 @@ function renderMode(inp){
   if(MODE==="biz"){ renderBiz(inp,ch,ds,cta); return; }
   if(MODE==="cmp"){ renderCmp(inp,cta); return; }
   if(MODE==="house"){ renderHouse(inp,ch,ds,who,cta); return; }
+  if(MODE==="plate"){ renderPlate(inp,ch,ds,who,cta); return; }
   if(MODE==="rk"){ rkRender(inp,ds,who,cta); return; }
   if(MODE==="love"){ loveRender(inp,inp.B,cta); return; }
   if(MODE==="name"){
@@ -7879,6 +7880,12 @@ const HS_AREA=[
  {k:"health",n:"สุขภาพคนในบ้าน",d:{5:1,9:0.8,1:0.6,2:0.4,7:0.6,0:0.6},t:{g:"คนในบ้านแข็งแรง เจ็บป่วยแล้วหายไว ผู้ใหญ่ในบ้านอายุยืน",m:"สุขภาพทั่วไปปกติ ดูแลตามวัยก็พอ",b:"เจ็บป่วยจุกจิก พักผ่อนไม่ค่อยเต็มที่ ควรดูแลผู้สูงอายุในบ้านเป็นพิเศษ"}},
  {k:"peace",n:"ความสงบ ความร่มเย็น",d:{9:1,5:0.9,2:0.6,6:0.5,3:0.6,8:0.6,0:0.6},t:{g:"บ้านร่มเย็น อยู่แล้วใจสงบ มีสิ่งศักดิ์สิทธิ์คุ้มครอง นอนหลับสบาย",m:"บ้านอยู่ได้สบาย มีวุ่นวายบ้างเป็นช่วง ๆ",b:"บ้านไม่ค่อยนิ่ง มีเรื่องให้ร้อนใจ คนมาบ้านบ่อยหรือมีเสียงรบกวน"}},
  {k:"work",n:"การงานและความก้าวหน้า",d:{1:1,4:0.8,3:0.7,5:0.6,9:0.6,8:0.4},t:{g:"คนในบ้านการงานก้าวหน้า มีผู้ใหญ่หนุน ทำงานจากบ้านได้ผลดี",m:"การงานไปได้เรื่อย ๆ ไม่ได้หนุนเด่น",b:"งานติดขัด ทำแล้วเหนื่อยกว่าผล ไม่เหมาะใช้เป็นที่ทำงานหลัก"}}];
+const PL_AREA=[
+ {k:"safe",n:"ความปลอดภัยในการเดินทาง",d:{5:1,9:0.9,2:0.6,6:0.5,3:0.8,7:0.7,0:0.7},t:{g:"เดินทางปลอดภัย มีสิ่งศักดิ์สิทธิ์คุ้มครอง เจอเรื่องก็รอดตัว",m:"เดินทางปกติ ไม่ได้มีอะไรหนุนหรือถ่วงเด่น ขับด้วยความระวังตามปกติ",b:"ต้องระวังอุบัติเหตุ เฉี่ยวชน และของหายในรถ ควรขับช้าลงและตรวจรถสม่ำเสมอ"}},
+ {k:"money",n:"โชคลาภและการเงิน",d:{8:1,6:0.9,4:0.7,9:0.7,5:0.5,2:0.4},t:{g:"รถคันนี้พาเงินและโชคมาให้ ขับไปทำธุระมักได้ผลดี",m:"การเงินไปได้เรื่อย ๆ รถไม่ได้ช่วยเด่นและไม่ได้ถ่วง",b:"มีรายจ่ายเรื่องรถจุกจิก ซ่อมบ่อย เงินรั่วไปกับการเดินทาง"}},
+ {k:"work",n:"งานและธุรกิจที่ใช้รถ",d:{4:1,1:0.8,3:0.7,8:0.6,9:0.5,5:0.4},t:{g:"ใช้รถทำมาหากินแล้วได้ผล งานขาย งานส่งของ หรือไปพบลูกค้าลื่นไหล",m:"ใช้ทำงานได้ปกติ ไม่ได้หนุนเรื่องงานเด่น",b:"งานที่ต้องใช้รถติดขัด นัดลูกค้าคลาดบ่อย เหนื่อยกว่าผล"}},
+ {k:"image",n:"ภาพลักษณ์และเสน่ห์ผู้ขับ",d:{6:1,1:0.7,2:0.6,4:0.5,9:0.4},t:{g:"คนเห็นแล้วเชื่อถือ ดูดีมีภาษี ช่วยเรื่องหน้าตาและการเข้าสังคม",m:"ภาพลักษณ์กลาง ๆ ไม่ได้ส่งเสริมหรือบั่นทอน",b:"ภาพลักษณ์ไม่ส่งเสริม คนมองข้าม หรือมีเรื่องให้ถูกพูดถึงในทางไม่ดี"}},
+ {k:"mood",n:"ความใจเย็นขณะขับ",d:{2:1,5:0.8,6:0.6,3:0.8,0:0.6,9:0.4,7:0.5},t:{g:"ขับแล้วใจเย็น ตัดสินใจบนถนนได้ดี ไม่ค่อยมีเรื่องกับใคร",m:"อารมณ์ปกติ มีหงุดหงิดบ้างตามสภาพถนน",b:"ขับแล้วใจร้อน หงุดหงิดง่าย เสี่ยงมีปากเสียงบนถนน ควรคุมอารมณ์"}}];
 function hsParse(t){const g=String(t||"").replace(/[๐-๙]/g,c=>String("๐๑๒๓๔๕๖๗๘๙".indexOf(c))).split("/").map(x=>(x.match(/\d+/)||[""])[0]).filter(Boolean);
   return g.slice(0,2).map(x=>x.split("").map(Number));}
 // อ่านคู่เลขทีละส่วน ไม่อ่านข้ามเครื่องหมาย /
@@ -7895,21 +7902,34 @@ function hsScore(parts,inp,ds){
   if(!P.length){const d=all[0];ts=gv[ds.cls[d]]||0;tw=1;}
   let S=(ts/tw)*0.72+gv[si[0]]*0.2;
   const key=parts[parts.length-1];const kd=[...new Set(key.slice(-2))];kd.forEach(d=>{if(ds.cls[d]==="g")S+=0.06;if(ds.cls[d]==="b")S-=0.08;});
-  const score=Math.max(5,Math.min(98,Math.round(55+S*40)));
-  return {P,sum,si,score,all};}
-function hsAreas(H,ds){
+  // คะแนนเต็ม 1000 แยกหมวด
+  const pv=P.length?ts/tw:(gv[ds.cls[all[0]]]||0), cv=d=>gv[ds.cls[d]]||0, avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+  let sv=gv[si[0]]; if(sum>=10){const sd=String(sum).split("").map(Number);sd.forEach(d=>{if(ds.cls[d]==="g")sv+=0.12;if(ds.cls[d]==="b")sv-=0.18;});}
+  const kv=avg(kd.map(cv)), av=avg([...new Set(all)].map(cv));
+  const pt=(v,mx)=>Math.round(mx*Math.max(0.03,Math.min(0.97,0.5+0.47*v)));
+  const comp=[["คู่เลขตามตำแหน่ง",pt(pv,400),400],["ผลรวม",pt(sv,150),150],["เลขท้ายเข้ากับดวง",pt(kv,150),150],["ตัวเลขทั้งหมดเข้ากับพื้นดวง",pt(av,150),150]];
+  const base=comp.reduce((a,c)=>a+c[1],0);
+  const score=Math.max(50,Math.min(980,Math.round(base*1000/850)));
+  return {P,sum,si,score,all,comp};}
+function hsFinal(H,areas){const ap=Math.round(150*areas.reduce((a,x)=>a+x.pct,0)/areas.length/100);
+  const comp=H.comp.concat([["ผลแยกตามเรื่อง",ap,150]]);const score=Math.max(50,Math.min(980,comp.reduce((a,c)=>a+c[1],0)));
+  return {comp,score};}
+function hsBand(sc,who){return sc>=750?["g","ดี เข้ากับดวง"+who]:sc>=600?["g","ใช้ได้ มีจุดเล็กน้อยต้องระวัง"]:sc>=450?["m","กลาง ๆ ยังไม่หนุนเต็มที่"]:["b","ไม่ค่อยส่งเสริม ควรเสริมด้วยสิ่งอื่น"];}
+function hsCompHtml(F){const best=F.comp.slice().sort((a,b)=>b[1]/b[2]-a[1]/a[2]);
+  return `<h3 class="sub">คะแนน ${F.score} จาก 1000 แยกตามหมวด</h3><ul class="areas">${F.comp.map(c=>{const p=Math.round(c[1]/c[2]*100),g=p>=70?"g":p>=45?"m":"b";return `<li><span class="an">${c[0]}</span><span class="pill ${g}">${c[1]} / ${c[2]}</span><span class="apb"><i class="${g}" style="width:${p}%"></i></span></li>`;}).join("")}</ul>
+  <p class="note">หมวดที่ได้ดีที่สุดคือ${best[0][0]} ส่วนหมวดที่ฉุดคะแนนคือ${best[best.length-1][0]} ตัวเลขที่ดีมากสำหรับคนคนหนึ่งมักได้ราว 800 ถึง 900 ไม่มีเลขไหนได้เต็ม</p>`;}
+function hsAreas(H,ds,AR){
   const gv={g:1,m:0.2,b:-1};
-  return HS_AREA.map(A=>{let w=0,v=0;
-    H.P.forEach(p=>{const ds2=p.s.split("").map(Number);const rel=Math.max(...ds2.map(d=>A.d[d]||0));if(!rel)return;const ww=rel*rel*p.w;w+=ww;v+=ww*gv[p.g];});
-    const U=[...new Set(H.all)];U.forEach(d=>{const rel=A.d[d]||0;if(!rel)return;w+=rel*0.6;v+=rel*0.6*(gv[ds.cls[d]]||0);});
-    const cov=Math.min(1,U.reduce((a,d)=>a+(A.d[d]||0),0)/1.6);
-    const r=w?v/w:0;const pct=Math.max(15,Math.min(97,Math.round(50+(r*42+6)*(0.35+0.65*cov))));const g=pct>=70?"g":pct>=45?"m":"b";
-    return {...A,pct,g,txt:A.t[g]+(cov<0.5&&g!=="b"?" แต่บ้านเลขที่นี้ไม่มีเลขที่หนุนเรื่องนี้โดยตรง":""),has:w>0};});}
+  return (AR||HS_AREA).map(A=>{let w=0,v=0;
+    H.P.forEach(p=>{const ds2=p.s.split("").map(Number);const rel=Math.max(...ds2.map(d=>A.d[d]||0));if(!rel)return;const ww=rel*p.w;w+=ww;v+=ww*gv[p.g];});
+    H.all.forEach(d=>{const rel=A.d[d]||0;if(!rel)return;w+=rel*0.4;v+=rel*0.4*(gv[ds.cls[d]]||0);});
+    const r=w?v/w:0;const pct=Math.max(15,Math.min(97,Math.round(58+r*38)));const g=pct>=70?"g":pct>=45?"m":"b";
+    return {...A,pct,g,txt:A.t[g],has:w>0};});}
 function hsPersonEval(parts,p){
   const c=chartSY(p.y,p.m,p.d,p.h,p.mi,p.lat,p.lon),ds=digitScores(c);
-  const H=hsScore(parts,p,ds);const all=[...new Set(H.all)];
+  const H=hsScore(parts,p,ds);const F=hsFinal(H,hsAreas(H,ds));H.score=F.score;const all=[...new Set(H.all)];
   const good=all.filter(d=>ds.cls[d]==="g"),bad=all.filter(d=>ds.cls[d]==="b");
-  const v=H.score>=70?["g","บ้านหนุน"]:H.score>=50?["m","อยู่ได้ปกติ"]:["b","บ้านถ่วง"];
+  const v=H.score>=700?["g","บ้านหนุน"]:H.score>=500?["m","อยู่ได้ปกติ"]:["b","บ้านถ่วง"];
   return {H,good,bad,v,ds};}
 function hsExtraRows(){return [...document.querySelectorAll("#hsppl .hsp")].map(r=>{const q=s=>r.querySelector(s);const d=+q(".hd").value,m=+q(".hm").value,y=+q(".hy").value-543;
   if(!d||!m||!y)return null;const pv=PROV[+$("prov").value];return {nick:q(".hn").value.trim(),sex:q(".hs").value,d,m,y,h:6,mi:0,notime:true,lat:pv[1],lon:pv[2],job:-1,jobs:[]};}).filter(Boolean);}
@@ -7920,14 +7940,14 @@ function hsAddRow(){const box=$("hsppl");if(!box||box.children.length>=5)return;
   <button type="button" class="ghost hsdel">ลบคนนี้</button>`;
   row.querySelector(".hsdel").onclick=()=>{row.remove();$("hsadd").hidden=false;};box.appendChild(row);if(box.children.length>=5)$("hsadd").hidden=true;}
 function renderHouse(inp,ch,ds,who,cta){
-  const parts=inp.hparts,H=hsScore(parts,inp,ds),areas=hsAreas(H,ds);
-  const band=H.score>=75?["g","ดี เข้ากับดวงเจ้าบ้าน"]:H.score>=60?["g","ใช้ได้ มีจุดเล็กน้อยต้องระวัง"]:H.score>=45?["m","กลาง ๆ ยังไม่หนุนเต็มที่"]:["b","ไม่ค่อยส่งเสริม ควรเสริมด้วยสิ่งอื่น"];
+  const parts=inp.hparts,H=hsScore(parts,inp,ds),areas=hsAreas(H,ds),F=hsFinal(H,areas);H.score=F.score;
+  const band=hsBand(H.score,"เจ้าบ้าน");
   const two=parts.length>1, keyP=H.P.filter(p=>p.pi===parts.length-1&&p.tail)[0];
   const good=[],bad=[];for(let d=0;d<10;d++){if(ds.cls[d]==="g")good.push(d);if(ds.cls[d]==="b")bad.push(d);}
   const sum1=two?parts[0].reduce((a,b)=>a+b,0):0,sum2=two?parts[1].reduce((a,b)=>a+b,0):0;
   const summ=[];
   if(keyP) summ.push((two?"เลขหลัง / ซึ่งเป็นเลขของบ้านหลังนี้จริง ปิดท้ายด้วย ":"ท้ายบ้านเลขที่ปิดด้วย ")+keyP.s+" "+keyP.info[1]+(keyP.g==="g"?" เป็นคู่ดี ส่งผลกับบ้านแรงที่สุด":keyP.g==="b"?" เป็นคู่ที่ต้องระวัง และส่งผลแรงที่สุด":" ให้ผลกลาง ๆ"));
-  else summ.push((two?"เลขหลัง / ":"บ้านเลขที่ ")+"มีตัวเดียวคือเลข "+parts[parts.length-1][0]+" ซึ่งเป็น"+DL[ds.cls[parts[parts.length-1][0]]]+"ในดวงเจ้าบ้าน");
+  else summ.push((two?"เลขหลัง / ":"บ้านเลขที่ ")+"มีตัวเดียวคือเลข "+parts[parts.length-1][0]+" ซึ่งเป็นเลข"+DL[ds.cls[parts[parts.length-1][0]]]+"ในดวงเจ้าบ้าน");
   summ.push("ผลรวมทั้งบ้าน "+H.sum+" "+(H.sum<10?"":(H.si[0]==="g"?"เป็นเลขดี":H.si[0]==="b"?"ไม่ค่อยส่งเสริม":"ให้ผลกลาง ๆ")+" ")+H.si[2]);
   const gA=areas.filter(a=>a.g==="g").map(a=>a.n),bA=areas.filter(a=>a.g==="b").map(a=>a.n);
   if(gA.length) summ.push("เรื่องที่บ้านนี้หนุนได้ดีคือ"+joinTh(gA));
@@ -7936,18 +7956,19 @@ function renderHouse(inp,ch,ds,who,cta){
   const ordered=H.P.slice().sort((a,b)=>b.pi-a.pi||b.i-a.i);
   const ppl=hsExtraRows();
   const pplH=ppl.length?`<section class="card"><h2>บ้านนี้กับคนในบ้าน</h2><p class="note" style="margin:0 0 10px">เทียบบ้านเลขที่กับดวงของแต่ละคน ใช้วันเกิดอย่างเดียว ไม่ใช้เวลาเกิด</p>
-    <ul class="hsres"><li><b>${who} (เจ้าบ้าน)</b><span class="pill ${band[0]}">${H.score} / 100</span></li>${ppl.map(p=>{const E=hsPersonEval(parts,p);return `<li><b>${esc(p.nick||"คนในบ้าน")}</b><span class="pill ${E.v[0]}">${E.H.score} / 100 ${E.v[1]}</span><p class="note" style="margin:4px 0 0">${E.good.length?"เลข "+E.good.join(" ")+" ในบ้านเลขที่เป็นเลขพลังดีของคนนี้":""}${E.good.length&&E.bad.length?" ส่วน":""}${E.bad.length?"เลข "+E.bad.join(" ")+" เป็นเลขพลังอ่อนของคนนี้":""}${!E.good.length&&!E.bad.length?"ตัวเลขในบ้านเป็นพลังปานกลางของคนนี้":""}</p></li>`;}).join("")}</ul>
+    <ul class="hsres"><li><b>${who} (เจ้าบ้าน)</b><span class="pill ${band[0]}">${H.score} / 1000</span></li>${ppl.map(p=>{const E=hsPersonEval(parts,p);return `<li><b>${esc(p.nick||"คนในบ้าน")}</b><span class="pill ${E.v[0]}">${E.H.score} / 1000 ${E.v[1]}</span><p class="note" style="margin:4px 0 0">${E.good.length?"เลข "+E.good.join(" ")+" ในบ้านเลขที่เป็นเลขพลังดีของคนนี้":""}${E.good.length&&E.bad.length?" ส่วน":""}${E.bad.length?"เลข "+E.bad.join(" ")+" เป็นเลขพลังอ่อนของคนนี้":""}${!E.good.length&&!E.bad.length?"ตัวเลขในบ้านเป็นพลังปานกลางของคนนี้":""}</p></li>`;}).join("")}</ul>
     <p class="note">คนที่ได้คะแนนต่ำไม่ได้แปลว่าต้องย้ายออก ให้เสริมด้วยเบอร์มือถือของคนนั้นเองที่มีเลขพลังดีในดวงเขา</p></section>`:"";
   chartOnly(inp);
   $("result").innerHTML=`<section class="card"><h2>บ้านเลขที่ของ${who}</h2>
     <div class="num" style="font-size:30px;letter-spacing:2px;text-align:center;font-family:var(--f-mono)">${esc(inp.house)}</div>
-    <div class="verdict"><div class="score">${H.score} / 100</div><div><span class="pill ${band[0]}">${band[1]}</span></div></div>
+    <div class="verdict"><div class="score">${H.score} <small>/ 1000</small></div><div><span class="pill ${band[0]}">${band[1]}</span></div></div>
     <div class="easy"><h3 class="sub">สรุป</h3><p class="para">${summ.join(" ")}</p>
     <h3 class="sub">บ้านนี้ส่งผลกับเรื่องในบ้านอย่างไร</h3>
     <ul class="areas">${areas.map(a=>`<li><span class="an">${a.n}</span><span class="pill ${a.g}">${a.pct}% ${a.g==="g"?"ดี":a.g==="m"?"พอใช้":"ต้องระวัง"}</span><span class="apb"><i class="${a.g}" style="width:${a.pct}%"></i></span><span class="at">${a.txt}</span></li>`).join("")}</ul>
     <h3 class="sub">พลังของเลขในดวง${who}</h3>
     <div class="lucky"><span class="lbl">เลขพลังดีที่ควรมี</span><div class="chs">${good.map(d=>`<b class="ch g">${d}</b>`).join("")||"<span class='note'>ไม่มี</span>"}</div></div>
-    <div class="lucky"><span class="lbl">เลขพลังอ่อน ควรร้อยเรียงอย่างระวัง</span><div class="chs">${bad.map(d=>`<b class="ch b">${d}</b>`).join("")||"<span class='note'>ไม่มี</span>"}</div></div></div></section>
+    <div class="lucky"><span class="lbl">เลขพลังอ่อน ควรร้อยเรียงอย่างระวัง</span><div class="chs">${bad.map(d=>`<b class="ch b">${d}</b>`).join("")||"<span class='note'>ไม่มี</span>"}</div></div>
+    ${hsCompHtml(F)}</div></section>
   ${pplH}
   <section class="card"><h2>หลักการอ่านบ้านเลขที่</h2><p class="para">${two?"บ้านเลขที่แบบมีเครื่องหมาย / ผมอ่านเลขหน้ากับเลขหลังแยกกัน ไม่อ่านคู่ข้ามเครื่องหมาย เลขหลัง / คือเลขของบ้านหลังนี้จริง ส่งผลกับคนในบ้านแรงที่สุด ส่วนเลขหน้า / คือเลขของที่ดินหรือแปลงใหญ่ ส่งผลรองลงมา":"อ่านคู่เลขที่อยู่ติดกัน โดยคู่ท้ายส่งผลแรงที่สุด"} แล้วรวมทุกตัวเลขเป็นผลรวมของบ้าน ซึ่งบอกภาพรวมระยะยาว จากนั้นเทียบตัวเลขกับดวงของเจ้าบ้านว่าเป็นเลขพลังดีหรือพลังอ่อน</p></section>
   <section class="card"><h2>ผลรวม ${H.sum}</h2><p class="para">${parts.map(D=>D.join(" + ")).join(" + ")} = <b>${H.sum}</b>${two?` (เลขหน้า ${sum1} เลขหลัง ${sum2})`:""}</p>
@@ -7958,7 +7979,51 @@ function renderHouse(inp,ch,ds,who,cta){
     <li>จัดบ้านให้โปร่ง สะอาด แสงเข้าถึง ทางเข้าบ้านไม่รก</li>
     <li>ถ้ากำลังจะซื้อบ้าน เช่าบ้าน หรือเลือกห้องคอนโด ใส่หลายเลขแล้วเทียบคะแนนก่อนตัดสินใจ</li></ul></section>
   ${cta}`;
-  addShare({kind:"ผลวิเคราะห์บ้านเลขที่",main:inp.house,mono:true,score:H.score,verdict:band[1],vc:band[0],lines:summ.slice(0,3).map(t=>t.length>120?t.slice(0,118)+"…":t)});
+  addShare({kind:"ผลวิเคราะห์บ้านเลขที่",main:inp.house,mono:true,score:H.score,max:1000,verdict:band[1],vc:band[0],lines:summ.slice(0,3).map(t=>t.length>120?t.slice(0,118)+"…":t)});
+}
+
+// ===== ทะเบียนรถ: อ่านแบบเดียวกับบ้านเลขที่ แยกเป็นเรื่อง และคะแนนเต็ม 1000 =====
+function renderPlate(inp,ch,ds,who,cta){
+  const t=inp.plate, fi=t.search(/[ก-ฮ]/), front=[...t.slice(0,fi)].filter(c=>/\d/.test(c)).map(Number), back=[...t.slice(fi)].filter(c=>/\d/.test(c)).map(Number);
+  const main=back.length?back:front, parts=[main];
+  const lsum=inp.letters.reduce((a,c)=>a+(LETTER[c]||0),0), dsum=inp.digits.reduce((a,b)=>a+b,0);
+  const H=hsScore(parts,inp,ds); H.sum=lsum+dsum; H.si=numSum(H.sum,"plate",inp); H.all=inp.digits.slice();
+  { const gv={g:1,m:0.2,b:-1}; let sv=gv[H.si[0]]; if(H.sum>=10)String(H.sum).split("").map(Number).forEach(d=>{if(ds.cls[d]==="g")sv+=0.12;if(ds.cls[d]==="b")sv-=0.18;});
+    H.comp[1][1]=Math.round(150*Math.max(0.03,Math.min(0.97,0.5+0.47*sv))); }
+  H.P.forEach(p=>{p.part="เลขทะเบียน";});
+  const areas=hsAreas(H,ds,PL_AREA),F=hsFinal(H,areas);H.score=F.score;
+  const band=hsBand(H.score,"ผู้ขับ");
+  const good=[],bad=[];for(let d=0;d<10;d++){if(ds.cls[d]==="g")good.push(d);if(ds.cls[d]==="b")bad.push(d);}
+  const keyP=H.P.filter(p=>p.tail)[0], summ=[];
+  if(keyP) summ.push("เลขท้ายทะเบียนปิดด้วย "+keyP.s+" "+keyP.info[1]+(keyP.g==="g"?" เป็นคู่ดี ส่งผลกับการใช้รถแรงที่สุด":keyP.g==="b"?" เป็นคู่ที่ต้องระวัง และส่งผลแรงที่สุด":" ให้ผลกลาง ๆ"));
+  else summ.push("เลขทะเบียนมีตัวเดียวคือเลข "+main[0]+" ซึ่งเป็นเลข"+DL[ds.cls[main[0]]]+"ในดวงผู้ขับ");
+  summ.push("ผลรวมทะเบียน "+H.sum+" "+(H.sum<10?"":(H.si[0]==="g"?"เป็นเลขดี":H.si[0]==="b"?"ไม่ค่อยส่งเสริม":"ให้ผลกลาง ๆ")+" ")+H.si[2]);
+  const gA=areas.filter(a=>a.g==="g").map(a=>a.n),bA=areas.filter(a=>a.g==="b").map(a=>a.n);
+  if(gA.length) summ.push("เรื่องที่ทะเบียนนี้หนุนได้ดีคือ"+joinTh(gA));
+  if(bA.length) summ.push("เรื่องที่ต้องระวังคือ"+joinTh(bA));
+  const ordered=H.P.slice().sort((a,b)=>b.i-a.i);
+  const pairLi=p=>`<li><div class="pv ${p.g}">${p.s}</div><div><h3>${p.info[1]} <span class="pill ${p.g}">${HS_GL[p.g]}</span></h3><p class="note" style="margin:0">${p.tail?"คู่ท้าย ส่งผลแรงที่สุด":p.w===2?"ส่งผลรองลงมา":"ส่งผลน้อย"}</p><p>${p.info[2]}${p.info[3]?" "+p.info[3]:""}</p><p class="note">${p.s.split("").map(d=>"เลข "+d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงผู้ขับ${wkNote(p.s,p.g,ds.cls,p.info[3])}</p></div></li>`;
+  const chips=`<div class="lts">${[...t].map(c=>/[ก-ฮ]/.test(c)?`<span class="lt"><b>${c}</b><small>${LETTER[c]||0}</small></span>`:/\d/.test(c)?`<span class="lt"><b>${c}</b><small>${c}</small></span>`:"").join("")}</div>`;
+  $("result").innerHTML=`<section class="card"><h2>ทะเบียนรถของ${who}</h2>
+    <div class="num" style="font-size:30px;letter-spacing:2px;text-align:center;font-family:var(--f-mono)">${esc(t)}</div>
+    <div class="verdict"><div class="score">${H.score} <small>/ 1000</small></div><div><span class="pill ${band[0]}">${band[1]}</span></div></div>
+    <div class="easy"><h3 class="sub">สรุป</h3><p class="para">${summ.join(" ")}</p>
+    <h3 class="sub">ทะเบียนนี้ส่งผลกับการใช้รถอย่างไร</h3>
+    <ul class="areas">${areas.map(a=>`<li><span class="an">${a.n}</span><span class="pill ${a.g}">${a.pct}% ${a.g==="g"?"ดี":a.g==="m"?"พอใช้":"ต้องระวัง"}</span><span class="apb"><i class="${a.g}" style="width:${a.pct}%"></i></span><span class="at">${a.txt}</span></li>`).join("")}</ul>
+    <h3 class="sub">พลังของเลขในดวง${who}</h3>
+    <div class="lucky"><span class="lbl">เลขพลังดีที่ควรมี</span><div class="chs">${good.map(d=>`<b class="ch g">${d}</b>`).join("")||"<span class='note'>ไม่มี</span>"}</div></div>
+    <div class="lucky"><span class="lbl">เลขพลังอ่อน ควรร้อยเรียงอย่างระวัง</span><div class="chs">${bad.map(d=>`<b class="ch b">${d}</b>`).join("")||"<span class='note'>ไม่มี</span>"}</div></div>
+    ${hsCompHtml(F)}</div></section>
+  <section class="card"><h2>หลักการอ่านทะเบียนรถ</h2><p class="para">ทะเบียนรถอยู่กับเราทุกครั้งที่เดินทาง ผมอ่านคู่เลขในชุดตัวเลขหลังตัวอักษร ซึ่งเป็นเลขของรถคันนี้จริง โดยคู่ท้ายส่งผลแรงที่สุด${front.length&&back.length?" ส่วนเลขหน้าหมวดอักษรนับรวมในผลรวมอย่างเดียว ไม่เอามาอ่านเป็นคู่":""} แล้วรวมค่าตัวอักษรตามเลขศาสตร์กับตัวเลขทั้งหมดเป็นผลรวมของทะเบียน จากนั้นเทียบตัวเลขกับดวงของผู้ขับว่าเป็นเลขพลังดีหรือพลังอ่อน และแยกผลเป็น 5 เรื่องของการใช้รถ</p></section>
+  <section class="card"><h2>ผลรวม ${H.sum}</h2>${chips}<p class="para">ค่าตัวอักษร ${lsum} + ตัวเลข ${dsum} = <b>${H.sum}</b></p>
+    <p><span class="pill ${H.si[0]}">${HS_GL[H.si[0]]}</span> <b>${H.si[1]}</b> ${H.si[2]}${H.si[3]?" "+H.si[3]:""}${H.sum>=10?wkNote(H.sum,H.si[0],ds.cls,H.si[3]):""}</p></section>
+  ${H.P.length?`<section class="card"><h2>อ่านทีละคู่</h2><p class="note" style="margin:0 0 8px">เรียงจากคู่ท้ายซึ่งส่งผลแรงที่สุด</p><ul class="pairs">${ordered.map(pairLi).join("")}</ul></section>`:""}
+  <section class="card"><h2>ถ้าทะเบียนยังไม่หนุน</h2><ul class="plain">
+    <li>ถ้ากำลังจะซื้อรถ ประมูล หรือจองทะเบียน ใส่หลายทะเบียนแล้วเทียบคะแนนก่อนตัดสินใจ เลือกเลขท้ายที่เป็นเลขพลังดีในดวง${good.length?" ของ"+who+"คือ "+good.join(" "):""}</li>
+    <li>ถ้าเปลี่ยนทะเบียนไม่ได้ ให้เสริมด้วยเบอร์มือถือของผู้ขับที่มีเลขพลังดีในดวง</li>
+    <li>ถ้าเรื่องความปลอดภัยได้คะแนนต่ำ ให้ตรวจเช็กรถสม่ำเสมอ และขับด้วยความระวังเป็นพิเศษ</li></ul></section>
+  ${cta}`;
+  addShare({kind:"ผลวิเคราะห์ทะเบียนรถ",main:t,mono:true,score:H.score,max:1000,verdict:band[1],vc:band[0],lines:summ.slice(0,3).map(x=>x.length>120?x.slice(0,118)+"…":x)});
 }
 
 try{$("hsadd").onclick=hsAddRow;}catch(e){}
