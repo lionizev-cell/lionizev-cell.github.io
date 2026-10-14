@@ -345,6 +345,11 @@ footer .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1f
 .ncats .navlist a:hover{background:var(--accent-soft)!important;color:var(--accent)!important}
 .pricebtn{justify-self:end;display:inline-block;padding:6px 16px;border-radius:99px;background:var(--accent);color:#fff!important;font-weight:700;text-decoration:none;white-space:nowrap;font-size:15px}.pricebtn.free{background:var(--good-bg);color:var(--good)!important;border:1px solid var(--good)}
 .modemark{display:inline-block;margin:0 0 8px;font-size:13px;color:var(--accent);font-weight:600}
+.dprev{border-color:var(--accent-deep)}.dpin{border:1px dashed var(--line);border-radius:12px;padding:12px;background:var(--bg)}.dpin .card{background:none;border:0;padding:0}
+.dlock{list-style:none;padding:0;margin:0;display:grid;gap:6px}.dlock li{display:flex;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:10px;color:var(--muted)}
+.dlock .lk{flex:none;width:12px;height:10px;border:2px solid var(--muted);border-radius:2px;position:relative;margin-top:5px}.dlock .lk::before{content:"";position:absolute;left:1px;top:-8px;width:6px;height:7px;border:2px solid var(--muted);border-bottom:0;border-radius:5px 5px 0 0}
+a.dgo{display:inline-block;background:var(--accent-deep);color:var(--on-accent);font-weight:700;padding:11px 18px;border-radius:10px;text-decoration:none}
+.askline{margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
 </style>
 </head>
 <body>
@@ -4046,6 +4051,7 @@ function payHtml(){
         <button type="button" class="ghost" id="copyacc">คัดลอกเลขบัญชี</button>
       </div>
     </div>
+    ${askLineHtml("phone")}
     ${(CONFIG.slipApi||CONFIG.thunderKey)?`<h3 class="sub">โอนแล้ว แนบสลิปตรงนี้ได้เลย</h3>
     <p class="para">ระบบจะตรวจสลิปอัตโนมัติ ถ้าถูกต้องจะเปิดผลวิเคราะห์เจาะลึกให้ทันที ไม่ต้องรอแอดมิน</p>
     <label class="slipup" for="slipfile"><input type="file" id="slipfile" accept="image/*"><span id="slipname">แตะเพื่อเลือกรูปสลิป</span></label>
@@ -4142,6 +4148,7 @@ function render(inp,r,isSample){
   </section>
   ${s1000Html(r)}
   ${freePairsHtml(inp,r)}
+  ${isSample||wasUnlocked(inp.phone)?"":deepPreviewHtml(inp,r,NM)}
   ${payHtml()}
   ${isSample?"":stockRecHtml(inp,r)}
   ${CTA}
@@ -4155,7 +4162,7 @@ function render(inp,r,isSample){
   $("copyacc").onclick=()=>{const t=PAY.acc.replace(/-/g,"");try{navigator.clipboard.writeText(t).then(()=>{$("copyacc").textContent="คัดลอกแล้ว";},()=>fallback(t,()=>{$("copyacc").textContent="คัดลอกแล้ว";}));}catch(e){fallback(t,()=>{});}};
   const openDeep=scroll=>{
     if(!$("deepgen").dataset.done){$("deepgen").innerHTML=deepFull(inp,r,NM)+deepHtml(inp,r);$("deepgen").dataset.done="1";}
-    $("deep").hidden=false; if(scroll) $("deep").scrollIntoView({behavior:"smooth",block:"start"});
+    $("deep").hidden=false; document.querySelectorAll("#result .dprev").forEach(x=>x.remove()); if(scroll) $("deep").scrollIntoView({behavior:"smooth",block:"start"});
   };
   const PKG=PAY.amount;
   $("unlock").onclick=()=>{
@@ -5121,6 +5128,7 @@ function namePayHtml(){
         <button type="button" class="ghost" id="ncopyacc">คัดลอกเลขบัญชี</button>
       </div>
     </div>
+    ${askLineHtml("name")}
     ${(CONFIG.slipApi||CONFIG.thunderKey)?`<h3 class="sub">โอนแล้ว แนบสลิปตรงนี้ได้เลย</h3>
     <p class="para">ระบบจะตรวจสลิปอัตโนมัติ ถ้าถูกต้องจะเปิดผลให้ทันที ไม่ต้องรอแอดมิน</p>
     <label class="slipup" for="nslipfile"><input type="file" id="nslipfile" accept="image/*"><span id="nslipname">แตะเพื่อเลือกรูปสลิป</span></label>
@@ -5496,7 +5504,7 @@ function cntHit(key){
   }catch(e){}
 }
 (function(){try{if(!sessionStorage.getItem("plk_v")){sessionStorage.setItem("plk_v","1");cntHit("visit");}}catch(e){cntHit("visit");}})();
-const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
+const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["ask-phone","ทักถามก่อนซื้อ เบอร์"],["ask-name","ทักถามก่อนซื้อ ชื่อ"],["ask-rk","ทักถามก่อนซื้อ ฤกษ์"],["ask-love","ทักถามก่อนซื้อ ดวงคู่"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
 let _CQ=Promise.resolve(),_CN=0;
 async function cntGet(k){for(let t=0;t<4;t++){try{const r=await fetch(`${CNT.base}/get/${CNT.ns}/${k}`,{cache:"no-store"});if(r.status===404)return 0;if(r.ok){const j=await r.json();return +j.value||0;}if(r.status===429||r.status>=500){await new Promise(s=>setTimeout(s,700*(t+1)));continue;}return null;}catch(e){await new Promise(s=>setTimeout(s,500));}}return null;}
 async function admStatsUI(){
@@ -7614,6 +7622,7 @@ function payKitHtml(P){const slip=CONFIG.slipApi||CONFIG.thunderKey;
         <button type="button" class="ghost" id="${P}copyacc">คัดลอกเลขบัญชี</button>
       </div>
     </div>
+    ${askLineHtml(P==="x"?"rk":"love")}
     ${slip?`<h3 class="sub">โอนแล้ว แนบสลิปตรงนี้ได้เลย</h3>
     <p class="para">ระบบจะตรวจสลิปอัตโนมัติ ถ้าถูกต้องจะเปิดผลให้ทันที ไม่ต้องรอแอดมิน</p>
     <label class="slipup" for="${P}slipfile"><input type="file" id="${P}slipfile" accept="image/*"><span id="${P}slipname">แตะเพื่อเลือกรูปสลิป</span></label>
@@ -7822,5 +7831,32 @@ document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest
   setMode(a.dataset.go);const f=$("fh");if(f)(f.closest("section")||f).scrollIntoView({behavior:"smooth",block:"start"});});
 // เปิดจากลิงก์หน้าบริการ ?m=name ฯลฯ ให้เข้าช่องนั้นเลย
 (function(){try{const q=new URLSearchParams(location.search),m=q.get("m");if(!m||q.get("r")||!MODES[m])return;setTimeout(()=>{setMode(m);const f=$("fh");if(f)(f.closest("section")||f).scrollIntoView({block:"start"});},60);}catch(e){}})();
+
+// ===== ตัวอย่างผลเจาะลึกจริงของลูกค้า: เปิดให้อ่าน 1 หัวข้อ ที่เหลือโชว์แค่หัวข้อ =====
+function deepPreviewHtml(inp,r,NM){
+  try{const d=document.createElement("div");d.innerHTML=deepFull(inp,r,NM);
+    const secs=[...d.querySelectorAll(":scope > section")];
+    const pick=secs.find(s=>s.querySelector("#hbig"))||secs[1];if(!pick)return "";
+    pick.querySelectorAll("[id]").forEach(x=>x.removeAttribute("id"));
+    const inner=pick.innerHTML.replace(/<h2[^>]*>.*?<\/h2>/,"");
+    const title=(pick.querySelector("h2")||{}).textContent||"";
+    const rest=["ดวงของคุณแบบเข้าใจง่าย","พลังของเลข 0 ถึง 9 ในดวงคุณ","ด้านต่าง ๆ ในชีวิต 12 เรื่องตามดวง","พรสวรรค์และอาชีพที่ทำแล้วรุ่ง","อ่านเบอร์ "+inp.phone.replace(/^(\d{3})(\d{3})(\d{4})$/,"$1-$2-$3")+" ทีละตำแหน่ง","ชุดเลข 3 ตัวและภาพรวมทั้งเบอร์","คู่เลขที่แนะนำ และตัวอย่างเบอร์ 5 เบอร์","รหัส 6 หลักเสริมดวง และฤกษ์เปิดเบอร์"];
+    return `<section class="card dprev" aria-labelledby="hdprev"><h2 id="hdprev">ตัวอย่างผลเจาะลึกของคุณ</h2>
+      <p class="note" style="margin:0 0 10px">ผมเปิดให้อ่าน 1 หัวข้อ คำนวณจากดวงและเบอร์ของคุณจริง ไม่ใช่ตัวอย่างสมมติ</p>
+      <div class="dpin"><h3 class="sub">${esc(title)}</h3>${inner}</div>
+      <h3 class="sub" style="margin-top:14px">ที่เหลือในแบบเจาะลึก</h3>
+      <ul class="dlock">${rest.map(t=>`<li><span class="lk" aria-hidden="true"></span>${esc(t)}</li>`).join("")}</ul>
+      <div class="btns" style="margin-top:10px"><a href="#" class="primary dgo" data-j2="hpay">ปลดล็อกทั้งหมด ${PAY.amount} บาท</a></div></section>`;
+  }catch(e){return "";}
+}
+// ===== ปุ่มทักไลน์ถามก่อนซื้อ (ใช้กับทุกกล่องจ่ายเงิน) =====
+function askLineHtml(kind){return `<div class="askline"><p class="para" style="margin:0 0 6px">ยังไม่แน่ใจว่าแบบละเอียดเหมาะกับคุณไหม ทักมาถามผมก่อนได้ ไม่ต้องจ่ายก่อน</p><button type="button" class="ghost" data-askline="${kind}">ทักไลน์ถามก่อนซื้อ</button></div>`;}
+document.addEventListener("click",e=>{const g=e.target.closest&&e.target.closest("a.dgo[data-j2]");if(g){e.preventDefault();const el=$(g.dataset.j2);if(el)(el.closest("section")||el).scrollIntoView({behavior:"smooth",block:"start"});return;}
+  const b=e.target.closest&&e.target.closest("[data-askline]");if(!b)return;const k=b.dataset.askline;const i=readFormLoose(),bd=pad(i.d)+"/"+pad(i.m)+"/"+(i.y+543);
+  const L={phone:"วิเคราะห์เบอร์แบบเจาะลึก (เบอร์ "+i.phone+")",name:"วิเคราะห์ชื่อแบบละเอียด (ชื่อ "+(($("fname").value+" "+$("lname").value).trim()||"-")+")",rk:"ฤกษ์มงคลเฉพาะดวง",love:"ดวงคู่แบบละเอียด"}[k]||"บริการแบบละเอียด";
+  const t="สนใจ"+L+" "+PAY.amount+" บาท ขอถามก่อนครับ/ค่ะ (วันเกิด "+bd+"): ";cntHit("ask-"+k);
+  const go=CONFIG.lineOA?"https://line.me/R/oaMessage/"+encodeURIComponent(CONFIG.lineOA)+"/?"+encodeURIComponent(t):CONFIG.chatUrl;
+  const open=()=>{const w=window.open(go,"_blank");if(w){try{w.opener=null;}catch(_){}}else location.href=go;};
+  try{navigator.clipboard.writeText(t).then(open,()=>fallback(t,open));}catch(_){fallback(t,open);}});
 </script>
 </body></html>
