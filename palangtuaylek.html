@@ -2087,7 +2087,7 @@ const P={
 96:["g","คู่สมหวัง","สมหวังในสิ่งที่ตั้งใจ มีเมตตา"],
 77:["b","คู่ภาระซ้อน","เหนื่อยหนัก อุปสรรคซ้ำซาก"],
 78:["g","คู่บริหารคน","คุมทีมเก่ง มีเครือข่ายรอบตัว อดทนแล้วได้ใหญ่"],
-87:["g","คู่บริหารคน","เหมาะคนดูแลคน มีทีมมีเครือข่าย ไม่เหมาะงานขายหรืองานบริการทั่วไป"],
+87:["g","คู่บริหารคน","เหมาะคนดูแลคน มีทีมมีเครือข่าย พลังไปทางงานบริหารมากกว่างานขาย"],
 79:["g","คู่โลดโผน มองการณ์ไกล","กล้า มองไกล พึ่งตัวเองได้ เหมาะงานทำคนเดียว"],
 97:["g","คู่โลดโผน มองการณ์ไกล","อิสระ กล้าคิดกล้าทำ ไปไกลด้วยตัวเอง"],
 88:["m","คู่ทะเยอทะยาน","ทรัพย์มาแรง แต่ปัญหาก็มาแรงพอกัน"],
@@ -2141,6 +2141,7 @@ function youngCtx(v,base){
 function ctxPair(v,base){
   const yc=youngCtx(v,base); if(yc) return yc;
   if((v===58||v===85)&&_PCTX) return ctx58(v,base);
+  if(v===87&&_PCTX){const js=(_PCTX.jobs&&_PCTX.jobs.length?_PCTX.jobs:[_PCTX.job]); if(js.some(j=>[0,4,16].includes(j))&&!js.includes(3)) return ["m",base[1],base[2],"คู่นี้เด่นด้านคุมคนและบริหาร ไม่ใช่ด้านปิดการขาย งานของคุณเป็นงานขายหรืองานบริการ ผลจึงกลาง ๆ","m"]; return null;}
   if((v!==47&&v!==74)||!_PCTX) return null;
   const c=_PCTX.cls, w4=c[4]==="b", w7=c[7]==="b", fit=HARDWORK_JOBS.includes(_PCTX.job), sup=c[4]==="g"||c[7]==="g";
   if(w4||w7) return ["b",base[1],base[2],"ในดวงคุณเลข "+(w4&&w7?"4 และ 7":w4?"4":"7")+" เป็นพลังอ่อน คู่นี้จึงออกด้านลบ พูดตรงหนัก เครียด งานติดขัด","b"];
@@ -3265,7 +3266,7 @@ function simpleSummary(inp,r,nm){
   P2.push(["ชุดสามตัวท้าย "+T3.t+(tg2===T3.v?" ก็":" ")+(T3.v==="g"?"เป็นชุดดี พลังส่งต่อกันราบรื่น":T3.v==="b"?"เป็นชุดที่พลังสะดุด ส่งผลกับชีวิตประจำวันโดยตรง":"ให้ผลกลาง ๆ"),PV[T3.v]]);
   {const N9=nineFit(inp,r); if(N9) P2.push([N9.t,{g:1,m:0,b:-1}[N9.g]]);}
   {const si=r.sumInfo, x3=(si[3]||"").replace(/^ผู้หญิงใช้(แล้ว)?(มัก)?|^ผู้ชายใช้(แล้ว)?(มัก)?|^ตำรา[^ ]* /,"").trim();
-   P2.push(["ผลรวม "+r.sum+(si[0]==="g"?" เป็นเลขดี":si[0]==="b"?" ไม่ค่อยดี":" ให้ผลกลาง ๆ")+" ระยะยาวจะส่งผลไปทาง"+si[2]+(x3?(si[0]==="b"?" และ":" ")+"สำหรับ"+(f?"ผู้หญิง":"ผู้ชาย")+"มัก"+x3.replace(/^มัก/,""):""),PV[si[0]],"ส่วน"]);}
+   P2.push(["ผลรวม "+r.sum+(si[0]==="g"?" เป็นเลขดี":si[0]==="b"?" ไม่ค่อยดี":" ให้ผลกลาง ๆ")+" ระยะยาวจะส่งผลไปทาง"+si[2]+(r.sum>=10?wkNote(r.sum,si[0],r.ds.cls,si[3]).replace(" ตามตำราเป็นเลขดี แต่"," แต่"):"")+(x3?(si[0]==="b"?" และ":" ")+"สำหรับ"+(f?"ผู้หญิง":"ผู้ชาย")+"มัก"+x3.replace(/^มัก/,""):""),PV[si[0]],"ส่วน"]);}
   let fv=0,fw=0; r.AG.focus.forEach(k=>{const p=r.pos.find(x=>x.k===k);fw+=p.w0;fv+=p.w0*pairScore(p,r);}); let fg=gradeOf(fv/fw);
   {const idx={work:[0,1],mid:[0],senior:[4],young:[3]}[r.AG.k]||[]; const rk={b:0,m:1,g:2}; idx.forEach(i=>{const x=rows[i]; if(x&&rk[x.g]<rk[fg]) fg=x.g;});}
   {const AD0=ageDrive(inp,r); if(AD0&&AD0.sc<=-0.4&&fg==="g") fg="m";}
@@ -3795,7 +3796,7 @@ function bigMoney(inp,r){
   const prs=BIG_P.filter(v=>{const a=Math.floor(v/10),b=v%10;if(jobConflict(inp,v).length||jobConflict(inp,b*10+a).length)return false;return okD(a)&&okD(b)&&pairInfoG(v,inp.sex)[0]==="g"&&pairInfoG(b*10+a,inp.sex)[0]!=="b"&&!(hot&&(a===3||b===3));})
     .sort((x,y)=>[y,x].map(v=>(ds.cls[Math.floor(v/10)]==="g")+(ds.cls[v%10]==="g")).reduce((a,b)=>a-b)).map(v=>String(v).padStart(2,"0"));
   const pr=[];prs.forEach(v=>{if(pr.length<6&&!pr.includes(v[1]+v[0]))pr.push(v);});
-  const tri=BIG_TRI.filter(t=>{const d=t.split("").map(Number);if(!d.every(okD))return false;if(jobConflict(inp,d[0]*10+d[1]).length||jobConflict(inp,d[1]*10+d[2]).length)return false;if(hot&&d.filter(x=>x===3||x===8).length>1)return false;
+  const tri=BIG_TRI.filter(t=>{const d=t.split("").map(Number);if(!d.every(okD))return false;if(jobConflict(inp,d[0]*10+d[1]).length||jobConflict(inp,d[1]*10+d[2]).length)return false;if(hot&&(d.includes(3)||d.filter(x=>x===8).length>1))return false;
     return pairInfoG(d[0]*10+d[1],inp.sex)[0]==="g"&&pairInfoG(d[1]*10+d[2],inp.sex)[0]==="g";}).sort((a,b)=>b.split("").filter(x=>ds.cls[+x]==="g").length-a.split("").filter(x=>ds.cls[+x]==="g").length).slice(0,5);
   return {sc,lv,why,weak,car,pr,tri,hot};
 }
@@ -3812,7 +3813,7 @@ function bigMoneyHtml(inp,r){
    ${B.lv!=="b"&&B.weak.length?`<p class="para">จุดที่ต้องระวัง ${B.weak.slice(0,2).join(" ")}</p>`:""}
    ${cur?`<p class="adv"><b>งานที่ทำอยู่ไม่ได้ปิดโอกาส</b> ${cur}${inCar?" และงานของคุณอยู่ในสายที่ดวงหนุนเงินก้อนอยู่แล้ว":""}</p>`:""}
    ${B.car.length?`<h3 class="sub">สายงานที่ดวงหนุนให้ได้เงินก้อน</h3><ul class="pairs">${B.car.map(x=>`<li style="display:block"><div><h3>${x.t.n}${jobs.some(k=>x.t.j.includes(k))?' <span class="pill g">ตรงกับงานที่ทำอยู่</span>':""}</h3><p>${BIG_T[x.i]}</p><p class="note" style="margin-top:2px">ดวงหนุนเพราะ${x.t.p.filter(d=>r.ds.cls[d]!=="b").slice(0,2).map(d=>{const ro=plRole(d,r.ds);return PLANET_PLAIN[d]+" (เลข "+d+")"+(ro.length?" "+ro[0]:"");}).join(" และ")}</p></div></li>`).join("")}</ul>`:""}
-   ${B.pr.length?`<h3 class="sub">คู่เลขเงินก้อนที่ใช้กับดวงคุณได้</h3><p class="para">${B.pr.map(v=>`<b class="ch g chw">${v}</b>`).join(" ")}</p><p class="note">วางที่ช่วงหัวเบอร์หลักที่ 4 ถึง 5 ซึ่งเป็นตำแหน่งดูดทรัพย์ หรือหลักที่ 8 ถึง 9 ซึ่งเป็นตำแหน่งรายได้ จะเห็นผลเรื่องเงินก้อนชัดที่สุด ทุกคู่ผ่านการเช็กแล้วว่าไม่มีเลขพลังอ่อนในดวงคุณ${B.hot?" และตัดเลข 3 ออกเพราะพื้นดวงใจร้อนอยู่แล้ว":""}</p>`:`<p class="para">ดวงคุณมีเลขพลังอ่อนหลายตัว คู่เลขเงินก้อนแบบสำเร็จรูปใช้ไม่ได้ ต้องร้อยเรียงเฉพาะตัว ทักไลน์มาให้ผมดูให้</p>`}
+   ${B.pr.length?`<h3 class="sub">คู่เลขเงินก้อนที่ใช้กับดวงคุณได้</h3><p class="para">${B.pr.map(v=>`<b class="ch g chw">${v}</b>`).join(" ")}</p><p class="note">วางที่ช่วงหัวเบอร์หลักที่ 4 ถึง 5 ซึ่งเป็นตำแหน่งดูดทรัพย์ หรือหลักที่ 8 ถึง 9 ซึ่งเป็นตำแหน่งรายได้ จะเห็นผลเรื่องเงินก้อนชัดที่สุด ทุกคู่ผ่านการเช็กแล้วว่าไม่มีเลขพลังอ่อนในดวงคุณ${B.hot?" และไม่ใส่เลข 3 ในคู่เงินก้อน เพราะพื้นดวงใจร้อนอยู่แล้ว ถ้าเติมเลข 3 ตรงตำแหน่งเงินจะใจร้อนเรื่องเงิน เลข 3 ยังใช้ได้ในตำแหน่งอื่น":""}</p>`:`<p class="para">ดวงคุณมีเลขพลังอ่อนหลายตัว คู่เลขเงินก้อนแบบสำเร็จรูปใช้ไม่ได้ ต้องร้อยเรียงเฉพาะตัว ทักไลน์มาให้ผมดูให้</p>`}
    ${B.tri.length?`<h3 class="sub">ชุดเลข 3 ตัวเงินก้อน</h3><p class="para">${B.tri.map(v=>`<b class="ch g chw">${v}</b>`).join(" ")}</p><p class="note">ชุด 3 ตัวที่ทั้งสองคู่ในชุดเป็นคู่ดี ใช้วางต่อกันช่วงตำแหน่งดูดทรัพย์หรือรายได้</p>`:""}
   </section>`;
 }
@@ -4892,6 +4893,9 @@ function readDigits(digits,inp,ch){
   }
   return out;
 }
+function wkNote(str,g,cls,extra){const w=[...new Set(String(str).split(""))].filter(d=>cls[+d]==="b");
+  if(g!=="g"||!w.length||/พลังอ่อน/.test(extra||"")) return "";
+  return " ตามตำราเป็นเลขดี แต่เลข "+w.join(" และ ")+" เป็นพลังอ่อนในดวง ผลดีจะออกมาไม่เต็ม";}
 function numSum(sum,kind,inp){
   if(sum<10){const c=(_PCTX&&_PCTX.cls&&_PCTX.cls[sum])||"m";
     return [c,"เลข "+sum+" ดาว"+PLN[sum],"ผลรวมเป็นเลขตัวเดียว อ่านเป็นพลังของดาว"+PLN[sum]+" เรื่อง"+DIGIT_MEAN[sum]+" ดาวนี้เป็น"+({g:"พลังดี",m:"พลังปานกลาง",b:"พลังอ่อน"})[c]+"ในดวงเจ้าของ"+(c==="g"?" จึงหนุนได้ดี":c==="b"?" จึงไม่ค่อยหนุน":" ให้ผลกลาง ๆ"),"",c];}
@@ -4962,10 +4966,10 @@ function renderMode(inp){
   const showNum=MODE==="plate"?esc(inp.plate):MODE==="house"?esc(inp.house):D.join("").replace(/^(\d)(\d{4})(\d{5})(\d{2})(\d)$/,"$1 $2 $3 $4 $5");
   const letterChips=MODE==="plate"?`<div class="lts">${inp.letters.map(c=>`<span class="lt"><b>${c}</b><small>${LETTER[c]||0}</small></span>`).join("")}${D.map(d=>`<span class="lt"><b>${d}</b><small>${d}</small></span>`).join("")}</div>`:"";
   const sumLine=MODE==="plate"?`ค่าตัวอักษร ${lsum} + ตัวเลข ${sum-lsum} = <b>${sum}</b>`:`${D.join(" + ")} = <b>${sum}</b>`;
-  const goodP=pairs.filter(p=>p.g==="g").map(p=>p.s), badP=pairs.filter(p=>p.g==="b").map(p=>p.s);
+  const goodP=[...new Set(pairs.filter(p=>p.g==="g").map(p=>p.s))], badP=[...new Set(pairs.filter(p=>p.g==="b").map(p=>p.s))];
   const summary=[];
   if(last) summary.push(K.tail+" "+last.s+" "+(last.g==="g"?"เป็นคู่ดี ส่งผลดีแรงที่สุด":last.g==="b"?"เป็นคู่ที่ต้องระวัง และส่งผลแรงที่สุด":"ให้ผลกลาง ๆ"));
-  summary.push("ผลรวม "+sum+" "+(si[0]==="g"?"เป็นเลขดี":si[0]==="b"?"ไม่ค่อยส่งเสริม":"ให้ผลกลาง ๆ")+" "+si[2]);
+  summary.push("ผลรวม "+sum+" "+(sum<10?"":(si[0]==="g"?"เป็นเลขดี":si[0]==="b"?"ไม่ค่อยส่งเสริม":"ให้ผลกลาง ๆ")+" ")+si[2]);
   if(badP.length) summary.push("มีคู่ที่ต้องระวังคือ "+badP.join(" "));
   if(MODE==="bank"&&score<60) summary.push("ถ้าบัญชีนี้ใช้รับเงินหลัก และยังไม่อยากเปลี่ยน ให้เสริมด้วยเบอร์มือถือที่ผูกพร้อมเพย์ให้มีเลขพลังดีในดวงคุณ ("+(good.join(" ")||"ทักไลน์ให้ผมดู")+") หรือเปิดบัญชีใหม่สำหรับรับเงินค้าขาย แล้วเช็กเลขก่อนใช้");
   if(MODE==="idcard") summary.push("เลขบัตรเปลี่ยนไม่ได้ ส่วนที่อ่อนให้เสริมด้วยเบอร์มือถือที่มีเลขพลังดีในดวงคุณ ("+(good.join(" ")||"ทักไลน์ให้ผมดู")+") แทน");
@@ -4978,9 +4982,9 @@ function renderMode(inp){
   <section class="card"><h2>หลักการอ่าน${K.name}</h2><p class="para">${K.lead}</p>${MODE==="idcard"||MODE==="bank"?`<p class="note">ระบบคำนวณในเครื่องของคุณเท่านั้น ไม่ได้ส่งหรือเก็บเลข${MODE==="bank"?"บัญชี":"บัตร"}ไว้ที่ไหน</p>`:""}</section>
   <section class="card"><h2>ผลรวม ${sum}</h2>${letterChips}<p class="para">${sumLine}</p>
     <p><span class="pill ${si[0]}">${GL[si[0]]}</span> <b>${si[1]}</b> ${si[2]}${si[3]?" "+si[3]:""}</p>
-    <p class="note">ตัวเลขในผลรวม ${String(sum).split("").map(d=>d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงคุณ</p></section>
+    <p class="note">ตัวเลขในผลรวม ${String(sum).split("").map(d=>d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงคุณ${sum>=10?wkNote(sum,si[0],ds.cls,si[3]):""}</p></section>
   <section class="card"><h2>อ่านทีละคู่</h2><p class="note" style="margin:0 0 8px">เรียงจากคู่ท้ายซึ่งส่งผลแรงที่สุด</p>
-    <ul class="pairs">${pairs.slice().reverse().map(p=>`<li><div class="pv ${p.g}">${p.s}</div><div><h3>${p.info[1]} <span class="pill ${p.g}">${GL[p.g]}</span></h3><p class="note" style="margin:0">${p.w===3?"คู่ท้าย ส่งผลแรงที่สุด":p.w===2?"ส่งผลรองลงมา":"ส่งผลน้อย"}</p><p>${p.info[2]}${p.info[3]?" "+p.info[3]:""}</p><p class="note">${p.s.split("").map(d=>"เลข "+d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงคุณ</p></div></li>`).join("")}</ul></section>
+    <ul class="pairs">${pairs.slice().reverse().map(p=>`<li><div class="pv ${p.g}">${p.s}</div><div><h3>${p.info[1]} <span class="pill ${p.g}">${GL[p.g]}</span></h3><p class="note" style="margin:0">${p.w===3?"คู่ท้าย ส่งผลแรงที่สุด":p.w===2?"ส่งผลรองลงมา":"ส่งผลน้อย"}</p><p>${p.info[2]}${p.info[3]?" "+p.info[3]:""}</p><p class="note">${p.s.split("").map(d=>"เลข "+d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงคุณ${wkNote(p.s,p.g,ds.cls,p.info[3])}</p></div></li>`).join("")}</ul></section>
   ${cta}`;
   addShare({kind:"ผลวิเคราะห์"+K.name,main:MODE==="idcard"?"บัตรประชาชน":MODE==="bank"?"เลขบัญชี":MODE==="plate"?inp.plate:inp.house,mono:MODE!=="idcard",score,verdict:band[1],vc:band[0],lines:summary.slice(0,3).map(t=>t.length>120?t.slice(0,118)+"…":t)});
 }
@@ -7924,11 +7928,11 @@ function renderHouse(inp,ch,ds,who,cta){
   const summ=[];
   if(keyP) summ.push((two?"เลขหลัง / ซึ่งเป็นเลขของบ้านหลังนี้จริง ปิดท้ายด้วย ":"ท้ายบ้านเลขที่ปิดด้วย ")+keyP.s+" "+keyP.info[1]+(keyP.g==="g"?" เป็นคู่ดี ส่งผลกับบ้านแรงที่สุด":keyP.g==="b"?" เป็นคู่ที่ต้องระวัง และส่งผลแรงที่สุด":" ให้ผลกลาง ๆ"));
   else summ.push((two?"เลขหลัง / ":"บ้านเลขที่ ")+"มีตัวเดียวคือเลข "+parts[parts.length-1][0]+" ซึ่งเป็น"+DL[ds.cls[parts[parts.length-1][0]]]+"ในดวงเจ้าบ้าน");
-  summ.push("ผลรวมทั้งบ้าน "+H.sum+" "+(H.si[0]==="g"?"เป็นเลขดี":H.si[0]==="b"?"ไม่ค่อยส่งเสริม":"ให้ผลกลาง ๆ")+" "+H.si[2]);
+  summ.push("ผลรวมทั้งบ้าน "+H.sum+" "+(H.sum<10?"":(H.si[0]==="g"?"เป็นเลขดี":H.si[0]==="b"?"ไม่ค่อยส่งเสริม":"ให้ผลกลาง ๆ")+" ")+H.si[2]);
   const gA=areas.filter(a=>a.g==="g").map(a=>a.n),bA=areas.filter(a=>a.g==="b").map(a=>a.n);
   if(gA.length) summ.push("เรื่องที่บ้านนี้หนุนได้ดีคือ"+joinTh(gA));
   if(bA.length) summ.push("เรื่องที่ต้องดูแลคือ"+joinTh(bA));
-  const pairLi=p=>`<li><div class="pv ${p.g}">${p.s}</div><div><h3>${p.info[1]} <span class="pill ${p.g}">${HS_GL[p.g]}</span></h3><p class="note" style="margin:0">${p.part}${p.tail?" · คู่ท้าย":""}${p.pi===parts.length-1&&p.tail?" ส่งผลแรงที่สุด":""}</p><p>${p.info[2]}${p.info[3]?" "+p.info[3]:""}</p><p class="note">${p.s.split("").map(d=>"เลข "+d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงเจ้าบ้าน</p></div></li>`;
+  const pairLi=p=>`<li><div class="pv ${p.g}">${p.s}</div><div><h3>${p.info[1]} <span class="pill ${p.g}">${HS_GL[p.g]}</span></h3><p class="note" style="margin:0">${p.part}${p.tail?" · คู่ท้าย":""}${p.pi===parts.length-1&&p.tail?" ส่งผลแรงที่สุด":""}</p><p>${p.info[2]}${p.info[3]?" "+p.info[3]:""}</p><p class="note">${p.s.split("").map(d=>"เลข "+d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงเจ้าบ้าน${wkNote(p.s,p.g,ds.cls,p.info[3])}</p></div></li>`;
   const ordered=H.P.slice().sort((a,b)=>b.pi-a.pi||b.i-a.i);
   const ppl=hsExtraRows();
   const pplH=ppl.length?`<section class="card"><h2>บ้านนี้กับคนในบ้าน</h2><p class="note" style="margin:0 0 10px">เทียบบ้านเลขที่กับดวงของแต่ละคน ใช้วันเกิดอย่างเดียว ไม่ใช้เวลาเกิด</p>
@@ -7947,7 +7951,7 @@ function renderHouse(inp,ch,ds,who,cta){
   ${pplH}
   <section class="card"><h2>หลักการอ่านบ้านเลขที่</h2><p class="para">${two?"บ้านเลขที่แบบมีเครื่องหมาย / ผมอ่านเลขหน้ากับเลขหลังแยกกัน ไม่อ่านคู่ข้ามเครื่องหมาย เลขหลัง / คือเลขของบ้านหลังนี้จริง ส่งผลกับคนในบ้านแรงที่สุด ส่วนเลขหน้า / คือเลขของที่ดินหรือแปลงใหญ่ ส่งผลรองลงมา":"อ่านคู่เลขที่อยู่ติดกัน โดยคู่ท้ายส่งผลแรงที่สุด"} แล้วรวมทุกตัวเลขเป็นผลรวมของบ้าน ซึ่งบอกภาพรวมระยะยาว จากนั้นเทียบตัวเลขกับดวงของเจ้าบ้านว่าเป็นเลขพลังดีหรือพลังอ่อน</p></section>
   <section class="card"><h2>ผลรวม ${H.sum}</h2><p class="para">${parts.map(D=>D.join(" + ")).join(" + ")} = <b>${H.sum}</b>${two?` (เลขหน้า ${sum1} เลขหลัง ${sum2})`:""}</p>
-    <p><span class="pill ${H.si[0]}">${HS_GL[H.si[0]]}</span> <b>${H.si[1]}</b> ${H.si[2]}${H.si[3]?" "+H.si[3]:""}</p></section>
+    <p><span class="pill ${H.si[0]}">${HS_GL[H.si[0]]}</span> <b>${H.si[1]}</b> ${H.si[2]}${H.si[3]?" "+H.si[3]:""}${H.sum>=10?wkNote(H.sum,H.si[0],ds.cls,H.si[3]):""}</p></section>
   ${H.P.length?`<section class="card"><h2>อ่านทีละคู่</h2><p class="note" style="margin:0 0 8px">${two?"เรียงจากเลขหลัง / ซึ่งส่งผลแรงกว่า":"เรียงจากคู่ท้ายซึ่งส่งผลแรงที่สุด"}</p><ul class="pairs">${ordered.map(pairLi).join("")}</ul></section>`:""}
   <section class="card"><h2>ถ้าบ้านเลขที่ยังไม่หนุน</h2><ul class="plain">
     <li>บ้านเลขที่เปลี่ยนยาก ให้เสริมด้วยเบอร์มือถือของคนในบ้านที่มีเลขพลังดีในดวงแต่ละคน${good.length?" ของ"+who+"คือ "+good.join(" "):""}</li>
