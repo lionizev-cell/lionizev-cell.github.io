@@ -1929,7 +1929,7 @@ function promptpayPayload(target,amount){var t=String(target).replace(/\D/g,''),
 function unlockCode(key){var s=key+'|'+PAY.salt,h1=2166136261,h2=5381;for(var i=0;i<s.length;i++){var ch=s.charCodeAt(i);h1=Math.imul(h1^ch,16777619)>>>0;h2=(Math.imul(h2,33)+ch)>>>0}
   var n=(h1^(h2<<7))>>>0,A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',o='';for(var k=0;k<6;k++){o+=A[n%32];n=Math.floor(n/32);if(k===2)n=(n^h2)>>>0}return o}
 
-var HCFG={thunderKey:'1cfdb312-0a87-41c3-bdfd-80c94e7b9a30',slipApi:'',adminHash:'531379db',lineOA:'@367xgtjh'};
+var HCFG={thunderKey:'',slipApi:'https://script.google.com/macros/s/AKfycbxTojydK9-0hlZb_IlFDYwtOhIzPoJHjiF71VTKvUFm6O1akDukpyhdnuVtocREeQ-a/exec',adminHash:'531379db',lineOA:'@367xgtjh'};
 function pinOkH(v){var h=2166136261>>>0,t=String(v)+'|plk-admin-v1';for(var i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return ('0000000'+h.toString(16)).slice(-8)===HCFG.adminHash}
 function isOwnerH(){try{return localStorage.getItem('plk_owner')==='1'}catch(e){return false}}
 function setOwnerH(on){try{on?localStorage.setItem('plk_owner','1'):localStorage.removeItem('plk_owner')}catch(e){}}
