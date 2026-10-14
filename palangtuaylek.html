@@ -4942,6 +4942,7 @@ function renderMode(inp){
   if(MODE==="cmp"){ renderCmp(inp,cta); return; }
   if(MODE==="house"){ renderHouse(inp,ch,ds,who,cta); return; }
   if(MODE==="plate"){ renderPlate(inp,ch,ds,who,cta); return; }
+  if(MODE==="bank"||MODE==="idcard"){ renderBankId(inp,ch,ds,who,cta); return; }
   if(MODE==="rk"){ rkRender(inp,ds,who,cta); return; }
   if(MODE==="love"){ loveRender(inp,inp.B,cta); return; }
   if(MODE==="name"){
@@ -8024,6 +8025,57 @@ function renderPlate(inp,ch,ds,who,cta){
     <li>ถ้าเรื่องความปลอดภัยได้คะแนนต่ำ ให้ตรวจเช็กรถสม่ำเสมอ และขับด้วยความระวังเป็นพิเศษ</li></ul></section>
   ${cta}`;
   addShare({kind:"ผลวิเคราะห์ทะเบียนรถ",main:t,mono:true,score:H.score,max:1000,verdict:band[1],vc:band[0],lines:summ.slice(0,3).map(x=>x.length>120?x.slice(0,118)+"…":x)});
+}
+
+// ===== เลขบัญชี และเลขบัตรประชาชน: แยกเป็นเรื่อง คะแนนเต็ม 1000 =====
+const BK_AREA=[
+ {k:"in",n:"เงินเข้าและรายรับ",d:{8:1,6:0.8,4:0.8,9:0.6,5:0.5,2:0.4},t:{g:"เงินเข้าบัญชีคล่อง มีรายรับเข้ามาสม่ำเสมอ",m:"เงินเข้าตามปกติ ไม่ได้หนุนให้รายรับเพิ่มเด่น",b:"เงินเข้าไม่สม่ำเสมอ มาเป็นช่วง ๆ ต้องวางแผนรายรับเอง"}},
+ {k:"save",n:"การเก็บเงินและเงินเหลือ",d:{5:1,6:0.8,2:0.6,4:0.5,7:0.6,0:0.6},t:{g:"เก็บเงินอยู่ เงินในบัญชีงอกเงย มีเหลือเก็บ",m:"เก็บเงินได้บ้าง ต้องมีวินัยเองถึงจะเหลือ",b:"เงินเข้ามาแล้วออกเร็ว เก็บไม่อยู่ รายจ่ายจุกจิกเยอะ"}},
+ {k:"trade",n:"ลูกค้าและการค้าขาย",d:{4:1,6:0.9,2:0.7,9:0.5,1:0.4},t:{g:"ลูกค้าโอนง่าย ค้าขายคล่อง คนเชื่อใจ",m:"การค้าไปได้ปกติ ไม่ได้ช่วยเรื่องลูกค้าเด่น",b:"ลูกค้าต่อรองเยอะ โอนช้า มีเรื่องจุกจิกกับการรับเงิน"}},
+ {k:"luck",n:"โชคลาภและเงินก้อน",d:{8:1,9:0.9,5:0.6,6:0.6,3:0.4},t:{g:"มีจังหวะได้เงินก้อน โชคลาภเข้าบัญชี",m:"เงินก้อนมาตามแรงที่ลงไป ไม่ได้มีโชคหนุนเด่น",b:"เงินก้อนมาแล้วมักมีเหตุให้ต้องจ่ายออก"}},
+ {k:"smooth",n:"ความราบรื่นทางการเงิน",d:{5:0.9,2:0.6,7:0.7,0:0.8,3:0.6,9:0.5},t:{g:"การเงินราบรื่น ไม่ค่อยมีเรื่องหนี้สินหรือเงินติดขัด",m:"มีติดขัดบ้างเป็นช่วง ๆ แต่แก้ไขได้",b:"ระวังเรื่องหนี้สิน การค้ำประกัน และเงินติดค้าง"}}];
+const ID_AREA=[
+ {k:"self",n:"ตัวตนและความมั่นใจ",d:{1:1,3:0.7,5:0.6,9:0.5},t:{g:"มั่นใจในตัวเอง มีภาวะผู้นำ คนรอบตัวเชื่อถือ",m:"ความมั่นใจกลาง ๆ ขึ้นอยู่กับสถานการณ์",b:"ลังเล ไม่ค่อยกล้าตัดสินใจ หรือมั่นใจเกินจนพลาด"}},
+ {k:"money",n:"การเงินพื้นฐาน",d:{6:1,8:0.9,4:0.7,5:0.5,2:0.4},t:{g:"พื้นการเงินดี หาเงินได้ ไม่ค่อยขัดสน",m:"การเงินพอใช้ ต้องลงแรงเองถึงจะมีเหลือ",b:"พื้นการเงินไม่หนุน เงินมาแล้วรั่ว ต้องเสริมด้วยเบอร์หรือชื่อ"}},
+ {k:"work",n:"การงานและผู้ใหญ่",d:{1:0.9,4:0.8,5:0.8,7:0.6,3:0.6},t:{g:"การงานมั่นคง ผู้ใหญ่เมตตา มีคนหนุนให้ก้าวหน้า",m:"งานไปได้เรื่อย ๆ ต้องพึ่งตัวเองเป็นหลัก",b:"งานติดขัด ผู้ใหญ่ไม่ค่อยหนุน ต้องเหนื่อยกว่าคนอื่น"}},
+ {k:"love",n:"ความรักและคนรอบตัว",d:{2:1,6:1,4:0.5,9:0.4},t:{g:"คนรอบตัวรักใคร่ ความรักราบรื่น มีเสน่ห์",m:"ความสัมพันธ์ปกติ มีขัดใจกันบ้างตามธรรมดา",b:"ความสัมพันธ์มักมีเรื่องให้ร้อนใจ ต้องประคองมากกว่าปกติ"}},
+ {k:"mind",n:"สุขภาพและจิตใจ",d:{5:1,9:0.8,2:0.6,7:0.6,0:0.7,3:0.5},t:{g:"จิตใจมั่นคง สุขภาพแข็งแรง ฟื้นตัวเร็ว",m:"สุขภาพทั่วไปปกติ เครียดบ้างตามช่วง",b:"คิดมาก เครียดสะสม ควรดูแลสุขภาพและการพักผ่อน"}}];
+function renderBankId(inp,ch,ds,who,cta){
+  const bank=MODE==="bank", D=inp.digits, parts=[D], AR=bank?BK_AREA:ID_AREA, nm=bank?"เลขบัญชีธนาคาร":"เลขบัตรประชาชน";
+  const H=hsScore(parts,inp,ds); H.P.forEach(p=>{p.part=nm;});
+  const areas=hsAreas(H,ds,AR),F=hsFinal(H,areas);H.score=F.score;const band=hsBand(H.score,"คุณ");
+  const good=[],bad=[];for(let d=0;d<10;d++){if(ds.cls[d]==="g")good.push(d);if(ds.cls[d]==="b")bad.push(d);}
+  const keyP=H.P.filter(p=>p.tail)[0], summ=[];
+  if(keyP) summ.push((bank?"คู่ท้ายเลขบัญชี ":"คู่ท้ายบัตร ")+keyP.s+" "+keyP.info[1]+(keyP.g==="g"?" เป็นคู่ดี ส่งผลแรงที่สุด":keyP.g==="b"?" เป็นคู่ที่ต้องระวัง และส่งผลแรงที่สุด":" ให้ผลกลาง ๆ"));
+  summ.push("ผลรวม "+H.sum+" "+(H.sum<10?"":(H.si[0]==="g"?"เป็นเลขดี":H.si[0]==="b"?"ไม่ค่อยส่งเสริม":"ให้ผลกลาง ๆ")+" ")+H.si[2]);
+  const gA=areas.filter(a=>a.g==="g").map(a=>a.n),bA=areas.filter(a=>a.g==="b").map(a=>a.n);
+  if(gA.length) summ.push("เรื่องที่"+(bank?"บัญชีนี้":"เลขบัตร")+"หนุนได้ดีคือ"+joinTh(gA));
+  if(bA.length) summ.push("เรื่องที่ต้องระวังคือ"+joinTh(bA));
+  if(bank&&H.score<600) summ.push("ถ้าบัญชีนี้ใช้รับเงินหลัก และยังไม่อยากเปลี่ยน ให้เสริมด้วยเบอร์มือถือที่ผูกพร้อมเพย์ให้มีเลขพลังดีในดวงคุณ"+(good.length?" ("+good.join(" ")+")":""));
+  if(!bank) summ.push("เลขบัตรเปลี่ยนไม่ได้ ส่วนที่อ่อนให้เสริมด้วยเบอร์มือถือที่มีเลขพลังดีในดวงคุณ"+(good.length?" ("+good.join(" ")+")":"")+" แทน");
+  const ordered=H.P.slice().sort((a,b)=>b.i-a.i), top=ordered.slice(0,6), rest=ordered.slice(6);
+  const pairLi=p=>`<li><div class="pv ${p.g}">${p.s}</div><div><h3>${p.info[1]} <span class="pill ${p.g}">${HS_GL[p.g]}</span></h3><p class="note" style="margin:0">${p.tail?"คู่ท้าย ส่งผลแรงที่สุด":p.w===2?"ส่งผลรองลงมา":"ส่งผลน้อย"}</p><p>${p.info[2]}${p.info[3]?" "+p.info[3]:""}</p><p class="note">${p.s.split("").map(d=>"เลข "+d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงคุณ${wkNote(p.s,p.g,ds.cls,p.info[3])}</p></div></li>`;
+  const showNum=bank?D.join(""):D.join("").replace(/^(\d)(\d{4})(\d{5})(\d{2})(\d)$/,"$1 $2 $3 $4 $5");
+  $("result").innerHTML=`<section class="card"><h2>${nm}ของ${who}</h2>
+    <div class="num" style="font-size:26px;letter-spacing:2px;text-align:center;font-family:var(--f-mono)">${showNum}</div>
+    <div class="verdict"><div class="score">${H.score} <small>/ 1000</small></div><div><span class="pill ${band[0]}">${band[1]}</span></div></div>
+    <div class="easy"><h3 class="sub">สรุป</h3><p class="para">${summ.join(" ")}</p>
+    <h3 class="sub">${bank?"เลขบัญชีนี้ส่งผลกับการเงินอย่างไร":"พลังพื้นฐานที่ติดตัวมาจากเลขบัตร"}</h3>
+    <ul class="areas">${areas.map(a=>`<li><span class="an">${a.n}</span><span class="pill ${a.g}">${a.pct}% ${a.g==="g"?"ดี":a.g==="m"?"พอใช้":"ต้องระวัง"}</span><span class="apb"><i class="${a.g}" style="width:${a.pct}%"></i></span><span class="at">${a.txt}</span></li>`).join("")}</ul>
+    <h3 class="sub">พลังของเลขในดวง${who}</h3>
+    <div class="lucky"><span class="lbl">เลขพลังดีที่ควรมี</span><div class="chs">${good.map(d=>`<b class="ch g">${d}</b>`).join("")||"<span class='note'>ไม่มี</span>"}</div></div>
+    <div class="lucky"><span class="lbl">เลขพลังอ่อน ควรร้อยเรียงอย่างระวัง</span><div class="chs">${bad.map(d=>`<b class="ch b">${d}</b>`).join("")||"<span class='note'>ไม่มี</span>"}</div></div>
+    ${hsCompHtml(F)}</div></section>
+  <section class="card"><h2>หลักการอ่าน${nm}</h2><p class="para">${KIND[MODE].lead} จากนั้นแยกผลเป็น 5 เรื่อง${bank?"ของการเงิน":"ของพื้นชีวิต"} และให้คะแนนเต็ม 1000 ตามหมวด</p><p class="note">ระบบคำนวณในเครื่องของคุณเท่านั้น ไม่ได้ส่งหรือเก็บเลข${bank?"บัญชี":"บัตร"}ไว้ที่ไหน</p></section>
+  <section class="card"><h2>ผลรวม ${H.sum}</h2><p class="para">${D.join(" + ")} = <b>${H.sum}</b></p>
+    <p><span class="pill ${H.si[0]}">${HS_GL[H.si[0]]}</span> <b>${H.si[1]}</b> ${H.si[2]}${H.si[3]?" "+H.si[3]:""}${H.sum>=10?wkNote(H.sum,H.si[0],ds.cls,H.si[3]):""}</p></section>
+  <section class="card"><h2>อ่านทีละคู่</h2><p class="note" style="margin:0 0 8px">เรียงจากคู่ท้ายซึ่งส่งผลแรงที่สุด</p><ul class="pairs">${top.map(pairLi).join("")}</ul>
+    ${rest.length?`<details><summary class="note" style="cursor:pointer;padding:6px 0">ดูคู่ที่เหลืออีก ${rest.length} คู่</summary><ul class="pairs">${rest.map(pairLi).join("")}</ul></details>`:""}</section>
+  <section class="card"><h2>${bank?"ถ้าเลขบัญชียังไม่หนุน":"วิธีเสริมส่วนที่อ่อน"}</h2><ul class="plain">
+    ${bank?`<li>ไม่ต้องปิดบัญชีเดิม เปิดบัญชีใหม่สำหรับรับเงินค้าขาย แล้วใส่หลายเลขเทียบคะแนนก่อนเลือก</li><li>ผูกพร้อมเพย์กับเบอร์มือถือที่มีเลขพลังดีในดวงคุณ${good.length?" คือ "+good.join(" "):""}</li>`:`<li>เลขบัตรเปลี่ยนไม่ได้ ให้ใช้เบอร์มือถือ ชื่อ หรือทะเบียนรถที่มีเลขพลังดีในดวงคุณ${good.length?" คือ "+good.join(" "):""} เสริมเรื่องที่ได้คะแนนต่ำ</li>`}
+    <li>เรื่องไหนได้คะแนนต่ำ ทักไลน์มาให้ผมดูได้ว่าควรเสริมด้วยอะไร</li></ul></section>
+  ${cta}`;
+  addShare({kind:"ผลวิเคราะห์"+nm,main:bank?"เลขบัญชี":"บัตรประชาชน",mono:false,score:H.score,max:1000,verdict:band[1],vc:band[0],lines:summ.slice(0,3).map(x=>x.length>120?x.slice(0,118)+"…":x)});
 }
 
 try{$("hsadd").onclick=hsAddRow;}catch(e){}
