@@ -331,11 +331,13 @@ footer .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1f
 @media print{.rjump,.tgl{display:none!important}.arc .at{display:block!important}.ppw .ppx{display:grid!important}}body.pr .rjump{display:none}
 .sumline{text-align:center;margin:6px 0 0;font-size:15px}.sumline b{font-family:var(--f-mono);font-size:20px;margin:0 2px}.sumline span:last-child{display:block;font-size:14px;opacity:.85;margin-top:2px}.hlb span{color:var(--ink)}
 .pctbox{margin:10px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}.pctl{margin:0 0 8px;font-weight:600;text-align:center}.pctl b{font-family:var(--f-mono);font-size:22px;margin-left:4px}.pctl b{background:none!important;padding:0}.pctl b.pcg{color:var(--good)}.pctl b.pcm{color:var(--mid)}.pctl b.pcb{color:var(--bad)}.pctbar{position:relative;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--bad-bg),var(--mid-bg),var(--good-bg));border:1px solid var(--line)}.pctbar i{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:2px solid var(--surface)}.pctbar i.g{background:var(--good)}.pctbar i.m{background:var(--mid)}.pctbar i.b{background:var(--bad)}.pctbar .pmed{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--muted);opacity:.6}
+.vcount{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 0 14px;padding:10px 14px;border:1px solid var(--accent-deep);border-radius:14px;background:var(--accent-soft);color:var(--ink);font-size:15px;font-weight:600;text-align:center;flex-wrap:wrap}.vcount b{color:var(--accent);font-family:var(--f-mono);font-size:24px;letter-spacing:.5px}.vdot{width:10px;height:10px;border-radius:50%;background:var(--good);box-shadow:0 0 0 4px var(--good-bg);animation:vpulse 2s infinite}@keyframes vpulse{50%{box-shadow:0 0 0 7px transparent}}.vcount[hidden]{display:none}
 </style>
 </head>
 <body>
 <main class="wrap">
 <header>
+  <div class="vcount" id="vcount" hidden></div>
   <div class="brand"><img class="logo" id="hlogo" alt="โลโก้เพจความลับพลังตัวเลข" width="56" height="56"><div class="eyebrow">ความลับพลังตัวเลข</div></div>
   <h1>ตัวเลขของคุณเข้ากับดวงไหม</h1>
   <p>วิเคราะห์เบอร์มือถือ ชื่อ ทะเบียนรถ บ้านเลขที่ เลขบัญชี หาฤกษ์มงคล และดวงคู่ ใส่วันเวลาเกิดครั้งเดียว ระบบผูกดวงให้ แล้วอ่านผลตามพื้นดวงของคุณทันที</p>
@@ -7762,5 +7764,8 @@ opt($("rkact"),Object.keys(RKA).map(k=>[k,RKA[k].n]));
 (()=>{const n=new Date(),a=[["","30 วันข้างหน้า"]];for(let i=0;i<6;i++){const d=new Date(n.getFullYear(),n.getMonth()+i,1);a.push([String(d.getFullYear())+pad(d.getMonth()+1),MONTHS[d.getMonth()]+" "+(d.getFullYear()+543)]);}opt($("rkmon"),a);})();
 document.addEventListener("click",e=>{const t=e.target.closest&&e.target.closest("button.tgl[data-tgl]");if(t){const box=document.querySelector("#result ."+t.dataset.tgl+",#result #"+t.dataset.tgl);if(!box)return;const on=box.classList.toggle("open");if(!t.dataset.off)t.dataset.off=t.textContent;t.textContent=on?t.dataset.on:t.dataset.off;if(!on)box.scrollIntoView({block:"nearest"});return;}
   const j=e.target.closest&&e.target.closest(".rjump a[data-j]");if(j){e.preventDefault();const el=$(j.dataset.j);if(el)(el.closest("section")||el).scrollIntoView({behavior:"smooth",block:"start"});}});
+// ยอดเข้าชมเว็บ (ตัวเลขจริงจากระบบนับเดียวกับหน้าแอดมิน) โชว์เฉพาะบนเว็บจริง ดึงไม่ได้ก็ซ่อน
+(async function(){try{const el=$("vcount");if(!el||!/github\.io$/.test(location.hostname))return;const v=await cntGet("visit");if(!v||v<1)return;
+  el.innerHTML=`<span class="vdot"></span><span>ยอดเข้าชมเว็บทั้งหมด</span><b>${(+v).toLocaleString("th-TH")}</b><span>ครั้ง</span>`;el.hidden=false;}catch(e){}})();
 </script>
 </body></html>
