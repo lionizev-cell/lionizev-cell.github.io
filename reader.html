@@ -1,0 +1,352 @@
+<!doctype html>
+<!--plk-target:reader.html-->
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>อ่านเบอร์หลังร้าน</title>
+<link rel="icon" type="image/jpeg" href="logo.jpg">
+<link rel="apple-touch-icon" href="logo.jpg">
+<meta name="theme-color" content="#0b0907">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{--bg:#0b0907;--surface:#16120f;--ink:#f3ece4;--muted:#a8998a;--line:#2f2620;--accent:#e0701f;--accent-soft:#3a2312;--on-accent:#fff7ef;
+ --good:#6fd39f;--good-bg:#132c21;--mid:#e8c25a;--mid-bg:#33290f;--bad:#f07a6a;--bad-bg:#3a1714;color-scheme:dark}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "IBM Plex Sans Thai",system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px 16px 60px}
+h1{font-size:22px;margin:4px 0 2px}
+h2{font-size:18px;margin:0 0 8px}
+h3{font-size:15px;margin:14px 0 6px;color:var(--muted);font-weight:600}
+p{margin:0 0 8px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;margin:0 0 14px}
+label{display:block;font-size:14px;color:var(--muted);margin:0 0 10px}
+input,select,textarea{width:100%;margin-top:4px;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:#0f0c0a;color:var(--ink);font:inherit}
+textarea{font-family:"IBM Plex Mono",monospace;font-size:17px;letter-spacing:.04em;min-height:84px;resize:vertical}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chk{display:flex;gap:8px;align-items:center;color:var(--ink)}
+.chk input{width:auto;margin:0}
+button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:var(--accent-soft);color:var(--ink);padding:10px 14px}
+button.go{width:100%;background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600;font-size:17px;padding:13px}
+button:disabled{opacity:.5;cursor:wait}
+.seg{display:flex;gap:6px;margin:0 0 12px}
+.seg button{flex:1;padding:9px 6px;font-size:14px}
+.seg button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+details>summary{cursor:pointer;color:var(--muted);font-size:14px;margin:4px 0 10px}
+.err{color:var(--bad);font-size:14px}
+.note{color:var(--muted);font-size:13px}
+.big{font-family:"IBM Plex Mono",monospace;font-size:24px;letter-spacing:.06em}
+.pill{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;vertical-align:2px}
+.g{color:var(--good);background:var(--good-bg)}.m{color:var(--mid);background:var(--mid-bg)}.b{color:var(--bad);background:var(--bad-bg)}
+.out{white-space:pre-wrap;background:#0f0c0a;border:1px solid var(--line);border-radius:10px;padding:12px;margin:0 0 8px;font-size:15px}
+.out[contenteditable=true]:focus{outline:2px solid var(--accent)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 6px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:500}
+td.n{font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+.digits{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}
+.digits span{font-family:"IBM Plex Mono",monospace;padding:2px 9px;border-radius:8px}
+#loading{color:var(--muted)}
+iframe#eng{position:absolute;width:1px;height:1px;border:0;left:-9999px;top:0}
+</style>
+</head>
+<body>
+<main>
+<h1>อ่านเบอร์หลังร้าน</h1>
+<p class="sub">ใช้ฐานข้อมูลชุดเดียวกับเว็บ palangtuaylek.com แก้ความหมายบนเว็บเมื่อไร ที่นี่เปลี่ยนตามทันที</p>
+
+<p id="loading">กำลังโหลดฐานข้อมูลจากเว็บ...</p>
+
+<section class="card" id="lock" hidden>
+ <h2>ใส่รหัสเจ้าของ</h2>
+ <p class="note">ใช้รหัสเดียวกับหน้าแอดมินของเว็บ ใส่ครั้งเดียว เครื่องนี้จะจำไว้</p>
+ <label>รหัส<input id="pin" inputmode="numeric" type="password" autocomplete="off"></label>
+ <button id="pingo" type="button">เข้าใช้งาน</button>
+ <p class="err" id="pinerr" hidden>รหัสไม่ถูก</p>
+</section>
+
+<section class="card" id="form" hidden>
+ <div class="seg" role="group" aria-label="แบบที่จะอ่าน">
+  <button type="button" data-k="full" aria-pressed="true">อ่านเต็ม พร้อมดวง</button>
+  <button type="button" data-k="short" aria-pressed="false">ตอบคอมเมนต์ ไม่มีดวง</button>
+ </div>
+ <label>เบอร์ (ใส่ได้หลายเบอร์ บรรทัดละเบอร์ 10 หลัก หรือ 7 ตัวท้าย)
+  <textarea id="phones" inputmode="numeric" placeholder="0812345678"></textarea></label>
+ <div class="row2">
+  <label>เพศ<select id="sex"><option value="m">ชาย</option><option value="f">หญิง</option></select></label>
+  <label>ชื่อเล่นลูกค้า (ไม่ใส่ก็ได้)<input id="nick"></label>
+ </div>
+ <label>อาชีพ (ไม่ใส่ก็ได้)<input id="job" placeholder="เช่น ขายของออนไลน์ ข้าราชการ"></label>
+ <div id="birth">
+  <div class="row">
+   <label>วันเกิด<input id="dd" inputmode="numeric" placeholder="12"></label>
+   <label>เดือน<input id="mm" inputmode="numeric" placeholder="5"></label>
+   <label>ปี พ.ศ.<input id="yy" inputmode="numeric" placeholder="2533"></label>
+  </div>
+  <div class="row">
+   <label>ชั่วโมง<input id="hh" inputmode="numeric" placeholder="7"></label>
+   <label>นาที<input id="mi" inputmode="numeric" placeholder="43"></label>
+   <label class="chk" style="align-self:end;margin-bottom:18px"><input id="notime" type="checkbox"> ไม่ทราบเวลา</label>
+  </div>
+  <div class="row2">
+   <label>จังหวัดที่เกิด<select id="prov"></select></label>
+   <label>ลัคนา<select id="lag"><option value="-1">ตามที่ระบบคำนวณ</option></select></label>
+  </div>
+ </div>
+ <button class="go" id="go" type="button">อ่านเบอร์</button>
+ <p class="err" id="err" hidden></p>
+</section>
+
+<div id="res"></div>
+</main>
+<iframe id="eng" title="engine" aria-hidden="true" tabindex="-1"></iframe>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+let W=null, MODEK="full";
+const E=code=>W.eval(code);  // เรียกโค้ดของหน้าเว็บหลักโดยตรง
+
+// ไม่ให้นับเป็นคนเข้าเว็บ
+try{sessionStorage.setItem("plk_v","1");}catch(e){}
+$("eng").src="palangtuaylek.html?engine=1";
+// รอจนโค้ดของหน้าหลักพร้อม (ไม่ต้องรอรูปหรือฟอนต์โหลดเสร็จ)
+let tries=0;
+const wait=setInterval(()=>{
+  tries++;
+  try{W=$("eng").contentWindow; if(W.eval("typeof analyze==='function'&&typeof POS!=='undefined'&&typeof PROV!=='undefined'")){clearInterval(wait);ready();return;}}
+  catch(e){clearInterval(wait);$("loading").textContent="โหลดฐานข้อมูลไม่ได้ ต้องเปิดหน้านี้จาก palangtuaylek.com";return;}
+  if(tries>300){clearInterval(wait);$("loading").textContent="โหลดฐานข้อมูลไม่สำเร็จ ลองรีเฟรช";}
+},150);
+function ready(){
+  $("loading").hidden=true;
+  const PROV=E("PROV"), SIGNS=E("SIGNS");
+  $("prov").innerHTML=PROV.map((p,i)=>`<option value="${i}">${p[0]}</option>`).join("");
+  $("lag").innerHTML+=SIGNS.map((s,i)=>`<option value="${i}">${s}</option>`).join("");
+  restore();
+  if(E("isOwner()")) $("form").hidden=false; else $("lock").hidden=false;
+}
+$("pingo").onclick=()=>{const v=E("normDigits")($("pin").value);
+  if(E("pinOk")(v)){E("setOwner")(true);$("lock").hidden=true;$("form").hidden=false;}else $("pinerr").hidden=false;};
+$("pin").onkeydown=e=>{if(e.key==="Enter")$("pingo").click();};
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{MODEK=b.dataset.k;
+  document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  $("birth").hidden=MODEK==="short";});
+
+// จำค่าล่าสุดในเครื่อง
+const FIELDS=["sex","job","dd","mm","yy","hh","mi","prov","lag","nick"];
+function save(){try{const o={};FIELDS.forEach(k=>o[k]=$(k).value);o.notime=$("notime").checked;localStorage.setItem("rdr_last",JSON.stringify(o));}catch(e){}}
+function restore(){try{const o=JSON.parse(localStorage.getItem("rdr_last")||"null");if(!o){$("prov").value=String(E("PROV").findIndex(p=>p[0]==="กรุงเทพมหานคร"));return;}
+  FIELDS.forEach(k=>{if(o[k]!=null)$(k).value=o[k];});$("notime").checked=!!o.notime;}catch(e){}}
+
+// ===== คำเรียกตำแหน่งแบบภาษาคน =====
+const PN={GF:"ตัวตนและนิสัย",FG:"การใช้เงินและความเป็นอยู่",FE:"รายได้",EF:"ผู้ใหญ่ที่คอยช่วย",DE:"การงาน",ED:"เพื่อนและคนรอบตัว",
+ CD:"โชคลาภ",DC:"การเก็บเงินและทรัพย์สิน",CB:"ลูกน้องและคนที่พึ่งเรา",BC:"เคราะห์และอุปสรรค",AB:"ทางเข้าของเงิน",BA:"ทางเข้าของปัญหา",
+ GA:"คู่ครอง",A2:"ตัวเชื่อมหัวเบอร์",21:"ภาพลักษณ์ภายนอก"};
+// ลำดับที่อ่านให้ลูกค้า: ท้ายเบอร์ก่อน ไล่มาหัวเบอร์
+const ORDER=["FG","GF","FE","EF","DE","ED","DC","CD","CB","BC","AB","BA","GA","A2","21"];
+const PLN=["","อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัส","ศุกร์","เสาร์","ราหู","เกตุ"];PLN[0]="มฤตยู";
+const fmtPh=p=>p.length===10?p.slice(0,3)+" "+p.slice(3,6)+" "+p.slice(6):p.slice(0,3)+" "+p.slice(3);
+const clean=t=>String(t||"").replace(/\s+/g," ").replace(/\s*[\/→•|]\s*/g," ").trim();
+const joinTh=a=>a.length<2?a.join(""):a.slice(0,-1).join(" ")+" และ"+a[a.length-1];
+function pick(arr,seed){return arr[Math.abs(seed)%arr.length];}
+
+function readForm(){
+  const raw=$("phones").value.replace(/[๐-๙]/g,c=>String("๐๑๒๓๔๕๖๗๘๙".indexOf(c)));
+  const list=raw.split(/[\n,]+/).map(x=>x.replace(/\D/g,"")).filter(Boolean).map(p=>p.length===11&&p.startsWith("66")?"0"+p.slice(2):p);
+  if(!list.length) return {error:"ใส่เบอร์ก่อนครับ"};
+  const badN=list.find(p=>!(p.length===10||p.length===7)); if(badN) return {error:"เบอร์ "+badN+" ไม่ใช่ 10 หลักหรือ 7 หลัก"};
+  const jobText=$("job").value.trim();
+  const base={sex:$("sex").value,nick:$("nick").value.trim(),jobText,job:E("jobOf")(jobText),jobs:E("matchJobs")(jobText),lagOv:+$("lag").value};
+  if(MODEK==="short") return {list,base,nochart:true};
+  const d=+$("dd").value,m=+$("mm").value,by=+$("yy").value; if(!d||!m||!by) return {error:"ใส่วันเดือนปีเกิดให้ครบ หรือสลับไปแบบตอบคอมเมนต์"};
+  const y=by>2400?by-543:by; const dt=new Date(Date.UTC(y,m-1,d)); if(dt.getUTCMonth()!==m-1) return {error:"วันที่นี้ไม่มีในปฏิทิน"};
+  const notime=$("notime").checked||$("hh").value==="";
+  const pv=E("PROV")[+$("prov").value];
+  Object.assign(base,{d,m,y,h:notime?6:+$("hh").value,mi:notime?0:+($("mi").value||0),notime,lat:pv[1],lon:pv[2],provName:pv[0]});
+  return {list,base};
+}
+
+// ลัคนาที่เลือกเอง: แทนลัคนาในดวงที่เว็บคำนวณไว้ แล้วคำนวณคุณภาพดาวใหม่
+function prepChart(inp){
+  E(`(function(i){const ck=[i.y,i.m,i.d,i.h,i.mi,i.lat,i.lon].join(",");
+    if(!_CC[ck]||!_CC[ck].orig){const c0=chartSY(i.y,i.m,i.d,i.h,i.mi,i.lat,i.lon);c0.calcLagna=c0.lagna;_CC[ck]={c:c0,ds:digitScores(c0),orig:c0};}
+    const o=_CC[ck].orig;
+    if(i.lagOv>=0){const c1=Object.assign({},o,{lagna:i.lagOv*30+(o.calcLagna%30)});_CC[ck].c=c1;_CC[ck].ds=digitScores(c1);}
+    else{_CC[ck].c=o;_CC[ck].ds=digitScores(o);}
+  })`)(inp);
+}
+
+// อ่านแบบไม่มีดวง: เกรดตามตำราอย่างเดียว
+function analyzeNoChart(inp){
+  E("(function(i){_PCTX={job:i.job,jobs:i.jobs,cls:{},age:30,ph:i.phone,hot:''};})")(inp);
+  const n=inp.phone.split("").map(Number), POS=E("POS"), pairInfoG=E("pairInfoG");
+  const pos=POS.map(p=>{const v=n[p.i[0]]*10+n[p.i[1]];const info=pairInfoG(v,inp.sex);return {...p,v,s:String(v).padStart(2,"0"),info,g:info[0],base:info[0]};});
+  const sum=n.reduce((a,b)=>a+b,0);
+  const SO=E("SUM_OVR"); let sumInfo=pairInfoG(sum,inp.sex); if(SO[sum]) sumInfo=[SO[sum][0],SO[sum][1],SO[sum][2]];
+  return {n,pos,sum,sumInfo,flags:[],trips:E("findTrips")(inp.phone,inp.sex),nochart:true};
+}
+
+function runOne(raw,base,nochart){
+  const seven=raw.length===7, phone=seven?"081"+raw:raw;
+  const inp={...base,phone};
+  let R;
+  if(nochart){R=analyzeNoChart(inp);}
+  else{prepChart(inp); R=E("analyze")(inp); E("finalScore")(inp,R);
+    const pairScore=E("pairScore"), gradeOf=E("gradeOf"), dblFit=E("dblFit");
+    const DG={}; dblFit(inp,R).forEach(x=>{DG[x.v]=x.g;});
+    R.pos.forEach(p=>{p.base=p.info[0];p.g=DG[p.s]||gradeOf(pairScore(p,R));});
+    R.verdict=E("verdictText")(R);}
+  R.seven=seven; R.raw=raw; R.inp=inp;
+  if(seven){
+    R.pos=R.pos.filter(p=>p.i[0]>=3&&p.i[1]>=3);
+    const d=raw.split("").map(Number); R.sum=d.reduce((a,b)=>a+b,0);
+    const ns=E("numSum")(R.sum,"phone",inp); R.sumInfo=ns;
+    if(R.flags) R.flags=R.flags.filter(f=>!/ตัวเชื่อม/.test(f)).map(f=>f.replace(/หลักที่ (\d+)/g,(m,x)=>"หลักที่ "+(x-3)));
+    R.trips=(R.trips||[]).filter(t=>t.to>=3);
+  }
+  R.sumG=R.sumInfo[0];
+  return R;
+}
+
+// ===== เขียนข้อความแบบคนพูด =====
+function posLine(p,R,k,seen){
+  const nm=PN[p.k], s=p.s, nm2=clean(p.info[1]), mean=clean(p.info[2]), extra=clean(p.info[3]);
+  const cls=R.ds&&R.ds.cls; const digs=[...new Set(s.split(""))];
+  const weak=cls?digs.filter(d=>cls[+d]==="b"):[], strong=cls?digs.filter(d=>cls[+d]==="g"):[];
+  const end={g:pick(["ตรงนี้ดี","ผมให้ผ่าน","ตรงนี้หนุน"],k),m:pick(["ตรงนี้กลาง ๆ ไม่ได้เสีย แต่ก็ไม่ได้ช่วยเต็มที่","ดีครึ่งไม่ดีครึ่ง","ให้ผลกลาง ๆ"],k),b:pick(["ตรงนี้เสีย","ตรงนี้ไม่ดี","ตรงนี้ผมไม่ให้ผ่าน"],k)}[p.g];
+  // คู่ซ้ำที่อ่านไปแล้ว พูดสั้น ๆ
+  if(seen[s]&&seen[s]===p.g) return `${nm}ก็เป็น ${s} เหมือนกัน ผลไปทางเดียวกัน ${end}`;
+  seen[s]=p.g;
+  let t=pick([`${nm} เป็น ${s} ${nm2} ${mean}`,`ตำแหน่ง${nm} ได้ ${s} ${nm2} ${mean}`,`${nm}ออกมาเป็น ${s} ${nm2} ${mean}`],k);
+  if(p.g==="b"&&k%3===0) t="ที่ผมสะดุดคือ"+t.replace(/^ตำแหน่ง/,"");
+  if(extra) t+=" "+extra;
+  if(!R.nochart){
+    if(p.base==="g"&&p.g!=="g"&&weak.length) t+=` ตามตำราคู่นี้ดี แต่เลข ${joinTh(weak)} เป็นพลังอ่อนในดวง ผลดีเลยออกมาไม่เต็ม รวมกับดวงแล้ว`;
+    else if(p.base!=="b"&&p.g==="b"&&weak.length) t+=` แต่เลข ${joinTh(weak)} เป็นพลังอ่อนในดวง ยิ่งดึงลง รวมกับดวงแล้ว`;
+    else if(p.base==="m"&&p.g==="g"&&strong.length) t+=` ตามตำราคู่นี้อยู่กลาง ๆ แต่เลข ${joinTh(strong)} เป็นพลังดีในดวง เลยหนุนได้ รวมกับดวงแล้ว`;
+  }
+  return t+" "+end;
+}
+function sumLine(R){
+  const x=R.sumInfo, g=R.sumG, nm=clean(x[1]).replace(/^ผลรวม\s*\d+\s*/,""), mean=clean(x[2]);
+  const head=`ผลรวม ${R.sum}${nm?" "+nm:""} ${mean}`;
+  return head+(g==="g"?" ผลรวมดี เป็นภาพรวมระยะยาวที่หนุนชีวิต":g==="m"?" ผลรวมกลาง ๆ ไม่ได้ฉุด แต่ก็ไม่ได้ดันมาก":" ผลรวมไม่ดี ระยะยาวจะเหนื่อยกว่าที่ควร");
+}
+function chartLine(R,inp){
+  const SIGNS=E("SIGNS"), cls=R.ds.cls, good=[],bad=[];for(let d=0;d<10;d++){if(cls[d]==="g")good.push(d);if(cls[d]==="b")bad.push(d);}
+  const lag=Math.floor(R.c.lagna/30);
+  let t=`ผมดูพื้นดวงก่อน ลัคนาราศี${SIGNS[lag]} เลขที่เป็นพลังดีในดวงคือ ${good.join(" ")||"ไม่มีตัวที่เด่น"} ส่วนเลขพลังอ่อนคือ ${bad.join(" ")||"ไม่มี"}`;
+  const tail=R.n.slice(R.seven?6:6), wt=[...new Set(tail.filter(d=>cls[d]==="b"))];
+  if(wt.length) t+=` ในสี่ตัวท้ายเบอร์มีเลข ${joinTh(wt.map(String))} ซึ่งเป็นพลังอ่อนอยู่ ตรงนี้ต้องดูว่ามีเลขดีประกบไหม`;
+  else t+=" สี่ตัวท้ายเบอร์ไม่มีเลขพลังอ่อนในดวง ตรงนี้ถือว่าเริ่มต้นดี";
+  if(inp.notime) t+=" (ไม่ทราบเวลาเกิด ลัคนาเป็นค่าประมาณ)";
+  return t;
+}
+function extraLines(R){
+  const out=[];
+  (R.flags||[]).forEach(f=>{if(/^ตำแหน่ง/.test(f)||/พลังอ่อนในดวงคุณ และไม่มีเลขพลังดี/.test(f)&&false) return; if(/^ตำแหน่ง/.test(f))return; out.push(clean(f));});
+  (R.rescued||[]).forEach(f=>out.push(clean(f)));
+  (R.gnotes||[]).forEach(x=>out.push(clean(x[1])));
+  if(R.jobNote&&R.inp.jobText) out.push("เรื่องอาชีพ "+clean(R.jobNote[1]));
+  if(R.nochart&&R.trips&&R.trips.length) R.trips.forEach(t=>out.push("เบอร์มีเลข "+t.pt+" สำหรับ"+(R.inp.sex==="f"?"ผู้หญิง":"ผู้ชาย")+" "+clean(t.txt)));
+  return [...new Set(out)];
+}
+function verdict(R){
+  const P=Object.fromEntries(R.pos.map(p=>[p.k,p]));
+  const mainBad=R.pos.filter(p=>p.main&&p.g==="b"), tailBad=["FG","GF"].some(k=>P[k]&&P[k].g==="b"), abBad=P.AB&&P.AB.g==="b";
+  let v;
+  if(!R.nochart){
+    const s=R.score;
+    v=R.strong?"เบอร์นี้ไม่ผ่าน มีจุดที่ตัดทิ้งได้เลย เปลี่ยนดีกว่า":s>=75?"เบอร์นี้ดี เข้ากับดวง ใช้ต่อได้ ไม่ต้องเปลี่ยน":s>=60?"เบอร์นี้ใช้ได้ แต่ยังมีจุดดึงอยู่ ถ้าอยากให้สุดควรหาเบอร์ที่เข้ากับดวงกว่านี้":s>=45?(tailBad?"ท้ายเบอร์เสีย ซึ่งเป็นตำแหน่งที่แรงที่สุด เบอร์นี้พาเหนื่อยมากกว่าพาไปข้างหน้า ผมแนะนำให้เปลี่ยน":"เบอร์นี้กลาง ๆ ไม่ได้ร้าย แต่ไม่ได้ช่วยดวงเลย ใช้ไปก็ทรงตัว ถ้าเปลี่ยนได้ก็ควรเปลี่ยน"):(abBad?"เบอร์นี้เสีย ทางเข้าเงินก็ไม่ดี หลายตำแหน่งไม่หนุน ควรเปลี่ยน":"เบอร์นี้เสีย ไม่เข้ากับดวง ควรเปลี่ยน");
+  }else{
+    v=mainBad.length>=3||tailBad&&abBad?"เบอร์นี้เสีย จุดสำคัญไม่ดีหลายจุด ไม่แนะนำให้ใช้ต่อ":tailBad?"ท้ายเบอร์ไม่ดี ซึ่งแรงที่สุด เบอร์นี้ยังไม่ผ่าน":mainBad.length?"เบอร์นี้กลาง ๆ มีจุดเสียที่ต้องระวัง":"ตามตำราเบอร์นี้ใช้ได้ ไม่มีคู่เสียในตำแหน่งสำคัญ แต่ต้องเทียบดวงก่อนถึงจะบอกได้ว่าเข้ากับเจ้าของจริงไหม";
+  }
+  return v;
+}
+function fullText(R){
+  const inp=R.inp, who=inp.nick?"คุณ"+inp.nick:"", ph=fmtPh(R.raw), P=Object.fromEntries(R.pos.map(p=>[p.k,p]));
+  const paras=[];
+  paras.push(`เบอร์ ${ph}${who?" ของ"+who:""}${R.seven?" (อ่านเฉพาะ 7 ตัวท้าย)":""}`);
+  if(!R.nochart) paras.push(chartLine(R,inp));
+  const ord=ORDER.filter(k=>P[k]);
+  let k=R.raw.split("").reduce((a,b)=>a*7+(+b),3); const seen={};
+  ord.forEach((x,j)=>{let t=posLine(P[x],R,k++,seen);
+    if(j===0) t="เริ่มจากท้ายเบอร์ซึ่งแรงที่สุด "+t;
+    if(x==="A2") t="หัวเบอร์ส่งผลน้อย "+t;
+    paras.push(t);});
+  paras.push(sumLine(R));
+  const ex=extraLines(R); if(ex.length) paras.push("ที่ต้องรู้เพิ่ม "+ex.join(" "));
+  // แยกพื้นดวงกับสิ่งที่เบอร์กระตุ้น
+  if(!R.nochart){
+    const cls=R.ds.cls, bad=R.pos.filter(p=>p.g==="b"&&p.main);
+    const fromChart=bad.filter(p=>p.base!=="b"), fromNum=bad.filter(p=>p.base==="b");
+    let t="";
+    if(fromNum.length) t+=`เรื่องที่เบอร์กระตุ้นเองคือ${joinTh(fromNum.map(p=>PN[p.k]))} คู่เลขตรงนั้นเสียตามตำราอยู่แล้ว เปลี่ยนเบอร์แก้ได้ตรง ๆ `;
+    if(fromChart.length) t+=`ส่วน${joinTh(fromChart.map(p=>PN[p.k]))} ตัวคู่เลขไม่ได้เสีย แต่ไปโดนเลขที่เป็นพลังอ่อนในดวง ตรงนี้เป็นพื้นดวงที่เบอร์ไปขยายให้ชัดขึ้น`;
+    if(t) paras.push(t.trim());
+  }
+  paras.push("สรุปตรง ๆ "+verdict(R)+(R.nochart?"":` คะแนนเบอร์นี้เทียบกับดวงได้ ${R.s1000} จาก 1000`));
+  return paras.join("\n\n");
+}
+function shortText(R){
+  const P=Object.fromEntries(R.pos.map(p=>[p.k,p])), ph=fmtPh(R.raw);
+  const main=ORDER.filter(k=>P[k]&&P[k].main&&!["A2"].includes(k)).map(k=>P[k]);
+  const good=main.filter(p=>p.g==="g").slice(0,3), bad=main.filter(p=>p.g==="b").slice(0,3);
+  const lines=[`เบอร์ ${ph} ผลรวม ${R.sum} ${clean(R.sumInfo[1]).replace(/^ผลรวม\s*\d+\s*/,"")}`.trim()];
+  if(good.length) lines.push("จุดดีคือ"+good.map(p=>`${PN[p.k]}เป็น ${p.s} ${clean(p.info[2])}`).join(" ส่วน"));
+  if(bad.length) lines.push("ที่ไม่ดีคือ"+bad.map(p=>`${PN[p.k]}เป็น ${p.s} ${clean(p.info[2])}`).join(" และ"));
+  else lines.push("ไม่มีคู่เสียในตำแหน่งสำคัญ");
+  lines.push("พูดตรง ๆ "+verdict(R));
+  lines.push("ถ้าอยากรู้ว่าเบอร์นี้เข้ากับดวงคุณจริงไหม ทักแชทเพจมาพร้อมวันเดือนปีเกิดและเวลาเกิด ผมอ่านละเอียดเทียบดวงให้ครับ");
+  return lines.join("\n\n");
+}
+function techHtml(R){
+  const GL={g:"ดี",m:"กลาง",b:"เสีย"};
+  const rows=ORDER.map(k=>R.pos.find(p=>p.k===k)).filter(Boolean).map(p=>`<tr><td>${p.k}</td><td>${PN[p.k]}</td><td class="n">${p.s}</td><td>${esc(p.info[1])}</td><td><span class="pill ${p.base}">${GL[p.base]}</span>${R.nochart||p.base===p.g?"":` <span class="pill ${p.g}">ดวง ${GL[p.g]}</span>`}</td></tr>`).join("");
+  let dig="";
+  if(!R.nochart){const cls=R.ds.cls;dig=`<h3>คุณภาพเลข 0 ถึง 9 ในดวง</h3><div class="digits">${[1,2,3,4,5,6,7,8,9,0].map(d=>`<span class="${cls[d]}" title="${PLN[d]}">${d}</span>`).join("")}</div>`;}
+  return `${dig}<h3>ทุกตำแหน่ง</h3><table><thead><tr><th>รหัส</th><th>ตำแหน่ง</th><th>คู่</th><th>ชื่อคู่</th><th>เกรด</th></tr></thead><tbody>${rows}
+   <tr><td>ผลรวม</td><td>ผลรวม</td><td class="n">${R.sum}</td><td>${esc(R.sumInfo[1])}</td><td><span class="pill ${R.sumG}">${GL[R.sumG]}</span></td></tr></tbody></table>
+   ${R.tri3?`<h3>ชุด 3 ตัว</h3><p class="note">${R.tri3.map(t=>`${t.t} ${esc(t.name)} (${GL[t.v]})`).join("<br>")}</p>`:""}`;
+}
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function copy(el,btn){const t=el.innerText;const ok=()=>{const o=btn.textContent;btn.textContent="คัดลอกแล้ว";setTimeout(()=>btn.textContent=o,1500);};
+  try{navigator.clipboard.writeText(t).then(ok,()=>fb());}catch(e){fb();}
+  function fb(){const ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok();}catch(e){}ta.remove();}}
+
+function card(R,i){
+  const head=R.nochart?`<span class="big">${fmtPh(R.raw)}</span> <span class="pill ${R.sumG}">ผลรวม ${R.sum}</span>`
+   :`<span class="big">${fmtPh(R.raw)}</span> <span class="pill ${R.band[0]}">${R.s1000}/1000 ${esc(R.band[1])}</span>`;
+  const blocks=[];
+  if(!R.nochart) blocks.push(["ข้อความอ่านเต็ม ส่งในแชท",fullText(R)]);
+  blocks.push(["ข้อความสั้น ตอบคอมเมนต์",shortText(R)]);
+  if(R.nochart) blocks.push(["อ่านทุกตำแหน่งตามตำรา (ยังไม่เทียบดวง)",fullText(R)]);
+  return `<section class="card"><h2>${head}</h2>
+   ${blocks.map((b,j)=>`<h3>${b[0]}</h3><div class="out" contenteditable="true" id="o${i}_${j}">${esc(b[1])}</div><div class="bar"><button type="button" data-cp="o${i}_${j}">คัดลอก</button></div>`).join("")}
+   <details><summary>ดูตารางสำหรับผม</summary>${techHtml(R)}</details></section>`;
+}
+
+$("go").onclick=()=>{
+  $("err").hidden=true; const f=readForm(); if(f.error){$("err").textContent=f.error;$("err").hidden=false;return;}
+  save(); $("go").disabled=true;
+  setTimeout(()=>{try{
+    const Rs=f.list.map(p=>runOne(p,f.base,!!f.nochart));
+    let html=Rs.map(card).join("");
+    if(Rs.length>1&&!f.nochart){const s=[...Rs].sort((a,b)=>b.s1000-a.s1000);
+      html=`<section class="card"><h2>เรียงจากเข้ากับดวงที่สุด</h2><p>${s.map(r=>`${fmtPh(r.raw)} ได้ ${r.s1000}`).join("<br>")}</p></section>`+html;}
+    $("res").innerHTML=html;
+    $("res").querySelectorAll("[data-cp]").forEach(b=>b.onclick=()=>copy($(b.dataset.cp),b));
+    $("res").scrollIntoView({behavior:"smooth"});
+  }catch(e){$("err").textContent="อ่านไม่สำเร็จ: "+e.message;$("err").hidden=false;console.error(e);}
+  $("go").disabled=false;},20);
+};
+</script>
+</body>
+</html>
