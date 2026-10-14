@@ -363,7 +363,7 @@ a.dgo{display:inline-block;background:var(--accent-deep);color:var(--on-accent);
   <nav class="topnav ncats" aria-label="เมนู">
     <details class="navmore ncat"><summary>เบอร์มงคล</summary><div class="navlist"><a href="#stock" id="toStock">สต็อกเบอร์</a><a href="#consign" id="toConsign">ฝากขายเบอร์</a><a href="#policy" id="toPolicy">วิธีซื้อและนโยบายร้าน</a></div></details>
     <details class="navmore ncat"><summary>ชื่อมงคล</summary><div class="navlist"><a href="#" data-go="name">วิเคราะห์ชื่อ นามสกุล</a><a href="#" data-go="biz">วิเคราะห์ชื่อร้าน ชื่อบริษัท</a><a href="#" data-go="baby">ตั้งชื่อลูกตามวันเกิด</a></div></details>
-    <details class="navmore ncat"><summary>ดูดวง</summary><div class="navlist"><a class="horo" href="duang.html" id="toHoro">ดูดวง</a><a href="https://www.palangtuaylek.com/duang.html#dream" id="toDream">ทำนายฝัน</a><a href="#" data-go="today">สีมงคลและเลขนำโชควันนี้</a><a href="#" data-go="rk">หาฤกษ์มงคล</a><a href="#" data-go="love">ดวงคู่</a></div></details>
+    <details class="navmore ncat"><summary>ดูดวง</summary><div class="navlist"><a class="horo" href="duang.html" id="toHoro">ดูดวง</a><a href="https://www.palangtuaylek.com/duang.html#dream" id="toDream">ทำนายฝัน</a><a href="#" data-go="today">สีมงคลและเลขนำโชควันนี้</a><a href="#" data-go="dir">ทิศมงคลตามวันเกิด</a><a href="#" data-go="rk">หาฤกษ์มงคล</a><a href="#" data-go="love">ดวงคู่</a></div></details>
     <details class="navmore ncat"><summary>ความรู้</summary><div class="navlist"><a href="#why" id="toWhy">ทำไมเบอร์ถึงส่งผลต่อชีวิต</a><a href="#time" id="toTime">ใช้เบอร์ใหม่นานแค่ไหนถึงส่งผล</a><a href="#learn" id="toLearn">หลักการอ่านเบอร์</a><a href="#digits" id="toDigits">ความหมายเลข 0 ถึง 9</a><a href="#pairs" id="toLib">ความหมายคู่เลข 00 ถึง 99</a><a href="#triples" id="toTri">ความหมายเลข 3 ตัว</a><a href="#sum" id="toSum">ความหมายผลรวม</a><a href="#pyramid" id="toPyr">วิธีอ่านพีระมิด</a><a href="#biz" id="toBiz">คู่เลขกับอาชีพ</a></div></details>
     <details class="navmore ncat"><summary>บทความ</summary><div class="navlist"><a href="#place" id="toPlace">เลือกเบอร์ กับ วางเบอร์ ต่างกันอย่างไร</a><a href="#namepick" id="toNamepick">ตั้งชื่อมงคลตามวันเกิด ต้องดูอะไรบ้าง</a><a href="#kali" id="toKali">อักษรกาลกิณี ของคนเกิดแต่ละวัน</a><a href="#easy" id="toEasy">เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด</a><a href="#nine" id="toNine">เลข 9 เลขสำคัญของยุคดิจิทัล</a><a href="#chart" id="toChart">ทำไมต้องวางเบอร์จากพื้นดวง</a><a href="#trap" id="toTrap">กับดักเบอร์มงคล 100%</a><a href="#weak" id="toWeak">ไม่มีเลขเสีย แต่ทำไมชีวิตไม่โต</a><a href="#context" id="toCtx">เบอร์เสียคือเบอร์ที่ผิดบริบท</a><a href="#start" id="toStart">ชีวิตติดหล่ม เริ่มแก้จากเบอร์</a></div></details>
     <a class="ncat nlink" href="https://www.palangtuaylek.com/ebook.html" id="toEbook">Ebook</a>
@@ -380,7 +380,7 @@ a.dgo{display:inline-block;background:var(--accent-deep);color:var(--on-accent);
   <h2 id="fh">วิเคราะห์เบอร์มือถือ</h2>
   <form id="f" novalidate>
     <h3 class="sub" data-show="love" style="margin:0">คนที่ 1 ข้อมูลของคุณ</h3>
-    <div class="row" data-show="phone name plate house idcard cmp rk love bank shop today baby">
+    <div class="row" data-show="phone name plate house idcard cmp rk love bank shop today baby dir">
       <label for="nick">ชื่อเล่น (ไม่ใส่ก็ได้)<input id="nick" autocomplete="nickname"></label>
       <label for="sex">เพศ<select id="sex"><option value="m">ชาย</option><option value="f">หญิง</option></select></label>
     </div>
@@ -413,6 +413,7 @@ a.dgo{display:inline-block;background:var(--accent-deep);color:var(--on-accent);
     <label for="plate" data-show="plate">ทะเบียนรถ (ใส่ตัวอักษรและตัวเลข ไม่ต้องใส่จังหวัด)<input id="plate" placeholder="เช่น 1กข 2345" maxlength="12" autocomplete="off"></label>
     <label for="house" data-show="house">บ้านเลขที่<input id="house" placeholder="เช่น 123/45" maxlength="20" autocomplete="off"></label>
     <div class="hsbox" data-show="house"><p class="note" style="margin:0">ข้อมูลด้านบนคือของเจ้าบ้าน อยากรู้ว่าบ้านนี้หนุนคนอื่นในบ้านไหม เพิ่มได้อีก 5 คน</p><div id="hsppl"></div><button type="button" class="ghost" id="hsadd">เพิ่มคนในบ้าน</button></div>
+    <label for="hdir" data-show="house shop">ทิศหน้าบ้าน หรือหน้าร้าน (ไม่ทราบไม่ต้องเลือก)<select id="hdir"><option value="">ไม่ทราบ หรือไม่ระบุ</option><option value="n">เหนือ</option><option value="ne">อีสาน (ตะวันออกเฉียงเหนือ)</option><option value="e">ตะวันออก</option><option value="se">อาคเนย์ (ตะวันออกเฉียงใต้)</option><option value="s">ใต้</option><option value="sw">หรดี (ตะวันตกเฉียงใต้)</option><option value="w">ตะวันตก</option><option value="nw">พายัพ (ตะวันตกเฉียงเหนือ)</option></select></label>
     <label for="shop" data-show="shop">เลขที่ร้าน หรือเลขห้องเช่า<input id="shop" placeholder="เช่น 88/9" maxlength="20" autocomplete="off"></label>
     <label for="bank" data-show="bank">เลขบัญชีธนาคาร<input id="bank" inputmode="numeric" placeholder="123-4-56789-0" maxlength="22" autocomplete="off"></label>
     <label for="idcard" data-show="idcard">เลขบัตรประชาชน 13 หลัก<input id="idcard" inputmode="numeric" placeholder="1 2345 67890 12 3" maxlength="17" autocomplete="off"></label>
@@ -455,7 +456,7 @@ a.dgo{display:inline-block;background:var(--accent-deep);color:var(--on-accent);
 
 <footer>
   <div class="fgrid">
-    <div><p class="fh">บริการ</p><ul><li><a href="#" data-go="name" class="flink">วิเคราะห์ชื่อ</a></li><li><a href="#" data-go="biz" class="flink">วิเคราะห์ชื่อร้าน</a></li><li><a href="#" data-go="rk" class="flink">หาฤกษ์มงคล</a></li><li><a href="#" data-go="love" class="flink">ดวงคู่</a></li><li><a href="#" data-go="today" class="flink">สีมงคลวันนี้</a></li><li><a href="#" data-go="baby" class="flink">ตั้งชื่อลูก</a></li><li><a href="#" data-go="shop" class="flink">เลขที่ร้าน</a></li><li><a href="#stock" class="flink">สต็อกเบอร์</a></li><li><a href="#policy" class="flink">วิธีซื้อและนโยบายร้าน</a></li><li><a href="#review" class="flink">รีวิวลูกค้า</a></li><li><a href="#about" class="flink">แนะนำตัว</a></li><li><a href="duang.html" class="flink">ดูดวง</a></li><li><a href="https://www.palangtuaylek.com/duang.html#dream" class="flink">ทำนายฝัน</a></li><li><a href="https://www.palangtuaylek.com/ebook.html" class="flink">อีบุ๊ก</a></li></ul></div>
+    <div><p class="fh">บริการ</p><ul><li><a href="#" data-go="name" class="flink">วิเคราะห์ชื่อ</a></li><li><a href="#" data-go="biz" class="flink">วิเคราะห์ชื่อร้าน</a></li><li><a href="#" data-go="rk" class="flink">หาฤกษ์มงคล</a></li><li><a href="#" data-go="love" class="flink">ดวงคู่</a></li><li><a href="#" data-go="today" class="flink">สีมงคลวันนี้</a></li><li><a href="#" data-go="baby" class="flink">ตั้งชื่อลูก</a></li><li><a href="#" data-go="shop" class="flink">เลขที่ร้าน</a></li><li><a href="#" data-go="dir" class="flink">ทิศมงคล</a></li><li><a href="#stock" class="flink">สต็อกเบอร์</a></li><li><a href="#policy" class="flink">วิธีซื้อและนโยบายร้าน</a></li><li><a href="#review" class="flink">รีวิวลูกค้า</a></li><li><a href="#about" class="flink">แนะนำตัว</a></li><li><a href="duang.html" class="flink">ดูดวง</a></li><li><a href="https://www.palangtuaylek.com/duang.html#dream" class="flink">ทำนายฝัน</a></li><li><a href="https://www.palangtuaylek.com/ebook.html" class="flink">อีบุ๊ก</a></li></ul></div>
     <div><p class="fh">ความรู้เรื่องตัวเลข</p><ul><li><a href="#why" class="flink">ทำไมเบอร์ส่งผลต่อชีวิต</a></li><li><a href="#time" class="flink">ใช้เบอร์ใหม่นานแค่ไหนถึงส่งผล</a></li><li><a href="#learn" class="flink">หลักการอ่านเบอร์</a></li><li><a href="#pyramid" class="flink">วิธีอ่านพีระมิด</a></li><li><a href="#sum" class="flink">ความหมายผลรวม</a></li><li><a href="#digits" class="flink">ความหมายเลข 0 ถึง 9</a></li><li><a href="#pairs" class="flink">ความหมายคู่เลข 00 ถึง 99</a></li><li><a href="#triples" class="flink">ความหมายเลข 3 ตัว</a></li><li><a href="#biz" class="flink">คู่เลขกับอาชีพ</a></li></ul></div>
     <div><p class="fh">บทความ</p><ul><li><a href="#place" class="flink">เลือกเบอร์ กับ วางเบอร์ ต่างกันอย่างไร</a></li><li><a href="#easy" class="flink">เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด</a></li><li><a href="#nine" class="flink">เลข 9 เลขสำคัญของยุคดิจิทัล</a></li><li><a href="#chart" class="flink">ทำไมต้องวางเบอร์จากพื้นดวง</a></li><li><a href="#trap" class="flink">กับดักเบอร์มงคล 100%</a></li><li><a href="#weak" class="flink">ไม่มีเลขเสีย แต่ทำไมชีวิตไม่โต</a></li><li><a href="#context" class="flink">เบอร์เสียคือเบอร์ที่ผิดบริบท</a></li><li><a href="#start" class="flink">ชีวิตติดหล่ม เริ่มแก้จากเบอร์</a></li><li><a href="#namepick" class="flink">ตั้งชื่อมงคลตามวันเกิด</a></li><li><a href="#kali" class="flink">อักษรกาลกิณีของคนเกิดแต่ละวัน</a></li></ul></div>
   </div>
@@ -4873,7 +4874,8 @@ const MODES={
  cmp:{btn:"เทียบเบอร์",title:"เทียบเบอร์ 2 เบอร์ ว่าเบอร์ไหนเข้ากับดวงมากกว่า"},
  shop:{btn:"วิเคราะห์เลขที่ร้าน",title:"วิเคราะห์เลขที่ร้าน ห้องเช่า สำหรับคนค้าขาย"},
  today:{btn:"ดูสีมงคลวันนี้",title:"สีมงคลและเลขนำโชคประจำวัน ตามดวงของคุณ"},
- baby:{btn:"ดูชื่อที่แนะนำ",title:"ตั้งชื่อลูกตามวันเกิด"}};
+ baby:{btn:"ดูชื่อที่แนะนำ",title:"ตั้งชื่อลูกตามวันเกิด"},
+ dir:{btn:"ดูทิศมงคล",title:"ทิศมงคลตามวันเกิด ประตู หัวนอน โต๊ะทำงาน ที่เก็บเงิน"}};
 function setMode(m,init){
   MODE=m;
   document.querySelectorAll(".modetabs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===m));
@@ -4926,7 +4928,7 @@ function readMode(){
   if(MODE==="plate"){ const t=$("plate").value.replace(/\s+/g,""); const L=[...t].filter(c=>/[ก-ฮ]/.test(c)); const D=[...t].filter(c=>/\d/.test(c)).map(Number);
     if(!D.length||!L.length) return {error:"ใส่ทะเบียนรถให้มีทั้งตัวอักษรและตัวเลข เช่น 1กข 2345"}; inp.plate=t; inp.letters=L; inp.digits=D; }
   if(MODE==="house"||MODE==="shop"){ const t=$(MODE).value.trim().replace(/[๐-๙]/g,c=>String("๐๑๒๓๔๕๖๗๘๙".indexOf(c))); const D=[...t].filter(c=>/\d/.test(c)).map(Number);
-    if(D.length<1) return {error:MODE==="shop"?"ใส่เลขที่ร้าน เช่น 88/9":"ใส่บ้านเลขที่ เช่น 123/45"}; inp.house=t; inp.digits=D; inp.hparts=hsParse(t); if(!inp.hparts.length) inp.hparts=[D]; }
+    if(D.length<1) return {error:MODE==="shop"?"ใส่เลขที่ร้าน เช่น 88/9":"ใส่บ้านเลขที่ เช่น 123/45"}; inp.house=t; inp.digits=D; inp.hdir=($("hdir")||{}).value||""; inp.hparts=hsParse(t); if(!inp.hparts.length) inp.hparts=[D]; }
   if(MODE==="biz"){ if(!/[ก-ฮ]/.test(inp.fname)) return {error:"ใส่ชื่อร้านหรือชื่อบริษัทเป็นภาษาไทย"}; inp.lname=""; }
   if(MODE==="cmp"){ const nz=v=>{let p=v.replace(/\D/g,"");if(p.length===11&&p.startsWith("66"))p="0"+p.slice(2);return p;}; inp.p1=nz($("phone").value); inp.p2=nz($("phone2").value);
     if(!/^0\d{9}$/.test(inp.p1)||!/^0\d{9}$/.test(inp.p2)) return {error:"ใส่เบอร์มือถือ 10 หลักให้ครบทั้ง 2 เบอร์"}; if(inp.p1===inp.p2) return {error:"ใส่เบอร์ที่ต่างกัน 2 เบอร์"}; }
@@ -4950,6 +4952,7 @@ function renderMode(inp){
   if(MODE==="cmp"){ renderCmp(inp,cta); return; }
   if(MODE==="house"||MODE==="shop"){ renderHouse(inp,ch,ds,who,cta); return; }
   if(MODE==="today"){ renderToday(inp,ch,ds,who,cta); return; }
+  if(MODE==="dir"){ renderDir(inp,ch,ds,who,cta); return; }
   if(MODE==="baby"){ renderBaby(inp,ch,ds,"ลูก",cta); return; }
   if(MODE==="plate"){ renderPlate(inp,ch,ds,who,cta); return; }
   if(MODE==="bank"||MODE==="idcard"){ renderBankId(inp,ch,ds,who,cta); return; }
@@ -5528,7 +5531,7 @@ function cntHit(key){
   }catch(e){}
 }
 (function(){try{if(!sessionStorage.getItem("plk_v")){sessionStorage.setItem("plk_v","1");cntHit("visit");}}catch(e){cntHit("visit");}})();
-const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["an-shop","เลขที่ร้าน"],["an-today","สีมงคลวันนี้"],["an-baby","ตั้งชื่อลูก"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-num","จ่ายตัวเลขละเอียด 399"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["ask-phone","ทักถามก่อนซื้อ เบอร์"],["ask-name","ทักถามก่อนซื้อ ชื่อ"],["ask-rk","ทักถามก่อนซื้อ ฤกษ์"],["ask-love","ทักถามก่อนซื้อ ดวงคู่"],["ask-num","ทักถามก่อนซื้อ ตัวเลขละเอียด"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
+const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["an-shop","เลขที่ร้าน"],["an-today","สีมงคลวันนี้"],["an-baby","ตั้งชื่อลูก"],["an-dir","ทิศมงคล"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-num","จ่ายตัวเลขละเอียด 399"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["ask-phone","ทักถามก่อนซื้อ เบอร์"],["ask-name","ทักถามก่อนซื้อ ชื่อ"],["ask-rk","ทักถามก่อนซื้อ ฤกษ์"],["ask-love","ทักถามก่อนซื้อ ดวงคู่"],["ask-num","ทักถามก่อนซื้อ ตัวเลขละเอียด"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
 let _CQ=Promise.resolve(),_CN=0;
 async function cntGet(k){for(let t=0;t<4;t++){try{const r=await fetch(`${CNT.base}/get/${CNT.ns}/${k}`,{cache:"no-store"});if(r.status===404)return 0;if(r.ok){const j=await r.json();return +j.value||0;}if(r.status===429||r.status>=500){await new Promise(s=>setTimeout(s,700*(t+1)));continue;}return null;}catch(e){await new Promise(s=>setTimeout(s,500));}}return null;}
 async function admStatsUI(){
@@ -7958,7 +7961,7 @@ function hsAddRow(){const box=$("hsppl");if(!box||box.children.length>=5)return;
   <button type="button" class="ghost hsdel">ลบคนนี้</button>`;
   row.querySelector(".hsdel").onclick=()=>{row.remove();$("hsadd").hidden=false;};box.appendChild(row);if(box.children.length>=5)$("hsadd").hidden=true;}
 function renderHouse(inp,ch,ds,who,cta){
-  const SHOP=MODE==="shop", parts=inp.hparts,H=hsScore(parts,inp,ds),areas=hsAreas(H,ds,SHOP?SH_AREA:HS_AREA),F=hsFinal(H,areas);H.score=F.score;
+  const SHOP=MODE==="shop", parts=inp.hparts,H=hsScore(parts,inp,ds),areas=hsAreas(H,ds,SHOP?SH_AREA:HS_AREA),F=hsFinal(H,areas);const DX=hsDirApply(F,inp,ds);H.score=F.score;
   const band=hsBand(H.score,SHOP?"เจ้าของร้าน":"เจ้าบ้าน"), W=SHOP?{k:"เลขที่ร้าน",o:"เจ้าของร้าน",h:"ร้านนี้",x:"กิจการ"}:{k:"บ้านเลขที่",o:"เจ้าบ้าน",h:"บ้านนี้",x:"เรื่องในบ้าน"};
   const two=parts.length>1, keyP=H.P.filter(p=>p.pi===parts.length-1&&p.tail)[0];
   const good=[],bad=[];for(let d=0;d<10;d++){if(ds.cls[d]==="g")good.push(d);if(ds.cls[d]==="b")bad.push(d);}
@@ -7968,6 +7971,7 @@ function renderHouse(inp,ch,ds,who,cta){
   else summ.push((two?"เลขหลัง / ":W.k+" ")+"มีตัวเดียวคือเลข "+parts[parts.length-1][0]+" ซึ่งเป็นเลข"+DL[ds.cls[parts[parts.length-1][0]]]+"ในดวง"+W.o);
   summ.push("ผลรวมทั้ง"+(SHOP?"ร้าน ":"บ้าน ")+H.sum+" "+(H.sum<10?"":(H.si[0]==="g"?"เป็นเลขดี":H.si[0]==="b"?"ไม่ค่อยส่งเสริม":"ให้ผลกลาง ๆ")+" ")+H.si[2]);
   const gA=areas.filter(a=>a.g==="g").map(a=>a.n),bA=areas.filter(a=>a.g==="b").map(a=>a.n);
+  if(DX) summ.push(dirFrontText(DX,W.o).replace("หน้าบ้าน",SHOP?"หน้าร้าน":"หน้าบ้าน"));
   if(gA.length) summ.push("เรื่องที่"+W.h+"หนุนได้ดีคือ"+joinTh(gA));
   if(bA.length) summ.push("เรื่องที่ต้องดูแลคือ"+joinTh(bA));
   const pairLi=p=>`<li><div class="pv ${p.g}">${p.s}</div><div><h3>${p.info[1]} <span class="pill ${p.g}">${HS_GL[p.g]}</span></h3><p class="note" style="margin:0">${p.part}${p.tail?" · คู่ท้าย":""}${p.pi===parts.length-1&&p.tail?" ส่งผลแรงที่สุด":""}</p><p>${p.info[2]}${p.info[3]?" "+p.info[3]:""}</p><p class="note">${p.s.split("").map(d=>"เลข "+d+" "+DL[ds.cls[+d]]).join(" ")} ในดวง${W.o}${wkNote(p.s,p.g,ds.cls,p.info[3])}</p></div></li>`;
@@ -7988,6 +7992,7 @@ function renderHouse(inp,ch,ds,who,cta){
     <div class="lucky"><span class="lbl">เลขพลังอ่อน ควรร้อยเรียงอย่างระวัง</span><div class="chs">${bad.map(d=>`<b class="ch b">${d}</b>`).join("")||"<span class='note'>ไม่มี</span>"}</div></div>
     ${hsCompHtml(F)}</div></section>
   ${pplH}
+  ${dirCardHtml(inp,ds,who,false)}
   <section class="card"><h2>หลักการอ่าน${W.k}</h2><p class="para">${SHOP?"เลขที่ร้านคือพลังของที่ทำมาหากิน ส่งผลกับลูกค้า เงินหมุนเวียน คนในร้าน และชื่อเสียงของกิจการ ใช้หลักเดียวกับบ้านเลขที่ แต่อ่านเป็นเรื่องการค้า ":""}${two?W.k+"แบบมีเครื่องหมาย / ผมอ่านเลขหน้ากับเลขหลังแยกกัน ไม่อ่านคู่ข้ามเครื่องหมาย เลขหลัง / คือเลขของ"+(SHOP?"ห้องหรือคูหานี้":"บ้านหลังนี้")+"จริง ส่งผลแรงที่สุด ส่วนเลขหน้า / คือเลขของที่ดินหรือแปลงใหญ่ ส่งผลรองลงมา":"อ่านคู่เลขที่อยู่ติดกัน โดยคู่ท้ายส่งผลแรงที่สุด"} แล้วรวมทุกตัวเลขเป็นผลรวม ซึ่งบอกภาพรวมระยะยาว จากนั้นเทียบตัวเลขกับดวงของ${W.o}ว่าเป็นเลขพลังดีหรือพลังอ่อน</p></section>
   <section class="card"><h2>ผลรวม ${H.sum}</h2><p class="para">${parts.map(D=>D.join(" + ")).join(" + ")} = <b>${H.sum}</b>${two?` (เลขหน้า ${sum1} เลขหลัง ${sum2})`:""}</p>
     <p><span class="pill ${H.si[0]}">${HS_GL[H.si[0]]}</span> <b>${H.si[1]}</b> ${H.si[2]}${H.si[3]?" "+H.si[3]:""}${H.sum>=10?wkNote(H.sum,H.si[0],ds.cls,H.si[3]):""}</p></section>
@@ -8110,10 +8115,10 @@ function numCalcFor(mode,val,inp,ds){
   val=String(val||"").trim().replace(/[๐-๙]/g,c=>String("๐๑๒๓๔๕๖๗๘๙".indexOf(c))); if(!val) return null;
   if(mode==="plate") return calcPlate(val,inp,ds);
   if(mode==="bank"){const D=[...val].filter(c=>/\d/.test(c)).map(Number);if(D.length<10||D.length>15)return null;const C=calcDigitsK(D,inp,ds,BK_AREA,"เลขบัญชี");C.t=val;return C;}
-  return calcHouseLike(val,inp,ds,NUMK[mode].ar());}
+  const C=calcHouseLike(val,inp,ds,NUMK[mode].ar()); if(C){hsDirApply(C.F,inp,ds);C.score=C.F.score;} return C;}
 function numKey(inp){const y=inp.y<2400?inp.y+543:inp.y;return "9"+pad(inp.d)+pad(inp.m)+y;}
 PK.k={title:"วิเคราะห์ตัวเลขแบบละเอียด",btn:"เปิดผลละเอียด",cnt:"num",ask:"num",codeNote:"รหัสใช้ได้กับวันเกิดนี้ เปิดผลละเอียดของบ้านเลขที่ เลขที่ร้าน ทะเบียนรถ และเลขบัญชีได้ทุกเลข ไม่ต้องจ่ายใหม่",
-  items:["วิธีเสริมทีละเรื่อง ว่าเรื่องไหนอ่อน ควรใช้เลขอะไรเสริม","คู่เลขท้ายที่ควรมองหา เฉพาะดวงของคุณ","ตัวอย่างเลขที่ได้คะแนนสูงสุดกับดวงคุณ ใช้เลือกบ้าน ทะเบียน หรือบัญชีใหม่","ฤกษ์ที่ดีที่สุด 3 วันในเดือนนี้ สำหรับขึ้นบ้านใหม่ เปิดร้าน หรือออกรถ","ใช้รหัสเดิมเปิดดูเลขอื่นได้ไม่จำกัด"]};
+  items:["วิธีเสริมทีละเรื่อง ว่าเรื่องไหนอ่อน ควรใช้เลขอะไรเสริม","คู่เลขท้ายที่ควรมองหา เฉพาะดวงของคุณ","ตัวอย่างเลขที่ได้คะแนนสูงสุดกับดวงคุณ ใช้เลือกบ้าน ทะเบียน หรือบัญชีใหม่","ฤกษ์ที่ดีที่สุด 3 วันในเดือนนี้ สำหรับขึ้นบ้านใหม่ เปิดร้าน หรือออกรถ","แผนวางของในบ้านหรือร้านตามทิศมงคล ประตู หัวเตียง โต๊ะทำงาน ตู้เซฟ หิ้งพระ","ใช้รหัสเดิมเปิดดูเลขอื่นได้ไม่จำกัด"]};
 function numGoodPairs(inp,ds){const o=[];for(let v=0;v<100;v++){const s=String(v).padStart(2,"0"),a=+s[0],b=+s[1];if(ds.cls[a]==="b"||ds.cls[b]==="b")continue;
   const info=pairInfoG(v,inp.sex);if(gradeOf(pairScore({info,s},{ds}))!=="g")continue;o.push({s,info,k:(ds.cls[a]==="g")+(ds.cls[b]==="g")});}
   return o.sort((x,y)=>y.k-x.k||x.s.localeCompare(y.s)).slice(0,10);}
@@ -8133,6 +8138,7 @@ function numDeepHtml(mode,inp,ds,who,C){const K=NUMK[mode];
   return `<section class="card"><h2>วิธีเสริมทีละเรื่อง</h2><p class="note" style="margin:0 0 8px">เรียงจากเรื่องที่อ่อนที่สุด</p><ul class="pairs">${fix}</ul></section>
   <section class="card"><h2>คู่เลขท้ายที่ควรมองหา</h2><p class="para">คู่เลขเหล่านี้เป็นคู่ดี และไม่มีเลขพลังอ่อนในดวง${who} ถ้าเลือก${K.n}ใหม่ได้ ให้ท้ายเป็นคู่เหล่านี้</p><ul class="pairs">${gp.map(p=>`<li><div class="pv g">${p.s}</div><div><h3>${p.info[1]}</h3><p>${p.info[2]}</p></div></li>`).join("")}</ul></section>
   ${ex.length?`<section class="card"><h2>ตัวอย่าง${K.n}ที่ได้คะแนนสูงสุดกับดวง${who}</h2><p class="note" style="margin:0 0 8px">${mode==="plate"?"ใช้หมวดอักษรเดิมของคุณ แล้วไล่ทุกเลขท้าย":mode==="bank"?"เลขบัญชีเลือกได้แค่บางธนาคาร ใช้ดูว่าเลข 4 ตัวท้ายแบบไหนเข้ากับดวงคุณ":"ไล่ตั้งแต่เลข 1 ถึง 999 ใช้ประกอบการเลือกบ้านหรือห้อง"}</p><ul class="hsres">${ex.map(x=>`<li><b style="font-family:var(--f-mono)">${esc(mode==="bank"?"ท้าย "+x[2]:x[0])}</b><span class="pill g">${x[1]} / 1000</span></li>`).join("")}</ul></section>`:""}
+  ${(mode==="house"||mode==="shop")?dirPlanHtml(inp,ds,who,mode==="shop"):""}
   ${rk}`;}
 function numCmpHtml(mode,who){const K=NUMK[mode];
   return `<section class="card" id="ncmpbox"><h2>เทียบหลาย${K.n}</h2><p class="para">กำลังเลือกระหว่างหลายเลข ใส่บรรทัดละ 1 เลข สูงสุด 5 เลข ระบบเรียงให้ว่าเลขไหนเข้ากับดวง${who}ที่สุด</p>
@@ -8209,6 +8215,46 @@ function anHit(){try{const ids=["dd","mm","yy","phone","phone2","plate","house",
   const d=new Date(),day=d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate(),K="plk_an";let o={};try{o=JSON.parse(localStorage.getItem(K)||"{}");}catch(e){}
   if(o[h]===day) return; o[h]=day; const ks=Object.keys(o); if(ks.length>300) ks.slice(0,ks.length-300).forEach(k=>delete o[k]);
   try{localStorage.setItem(K,JSON.stringify(o));}catch(e){} cntHit("an-"+MODE);}catch(e){cntHit("an-"+MODE);}}
+
+// ===== ทิศมงคลตามวันเกิด (ทักษา) =====
+const TK_DIRN={1:"อีสาน",2:"ตะวันออก",3:"อาคเนย์",4:"ใต้",7:"หรดี",5:"ตะวันตก",8:"พายัพ",6:"เหนือ"};
+const TK_DIRL={1:"ตะวันออกเฉียงเหนือ",3:"ตะวันออกเฉียงใต้",7:"ตะวันตกเฉียงใต้",8:"ตะวันตกเฉียงเหนือ"};
+const DIR_KEY={ne:1,e:2,se:3,s:4,sw:7,w:5,nw:8,n:6};
+function dirName(p){return TK_DIRN[p]+(TK_DIRL[p]?" ("+TK_DIRL[p]+")":"");}
+function dirInfo(inp,ds){const R=tkRoles(tkBirthPlanet(inp));
+  return R.map((p,i)=>{const q=ds.cls[p];let g;
+    if([2,3,6].includes(i)) g=q==="b"?"m":"g"; else if(i===7) g=q==="b"?"b":"m"; else g=q==="g"?"g":"m";
+    return {i,p,q,g,role:NB_ROLE[i],mean:NB_ROLE_MEAN[i],dir:TK_DIRN[p]};});}
+function dirPick(D,pref){const c=pref.map(i=>D[i]);return c.find(x=>x.g==="g")||c.find(x=>x.g==="m")||c[0];}
+function dirUses(D){return [
+  ["ประตูบ้าน หรือหน้าร้าน",dirPick(D,[3,2,6]),"ให้เงินและโอกาสเข้ามาทางประตู"],
+  ["หันหัวนอน",dirPick(D,[1,6,3]),"ให้นอนหลับสนิท สุขภาพดี"],
+  ["หันหน้าโต๊ะทำงาน",dirPick(D,[2,3,6]),"ให้งานเดิน มีอำนาจในการตัดสินใจ"],
+  ["เครื่องคิดเงิน ตู้เซฟ ที่เก็บเงิน",dirPick(D,[3,6,2]),"ให้เงินอยู่ เก็บเงินได้"],
+  ["หิ้งพระ หรือที่บูชา",dirPick(D,[6,2,3]),"ให้ผู้ใหญ่และสิ่งศักดิ์สิทธิ์คุ้มครอง"]];}
+function dirGridHtml(D){const at=p=>D.find(x=>x.p===p);const cell=p=>{const x=at(p);return `<div style="border:1px solid var(--line);border-radius:10px;padding:6px 4px;text-align:center;background:var(--bg)"><b style="font-size:.92em">${TK_DIRN[p]}</b><br><span class="pill ${x.g}" style="font-size:.78em">${x.role}</span></div>`;};
+  return `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:340px;margin:8px auto">${cell(8)}${cell(6)}${cell(1)}${cell(5)}<div style="display:flex;align-items:center;justify-content:center;font-size:.85em" class="note">กลางบ้าน</div>${cell(2)}${cell(7)}${cell(4)}${cell(3)}</div><p class="note" style="text-align:center;margin:0">ด้านบนคือทิศเหนือ</p>`;}
+function dirFrontEval(inp,ds){if(!inp.hdir||!DIR_KEY[inp.hdir])return null;const D=dirInfo(inp,ds),x=D.find(d=>d.p===DIR_KEY[inp.hdir]);return x;}
+function hsDirApply(F,inp,ds){const x=dirFrontEval(inp,ds);if(!x)return null;const pts=Math.round(150*({g:0.9,m:0.55,b:0.2})[x.g]);
+  F.comp.push(["ทิศหน้าบ้านเข้ากับดวง",pts,150]);F.score=Math.max(50,Math.min(980,Math.round(F.comp.reduce((a,c)=>a+c[1],0)*1000/1150)));return x;}
+function dirFrontText(x,who){return "หน้าบ้านหันทิศ"+dirName(x.p)+" ซึ่งเป็นทิศ"+x.role+"ของ"+who+" ("+x.mean+")"+(x.g==="g"?" เป็นทิศที่หนุนดวง":x.g==="b"?" และดาวประจำทิศเป็นพลังอ่อนในดวง ทิศนี้ถ่วง ควรเสริมด้วยการใช้ประตูทิศอื่นเป็นทางเข้าหลักถ้าทำได้":x.i===7?" ตำราว่าเป็นทิศกาลกิณี แต่ดาวประจำทิศในดวงไม่เสีย จึงให้ผลกลาง ๆ":" ให้ผลกลาง ๆ");}
+function dirCardHtml(inp,ds,who,full){const D=dirInfo(inp,ds),U=dirUses(D),k=D[7];
+  return `<section class="card"><h2>ทิศมงคลของ${who}</h2><p class="note" style="margin:0">คิดจากทักษาของวันเกิด (วัน${dayName(inp)}) และดูว่าดาวประจำทิศดีในดวงจริง</p>
+   ${dirGridHtml(D)}
+   <ul class="hsres" style="margin-top:10px">${U.slice(0,full?5:3).map(([n,x,w])=>`<li><b>${n}</b><span class="pill ${x.g}">ทิศ${x.dir}</span><p class="note" style="margin:4px 0 0">เป็นทิศ${x.role}ของ${who} ${w}</p></li>`).join("")}</ul>
+   <p class="note">${k.g==="b"?"ทิศ"+dirName(k.p)+" เป็นกาลกิณีและดาวประจำทิศอ่อนในดวง ไม่ควรวางประตูหลัก หัวเตียง หรือที่เก็บเงินทางนี้":"ทิศ"+dirName(k.p)+" ตำราว่าเป็นกาลกิณี แต่ดาวประจำทิศในดวง"+who+"ไม่เสีย ใช้งานทั่วไปได้ เรื่องสำคัญเลือกทิศอื่นก่อน"}</p></section>`;}
+function dirPlanHtml(inp,ds,who,shop){const D=dirInfo(inp,ds),U=dirUses(D);
+  const items=shop?[["เคาน์เตอร์และเครื่องคิดเงิน",U[3][1]],["ประตูหน้าร้าน",U[0][1]],["โต๊ะเจ้าของร้าน หันหน้า",U[2][1]],["ป้ายร้าน หรือจุดที่ลูกค้าเห็นก่อน",dirPick(D,[2,3,0])],["หิ้งพระ หรือที่บูชาในร้าน",U[4][1]],["ห้องเก็บของ ห้องน้ำ ที่ทิ้งขยะ",D[7]]]
+    :[["ประตูหลัก",U[0][1]],["หัวเตียงห้องนอนใหญ่",U[1][1]],["โต๊ะทำงาน หันหน้า",U[2][1]],["ตู้เซฟ ที่เก็บเงิน เอกสารสำคัญ",U[3][1]],["หิ้งพระ",U[4][1]],["ห้องน้ำ ห้องเก็บของ ถังขยะ",D[7]],["ห้องผู้ใหญ่ในบ้าน",dirPick(D,[6,4,1])],["ห้องลูก หรือโต๊ะเรียนหนังสือ",dirPick(D,[6,1,2])]];
+  return `<section class="card"><h2>แผนวางของในบ้านตามทิศ${shop?" สำหรับร้าน":""}</h2><p class="note" style="margin:0 0 8px">ยืนกลาง${shop?"ร้าน":"บ้าน"} ใช้เข็มทิศในมือถือดูทิศ แล้ววางตามนี้</p>${dirGridHtml(D)}
+   <ul class="pairs">${items.map(([n,x])=>`<li style="display:block"><b>${n}</b> <span class="pill ${x.i===7?"b":x.g}">ทิศ${dirName(x.p)}</span><p class="note" style="margin:4px 0 0">${x.i===7?"ทิศกาลกิณีของ"+who+" ใช้วางของที่ไม่สำคัญ หรือห้องที่ใช้ระบายสิ่งไม่ดีออก":"เป็นทิศ"+x.role+" หนุนเรื่อง"+x.mean+(x.g!=="g"?" ดาวประจำทิศในดวงยังปานกลาง ถ้าวางได้ใกล้ทิศนี้ก็พอ":"")}</p></li>`).join("")}</ul>
+   <p class="note">ถ้าวางตรงทิศไม่ได้ทั้งหมด ให้เลือกทำ 3 อย่างแรกก่อน เพราะส่งผลมากที่สุด</p></section>`;}
+function renderDir(inp,ch,ds,who,cta){
+  $("result").innerHTML=dirCardHtml(inp,ds,who,true)+`<section class="card"><h2>หลักการ</h2><p class="para">ดาวแต่ละดวงในทักษามีทิศประจำ อาทิตย์อยู่ทิศอีสาน จันทร์ตะวันออก อังคารอาคเนย์ พุธใต้ เสาร์หรดี พฤหัสตะวันตก ราหูพายัพ ศุกร์เหนือ เมื่อตั้งวันเกิดเป็นบริวารแล้วไล่ไป จะได้ว่าทิศไหนเป็นศรี เดช มนตรี หรือกาลกิณีของคุณ จากนั้นผมดูต่อว่าดาวของทิศนั้นมีพลังดีในดวงจริงหรือไม่ ไม่ได้ตัดสินจากตำราอย่างเดียว</p>
+   <p class="para">อยากรู้ว่าบ้านหรือร้านที่อยู่ตอนนี้หันถูกทิศไหม ไปที่วิเคราะห์บ้านเลขที่ หรือเลขที่ร้าน แล้วเลือกทิศหน้าบ้าน ระบบรวมเป็นคะแนนให้ด้วย</p><div class="btns"><a href="#" data-go="house" class="primary">วิเคราะห์บ้านเลขที่</a> <a href="#" data-go="shop" class="ghost">วิเคราะห์เลขที่ร้าน</a></div></section>${cta}`;
+  const U=dirUses(dirInfo(inp,ds));
+  addShare({kind:"ทิศมงคลตามวันเกิด",main:"เกิดวัน"+dayName(inp),verdict:"ประตูทิศ"+U[0][1].dir+" เก็บเงินทิศ"+U[3][1].dir,vc:"g",lines:U.slice(0,4).map(([n,x])=>n+" ทิศ"+x.dir)});
+}
 
 try{$("hsadd").onclick=hsAddRow;}catch(e){}
 </script>
