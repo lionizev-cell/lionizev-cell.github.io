@@ -1921,11 +1921,11 @@ const CONFIG={visitBase:0, // ยอดเข้าชมจริงก่อ�
   chatUrl:"https://lin.ee/ujF7VHa", // ลิงก์แอดไลน์
   codeSalt:"plk-7Hq2-2569", // เปลี่ยนคำนี้ รหัสปลดล็อกทุกเบอร์จะเปลี่ยนทั้งหมด
   adminHash:"531379db", // รหัสแอดมินเก็บแบบแปลงแล้ว ไม่มีตัวเลขจริงในหน้าเว็บ
-  thunderKey:"1cfdb312-0a87-41c3-bdfd-80c94e7b9a30", // API key จาก developer.thunder.in.th (ตรวจสลิปอัตโนมัติ)
+  thunderKey:"", // API key จาก developer.thunder.in.th (ตรวจสลิปอัตโนมัติ)
   consignForm:"", // ลิงก์ Google ฟอร์มฝากขายแบบกรอกล่วงหน้า (ใส่คำ PH PR NET NAME CONTACT NOTE ในแต่ละช่อง) ว่างไว้ = ให้ลูกค้าส่งทางไลน์
   consignCsv:"", // ลิงก์ CSV ของแท็บ เว็บ ที่เผยแพร่จาก Google ชีต
   lineOA:"@367xgtjh", // ไอดีบัญชีไลน์ทางการ เช่น @abc1234 ใส่แล้วข้อความจะถูกพิมพ์ในแชทให้อัตโนมัติ ว่างไว้ = คัดลอกแล้วให้ลูกค้าวางเอง
-  slipApi:"", // ลิงก์ระบบตรวจสลิป (Google Apps Script ลงท้าย /exec) ว่างไว้ = ให้ลูกค้าส่งสลิปทางไลน์
+  slipApi:"https://script.google.com/macros/s/AKfycbxTojydK9-0hlZb_IlFDYwtOhIzPoJHjiF71VTKvUFm6O1akDukpyhdnuVtocREeQ-a/exec", // ลิงก์ระบบตรวจสลิป (Google Apps Script ลงท้าย /exec) ว่างไว้ = ให้ลูกค้าส่งสลิปทางไลน์
 };
 // ===== สต็อกเบอร์ที่ลงขาย (แก้ตรงนี้) =====
 // รูปแบบ: ["เบอร์", ราคา, "เครือข่าย", "หมายเหตุ", ขายแล้วใส่ true]
@@ -4023,7 +4023,7 @@ async function thunderCheck(dataUrl,phone,amount){const AMT=amount||PAY.amount,A
     else if(/account/i.test(m)) msg="บัญชีผู้รับในสลิปไม่ใช่บัญชีของร้าน";
     else if(/amount/i.test(m)) msg="ยอดเงินในสลิปไม่ตรงกับ "+AMT+" บาท";
     else if(/qr|not found|invalid/i.test(m)) msg="อ่าน QR บนสลิปไม่ได้ ใช้ไฟล์สลิปจากแอปธนาคารโดยตรง";
-    else if(/quota|limit|credit|unauthor|401|403/i.test(m)) msg="ระบบตรวจสลิปขัดข้องชั่วคราว";
+    else if(/quota|limit|credit|unauthor|401|403|proxy/i.test(m)) msg="ระบบตรวจสลิปขัดข้องชั่วคราว";
     return {ok:false,msg};}
   const d=res.data||{}, rs=d.rawSlip||{}, amt=Number(rs.amount&&rs.amount.amount)||0;
   if(d.isDuplicate) return {ok:false,msg:"สลิปนี้เคยใช้แล้ว"};
