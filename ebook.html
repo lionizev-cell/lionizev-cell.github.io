@@ -296,6 +296,27 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
  body.pr h2,body.pr h3{break-after:avoid}
  body.pr #deep,body.pr #ndeep{display:block!important}
  @page{margin:12mm}}
+
+.topnav{align-items:center}.navmenu>summary{background:var(--accent);color:#fff;border-color:var(--accent)}.navmenu>summary::after{content:" ☰"}.navmenu[open]>summary::after{content:" ✕"}
+.navmenu .navlist{max-height:70vh;overflow:auto}.navh{margin:8px 12px 2px;font-size:13px;font-weight:700;color:var(--muted,#a99)}.navh:first-child{margin-top:2px}
+.modetabs{display:grid;gap:10px;margin:0 0 14px}.mgrp{display:grid;gap:6px}.mlab{font-size:13px;font-weight:700;color:var(--muted,#a99)}.mrow{display:flex;flex-wrap:wrap;gap:6px}
+.jobchips .jx{display:none}.jobchips.all .jx{display:inline-block}.jobchips .jmore{border-style:dashed}
+.jobchips{gap:4px!important}.jobchips button{font-size:12px!important;padding:3px 9px!important;line-height:1.35}.jobpick .note,#jobhint{font-size:12px!important;line-height:1.4}
+#result.smpcol{max-height:1150px;overflow:hidden;position:relative}#result.smpcol::after{content:"";position:absolute;left:0;right:0;bottom:0;height:160px;background:linear-gradient(transparent,var(--bg));pointer-events:none}
+.smpmore{display:flex;justify-content:center;margin:-6px 0 0}
+footer .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));font-size:14px;gap:14px 20px;text-align:left;margin-bottom:12px}footer .fh{margin:0 0 6px;font-weight:700;color:var(--ink)}footer ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}footer .fnote{margin:4px 0}
+
+.hl{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}.hlb{display:grid;gap:2px;padding:10px 12px;border-radius:12px;border:1px solid var(--line)}.hlb b{font-size:13px}.hlb.g{background:var(--good-bg)}.hlb.g b{color:var(--good)}.hlb.b{background:var(--bad-bg)}.hlb.b b{color:var(--bad)}.hlb.m{background:var(--mid-bg)}.hlb.m b{color:var(--mid)}
+.sub.sm{font-size:15px;margin:10px 0 2px;color:var(--accent)}
+.arc .at{display:none}.arc.open .at{display:block}
+.ppw .ppx{display:none!important}.ppw.open .ppx{display:grid!important}
+.tgl{margin-top:8px;font-size:14px;padding:6px 14px}
+.rjump{position:sticky;top:0;z-index:15;display:flex;gap:6px;overflow-x:auto;margin:4px -4px 10px;padding:6px 4px;background:var(--surface);scrollbar-width:none}.rjump::-webkit-scrollbar{display:none}.rjump a{flex:none;font-size:13px;font-weight:600;padding:5px 12px;border-radius:99px;border:1px solid var(--line);color:var(--ink);text-decoration:none;background:var(--bg)}
+#stockrec .stkd summary{border:0;padding:0;font-size:14px;color:var(--accent);text-decoration:underline}
+#stockrec .stkact{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:6px}#stockrec .stkbuy{background:var(--accent);color:#fff;font-weight:600;padding:7px 16px;border-radius:99px;text-decoration:none}#stockrec .stklink{background:none;border:0;padding:0;font:inherit;font-size:14px;color:var(--accent);text-decoration:underline;cursor:pointer}
+@media print{.rjump,.tgl{display:none!important}.arc .at{display:block!important}.ppw .ppx{display:grid!important}}body.pr .rjump{display:none}
+.sumline{text-align:center;margin:6px 0 0;font-size:15px}.sumline b{font-family:var(--f-mono);font-size:20px;margin:0 2px}.sumline span:last-child{display:block;font-size:14px;opacity:.85;margin-top:2px}.hlb span{color:var(--ink)}
+.pctbox{margin:10px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}.pctl{margin:0 0 8px;font-weight:600;text-align:center}.pctl b{font-family:var(--f-mono);font-size:22px;margin-left:4px}.pctl b{background:none!important;padding:0}.pctl b.pcg{color:var(--good)}.pctl b.pcm{color:var(--mid)}.pctl b.pcb{color:var(--bad)}.pctbar{position:relative;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--bad-bg),var(--mid-bg),var(--good-bg));border:1px solid var(--line)}.pctbar i{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:2px solid var(--surface)}.pctbar i.g{background:var(--good)}.pctbar i.m{background:var(--mid)}.pctbar i.b{background:var(--bad)}.pctbar .pmed{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--muted);opacity:.6}
 </style>
 <style>
 .eb h2{font-family:var(--f-display);font-size:24px;margin:28px 0 10px;scroll-margin-top:12px}.eb h3{font-size:19px;margin:22px 0 8px;color:var(--accent);scroll-margin-top:12px}.eb h4{font-size:16px;margin:16px 0 6px}
@@ -370,7 +391,8 @@ async function verifySlip(dataUrl,amount){
   if(!res.success){const m=String((res.error&&(res.error.message||res.error.code))||"");let msg="ตรวจสลิปไม่ผ่าน ลองใช้ไฟล์สลิปจากแอปธนาคารโดยตรง";
     if(/duplicate/i.test(m))msg="สลิปนี้เคยใช้แล้ว";else if(/account/i.test(m))msg="บัญชีผู้รับในสลิปไม่ใช่บัญชีของร้าน";else if(/amount/i.test(m))msg="ยอดเงินในสลิปไม่ตรงกับ "+amount+" บาท";else if(/qr|not found|invalid/i.test(m))msg="อ่าน QR บนสลิปไม่ได้ ใช้ไฟล์สลิปจากแอปธนาคารโดยตรง";else if(/quota|limit|credit|unauthor|401|403/i.test(m))msg="ระบบตรวจสลิปขัดข้องชั่วคราว";return {ok:false,msg};}
   const d=res.data||{},rs=d.rawSlip||{},amt=Number(rs.amount&&rs.amount.amount)||0;if(d.isDuplicate)return {ok:false,msg:"สลิปนี้เคยใช้แล้ว"};if(amt&&amt<amount)return {ok:false,msg:"ยอดเงินในสลิป "+amt+" บาท ยังไม่ครบ "+amount+" บาท"};return {ok:true};}
-function open(scroll){const m=$("ebmore");if(!m.dataset.done){m.innerHTML=decode();m.dataset.done="1";}$("eblocked").hidden=false;$("ebpaywrap").innerHTML=isOwner()?'<p class="unlocked">โหมดเจ้าของ เห็นอีบุ๊กทั้งเล่ม</p>':'<p class="unlocked">ปลดล็อกแล้ว ขอบคุณที่สนับสนุนครับ อ่านต่อด้านล่างได้เลย</p>';
+document.addEventListener("click",e=>{if(e.target&&e.target.id==="ebownoff"){try{localStorage.removeItem("plk_owner");}catch(_){}location.reload();}});
+function open(scroll){const m=$("ebmore");if(!m.dataset.done){m.innerHTML=decode();m.dataset.done="1";}$("eblocked").hidden=false;$("ebpaywrap").innerHTML=isOwner()?'<p class="unlocked">โหมดเจ้าของ เห็นอีบุ๊กทั้งเล่ม เครื่องนี้เท่านั้น ลูกค้าจะต้องจ่ายก่อน <button type="button" class="ghost" id="ebownoff" style="margin-top:8px">ปิดโหมดเจ้าของ ดูแบบลูกค้า</button></p>':'<p class="unlocked">ปลดล็อกแล้ว ขอบคุณที่สนับสนุนครับ อ่านต่อด้านล่างได้เลย</p>';
   document.querySelectorAll('.ebtoc a.lk').forEach(a=>{a.classList.remove("lk");const n=a.nextElementSibling;if(n)n.remove();});$("ebbuy").textContent="อ่านต่อบทที่ 2";$("ebbuy").setAttribute("href",document.querySelector('.ebtoc a[data-lk="1"]').getAttribute("href"));$("ebprice").textContent="ปลดล็อกแล้ว";
   if(scroll)$("eblocked").scrollIntoView({behavior:"smooth",block:"start"});}
 function payBox(){const slip=!!(CONFIG.slipApi||CONFIG.thunderKey);
