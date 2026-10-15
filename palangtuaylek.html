@@ -306,7 +306,7 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
  :root{color-scheme:dark}
  html,body{background:#0b0907!important;color:var(--ink)!important;font-size:13.5px}
  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;box-shadow:none!important;text-shadow:none!important}
- body.pr header,body.pr footer,body.pr #appview>section.card:first-child,body.pr .noprint,body.pr .pdfrow,body.pr .sghint,body.pr .cmpbox,body.pr .toc,body.pr button,body.pr .btns,body.pr .stickybar,body.pr .paidline,body.pr .smp,body.pr .unlocked,body.pr .pdfhelp,body.pr .vcount,body.pr .topnav,body.pr .modetabs,body.pr #f,body.pr #fh,body.pr .sharebox,body.pr .cta,body.pr .askline,body.pr section.pay{display:none!important}
+ body.pr header,body.pr footer,body.pr #appview>section.card:first-child,body.pr .noprint,body.pr .pdfrow,body.pr .sghint,body.pr .cmpbox,body.pr .toc,body.pr button,body.pr .btns,body.pr .stickybar,body.pr .paidline,body.pr .smp,body.pr .unlocked,body.pr .pdfhelp,body.pr .vcount,body.pr .topnav,body.pr .modetabs,body.pr #f,body.pr #fh,body.pr .sharebox,body.pr .cta,body.pr .askline,body.pr section.pay,body.pr .reopen{display:none!important}
  body.pr main,body.pr #appview,body.pr #result{display:block!important;width:auto!important;max-width:100%!important;margin:0!important;padding:0!important}
  body.pr *{max-width:100%!important;overflow:visible!important}
  body.pr p,body.pr li,body.pr span,body.pr b,body.pr h2,body.pr h3{overflow-wrap:anywhere;word-break:normal}
@@ -324,6 +324,7 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
  body.pr .pdffoot{display:block!important;margin-top:14px;padding-top:10px;border-top:1px solid #3a2a1f;font-size:12px;color:var(--muted);text-align:center}
 }
 .pdffoot{display:none}
+.reopen{margin:4px 0 12px;padding:10px 12px;border:1px dashed var(--accent);border-radius:12px}
 
 .topnav{align-items:center}.navmenu>summary{background:var(--accent);color:#fff;border-color:var(--accent)}.navmenu>summary::after{content:" ☰"}.navmenu[open]>summary::after{content:" ✕"}
 .navmenu .navlist{max-height:70vh;overflow:auto}.navh{margin:8px 12px 2px;font-size:13px;font-weight:700;color:var(--muted,#a99)}.navh:first-child{margin-top:2px}
@@ -377,7 +378,8 @@ a.dgo{display:inline-block;background:var(--accent-deep);color:var(--on-accent);
   <nav class="topnav ncats" aria-label="เมนู">
     <details class="navmore ncat"><summary>เบอร์มงคล</summary><div class="navlist"><a href="#stock" id="toStock">สต็อกเบอร์</a><a href="#consign" id="toConsign">ฝากขายเบอร์</a><a href="#policy" id="toPolicy">วิธีซื้อและนโยบายร้าน</a></div></details>
     <details class="navmore ncat"><summary>ชื่อมงคล</summary><div class="navlist"><a href="#" data-go="name">วิเคราะห์ชื่อ นามสกุล</a><a href="#" data-go="biz">วิเคราะห์ชื่อร้าน ชื่อบริษัท</a><a href="#" data-go="baby">ตั้งชื่อลูกตามวันเกิด</a></div></details>
-    <details class="navmore ncat"><summary>ดูดวง</summary><div class="navlist"><a class="horo" href="duang.html" id="toHoro">ดูดวง</a><a href="https://www.palangtuaylek.com/duang.html#dream" id="toDream">ทำนายฝัน</a><a href="#" data-go="today">สีมงคลและเลขนำโชควันนี้</a><a href="#" data-horo="s-now">ดวงรายปี รายเดือน</a><a href="#" data-horo="s-time">ปีไหนควรเปลี่ยนเบอร์ เปลี่ยนงาน ลงทุน</a><a href="#" data-go="chong">ปีชง</a><a href="#" data-go="dir">ทิศมงคลตามวันเกิด</a><a href="#" data-go="rk">หาฤกษ์มงคล</a><a href="#" data-go="love">ดวงคู่</a></div></details>
+    <details class="navmore ncat"><summary>ดวงชะตา</summary><div class="navlist"><a class="horo" href="duang.html" id="toHoro">ดูดวง</a><a href="#" data-horo="s-now">ดวงรายปี รายเดือน</a><a href="#" data-horo="s-time">ปีไหนควรเปลี่ยนเบอร์ เปลี่ยนงาน ลงทุน</a><a href="#" data-go="love">ดวงคู่</a><a href="#" data-go="chong">ปีชง</a></div></details>
+    <details class="navmore ncat"><summary>เคล็ดมงคล</summary><div class="navlist"><a href="#" data-go="today">สีมงคลและเลขนำโชควันนี้</a><a href="#" data-go="dir">ทิศมงคลตามวันเกิด</a><a href="#" data-go="rk">หาฤกษ์มงคล</a><a href="https://www.palangtuaylek.com/duang.html#dream" id="toDream">ทำนายฝัน</a></div></details>
     <details class="navmore ncat"><summary>ความรู้</summary><div class="navlist"><a href="#why" id="toWhy">ทำไมเบอร์ถึงส่งผลต่อชีวิต</a><a href="#time" id="toTime">ใช้เบอร์ใหม่นานแค่ไหนถึงส่งผล</a><a href="#learn" id="toLearn">หลักการอ่านเบอร์</a><a href="#digits" id="toDigits">ความหมายเลข 0 ถึง 9</a><a href="#pairs" id="toLib">ความหมายคู่เลข 00 ถึง 99</a><a href="#triples" id="toTri">ความหมายเลข 3 ตัว</a><a href="#sum" id="toSum">ความหมายผลรวม</a><a href="#pyramid" id="toPyr">วิธีอ่านพีระมิด</a><a href="#biz" id="toBiz">คู่เลขกับอาชีพ</a></div></details>
     <details class="navmore ncat"><summary>บทความ</summary><div class="navlist"><a href="#place" id="toPlace">เลือกเบอร์ กับ วางเบอร์ ต่างกันอย่างไร</a><a href="#namepick" id="toNamepick">ตั้งชื่อมงคลตามวันเกิด ต้องดูอะไรบ้าง</a><a href="#kali" id="toKali">อักษรกาลกิณี ของคนเกิดแต่ละวัน</a><a href="#easy" id="toEasy">เบอร์มือถือ ตัวเลขที่เปลี่ยนง่ายที่สุด</a><a href="#nine" id="toNine">เลข 9 เลขสำคัญของยุคดิจิทัล</a><a href="#chart" id="toChart">ทำไมต้องวางเบอร์จากพื้นดวง</a><a href="#trap" id="toTrap">กับดักเบอร์มงคล 100%</a><a href="#weak" id="toWeak">ไม่มีเลขเสีย แต่ทำไมชีวิตไม่โต</a><a href="#context" id="toCtx">เบอร์เสียคือเบอร์ที่ผิดบริบท</a><a href="#start" id="toStart">ชีวิตติดหล่ม เริ่มแก้จากเบอร์</a><a href="#chatwen">นิทานชาติเวร ทำไมดาวบางคู่ถึงเป็นศัตรูกัน</a></div></details>
     <a class="ncat nlink" href="https://www.palangtuaylek.com/ebook.html" id="toEbook">Ebook</a>
@@ -5209,13 +5211,21 @@ function bindNamePay(inp,key,open){
 // ===== บันทึกผลวิเคราะห์ 399 เป็น PDF (รองรับเบราว์เซอร์ในแอป Facebook LINE IG) =====
 function inAppBrowser(){const u=navigator.userAgent||"";return /FBAN|FBAV|FB_IAB|FBIOS|Instagram|Line\/|KAKAOTALK|MicroMessenger|TikTok|musical_ly|Bytedance/i.test(u)||(/Android/i.test(u)&&/; wv\)/.test(u));}
 function pdfLink(kind){const q=new URLSearchParams(),v=id=>$(id)?$(id).value:"";
-  q.set("r",kind);["dd","mm","yy","hh","mi","prov","sex","fname","lname","nick","job","phone","rkact","rkmon","nick2","sex2","dd2","mm2","yy2","hh2","mi2","prov2"].forEach(id=>{const x=v(id);if(x!=="")q.set(id,x);});
+  q.set("r",kind);["dd","mm","yy","hh","mi","prov","sex","fname","lname","nick","job","phone","rkact","rkmon","nick2","sex2","dd2","mm2","yy2","hh2","mi2","prov2","house","shop","plate","bank","hdir"].forEach(id=>{const x=v(id);if(x!=="")q.set(id,x);});
   if($("notime").checked)q.set("notime","1"); if($("notime2").checked)q.set("notime2","1");
   try{const key=pdfKeyOf(kind);if(key&&wasUnlocked(key))q.set("u",unlockCode(key));}catch(e){}
   return location.origin+location.pathname+"?"+q.toString();}
-function pdfKeyOf(k){const i=readFormLoose();if(k==="name")return nameKey(i);if(k==="rk")return rkKey(i);if(k==="love"){const B2={d:+$("dd2").value,m:+$("mm2").value,y:+$("yy2").value-543};return lvKey(i,B2);}return i.phone;}
-const PDF_K={phone:["deep",1,"ผลวิเคราะห์เบอร์แบบละเอียด"],name:["ndeep",2,"ผลวิเคราะห์ชื่อแบบละเอียด"],rk:["xdeep",1,"ฤกษ์มงคลเฉพาะดวง"],love:["vdeep",1,"ดวงคู่แบบละเอียด"]};
+function pdfKeyOf(k){const i=readFormLoose();if(typeof NUMK!=="undefined"&&NUMK[k])return numKey(i);if(k==="name")return nameKey(i);if(k==="rk")return rkKey(i);if(k==="love"){const B2={d:+$("dd2").value,m:+$("mm2").value,y:+$("yy2").value-543};return lvKey(i,B2);}return i.phone;}
+const PDF_K={phone:["deep",1,"ผลวิเคราะห์เบอร์แบบละเอียด"],name:["ndeep",2,"ผลวิเคราะห์ชื่อแบบละเอียด"],rk:["xdeep",1,"ฤกษ์มงคลเฉพาะดวง"],love:["vdeep",1,"ดวงคู่แบบละเอียด"],house:["kdeep",1,"ผลวิเคราะห์บ้านเลขที่แบบละเอียด"],shop:["kdeep",1,"ผลวิเคราะห์เลขที่ร้านแบบละเอียด"],plate:["kdeep",1,"ผลวิเคราะห์ทะเบียนรถแบบละเอียด"],bank:["kdeep",1,"ผลวิเคราะห์เลขบัญชีแบบละเอียด"]};
 function readFormLoose(){const d=+$("dd").value,m=+$("mm").value,y=+$("yy").value-543;return {d,m,y,phone:$("phone").value.replace(/\D/g,"")};}
+// ===== ลิงก์เปิดผลอีกครั้ง หลังปลดล็อก =====
+const REOPEN_K={deep:"phone",ndeep:"name",xdeep:"rk",vdeep:"love",kdeep:null};
+function reopenInject(){try{Object.keys(REOPEN_K).forEach(id=>{const el=$(id);if(!el||el.hidden||el.querySelector(".reopen"))return;const k=REOPEN_K[id]||MODE;if(!PDF_K[k])return;
+  const u=el.querySelector("p.unlocked");if(!u)return;const box=document.createElement("div");box.className="reopen";
+  box.innerHTML=`<button type="button" class="ghost" data-reopen="${k}">คัดลอกลิงก์เปิดผลอีกครั้ง</button><p class="note" style="margin:6px 0 0">เก็บลิงก์นี้ไว้ในไลน์หรือโน้ต กดเมื่อไหร่ก็เปิดผลละเอียดได้ทันที จากเครื่องไหนก็ได้ ไม่ต้องจ่ายใหม่</p>`;u.after(box);});}catch(e){}}
+try{new MutationObserver(()=>reopenInject()).observe($("result"),{subtree:true,childList:true,attributes:true,attributeFilter:["hidden"]});}catch(e){}
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("button[data-reopen]");if(!b)return;const url=pdfLink(b.dataset.reopen);
+  const ok=()=>{b.textContent="คัดลอกลิงก์แล้ว วางเก็บไว้ในไลน์ได้เลย";};try{navigator.clipboard.writeText(url).then(ok,()=>fallback(url,ok));}catch(_){fallback(url,ok);}});
 function pdfHelp(btn,kind){let box=btn.parentNode.querySelector(".pdfhelp");if(box){box.hidden=!box.hidden;return;}
   const url=pdfLink(kind),and=/Android/i.test(navigator.userAgent||"");
   box=document.createElement("div");box.className="pdfhelp card";box.style.cssText="margin:10px 0 0;padding:14px";
@@ -5230,7 +5240,7 @@ function pdfPrint(kind){
   const _d=new Date(),_ds=_d.getDate()+" "+MONTHS[_d.getMonth()]+" "+(_d.getFullYear()+543);
   const hd=document.createElement("div");hd.className="pronly";hd.innerHTML=`<span><b>ความลับพลังตัวเลข</b><br>${PK0[2]}</span><span style="text-align:right">จัดทำวันที่ ${_ds}<br>LINE @367xgtjh · palangtuaylek.com</span>`;R.prepend(hd);
   const ft=document.createElement("div");ft.className="pdffoot";ft.innerHTML="เอกสารนี้จัดทำเฉพาะดวงของคุณ โดยความลับพลังตัวเลข · สอบถามเพิ่มเติม LINE @367xgtjh · www.palangtuaylek.com";R.append(ft);
-  const t0=document.title;document.title=kind==="rk"?"ฤกษ์"+(RKA[$("rkact").value]||{n:""}).n:kind==="love"?"ดวงคู่":"ผลวิเคราะห์"+(kind==="name"?"ชื่อ "+($("fname").value+" "+$("lname").value).trim():"เบอร์ "+$("phone").value);
+  const t0=document.title;document.title=PDF_K[kind]&&PDF_K[kind][0]==="kdeep"?PDF_K[kind][2]:kind==="rk"?"ฤกษ์"+(RKA[$("rkact").value]||{n:""}).n:kind==="love"?"ดวงคู่":"ผลวิเคราะห์"+(kind==="name"?"ชื่อ "+($("fname").value+" "+$("lname").value).trim():"เบอร์ "+$("phone").value);
   document.body.classList.add("pr");
   const done=()=>{document.body.classList.remove("pr");kids.forEach(el=>el.classList.remove("noprint"));opened.forEach(d=>d.open=false);hd.remove();ft.remove();document.title=t0;window.removeEventListener("afterprint",done);};
   window.addEventListener("afterprint",done);
@@ -5240,12 +5250,12 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
   if(inAppBrowser()||typeof window.print!=="function"){pdfHelp(b,k);return;} cntHit("pdf-"+k); pdfPrint(k);});
 // เปิดจากลิงก์บันทึก PDF: เติมฟอร์ม ปลดล็อก แล้ววิเคราะห์ให้เลย
 function pdfRestore(){try{const q=new URLSearchParams(location.search),k=q.get("r");if(!PDF_K[k])return;
-  const PM={name:"name",rk:"rk",love:"love",phone:"phone"}[k];if(PM&&MODE!==PM)setMode(PM);
-  ["dd","mm","yy","sex","prov","rkact","rkmon","sex2","dd2","mm2","yy2","prov2"].forEach(id=>{if(q.has(id)&&$(id)){$(id).value=q.get(id);$(id).dispatchEvent(new Event("change",{bubbles:true}));}});
+  const PM={name:"name",rk:"rk",love:"love",phone:"phone",house:"house",shop:"shop",plate:"plate",bank:"bank"}[k];if(PM&&MODE!==PM)setMode(PM);
+  ["dd","mm","yy","sex","prov","rkact","rkmon","sex2","dd2","mm2","yy2","prov2","hdir"].forEach(id=>{if(q.has(id)&&$(id)){$(id).value=q.get(id);$(id).dispatchEvent(new Event("change",{bubbles:true}));}});
   const nt=q.get("notime")==="1";if($("notime").checked!==nt){$("notime").checked=nt;$("notime").dispatchEvent(new Event("change",{bubbles:true}));}
   const nt2=q.get("notime2")==="1";if($("notime2").checked!==nt2){$("notime2").checked=nt2;$("notime2").dispatchEvent(new Event("change",{bubbles:true}));}
   ["hh","mi","hh2","mi2"].forEach(id=>{if(q.has(id)){$(id).value=q.get(id);}});
-  ["fname","lname","nick","job","phone","nick2"].forEach(id=>{if($(id)){$(id).value=q.get(id)||"";$(id).dispatchEvent(new Event("input",{bubbles:true}));}});
+  ["fname","lname","nick","job","phone","nick2","house","shop","plate","bank"].forEach(id=>{if($(id)){$(id).value=q.get(id)||"";$(id).dispatchEvent(new Event("input",{bubbles:true}));}});
   const u=q.get("u");if(u){const key=pdfKeyOf(k);if(key&&u===unlockCode(key))markUnlocked(key);}
   setTimeout(()=>{$("gobtn").click();setTimeout(()=>{const pb=document.querySelector(`button[data-pdf="${k}"]`);if(pb&&pb.offsetParent){pb.scrollIntoView({block:"center"});pb.classList.add("primary");}},500);},80);
 }catch(e){}}
@@ -5834,7 +5844,7 @@ function modeTabsInit(){
 }
 
 $("f").addEventListener("submit",e=>{
-  e.preventDefault(); smpClear(); anHit(); if(MODE!=="baby") memSave();
+  e.preventDefault(); window.__userRun=1; smpClear(); anHit(); if(MODE!=="baby") memSave();
   if(MODE!=="phone"){const mi=readMode();if(mi.error){$("err").textContent=mi.error;$("err").hidden=false;return;}$("err").hidden=true;renderMode(mi);$("result").scrollIntoView({behavior:"smooth",block:"start"});return;}
   const inp=readForm();
   if(inp.error){$("err").textContent=inp.error;$("err").hidden=false;return;}
@@ -7630,9 +7640,12 @@ function jobFit(k,jt){
 (function(){
   $("nick").value="";$("sex").value="f";$("job").value="ขายของออนไลน์";$("dd").value="15";$("mm").value="3";$("yy").value="2535";$("hh").value="9";$("mi").value="20";
   $("prov").value=String(PROV.findIndex(p=>p[0]==="ขอนแก่น"));$("phone").value="0896245639";
-  const inp=readForm();render(inp,analyze(inp),true);
-  const R=$("result");R.classList.add("smpcol");const mb=document.createElement("div");mb.className="smpmore";mb.id="smpmore";mb.innerHTML=`<button type="button" class="ghost">ดูตัวอย่างผลวิเคราะห์เต็ม</button>`;R.after(mb);
-  mb.querySelector("button").onclick=()=>{R.classList.remove("smpcol");mb.remove();};
+  const inp=readForm();
+  // วาดตัวอย่างหลังหน้าเว็บขึ้นแล้ว ให้หน้าแรกเปิดเร็ว
+  const go=()=>{const R=$("result");if(window.__userRun||MODE!=="phone"||(R&&R.innerHTML.trim()))return;
+    render(inp,analyze(inp),true);R.classList.add("smpcol");const mb=document.createElement("div");mb.className="smpmore";mb.id="smpmore";mb.innerHTML=`<button type="button" class="ghost">ดูตัวอย่างผลวิเคราะห์เต็ม</button>`;R.after(mb);
+    mb.querySelector("button").onclick=()=>{R.classList.remove("smpcol");mb.remove();};};
+  if(document.readyState==="complete")setTimeout(go,60);else window.addEventListener("load",()=>setTimeout(go,60),{once:true});
 })();
 function smpClear(){const R=$("result");if(R)R.classList.remove("smpcol");const m=$("smpmore");if(m)m.remove();}
 
@@ -8008,9 +8021,9 @@ function hsAreas(H,ds,AR){
     if(H.sum!=null&&H.si){const rel=Math.max(...String(H.sum).split("").map(d=>A.d[+d]||0));if(rel){const ww=rel*1.6;w+=ww;v+=ww*gv[H.si[0]];}}
     const r=w?v/w:0;const pct=Math.max(15,Math.min(97,Math.round(58+r*38)));const g=pct>=70?"g":pct>=45?"m":"b";
     return {...A,pct,g,txt:A.t[g],has:w>0};});}
-function hsPersonEval(parts,p){
+function hsPersonEval(parts,p,hdir){
   const c=chartSY(p.y,p.m,p.d,p.h,p.mi,p.lat,p.lon),ds=digitScores(c);
-  const H=hsScore(parts,p,ds);const F=hsFinal(H,hsAreas(H,ds));H.score=F.score;const all=[...new Set(H.all)];
+  const H=hsScore(parts,p,ds);const F=hsFinal(H,hsAreas(H,ds));if(hdir)hsDirApply(F,{...p,hdir},ds);H.score=F.score;const all=[...new Set(H.all)];
   const good=all.filter(d=>ds.cls[d]==="g"),bad=all.filter(d=>ds.cls[d]==="b");
   const v=H.score>=700?["g","บ้านหนุน"]:H.score>=500?["m","อยู่ได้ปกติ"]:["b","บ้านถ่วง"];
   return {H,good,bad,v,ds};}
@@ -8040,7 +8053,7 @@ function renderHouse(inp,ch,ds,who,cta){
   const ordered=H.P.slice().sort((a,b)=>b.pi-a.pi||b.i-a.i);
   const ppl=SHOP?[]:hsExtraRows();
   const pplH=ppl.length?`<section class="card"><h2>บ้านนี้กับคนในบ้าน</h2><p class="note" style="margin:0 0 10px">เทียบบ้านเลขที่กับดวงของแต่ละคน ใช้วันเกิดอย่างเดียว ไม่ใช้เวลาเกิด</p>
-    <ul class="hsres"><li><b>${who} (เจ้าบ้าน)</b><span class="pill ${band[0]}">${H.score} / 1000</span></li>${ppl.map(p=>{const E=hsPersonEval(parts,p);return `<li><b>${esc(p.nick||"คนในบ้าน")}</b><span class="pill ${E.v[0]}">${E.H.score} / 1000 ${E.v[1]}</span><p class="note" style="margin:4px 0 0">${E.good.length?"เลข "+E.good.join(" ")+" ในบ้านเลขที่เป็นเลขพลังดีของคนนี้":""}${E.good.length&&E.bad.length?" ส่วน":""}${E.bad.length?"เลข "+E.bad.join(" ")+" เป็นเลขพลังอ่อนของคนนี้":""}${!E.good.length&&!E.bad.length?"ตัวเลขในบ้านเป็นพลังปานกลางของคนนี้":""}</p></li>`;}).join("")}</ul>
+    <ul class="hsres"><li><b>${who} (เจ้าบ้าน)</b><span class="pill ${band[0]}">${H.score} / 1000</span></li>${ppl.map(p=>{const E=hsPersonEval(parts,p,inp.hdir);return `<li><b>${esc(p.nick||"คนในบ้าน")}</b><span class="pill ${E.v[0]}">${E.H.score} / 1000 ${E.v[1]}</span><p class="note" style="margin:4px 0 0">${E.good.length?"เลข "+E.good.join(" ")+" ในบ้านเลขที่เป็นเลขพลังดีของคนนี้":""}${E.good.length&&E.bad.length?" ส่วน":""}${E.bad.length?"เลข "+E.bad.join(" ")+" เป็นเลขพลังอ่อนของคนนี้":""}${!E.good.length&&!E.bad.length?"ตัวเลขในบ้านเป็นพลังปานกลางของคนนี้":""}</p></li>`;}).join("")}</ul>
     <p class="note">คนที่ได้คะแนนต่ำไม่ได้แปลว่าต้องย้ายออก ให้เสริมด้วยเบอร์มือถือของคนนั้นเองที่มีเลขพลังดีในดวงเขา</p></section>`:"";
   chartOnly(inp);
   $("result").innerHTML=`<section class="card"><h2>${W.k}ของ${who}</h2>
@@ -8209,7 +8222,7 @@ function numCmpHtml(mode,who){const K=NUMK[mode];
 function numExtras(mode,inp,ds,who,C){
   const R=$("result"),cta=R.querySelector("section.cta"),K=NUMK[mode]; if(!K) return;
   const KEY=numKey(inp);
-  const html=numCmpHtml(mode,who)+payKitHtml("k")+`<div id="kdeep" hidden><p class="unlocked">${isOwner()?"โหมดเจ้าของ ผลละเอียด":"ขอบคุณที่ใช้บริการครับ ด้านล่างคือผลละเอียดของคุณ"}</p><div id="kdeepgen"></div></div>`;
+  const html=numCmpHtml(mode,who)+payKitHtml("k")+`<div id="kdeep" hidden><p class="unlocked">${isOwner()?"โหมดเจ้าของ ผลละเอียด":"ขอบคุณที่ใช้บริการครับ ด้านล่างคือผลละเอียดของคุณ"}</p><div id="kdeepgen"></div><div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="${mode}">บันทึกผลละเอียดเป็น PDF</button></div></div>`;
   if(cta) cta.insertAdjacentHTML("beforebegin",html); else R.insertAdjacentHTML("beforeend",html);
   $("ncmpgo").onclick=()=>{const L=$("ncmpin").value.split(/\n|,/).map(x=>x.trim()).filter(Boolean).slice(0,5);
     const rows=L.map(v=>({v,c:numCalcFor(mode,v,inp,ds)})).filter(x=>x.c).sort((a,b)=>b.c.score-a.c.score);
