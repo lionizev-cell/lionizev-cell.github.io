@@ -292,7 +292,7 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
 .buybox textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;box-sizing:border-box;resize:vertical}.buybox label{display:grid;gap:4px}
 .score small{font-size:.45em;color:var(--muted);font-weight:500}.k1k{display:grid;gap:6px}.k1row{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px}.k1row summary{display:grid;grid-template-columns:1fr auto;gap:4px 10px;cursor:pointer;list-style:none}.k1row summary::-webkit-details-marker{display:none}.k1l{font-weight:600}.k1v{font-family:var(--f-mono);font-size:14px;color:var(--muted)}.k1v b{color:var(--ink);font-size:16px}.k1bar{grid-column:1/-1;height:6px;background:var(--line);border-radius:99px;overflow:hidden}.k1bar i{display:block;height:100%;border-radius:99px}.k1bar i.g{background:var(--good)}.k1bar i.m{background:var(--mid)}.k1bar i.b{background:var(--bad)}.k1row .plain{margin:8px 0 2px;font-size:14px}
 .areas .apb{grid-column:1/-1;display:block;height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:2px 0 4px}.areas .apb i{display:block;height:100%;border-radius:99px}.areas .apb i.g{background:var(--good)}.areas .apb i.m{background:var(--mid)}.areas .apb i.b{background:var(--bad)}
-.fpm{color:var(--accent);font-weight:600}
+.fpm{color:var(--accent);font-weight:600}.pmore{margin-top:2px}.pmore summary{font-size:13px}.pmore p{font-size:14px}.sumwhy{margin:6px auto 4px;max-width:560px;text-align:left}.sumwhy summary{text-align:center}
 .csfee{background:var(--accent-soft);border:1px solid var(--accent-deep);border-radius:10px;padding:8px 12px;margin:6px 0}
 .jobpick{margin:-4px 0 10px}.jobchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.jobchips button{font:inherit;font-size:13px;padding:6px 10px;border-radius:999px;border:1px solid var(--line,#444);background:transparent;color:inherit;cursor:pointer}.jobchips button[aria-pressed="true"]{background:var(--accent,#e0701f);border-color:var(--accent,#e0701f);color:#fff}#jobhint{margin:6px 0 0}
 .ch.chw{width:auto!important;min-width:0!important;padding:2px 10px!important;margin:0 6px 6px 0;display:inline-block}
@@ -4100,10 +4100,33 @@ function payHtml(){
 
 // ===== หน้าฟรี: ความหมายคู่เลขและชุด 3 ตัวแบบย่อ =====
 function shortTxt(t,n){t=String(t||"").trim();if(t.length<=n)return t;const c=t.slice(0,n);const k=c.lastIndexOf(" ");return (k>n*0.6?c.slice(0,k):c)+"…";}
+// อ่านเพิ่มเติมรายคู่ และเหตุผลของผลรวม (หน้าฟรี กดเปิดทีละคู่)
+function digitFitTxt(str,r){const cls=(r.ds&&r.ds.cls)||{};return [...new Set(String(str).split(""))].map(d=>"เลข "+d+" ดาว"+PLN[+d]+" เรื่อง"+DIGIT_MEAN[+d]+(cls[+d]?" เป็น"+({g:"พลังดี",m:"พลังปานกลาง",b:"พลังอ่อน"})[cls[+d]]+"ในดวงคุณ":"")).join(" ส่วน")}
+function pairMoreHtml(inp,r,p,g){
+  const GT={g:"ดี",m:"กลาง",b:"ต้องระวัง"}, base=p.info[4]||p.info[0], d=LD[p.s], o=[];
+  let pos=""; if(ASPECT_T[p.k]){const e=[...new Set(p.s.split("").map(Number))].map(x=>EN2[x]).join(" และ");pos=ASPECT_T[p.k][g].replace("{e}",e);} else if(d&&ASPECT_LD[p.k]!=null) pos=d[ASPECT_LD[p.k]];
+  if(pos) o.push(`<p><b>ในตำแหน่ง${esc(p.n)}</b> ${esc(pos)}</p>`);
+  if(!d) o.push(`<p><b>ความหมายของคู่ ${p.s}</b> ${esc(p.info[2])}</p>`);
+  if(d) o.push(`<p><b>ภาพรวม</b> ${esc(d[0])}</p><p><b>การงานและการเงิน</b> ${esc(d[1])}</p><p><b>ความรัก</b> ${esc(d[2])}</p><p><b>ข้อควรระวัง</b> ${esc(d[3])}</p>`);
+  const why=[]; if(base!==g) why.push("ตามตำราคู่นี้เป็นคู่"+GT[base]+" แต่เมื่อคิดรวมกับดวงและเพศของคุณ จึงให้ผล"+GT[g]);
+  if(p.info[3]) why.push(p.info[3]);
+  o.push(`<p><b>เทียบกับดวงคุณ</b> ${esc(digitFitTxt(p.s,r))}${why.length?" "+esc(why.join(" ")):""}</p>`);
+  return `<details class="libd pmore"><summary>อ่านเพิ่มเติม</summary>${o.join("")}</details>`;
+}
+function sumWhyHtml(inp,r){
+  const si=r.sumInfo, s=r.sum, GT={g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"}, base=si[4]||si[0], d=SUM_OVR[s]?SUM_OVR[s][3]:LD[String(s)], o=[];
+  o.push(`<p><b>${esc(si[1]||("ผลรวม "+s))}</b> ${esc(si[2]||"")}</p>`);
+  if(base!==si[0]) o.push(`<p><b>ทำไมได้ผล${GT[si[0]]}</b> ตามตำราทั่วไปผลรวม ${s} เป็นเลข${GT[base]} แต่${esc(si[3]||"เมื่อคิดรวมกับดวงของคุณ ผลจึงเปลี่ยนไป")}</p>`);
+  else if(si[3]) o.push(`<p><b>สำหรับ${inp.sex==="f"?"ผู้หญิง":"ผู้ชาย"}</b> ${esc(si[3])}</p>`);
+  if(s>=10){const wk=wkNote(s,si[0],(r.ds&&r.ds.cls)||{},si[3]); o.push(`<p><b>เทียบกับดวงคุณ</b> ${esc(digitFitTxt(s,r))}${wk?" "+esc(wk.trim()):""}</p>`);}
+  if(d) o.push(`<p><b>ภาพรวม</b> ${esc(d[0])}</p><p><b>การงานและการเงิน</b> ${esc(d[1])}</p><p><b>ความรัก</b> ${esc(d[2])}</p><p><b>ข้อควรระวัง</b> ${esc(d[3])}</p>`);
+  o.push(`<p class="note">ผลรวมส่งผลกับชีวิตระยะยาว 5 ปีขึ้นไป แต่ในการให้คะแนน ผมให้น้ำหนักผลรวมน้อยกว่าคู่เลขท้ายเบอร์ซึ่งส่งผลกับชีวิตประจำวันโดยตรง${si[0]==="b"&&r.s1000>=700?" เบอร์นี้จึงยังได้ "+r.s1000+" คะแนน แม้ผลรวมจะไม่ค่อยดี":""}</p>`);
+  return `<details class="libd sumwhy"><summary>${si[0]==="g"?"ผลรวม "+s+" หมายถึงอะไร":"ทำไมผลรวม "+s+" "+(si[0]==="b"?"ไม่ค่อยดี":"ได้ผลกลาง")}</summary>${o.join("")}</details>`;
+}
 function freePairsHtml(inp,r){
   const GT={g:"ดี",m:"กลาง",b:"ระวัง"};
   const DG={};dblFit(inp,r).forEach(x=>{DG[x.v]=x.g;});
-  const rows=r.pos.map((p,i)=>{const g=DG[p.s]||gradeOf(pairScore(p,r));return `<li${i>=5?' class="ppx"':""}><span class="pv sm ${g}">${p.s}</span><span><b>${p.n}</b> <span class="pill ${g}">${GT[g]}</span><br><span class="fpm">${esc(p.info[1])}</span> ${esc(shortTxt(p.info[2],70))}</span></li>`;}).join("");
+  const rows=r.pos.map((p,i)=>{const g=DG[p.s]||gradeOf(pairScore(p,r));return `<li${i>=5?' class="ppx"':""}><span class="pv sm ${g}">${p.s}</span><span><b>${p.n}</b> <span class="pill ${g}">${GT[g]}</span><br><span class="fpm">${esc(p.info[1])}</span> ${esc(shortTxt(p.info[2],70))}${pairMoreHtml(inp,r,p,g)}</span></li>`;}).join("");
   const tri=(r.tri3||[]).map((t,i)=>{const sx=(r.trips||[]).find(x=>x.pt===t.t);const v=sx?"b":t.v;
     return `<li${i>=2?' class="ppx"':""}><span class="pv sm ${v}">${t.t}</span><span><b>${esc(t.name)}</b> <span class="pill ${v}">${GT[v]}</span>${t.tail?' <span class="note">ท้ายเบอร์</span>':""}<br>${sx?"เลขเบิลที่ไม่เหมาะกับ"+(inp.sex==="f"?"ผู้หญิง":"ผู้ชาย")+" "+esc(sx.txt):esc(shortTxt(t.short,90))}</span></li>`;}).join("");
   return `<section class="card" aria-labelledby="hfp"><h2 id="hfp">ความหมายคู่เลขในเบอร์นี้</h2>
@@ -4174,6 +4197,7 @@ function render(inp,r,isSample){
     <div class="verdict"><div class="score">${r.s1000} <small>/ 1000</small></div><div><span class="pill ${r.band[0]}">${r.band[1]}</span></div></div>
     ${pctHtml(inp,r)}
     <p class="sumline">ผลรวม <b>${r.sum}</b> <span class="pill ${r.sumInfo[0]}">${({g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"})[r.sumInfo[0]]}</span> <span>${esc(r.sumInfo[1]||"")}</span></p>
+    ${sumWhyHtml(inp,r)}
     ${simpleSummary(inp,r,NM)}
   </section>
   ${s1000Html(r)}
