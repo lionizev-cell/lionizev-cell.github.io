@@ -299,17 +299,31 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
 .card .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .card .btns>a:not(.ghost){display:inline-block;font-weight:600;color:var(--accent);border:1px solid var(--accent-deep);border-radius:99px;padding:8px 14px;text-decoration:none;background:var(--accent-soft)}
 .pronly{display:none}
-.smp{margin:12px 0;min-width:0;max-width:100%}.pay>*{min-width:0}.smpl{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}.smpb{flex:0 0 auto;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;cursor:zoom-in;scroll-snap-align:start;min-height:0}.smpb img{display:block;width:150px;height:auto}.smpov{position:fixed;inset:0;z-index:999;background:#0b0907;display:flex;flex-direction:column}.smpbar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;color:#fff;font-size:14px;flex-wrap:wrap}.smpbar span:last-child{display:flex;gap:6px}.smpbar button{padding:6px 12px;min-height:0;width:auto}.smpimg{flex:1;overflow:auto;padding:0 10px 20px}.smpimg img{display:block;width:100%;max-width:700px;margin:0 auto;border-radius:6px}
+.smp{margin:12px 0;min-width:0;max-width:100%}.pay>*{min-width:0}.smpl{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}.smpb{flex:0 0 auto;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0b0907;cursor:zoom-in;scroll-snap-align:start;min-height:0}.smpb img{display:block;width:150px;height:auto}.smpov{position:fixed;inset:0;z-index:999;background:#0b0907;display:flex;flex-direction:column}.smpbar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;color:#fff;font-size:14px;flex-wrap:wrap}.smpbar span:last-child{display:flex;gap:6px}.smpbar button{padding:6px 12px;min-height:0;width:auto}.smpimg{flex:1;overflow:auto;padding:0 10px 20px}.smpimg img{display:block;width:100%;max-width:700px;margin:0 auto;border-radius:6px}
 .pkgsel{display:grid;gap:8px;margin:12px 0}.pkg{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:var(--bg)}.pkg:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}.pkg input{width:18px!important;height:18px;min-height:0;flex:0 0 18px;margin:4px 0 0;padding:0;accent-color:var(--accent)}.pkg span{display:grid;gap:2px}.pkg small{color:var(--muted);font-size:13px;line-height:1.5}
-@media print{:root{--bg:#fff!important;--surface:#fff!important;--ink:#111!important;--muted:#555!important;--line:#ccc!important;--accent:#b4530f!important;--accent-soft:#fbeadb!important;--good:#1d7a4a!important;--good-bg:#e3f4ea!important;--mid:#8a6400!important;--mid-bg:#fbf0d2!important;--bad:#b3261e!important;--bad-bg:#fbe4e1!important;color-scheme:light}
- html,body{background:#fff!important;color:#111!important}
- *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
- body.pr header,body.pr footer,body.pr #appview>section.card:first-child,body.pr .noprint,body.pr .pdfrow,body.pr .sghint,body.pr .cmpbox,body.pr .toc,body.pr button,body.pr .btns,body.pr .stickybar,body.pr .paidline,body.pr .smp,body.pr .unlocked,body.pr .pdfhelp{display:none!important}
- body.pr .pronly{display:block!important;margin:0 0 10px;font-size:14px}
- body.pr .card{box-shadow:none!important;border:1px solid #ccc!important;break-inside:auto}
- body.pr h2,body.pr h3{break-after:avoid}
- body.pr #deep,body.pr #ndeep{display:block!important}
- @page{margin:12mm}}
+@media print{
+ @page{size:A4;margin:14mm 12mm;background:#0b0907}
+ :root{color-scheme:dark}
+ html,body{background:#0b0907!important;color:var(--ink)!important;font-size:13.5px}
+ *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;box-shadow:none!important;text-shadow:none!important}
+ body.pr header,body.pr footer,body.pr #appview>section.card:first-child,body.pr .noprint,body.pr .pdfrow,body.pr .sghint,body.pr .cmpbox,body.pr .toc,body.pr button,body.pr .btns,body.pr .stickybar,body.pr .paidline,body.pr .smp,body.pr .unlocked,body.pr .pdfhelp,body.pr .vcount,body.pr .topnav,body.pr .modetabs,body.pr #f,body.pr #fh,body.pr .sharebox,body.pr .cta,body.pr .askline,body.pr section.pay{display:none!important}
+ body.pr main,body.pr #appview,body.pr #result{display:block!important;width:auto!important;max-width:100%!important;margin:0!important;padding:0!important}
+ body.pr *{max-width:100%!important;overflow:visible!important}
+ body.pr p,body.pr li,body.pr span,body.pr b,body.pr h2,body.pr h3{overflow-wrap:anywhere;word-break:normal}
+ body.pr .pronly{display:flex!important;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px;padding:10px 14px;border:1px solid var(--accent);border-radius:12px;background:#16120f;font-size:13px;color:var(--muted)}
+ body.pr .pronly b{color:var(--accent);font-size:16px;font-family:var(--f-display)}
+ body.pr .card,body.pr section.card{background:#16120f!important;border:1px solid #3a2a1f!important;border-radius:12px;padding:14px 16px!important;margin:0 0 12px!important;break-inside:auto}
+ body.pr h2{font-size:19px!important;color:var(--accent)!important;margin:0 0 8px!important;break-after:avoid;page-break-after:avoid}
+ body.pr h3{font-size:15px!important;break-after:avoid;page-break-after:avoid}
+ body.pr li,body.pr .hlb,body.pr .pairs>li,body.pr .areas>li,body.pr .hsres>li,body.pr .verdict,body.pr .lucky,body.pr .pctbox,body.pr tr{break-inside:avoid;page-break-inside:avoid}
+ body.pr p{orphans:3;widows:3}
+ body.pr .smpl,body.pr .rjump{display:none!important}
+ body.pr table{width:100%!important;table-layout:fixed;border-collapse:collapse}body.pr td,body.pr th{overflow-wrap:anywhere}
+ body.pr img,body.pr svg,body.pr canvas{max-width:100%!important;height:auto}
+ body.pr #deep,body.pr #ndeep,body.pr #xdeep,body.pr #vdeep,body.pr #kdeep{display:block!important}
+ body.pr .pdffoot{display:block!important;margin-top:14px;padding-top:10px;border-top:1px solid #3a2a1f;font-size:12px;color:var(--muted);text-align:center}
+}
+.pdffoot{display:none}
 
 .topnav{align-items:center}.navmenu>summary{background:var(--accent);color:#fff;border-color:var(--accent)}.navmenu>summary::after{content:" ☰"}.navmenu[open]>summary::after{content:" ✕"}
 .navmenu .navlist{max-height:70vh;overflow:auto}.navh{margin:8px 12px 2px;font-size:13px;font-weight:700;color:var(--muted,#a99)}.navh:first-child{margin-top:2px}
@@ -5213,10 +5227,12 @@ function pdfPrint(kind){
   let secN=0; const keepN=PK0[1];
   kids.forEach(el=>{let keep=false;if(el.id===deepId)keep=true;else if(el.tagName==="SECTION"&&secN<keepN){keep=true;}if(el.tagName==="SECTION")secN++;if(!keep)el.classList.add("noprint");});
   const opened=[...R.querySelectorAll("details:not([open])")];opened.forEach(d=>d.open=true);
-  const hd=document.createElement("div");hd.className="pronly";hd.innerHTML=`<b>ความลับพลังตัวเลข</b> ${PK0[2]} · ทักไลน์ lin.ee/ujF7VHa`;R.prepend(hd);
+  const _d=new Date(),_ds=_d.getDate()+" "+MONTHS[_d.getMonth()]+" "+(_d.getFullYear()+543);
+  const hd=document.createElement("div");hd.className="pronly";hd.innerHTML=`<span><b>ความลับพลังตัวเลข</b><br>${PK0[2]}</span><span style="text-align:right">จัดทำวันที่ ${_ds}<br>LINE @367xgtjh · palangtuaylek.com</span>`;R.prepend(hd);
+  const ft=document.createElement("div");ft.className="pdffoot";ft.innerHTML="เอกสารนี้จัดทำเฉพาะดวงของคุณ โดยความลับพลังตัวเลข · สอบถามเพิ่มเติม LINE @367xgtjh · www.palangtuaylek.com";R.append(ft);
   const t0=document.title;document.title=kind==="rk"?"ฤกษ์"+(RKA[$("rkact").value]||{n:""}).n:kind==="love"?"ดวงคู่":"ผลวิเคราะห์"+(kind==="name"?"ชื่อ "+($("fname").value+" "+$("lname").value).trim():"เบอร์ "+$("phone").value);
   document.body.classList.add("pr");
-  const done=()=>{document.body.classList.remove("pr");kids.forEach(el=>el.classList.remove("noprint"));opened.forEach(d=>d.open=false);hd.remove();document.title=t0;window.removeEventListener("afterprint",done);};
+  const done=()=>{document.body.classList.remove("pr");kids.forEach(el=>el.classList.remove("noprint"));opened.forEach(d=>d.open=false);hd.remove();ft.remove();document.title=t0;window.removeEventListener("afterprint",done);};
   window.addEventListener("afterprint",done);
   try{window.print();}catch(e){done();}
   setTimeout(()=>{if(document.body.classList.contains("pr")&&!matchMedia("print").matches)done();},1500);}
