@@ -292,7 +292,7 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
 .buybox textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;box-sizing:border-box;resize:vertical}.buybox label{display:grid;gap:4px}
 .score small{font-size:.45em;color:var(--muted);font-weight:500}.k1k{display:grid;gap:6px}.k1row{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px}.k1row summary{display:grid;grid-template-columns:1fr auto;gap:4px 10px;cursor:pointer;list-style:none}.k1row summary::-webkit-details-marker{display:none}.k1l{font-weight:600}.k1v{font-family:var(--f-mono);font-size:14px;color:var(--muted)}.k1v b{color:var(--ink);font-size:16px}.k1bar{grid-column:1/-1;height:6px;background:var(--line);border-radius:99px;overflow:hidden}.k1bar i{display:block;height:100%;border-radius:99px}.k1bar i.g{background:var(--good)}.k1bar i.m{background:var(--mid)}.k1bar i.b{background:var(--bad)}.k1row .plain{margin:8px 0 2px;font-size:14px}
 .areas .apb{grid-column:1/-1;display:block;height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:2px 0 4px}.areas .apb i{display:block;height:100%;border-radius:99px}.areas .apb i.g{background:var(--good)}.areas .apb i.m{background:var(--mid)}.areas .apb i.b{background:var(--bad)}
-.fpm{color:var(--accent);font-weight:600}.pmore{margin-top:2px}.pmore summary{font-size:13px}.pmore p{font-size:14px}.sumwhy{margin:6px auto 4px;max-width:560px;text-align:left}.sumwhy summary{text-align:center}
+.fpm{color:var(--accent);font-weight:600}.askq{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}.askq button{font-size:14px;padding:8px 12px}.askrow{display:flex;gap:6px;margin-top:4px}.askrow input{flex:1;min-width:0}.askit{border-top:1px solid var(--line);padding-top:8px;margin-top:10px}.askit p{margin:4px 0;line-height:1.75}.askq1{color:var(--accent);font-weight:600}.pmore{margin-top:2px}.pmore summary{font-size:13px}.pmore p{font-size:14px}.sumwhy{margin:6px auto 4px;max-width:560px;text-align:left}.sumwhy summary{text-align:center}
 .csfee{background:var(--accent-soft);border:1px solid var(--accent-deep);border-radius:10px;padding:8px 12px;margin:6px 0}
 .jobpick{margin:-4px 0 10px}.jobchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.jobchips button{font:inherit;font-size:13px;padding:6px 10px;border-radius:999px;border:1px solid var(--line,#444);background:transparent;color:inherit;cursor:pointer}.jobchips button[aria-pressed="true"]{background:var(--accent,#e0701f);border-color:var(--accent,#e0701f);color:#fff}#jobhint{margin:6px 0 0}
 .ch.chw{width:auto!important;min-width:0!important;padding:2px 10px!important;margin:0 6px 6px 0;display:inline-block}
@@ -343,7 +343,7 @@ footer .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1f
 .rjump{position:sticky;top:0;z-index:15;display:flex;gap:6px;overflow-x:auto;margin:4px -4px 10px;padding:6px 4px;background:var(--surface);scrollbar-width:none}.rjump::-webkit-scrollbar{display:none}.rjump a{flex:none;font-size:13px;font-weight:600;padding:5px 12px;border-radius:99px;border:1px solid var(--line);color:var(--ink);text-decoration:none;background:var(--bg)}
 #stockrec .stkd summary{border:0;padding:0;font-size:14px;color:var(--accent);text-decoration:underline}
 #stockrec .stkact{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:6px}#stockrec .stkbuy{background:var(--accent);color:#fff;font-weight:600;padding:7px 16px;border-radius:99px;text-decoration:none}#stockrec .stklink{background:none;border:0;padding:0;font:inherit;font-size:14px;color:var(--accent);text-decoration:underline;cursor:pointer}
-@media print{.rjump,.tgl{display:none!important}.arc .at{display:block!important}.ppw .ppx{display:grid!important}}body.pr .rjump{display:none}
+@media print{.rjump,.tgl,.askbox{display:none!important}.arc .at{display:block!important}.ppw .ppx{display:grid!important}}body.pr .rjump,body.pr .askbox{display:none}
 .sumline{text-align:center;margin:6px 0 0;font-size:15px}.sumline b{font-family:var(--f-mono);font-size:20px;margin:0 2px}.sumline span:last-child{display:block;font-size:14px;opacity:.85;margin-top:2px}.hlb span{color:var(--ink)}
 .pctbox{margin:10px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}.pctl{margin:0 0 8px;font-weight:600;text-align:center}.pctl b{font-family:var(--f-mono);font-size:22px;margin-left:4px}.pctl b{background:none!important;padding:0}.pctl b.pcg{color:var(--good)}.pctl b.pcm{color:var(--mid)}.pctl b.pcb{color:var(--bad)}.pctbar{position:relative;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--bad-bg),var(--mid-bg),var(--good-bg));border:1px solid var(--line)}.pctbar i{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:2px solid var(--surface)}.pctbar i.g{background:var(--good)}.pctbar i.m{background:var(--mid)}.pctbar i.b{background:var(--bad)}.pctbar .pmed{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--muted);opacity:.6}
 .vcount{display:inline-flex;align-items:center;gap:7px;margin:0 0 10px;padding:4px 12px;border:1px solid var(--accent-deep);border-radius:99px;background:var(--accent-soft);color:var(--ink);font-size:13px;font-weight:600}.vcount b{color:var(--accent);font-family:var(--f-mono);font-size:15px}.vdot{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px var(--good-bg);animation:vpulse 2s infinite}@keyframes vpulse{50%{box-shadow:0 0 0 6px transparent}}.vcount[hidden]{display:none}
@@ -4213,6 +4213,7 @@ function render(inp,r,isSample){
   </section>
   ${s1000Html(r)}
   ${freePairsHtml(inp,r)}
+  ${isSample?"":askBoxHtml(inp,r)}
   ${isSample||wasUnlocked(inp.phone)?"":deepPreviewHtml(inp,r,NM)}
   ${payHtml()}
   ${isSample?"":stockRecHtml(inp,r)}
@@ -5599,7 +5600,7 @@ function cntHit(key){
   }catch(e){}
 }
 (function(){try{if(!sessionStorage.getItem("plk_v")){sessionStorage.setItem("plk_v","1");cntHit("visit");}}catch(e){cntHit("visit");}})();
-const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["an-shop","เลขที่ร้าน"],["an-today","สีมงคลวันนี้"],["an-baby","ตั้งชื่อลูก"],["an-dir","ทิศมงคล"],["an-chong","ปีชง"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-num","จ่ายตัวเลขละเอียด 399"],["pay-bundle","จ่ายแพ็กรวม 999"],["pay-baby","จ่ายตั้งชื่อลูก 399"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["ask-phone","ทักถามก่อนซื้อ เบอร์"],["ask-name","ทักถามก่อนซื้อ ชื่อ"],["ask-rk","ทักถามก่อนซื้อ ฤกษ์"],["ask-love","ทักถามก่อนซื้อ ดวงคู่"],["ask-num","ทักถามก่อนซื้อ ตัวเลขละเอียด"],["ask-baby","ทักถามก่อนซื้อ ตั้งชื่อลูก"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
+const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["an-shop","เลขที่ร้าน"],["an-today","สีมงคลวันนี้"],["an-baby","ตั้งชื่อลูก"],["an-dir","ทิศมงคล"],["an-chong","ปีชง"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-num","จ่ายตัวเลขละเอียด 399"],["pay-bundle","จ่ายแพ็กรวม 999"],["pay-baby","จ่ายตั้งชื่อลูก 399"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["ask-phone","ทักถามก่อนซื้อ เบอร์"],["ask-name","ทักถามก่อนซื้อ ชื่อ"],["ask-rk","ทักถามก่อนซื้อ ฤกษ์"],["ask-love","ทักถามก่อนซื้อ ดวงคู่"],["ask-num","ทักถามก่อนซื้อ ตัวเลขละเอียด"],["ask-baby","ทักถามก่อนซื้อ ตั้งชื่อลูก"],["ai-ask","ถามเบอร์ผ่าน AI"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
 let _CQ=Promise.resolve(),_CN=0;
 async function cntGet(k){for(let t=0;t<4;t++){try{const r=await fetch(`${CNT.base}/get/${CNT.ns}/${k}`,{cache:"no-store"});if(r.status===404)return 0;if(r.ok){const j=await r.json();return +j.value||0;}if(r.status===429||r.status>=500){await new Promise(s=>setTimeout(s,700*(t+1)));continue;}return null;}catch(e){await new Promise(s=>setTimeout(s,500));}}return null;}
 async function admStatsUI(){
@@ -8447,5 +8448,59 @@ PK.z={title:"รายชื่อมงคลสำหรับลูก ฉบ
   items:["รายชื่อมงคลทั้งหมดที่ผ่านทุกเกณฑ์ สูงสุด 120 ชื่อ","ให้คะแนนเต็ม 1000 ทุกชื่อตามดวงของลูก เรียงจากเหมาะที่สุด","ผลรวมเมื่อรวมกับนามสกุล และความหมายของแต่ละชื่อ","อักษรนำทุกกลุ่มพร้อมเหตุผลตามทักษาและดวงกำเนิด","บันทึกเป็น PDF เก็บไว้ได้"]};
 
 try{$("hsadd").onclick=hsAddRow;}catch(e){}
+
+// ===== ถามเพิ่มเกี่ยวกับเบอร์นี้ (ปุ่มคำถามสำเร็จรูป + ช่องพิมพ์ถาม AI เมื่อเปิดใช้ในระบบหลังบ้าน) =====
+const ASK_LIMIT=3;
+let _ASK=null; // ข้อมูลเบอร์ล่าสุดสำหรับตอบคำถาม
+function askDev(){try{let d=localStorage.getItem("plk_dev");if(!d){d=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem("plk_dev",d);}return d;}catch(e){return "x";}}
+function askUsed(){try{const o=JSON.parse(localStorage.getItem("plk_ai_d")||"{}");return o.d===new Date().toDateString()?o.n:0;}catch(e){return 0;}}
+function askUse(){try{localStorage.setItem("plk_ai_d",JSON.stringify({d:new Date().toDateString(),n:askUsed()+1}));}catch(e){}}
+function askNames(r){const SN={"เรื่องเงิน":"การเงิน","เรื่องงาน":"การงาน","ความรักและคู่ครอง":"ความรัก","นิสัยและตัวตน":"ตัวตน"};const by=g=>r.rows.filter(x=>x.g===g).map(x=>SN[x.name]||x.name);return {g:by("g"),m:by("m"),b:by("b")};}
+function askLocal(k){const A=_ASK;if(!A)return "";const {inp,r}=A, N=askNames(r), si=r.sumInfo, GT={g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"};
+  const t=r.pos.find(p=>p.k==="GF"), T3=(r.tri3||[])[0];
+  if(k==="keep"){
+    const base="เบอร์นี้ได้ "+r.s1000+" คะแนนจาก 1000 ผลคือ"+r.band[1]+" ";
+    if(r.band[0]==="g") return base+(N.b.length?"แต่ต้องรู้ว่าเรื่อง"+N.b.join(" ")+"เป็นจุดที่เบอร์ไม่หนุน เรื่องนี้ต้องคุมเอง":"ไม่มีเรื่องไหนที่เบอร์ดึงลง")+(N.g.length?" ส่วนเรื่องที่เบอร์ช่วยได้ชัดคือ"+N.g.join(" "):"");
+    if(r.band[0]==="m") return base+"ยังใช้ได้ แต่ยังไม่ใช่เบอร์ที่ใช่ "+(N.b.length?"จุดที่ดึงคะแนนลงคือเรื่อง"+N.b.join(" ")+" ":"")+"ถ้าเรื่องนั้นเป็นเรื่องที่คุณให้ความสำคัญ ผมแนะนำให้หาเบอร์ใหม่ที่ร้อยเรียงตามดวง";
+    return base+"ผมไม่แนะนำให้ใช้ต่อ "+(N.b.length?"เพราะเบอร์ดึงเรื่อง"+N.b.join(" ")+"ลงชัดเจน ":"")+"ควรเปลี่ยนเป็นเบอร์ที่เลขเข้ากับดวงคุณ ในแบบเจาะลึกผมบอกไว้ว่าเลขไหนควรมีและควรวางตรงไหน";}
+  if(k==="area") return (N.g.length?"เรื่องที่เบอร์นี้หนุนได้ดีคือ"+N.g.join(" ")+" ":"เบอร์นี้ไม่มีเรื่องที่เด่นชัด ")+(N.m.length?"เรื่องที่อยู่ระดับพอใช้คือ"+N.m.join(" ")+" ":"")+(N.b.length?"และเรื่องที่ต้องระวังคือ"+N.b.join(" "):"ไม่มีเรื่องไหนที่เบอร์ดึงลง")+" กดอ่านเพิ่มเติมที่คู่เลขแต่ละตำแหน่งด้านบนได้ จะเห็นว่าแต่ละเรื่องมาจากคู่ไหน";
+  if(k==="sum") return "ผลรวม "+r.sum+" "+(si[1]||"")+" ให้ผล"+GT[si[0]]+" "+(si[2]||"")+" ผลรวมส่งผลกับชีวิตระยะยาว 4 ถึง 5 ปีขึ้นไปในภาพรวม แต่ผมให้น้ำหนักน้อยกว่าคู่ท้ายเบอร์ "+(si[0]==="b"?(r.band[0]==="g"?"เบอร์นี้คู่เลขหลักดีพอ ผลรวมที่ไม่ค่อยดีจึงยังไม่ใช่เหตุผลที่ต้องเปลี่ยนเบอร์":"ถ้าจะเปลี่ยนเบอร์อยู่แล้ว ควรเลือกเบอร์ที่ผลรวมดีด้วย"):si[0]==="g"?"ผลรวมของเบอร์นี้ช่วยหนุนภาพรวมได้ดี":"ผลรวมกลาง ๆ ไม่ได้ช่วยและไม่ได้ฉุด");
+  if(k==="tail") return "ท้ายเบอร์ส่งผลกับชีวิตประจำวันแรงที่สุด คู่ท้ายของคุณคือ "+t.s+" "+t.info[1]+" "+t.info[2]+(T3?" และชุดสามตัวท้าย "+T3.t+" "+T3.name+" "+String(T3.short||"").replace(/\s+/g," "):"");
+  return "";}
+function askCtx(){const {inp,r}=_ASK, GT={g:"ดี",m:"กลาง",b:"ระวัง"}, DG={};dblFit(inp,r).forEach(x=>{DG[x.v]=x.g;});
+  const L=[];L.push("เพศ"+(inp.sex==="f"?"หญิง":"ชาย")+(inp.jobText?" อาชีพ "+inp.jobText:""));
+  L.push("คะแนน "+r.s1000+"/1000 ระดับ "+r.band[1]);
+  L.push("ผลรวม "+r.sum+" "+(r.sumInfo[1]||"")+" ผล"+({g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"})[r.sumInfo[0]]+" "+(r.sumInfo[2]||"")+(r.sumInfo[3]?" "+r.sumInfo[3]:""));
+  r.rows.forEach(x=>L.push("ด้าน "+x.name+": "+GT[x.g]));
+  r.pos.forEach(p=>{const g=DG[p.s]||gradeOf(pairScore(p,r));L.push("คู่ "+p.s+" ตำแหน่ง"+p.n+": "+GT[g]+" "+p.info[1]+" "+p.info[2]+(p.info[3]?" ("+p.info[3]+")":""));});
+  (r.tri3||[]).slice(0,3).forEach(t=>L.push("ชุด "+t.t+": "+GT[t.v]+" "+t.name+" "+String(t.short||"")));
+  const cls=(r.ds&&r.ds.cls)||{};L.push("พลังเลขในดวง: "+[0,1,2,3,4,5,6,7,8,9].map(d=>d+"="+(({g:"ดี",m:"กลาง",b:"อ่อน"})[cls[d]]||"-")).join(" "));
+  return L.join("\n");}
+function askBoxHtml(inp,r){_ASK={inp,r};
+  const Q=[["keep","ควรใช้ต่อหรือเปลี่ยน"],["area","เด่นเรื่องอะไร ระวังเรื่องอะไร"],["sum","ผลรวม "+r.sum+" ส่งผลยังไง"],["tail","ท้ายเบอร์ส่งผลยังไง"]];
+  setTimeout(askAiCheck,0);
+  return `<section class="card askbox" aria-labelledby="hask"><h2 id="hask">ถามเพิ่มเกี่ยวกับเบอร์นี้</h2>
+   <div class="askq">${Q.map(q=>`<button type="button" class="ghost" data-askq="${q[0]}">${esc(q[1])}</button>`).join("")}</div>
+   <div id="askai" hidden><label for="askin" class="note">หรือพิมพ์คำถามของคุณ วันละ ${ASK_LIMIT} คำถาม</label>
+   <div class="askrow"><input id="askin" maxlength="200" autocomplete="off" placeholder="เช่น เบอร์นี้เหมาะกับงานขายไหม"><button type="button" class="primary" id="askgo">ถาม</button></div></div>
+   <div id="askans" aria-live="polite"></div></section>`;}
+let _ASK_AI=null;
+async function askAiCheck(){const el=$("askai");if(!el||!CONFIG.slipApi)return;
+  if(_ASK_AI===null){try{const c=sessionStorage.getItem("plk_ai_on");if(c!==null)_ASK_AI=c==="1";}catch(e){}}
+  if(_ASK_AI===null){try{const j=await (await fetch(CONFIG.slipApi)).json();_ASK_AI=!!j.ai;}catch(e){_ASK_AI=false;}try{sessionStorage.setItem("plk_ai_on",_ASK_AI?"1":"0");}catch(e){}}
+  const e2=$("askai");if(e2)e2.hidden=!_ASK_AI;}
+function askShow(q,a,cls){const box=$("askans");if(!box)return;const d=document.createElement("div");d.className="askit"+(cls?" "+cls:"");
+  d.innerHTML=`<p class="askq1">${esc(q)}</p><p>${esc(a).replace(/\n+/g,"<br>")}</p>`;box.prepend(d);}
+async function askAi(){const inp=$("askin"),go=$("askgo");const q=(inp.value||"").trim();if(!q||!_ASK)return;
+  if(!isOwner()&&askUsed()>=ASK_LIMIT){askShow(q,"วันนี้ถามครบ "+ASK_LIMIT+" คำถามแล้ว พรุ่งนี้ถามต่อได้ หรือทักไลน์ @367xgtjh มาคุยกับผมโดยตรงได้เลยครับ","");return;}
+  go.disabled=true;go.textContent="กำลังคิด...";
+  try{const res=await fetch(CONFIG.slipApi,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"ai",q,ctx:askCtx(),dev:askDev()})});const j=await res.json();
+    if(j.ok&&j.answer){askUse();askShow(q,String(j.answer).replace(/\*\*|__|^#+\s*/gm,"").replace(/^\s*[-•]\s*/gm,""),"");inp.value="";try{cntHit("ai-ask");}catch(e){}}
+    else askShow(q,j.msg||"ตอนนี้ระบบตอบคำถามไม่ว่าง ลองใหม่อีกครั้ง หรือทักไลน์ @367xgtjh ได้เลยครับ","");}
+  catch(e){askShow(q,"เชื่อมต่อระบบไม่ได้ ลองใหม่อีกครั้ง หรือทักไลน์ @367xgtjh ได้เลยครับ","");}
+  go.disabled=false;go.textContent="ถาม";}
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-askq]");if(b){e.preventDefault();askShow(b.textContent,askLocal(b.dataset.askq),"");return;}
+  if(e.target&&e.target.id==="askgo"){e.preventDefault();askAi();}});
+document.addEventListener("keydown",e=>{if(e.target&&e.target.id==="askin"&&e.key==="Enter"){e.preventDefault();askAi();}});
 </script>
 </body></html>
