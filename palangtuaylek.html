@@ -4102,7 +4102,7 @@ function payHtml(){
 // ===== หน้าฟรี: ความหมายคู่เลขและชุด 3 ตัวแบบย่อ =====
 function shortTxt(t,n){t=String(t||"").trim();if(t.length<=n)return t;const c=t.slice(0,n);const k=c.lastIndexOf(" ");return (k>n*0.6?c.slice(0,k):c)+"…";}
 // อ่านเพิ่มเติมรายคู่ และเหตุผลของผลรวม (หน้าฟรี กดเปิดทีละคู่)
-function digitFitTxt(str,r){const cls=(r.ds&&r.ds.cls)||{};return [...new Set(String(str).split(""))].map(d=>"เลข "+d+" ดาว"+PLN[+d]+" เรื่อง"+DIGIT_MEAN[+d]+(cls[+d]?" เป็น"+({g:"พลังดี",m:"พลังปานกลาง",b:"พลังอ่อน"})[cls[+d]]+"ในดวงคุณ":"")).join(" ส่วน")}
+function digitFitTxt(str,r){const cls=(r.ds&&r.ds.cls)||{};return [...new Set(String(str).split(""))].map(d=>"เลข "+d+" ดาว"+PLN[+d]+" เรื่อง"+DIGIT_MEAN[+d]+(cls[+d]?" เป็น"+({g:"พลังดี",m:"พลังปานกลาง",b:"พลังอ่อน"})[cls[+d]]+"ในดวงคุณ":"")).map((x,i)=>(i===1?"ส่วน":i>1?"และ":"")+x).join(" ")}
 function pairMoreHtml(inp,r,p,g){
   const GT={g:"ดี",m:"กลาง",b:"ต้องระวัง"}, base=p.info[4]||p.info[0], d=LD[p.s], o=[];
   let pos=""; if(ASPECT_T[p.k]){const e=[...new Set(p.s.split("").map(Number))].map(x=>EN2[x]).join(" และ");pos=ASPECT_T[p.k][g].replace("{e}",e);} else if(d&&ASPECT_LD[p.k]!=null) pos=d[ASPECT_LD[p.k]];
@@ -4125,12 +4125,21 @@ function sumWhyHtml(inp,r){
   o.push(`<p class="note">ในการให้คะแนน ผมให้น้ำหนักผลรวมน้อยกว่าคู่เลขท้ายเบอร์ซึ่งส่งผลกับชีวิตประจำวันโดยตรง${si[0]==="b"&&r.s1000>=700?" เบอร์นี้จึงยังได้ "+r.s1000+" คะแนน แม้ผลรวมจะไม่ค่อยดี":""}</p>`);
   return `<details class="libd sumwhy"><summary>${si[0]==="g"?"ผลรวม "+s+" หมายถึงอะไร":"ทำไมผลรวม "+s+" "+(si[0]==="b"?"ไม่ค่อยดี":"ได้ผลกลาง")}</summary>${o.join("")}</details>`;
 }
+function triMoreHtml(inp,r,t,sx){
+  const o=[], a=t.t.slice(0,2), b=t.t.slice(1);
+  if(t.where) o.push(`<p><b>ตำแหน่ง</b> ${esc(t.where)}</p>`);
+  if(t.txt) o.push(`<p><b>อ่านชุดนี้</b> ${esc(t.txt)}</p>`);
+  [a,b].filter((x,i,A)=>A.indexOf(x)===i).forEach(k=>{const d=LD[k];if(d) o.push(`<p><b>คู่ ${k}</b> ${esc(d[0])} ด้านการงานและการเงิน ${esc(d[1])}</p>`);});
+  if(sx) o.push(`<p><b>เลขเบิลในชุดนี้</b> ${esc(sx.txt)}</p>`);
+  o.push(`<p><b>เทียบกับดวงคุณ</b> ${esc(digitFitTxt(t.t,r))}</p>`);
+  return `<details class="libd pmore"><summary>อ่านเพิ่มเติม</summary>${o.join("")}</details>`;
+}
 function freePairsHtml(inp,r){
   const GT={g:"ดี",m:"กลาง",b:"ระวัง"};
   const DG={};dblFit(inp,r).forEach(x=>{DG[x.v]=x.g;});
   const rows=r.pos.map((p,i)=>{const g=DG[p.s]||gradeOf(pairScore(p,r));return `<li${i>=5?' class="ppx"':""}><span class="pv sm ${g}">${p.s}</span><span><b>${p.n}</b> <span class="pill ${g}">${GT[g]}</span><br><span class="fpm">${esc(p.info[1])}</span> ${esc(shortTxt(p.info[2],70))}${pairMoreHtml(inp,r,p,g)}</span></li>`;}).join("");
   const tri=(r.tri3||[]).map((t,i)=>{const sx=(r.trips||[]).find(x=>x.pt===t.t);const v=sx?"b":t.v;
-    return `<li${i>=2?' class="ppx"':""}><span class="pv sm ${v}">${t.t}</span><span><b>${esc(t.name)}</b> <span class="pill ${v}">${GT[v]}</span>${t.tail?' <span class="note">ท้ายเบอร์</span>':""}<br>${sx?"เลขเบิลที่ไม่เหมาะกับ"+(inp.sex==="f"?"ผู้หญิง":"ผู้ชาย")+" "+esc(sx.txt):esc(shortTxt(t.short,90))}</span></li>`;}).join("");
+    return `<li${i>=2?' class="ppx"':""}><span class="pv sm ${v}">${t.t}</span><span><b>${esc(t.name)}</b> <span class="pill ${v}">${GT[v]}</span>${t.tail?' <span class="note">ท้ายเบอร์</span>':""}<br>${sx?"เลขเบิลที่ไม่เหมาะกับ"+(inp.sex==="f"?"ผู้หญิง":"ผู้ชาย")+" "+esc(sx.txt):esc(shortTxt(t.short,90))}${triMoreHtml(inp,r,t,sx)}</span></li>`;}).join("");
   return `<section class="card" aria-labelledby="hfp"><h2 id="hfp">ความหมายคู่เลขในเบอร์นี้</h2>
    <p class="note" style="margin:0 0 8px">อ่านจากท้ายเบอร์ซึ่งส่งผลแรงที่สุด ไปหาหัวเบอร์ ระดับดี กลาง ระวัง คิดรวมกับพื้นดวงของคุณแล้ว</p>
    <div class="ppw" id="ppw"><ul class="pp">${rows}</ul>
