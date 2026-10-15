@@ -2401,7 +2401,11 @@ function s1000(inp,r){
   repSets(inp,r).forEach(x=>{f-=x.g==="b"?12:5;fl("ชุดเลขวนซ้ำ "+x.t+(x.g==="b"?" ไม่เหมาะกับวัยสร้างตัว":" ไม่ค่อยเหมาะกับวัยสร้างตัว"));});
   {const N9=nineFit(inp,r); if(N9){if(N9.g==="b"){f-=N9.c>2?8*(N9.c-2)+4:14;fl(N9.t.split(" ").slice(0,8).join(" "));} else if(N9.g==="m"&&N9.c!==0||N9.g==="m"&&r.ds.cls[9]!=="b"){f-=6;fl(N9.t.split(" ").slice(0,8).join(" "));}}}
   if(n.slice(6).includes(0)){f-=12;fl("มีเลข 0 ช่วงท้ายเบอร์");}
-  if([n[8],n[9]].includes(4)){f-=8;fl("เลข 4 อยู่ท้ายเบอร์ ควรอยู่ช่วงต้น");}
+  if([n[8],n[9]].includes(4)){ // เลข 4 ท้ายเบอร์: ไม่หักเอง ดูคุณภาพดาวพุธในดวง (พลังอ่อนที่ไม่มีเลขดีประกบ หักในหัวข้อเลขพลังอ่อนช่วงท้ายแล้ว) และดูอาชีพ
+    const c4=ds.cls[4], gk4=inp.job>=0&&!r.stg?(JOB_GRP[inp.job]||[])[0]:"", talk=["charm","broker","money","wisdom"].includes(gk4);
+    const weak4=c4==="b"&&[8,9].some(i=>n[i]===4&&weakRescue(n,i,ds.cls,inp.sex)===undefined);
+    if(weak4&&talk){f-=6;fl("เลข 4 ท้ายเบอร์เป็นพลังอ่อนในดวงคุณ และงานของคุณต้องใช้การพูดการเจรจามาก ด้านลบของเลข 4 จึงออกชัด");}
+    else if(c4==="g"&&talk){f+=4;fl("เลข 4 เป็นพลังดีในดวงคุณ และงานของคุณใช้การพูดการค้า ปิดท้ายด้วยเลข 4 จึงหนุนงาน");}}
   const fg=n[8]*10+n[9]; if(fg===38||fg===83){f-=15;fl("38 หรือ 83 อยู่ท้ายสุด ไม่ควรวางตรงนี้");}
   let en=0;for(let i=3;i<9;i++){const a=n[i],b=n[i+1];if(ENEMY.some(([x,y])=>(a===x&&b===y)||(a===y&&b===x))&&pairInfoG(a*10+b,inp.sex)[0]!=="g")en++;}
   if(en){f-=en*6;fl("มีดาวคู่ศัตรูเรียงติดกัน "+en+" จุด");}
@@ -2409,7 +2413,7 @@ function s1000(inp,r){
   if(weakT.length){f-=weakT.length*14;fl("เลขพลังอ่อนช่วงท้าย "+weakT.length+" ตัว ไม่มีเลขดีประกบช่วย");}
   if(n[9]===5&&f<150){f+=6;fl("ลงท้ายด้วย 5 เงินไม่รั่ว");}
   {const tf=tailFit(inp,r); if(tf.t.length) fl(tf.t[0]+(tf.t.length>1&&/ใจร้อน/.test(tf.t[tf.t.length-1])?" "+tf.t.find(x=>/ใจร้อน/.test(x)):"")); f+=Math.round(tf.sc*8)-(tf.sc<0?6:0);}
-  if(!why.flow.length||why.flow.every(x=>/ส่งต่อกันดี|ไม่รั่ว/.test(x))) why.flow.unshift("ลำดับเลขต่อกันราบรื่น ไม่มีจุดสะดุด");
+  if(!why.flow.length||why.flow.every(x=>/ส่งต่อกันดี|ไม่รั่ว|หนุนงาน/.test(x))) why.flow.unshift("ลำดับเลขต่อกันราบรื่น ไม่มีจุดสะดุด");
   P.flow=Math.round(cl(f,0,150)*0.97);
   // 3 เข้ากับพื้นดวง (ตัวท้ายมีน้ำหนักมากกว่า)
   const W=[1,1,1.2,1.4,1.7,2.2,2.8]; let cw=0,cs=0; const rescued=new Set();
