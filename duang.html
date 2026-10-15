@@ -1928,7 +1928,7 @@ function yearBlock(c,A,age,start,end,transit){
 }
 
 /* ===== ตั้งค่าการชำระเงิน (แก้ตรงนี้) ===== */
-var PAY={price:399,pairPrice:299,promptpay:'0997891585',accountName:'ธนวัตน์ จิระเมธาทรัพย์',bankName:'ธนาคารไทยพาณิชย์ (SCB)',bankNo:'648-284-4987',line:'https://lin.ee/ujF7VHa',salt:'KLPT-2569-horo'};
+var PAY={price:399,yPrice:299,pairPrice:299,promptpay:'0997891585',accountName:'ธนวัตน์ จิระเมธาทรัพย์',bankName:'ธนาคารไทยพาณิชย์ (SCB)',bankNo:'648-284-4987',line:'https://lin.ee/ujF7VHa',salt:'KLPT-2569-horo'};
 function crc16(s){var c=0xFFFF;for(var i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(var j=0;j<8;j++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return ('0000'+c.toString(16).toUpperCase()).slice(-4)}
 function tlv(id,v){return id+('0'+v.length).slice(-2)+v}
 function promptpayPayload(target,amount){var t=String(target).replace(/\D/g,''),sub;
@@ -1974,7 +1974,7 @@ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.c
  var draw=function(){ov.innerHTML='<div class="smpbar"><span>หน้า '+(i+1)+' จาก '+HSMP.length+'</span><span>'+(i>0?'<button type="button" data-nav="-1">ก่อนหน้า</button>':'')+(i<HSMP.length-1?'<button type="button" data-nav="1">ถัดไป</button>':'')+'<button type="button" data-close="1">ปิด</button></span></div><div class="smpimg"><img src="'+HSMP[i]+'" alt="ตัวอย่างหน้า '+(i+1)+'"></div>'};
  draw();document.body.appendChild(ov);document.body.style.overflow='hidden';
  ov.addEventListener('click',function(ev){var n=ev.target.closest('[data-nav]');if(n){i+=+n.getAttribute('data-nav');draw();return}if(ev.target.closest('[data-close]')||ev.target===ov){ov.remove();document.body.style.overflow=''}})});
-function isUnlocked(key){if(isOwnerH())return true;try{var v=localStorage.getItem('horo-unlock:'+key);return v===unlockNum(key)}catch(e){return false}}
+function isUnlocked(key){if(isOwnerH())return true;if(typeof bundleOnH==='function'&&bundleOnH())return true;try{var v=localStorage.getItem('horo-unlock:'+key);return v===unlockNum(key)}catch(e){return false}}
 function saveUnlock(key){try{localStorage.setItem('horo-unlock:'+key,unlockNum(key))}catch(e){}}
 function hSlipB64(file){return new Promise(function(ok,no){var fr=new FileReader();fr.onerror=no;fr.onload=function(){var im=new Image();im.onerror=function(){ok(fr.result)};im.onload=function(){
   var M=1400,sc=Math.min(1,M/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);
@@ -2015,6 +2015,7 @@ function bindPay(id,price,key,lineMsg,onOK){
     }).catch(function(){st.style.color='var(--bad)';st.textContent='เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ';go.disabled=false})});
   g('ugo').addEventListener('click',function(){var v=(g('ucode').value||'').replace(/[๐-๙]/g,function(c){return '๐๑๒๓๔๕๖๗๘๙'.indexOf(c)}).replace(/\D/g,'');
     if(pinOkH(v)){setOwnerH(true);onOK();return}
+    if(v===plkCode(bundleKeyH())){bundleSaveH();g('uerr').hidden=true;onOK();return}
     if(v!==unlockNum(key)){g('uerr').hidden=false;return}
     g('uerr').hidden=true;saveUnlock(key);onOK()});
   g('ucode').addEventListener('keydown',function(e){if(e.key==='Enter')g('ugo').click()});
@@ -2162,12 +2163,12 @@ function render(){
 
   if(window.__U&&window.__U===unlockNum(c.key)){saveUnlock(c.key);window.__U=null}var M4=r.length,UL=isUnlocked(c.key);
   var shortT=sec('s-topics','ดวงแต่ละด้าน (ย่อ)')+TD.map(function(t){return t.short}).join('')+(UL?'':'<p class="note">ฉบับละเอียดอ่านแต่ละด้านแบบ 2 จังหวะครบ พร้อมดาวที่เกี่ยวข้อง</p>');
-  var free=r.slice(0,M0)+r.slice(M1,M2)+shortT+timeFree(c,A,QQ,UL)+phoneBlock(c,QQ)+stockBlock(QQ);
+  var free=r.slice(0,M0)+r.slice(M1,M2)+shortT+timeFree(c,A,QQ,UL)+y2570Html(c,A,QQ)+phoneBlock(c,QQ)+stockBlock(QQ);
   var paidX=r.slice(M0,M1)+r.slice(M2,M3).replace('id="s-topics">ดวงแต่ละด้าน','id="p-topics">ดวงแต่ละด้าน (เต็ม)')+r.slice(M3,M4);
   r=free+(UL?renderPaid(c,A,QQ,paidX):paywall(c.key));
   LASTQ={QQ:QQ,c:c,share:SHARE};
   var box=document.getElementById('result');box.innerHTML=r;box.style.display='block';box.classList.remove('show');void box.offsetWidth;box.classList.add('show');
-  bindOverride();bindPaywall(c.key);bindPhone();bindShare();var pb=document.getElementById('pdfbtn');if(pb){pb.addEventListener('click',function(){pdfSave(c.key)});if(window.__PDF){window.__PDF=0;setTimeout(function(){pb.scrollIntoView({block:'center'});pb.classList.add('primary')},400)}}
+  bindOverride();bindPaywall(c.key);if(document.getElementById('slipy'))bindPay('y',PAY.yPrice,c.key+'|y2570','โอนค่ารายงานดวงปี 2570 '+PAY.yPrice+' บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อก (แนบสลิป)\nเกิด '+(c?c.label:''),function(){render();var t=document.getElementById('s-y2570');if(t&&t.scrollIntoView)t.scrollIntoView()});bindPhone();bindShare();var pb=document.getElementById('pdfbtn');if(pb){pb.addEventListener('click',function(){pdfSave(c.key)});if(window.__PDF){window.__PDF=0;setTimeout(function(){pb.scrollIntoView({block:'center'});pb.classList.add('primary')},400)}}
 }
 
 function tsign(TRp,k){return Math.floor(TRp.points[k].longitudeArcMinutes/1800)}
@@ -2381,9 +2382,9 @@ function closingHtml(c,A,QQ){
   return sec('d-end','คำแนะนำส่งท้ายจากผม')+'<ol>'+tips.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ol><p><button type="button" class="ghost" id="pdfbtn">บันทึกฉบับละเอียดเป็น PDF</button></p><p class="note">กดแล้วเลือก บันทึกเป็น PDF เก็บไว้อ่านทีหลังได้</p>'+paidLineH();
 }
 
-function timeCalc(c,A){var L=c.lagna,TK={3:'mars',5:'jupiter',7:'saturn',8:'rahu'},TCM=[],TCY=[];
+function timeCalc(c,A,START){var L=c.lagna,TK={3:'mars',5:'jupiter',7:'saturn',8:'rahu'},TCM=[],TCY=[];
   var GH={'นระ':7,'อัมพุ':3,'กีฏะ':8,'ปัศวะ':5}[A.type];
-  var now=new Date(),b=c.birth,ageAt=function(d){var a=d.getFullYear()-b.getFullYear();if(d.getMonth()<b.getMonth()||(d.getMonth()===b.getMonth()&&d.getDate()<b.getDate()))a--;return a+1};
+  var now=START||new Date(),b=c.birth,ageAt=function(d){var a=d.getFullYear()-b.getFullYear();if(d.getMonth()<b.getMonth()||(d.getMonth()===b.getMonth()&&d.getDate()<b.getDate()))a--;return a+1};
   var MN=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
   // months
   var mh=[],mGood=[],mBad=[];
@@ -2451,6 +2452,33 @@ function timeFree(c,A,QQ,UL){var TC=timeCalc(c,A),o='';
   else o+='<p class="note">ฉบับละเอียดมีจังหวะชีวิตครบ 10 ปี พร้อมสรุปปีที่เหมาะลงทุน เปลี่ยนงาน และเปลี่ยนเบอร์ที่สุด และเดือนที่เหมาะลงมือ</p>';
   if(rows[0].ph[0]==='g')o+='<p><a class="btn" href="'+NUMSITE+'#stock">ปีนี้เหมาะเปลี่ยนเบอร์ ดูเบอร์ในสต็อกที่เข้ากับดวง</a></p>';
   return o+chongHtml(c,A,QQ)}
+
+
+/* ===== แพ็กรวม 999 จากเว็บวิเคราะห์ตัวเลข ===== */
+function plkCode(key){var s=String(key).replace(/\D/g,'')+'|plk-7Hq2-2569',h=2166136261>>>0;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}
+  for(var k=0;k<3;k++){h^=h>>>13;h=Math.imul(h,0x5bd1e995)>>>0}return String(h%1000000).padStart(6,'0')}
+function bundleKeyH(){var d=(document.getElementById('date')||{}).value||'';var m=d.match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?'1'+m[3]+m[2]+(+m[1]+543):''}
+function bundleOnH(){var k=bundleKeyH();if(!k)return false;try{return JSON.parse(localStorage.getItem('plk_unlocked')||'[]').indexOf(k)>=0}catch(e){return false}}
+function bundleSaveH(){var k=bundleKeyH();if(!k)return;try{var a=JSON.parse(localStorage.getItem('plk_unlocked')||'[]');if(a.indexOf(k)<0){a.push(k);localStorage.setItem('plk_unlocked',JSON.stringify(a.slice(-30)))}}catch(e){}}
+
+/* ===== รายงานดวงปี 2570 ===== */
+function y2570Html(c,A,QQ){
+  var key=c.key+'|y2570',on=isUnlocked(c.key)||isUnlocked(key),TC=timeCalc(c,A,new Date(2027,0,1)),o=sec('s-y2570','ดวงปี 2570 ทั้งปี');
+  var nG=TC.mGood.length,nB=TC.mBad.length,z=zodOf(c.birth),R=chongRel(z,7);
+  o+='<p>ปี 2570 (มกราคม ถึง ธันวาคม) ดวงของคุณมีเดือนที่ดี <strong>'+nG+'</strong> เดือน และเดือนที่ต้องระวัง <strong>'+nB+'</strong> เดือน ส่วนปีชงแบบจีน คนเกิดปี'+ZOD[z].split(' ')[0]+'ในปีมะแม 2570 อยู่ในเกณฑ์ <span class="'+(R[0]==='g'?'t-good':R[0]==='b'?'t-bad':'')+'">'+R[1]+'</span></p>';
+  if(!on){
+    o+='<p class="note">ตัวอย่างเดือนแรกของปี</p>'+TC.mh[0];
+    var it='<ul><li><strong>ดวงทีละเดือน ครบ 12 เดือนของปี 2570:</strong> เงิน งาน ความรัก ครอบครัว สุขภาพ พร้อมเหตุผลทางโหร</li><li><strong>ภาพรวมทั้งปี:</strong> ปีโหรที่คาบเกี่ยวปี 2570 ศรีจร กาลีจร และเรื่องที่ควรรุก</li><li><strong>เดือนที่เหมาะลงมือ:</strong> เดือนที่เหมาะลงทุน เปลี่ยนงาน และเปลี่ยนเบอร์ เดือนที่ควรตั้งรับ</li><li><strong>ปีชง 2570</strong> และวิธีวางแผนให้ผ่านปีไปได้ดี</li><li>บันทึกเป็น PDF พื้นดำ เก็บไว้เปิดดูได้ทั้งปี</li></ul><p class="note">ซื้อฉบับละเอียด '+PAY.price+' บาท หรือแพ็กรวมจากหน้าวิเคราะห์ตัวเลข เปิดรายงานนี้ให้ด้วย ใส่รหัสในช่องรหัสปลดล็อกได้เลย</p>';
+    return o+payBox('y',PAY.yPrice,'รายงานดวงปี 2570 ฉบับเต็ม',it);}
+  var rows=TC.M.map(function(m){var t=1,mo=lvl(m.ev.res.money,t),wk=lvl(m.ev.res.work,t);return {nm:m.nm,lv:m.pc.lv,mo:mo,wk:wk,sri:m.ev.sri}});
+  var pick=function(f){var x=rows.filter(f).map(function(r){return r.nm.split(' ')[0]});return x.length?x.join(' · '):'ไม่มีเดือนที่เด่นชัด'};
+  o+='<div class="sum"><p><strong class="t-good">เดือนที่ดี:</strong> '+(TC.mGood.join(' · ')||'ไม่มีเดือนที่เด่นชัด')+'</p><p><strong class="t-bad">เดือนที่ต้องระวัง:</strong> '+(TC.mBad.join(' · ')||'ไม่มีเดือนที่เสียชัด')+'</p>';
+  o+='<p><strong>เดือนที่เหมาะลงทุน เรื่องเงิน:</strong> '+pick(function(r){return r.mo==='g'&&r.lv!=='ต้องระวัง'})+'</p><p><strong>เดือนที่เหมาะเปลี่ยนงาน เริ่มงานใหม่:</strong> '+pick(function(r){return r.wk==='g'&&r.lv!=='ต้องระวัง'})+'</p>';
+  o+='<p><strong>เดือนที่เหมาะเปลี่ยนเบอร์:</strong> '+pick(function(r){return r.lv==='ดี'&&QQ.cls[r.sri]!=='b'})+'</p></div>';
+  o=o+ownerBox(key,'รายงานดวงปี 2570');o+='<h3>ภาพรวมปีโหรที่คาบเกี่ยวปี 2570</h3>'+TC.yh.slice(0,2).join('');
+  o+='<h3>ดวงทีละเดือน มกราคม ถึง ธันวาคม 2570</h3>'+TC.mh.join('');
+  o+='<p class="note">ปีชง: '+R[2]+' ถ้าเดือนที่ต้องระวังด้านบนตรงกับเรื่องใหญ่ที่วางแผนไว้ ให้เลื่อนไปเดือนที่ดี หรือหาฤกษ์เฉพาะดวงก่อนทำ</p>';
+  return o}
 
 function renderPaid(c,A,QQ,paidX){
   var L=c.lagna,r='',tl=A.lordOf(1),TK={3:'mars',5:'jupiter',7:'saturn',8:'rahu'};
@@ -2867,7 +2895,7 @@ document.getElementById('f').addEventListener('submit',function(e){
   if(Y<1900||Y>2100){err.textContent='ปีเกิดต้องอยู่ระหว่าง ค.ศ. 1900 ถึง 2100 (ใส่เป็น ค.ศ.)';return}
   var c=buildChart(Y,M,D,hh,mm,+sel.value,document.getElementById('meth').value,false);
   if(!document.getElementById('pdate1').value){document.getElementById('pname1').value=document.getElementById('name').value;document.getElementById('pdate1').value=dv;document.getElementById('ptime1').value=tv;document.getElementById('pprov1').value=sel.value}
-  chart=c;render();if(/^#s-(now|time|chong)$/.test(location.hash)){var _h=document.getElementById(location.hash.slice(1));if(_h){setTimeout(function(){_h.scrollIntoView({behavior:'smooth',block:'start'})},80);}}else document.getElementById('result').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  chart=c;render();if(/^#s-(now|time|chong|y2570)$/.test(location.hash)){var _h=document.getElementById(location.hash.slice(1));if(_h){setTimeout(function(){_h.scrollIntoView({behavior:'smooth',block:'start'})},80);}}else document.getElementById('result').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 });
 })();
 </script>
