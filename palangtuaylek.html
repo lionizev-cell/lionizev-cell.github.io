@@ -306,7 +306,7 @@ a.ghost{font:inherit;color:var(--accent);border:1px solid var(--accent);border-r
  :root{color-scheme:dark}
  html,body{background:#0b0907!important;color:var(--ink)!important;font-size:13.5px}
  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;box-shadow:none!important;text-shadow:none!important}
- body.pr header,body.pr footer,body.pr #appview>section.card:first-child,body.pr .noprint,body.pr .pdfrow,body.pr .sghint,body.pr .cmpbox,body.pr .toc,body.pr button,body.pr .btns,body.pr .stickybar,body.pr .paidline,body.pr .smp,body.pr .unlocked,body.pr .pdfhelp,body.pr .vcount,body.pr .topnav,body.pr .modetabs,body.pr #f,body.pr #fh,body.pr .sharebox,body.pr .cta,body.pr .askline,body.pr section.pay,body.pr .reopen,body.pr .upsell,body.pr .bundle{display:none!important}
+ body.pr header,body.pr footer,body.pr #appview>section.card:first-child,body.pr .noprint,body.pr .pdfrow,body.pr .sghint,body.pr .cmpbox,body.pr .toc,body.pr button,body.pr .btns,body.pr .stickybar,body.pr .paidline,body.pr .smp,body.pr .unlocked,body.pr .pdfhelp,body.pr .vcount,body.pr .topnav,body.pr .modetabs,body.pr #f,body.pr #fh,body.pr .sharebox,body.pr .cta,body.pr .askline,body.pr section.pay,body.pr .reopen,body.pr .upsell,body.pr .stktz,body.pr .bundle{display:none!important}
  body.pr main,body.pr #appview,body.pr #result{display:block!important;width:auto!important;max-width:100%!important;margin:0!important;padding:0!important}
  body.pr *{max-width:100%!important;overflow:visible!important}
  body.pr p,body.pr li,body.pr span,body.pr b,body.pr h2,body.pr h3{overflow-wrap:anywhere;word-break:normal}
@@ -4199,7 +4199,7 @@ function render(inp,r,isSample){
   const unk=inp.notime?`<p class="note">ไม่ทราบเวลาเกิด ระบบใช้เวลา 06:00 ลัคนาจึงเป็นค่าโดยประมาณ</p>`:"";
   const NM=analyzeName(inp,r);
   const CTA=`<section class="cta">
-    <h2>อยากได้เบอร์ที่ใช่สำหรับคุณ</h2>
+    <h2>${r.s1000>=700&&r.band[0]!=="b"?"มีคำถามเรื่องเบอร์นี้ คุยกับผมได้":"อยากได้เบอร์ที่ใช่สำหรับคุณ"}</h2>
     <p>ถ้าสนใจให้ผมร้อยเรียงเบอร์ใหม่ให้เข้ากับดวง งาน และช่วงวัยของคุณ แอดไลน์มาคุยกันได้เลยครับ</p>${pkgListHtml()}
     <p>กดปุ่มด้านล่าง ระบบจะเตรียมข้อมูลวันเกิด อาชีพ เบอร์ และผลวิเคราะห์ของคุณให้ แล้วเปิดไลน์ของผม ${CONFIG.lineOA?"กดส่งได้เลย":"วางข้อความในแชทได้เลย"} ผมจะได้ไม่ต้องถามซ้ำ</p>
     <div class="btns"><button type="button" id="copy">ส่งผลนี้ให้ผมทางไลน์</button><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener">แอดไลน์อย่างเดียว</a></div>
@@ -4218,6 +4218,7 @@ function render(inp,r,isSample){
     ${sumWhyHtml(inp,r)}
     ${simpleSummary(inp,r,NM)}
   </section>
+  ${isSample||!(r.s1000<700||r.band[0]==="b")?"":stockTeaserHtml(inp,r,"before")}
   ${s1000Html(r)}
   ${freePairsHtml(inp,r)}
   ${isSample?"":askBoxHtml(inp,r)}
@@ -7616,9 +7617,10 @@ function capScore(inp,x){
   const lv=x.strong?"fail":(x.score>=75&&nG>=3&&nB===0)?"good":(x.score>=60&&nB<=1)||nG>=3?"ok":(nB>=3||x.score<45)?"bad":"mid";
   return Math.max({fail:0,bad:0,mid:45,ok:60,good:75}[lv],Math.min({fail:40,bad:44,mid:59,ok:74,good:98}[lv],x.score));
 }
-function stockRecHtml(inp,r){
+let _SRC={k:"",v:null};
+function stockRecList(inp,r){const ck=[inp.d,inp.m,inp.y,inp.h,inp.mi,inp.sex,inp.job,inp.phone,STOCK.length].join("|");if(_SRC.k===ck)return _SRC.v;
   const cand=STOCK.filter(x=>!x[4]&&stockState(x)==="ok").map(x=>({ph:String(x[0]).replace(/\D/g,""),price:+x[1]||0,net:x[2]||""})).filter(x=>/^0\d{9}$/.test(x.ph)&&x.ph!==inp.phone);
-  if(!cand.length) return "";
+  if(!cand.length) return [];
   const HN=houseNeeds(inp,r);
   const res=cand.map(c=>{const x=analyze({...inp,phone:c.ph}); x.score=capScore(inp,x);
     const tail=[...new Set(x.n.slice(6))], tg=tail.filter(d=>x.ds.cls[d]==="g"), tb=tail.filter(d=>x.ds.cls[d]==="b");
@@ -7639,7 +7641,16 @@ function stockRecHtml(inp,r){
     if(hf.fix.length) why.push(hf.fix.slice(0,2).map(([h,s,g])=>(g==="b"?"ช่วยแก้เรื่อง":"เสริมเรื่อง")+LIFE[h]+"ด้วยคู่ "+s).join(" และ"));
     const ab=x.pos.find(p=>p.k==="AB"); if(ab.info[0]==="g") why.push("ช่องทางเงินเข้าดี");
     return {...c,x,sc,why:why.slice(0,4)};}).filter(o=>!o.x.strong&&o.x.score>=60&&o.x.pos.find(p=>p.k==="GF").info[0]!=="b").sort((a,b)=>b.sc-a.sc).slice(0,3);
-  analyze(inp);
+  analyze(inp); _SRC={k:ck,v:res}; return res;}
+function stockTeaserHtml(inp,r,place){
+  let res=[];try{res=stockRecList(inp,r).filter(o=>o.x.score*10>=r.s1000+50).slice(0,2);}catch(e){}
+  if(!res.length) return "";
+  const fmt=p=>p.slice(0,3)+"-"+p.slice(3,6)+"-"+p.slice(6);
+  return `<section class="card stktz" style="border-color:var(--accent)"><h2>${place==="after"?"เบอร์ในสต็อกที่เข้ากับดวงคุณมากกว่า":"เบอร์นี้ได้ "+r.s1000+" คะแนน ผมมีเบอร์ที่เข้ากับดวงคุณมากกว่า"}</h2>
+   <ul class="plain" style="margin:6px 0;padding:0;list-style:none">${res.map(o=>`<li style="display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-top:1px solid var(--line)"><b class="exn" style="font-family:var(--f-mono)">${fmt(o.ph)}</b><span>${o.price?o.price.toLocaleString("th-TH")+" บาท":"สอบถามราคา"}</span><span class="note" style="margin:0">คะแนนกับดวงคุณ <span class="pill g">${o.x.score*10} / 1000</span></span><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener" style="justify-self:end;color:var(--accent);font-weight:600">สนใจเบอร์นี้</a></li>`).join("")}</ul>
+   <p class="note" style="margin:6px 0 0">เทียบกับดวง อาชีพ เพศ และวัยของคุณแล้ว <a href="#" class="dgo" data-j2="hsr">ดูเหตุผลและเบอร์อื่น</a></p></section>`;}
+function stockRecHtml(inp,r){
+  const res=stockRecList(inp,r); if(!res.length&&!STOCK.length) return "";
   const fmt=p=>p.slice(0,3)+"-"+p.slice(3,6)+"-"+p.slice(6);
   const who=inp.nick?"คุณ"+esc(inp.nick):"คุณ";
   return `<section class="card" id="stockrec" aria-labelledby="hsr"><h2 id="hsr">เบอร์ในสต็อกที่เข้ากับดวง${who}</h2>
@@ -8426,7 +8437,7 @@ document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest
 const BUNDLE_PRICE=999;
 function bundleKey(){try{const i=readFormLoose();if(!i.d||!i.m||!i.y)return "";return "1"+pad(i.d)+pad(i.m)+(i.y+543);}catch(e){return "";}}
 function bundleOn(){const k=bundleKey();if(!k)return false;try{return (JSON.parse(localStorage.getItem(UNL_KEY)||"[]")).includes(k);}catch(e){return false;}}
-function bundleBoxHtml(){const slip=CONFIG.slipApi||CONFIG.thunderKey;return `<details class="bundle libd" style="margin-top:12px"><summary><b>แพ็กรวม ${BUNDLE_PRICE} บาท</b> ปลดล็อกทุกบริการของวันเกิดนี้</summary>
+function bundleBoxHtml(){const slip=CONFIG.slipApi||CONFIG.thunderKey;return `<details class="bundle libd" style="margin-top:14px;padding-top:10px;border-top:1px dashed var(--line)"><summary style="font-size:13px;font-weight:400;color:var(--muted,inherit)">อยากดูหลายบริการ (ชื่อ ฤกษ์ บ้าน ดวงปี 2570) เหมาจ่ายแพ็กรวม ${BUNDLE_PRICE} บาท</summary>
   <ul class="plain" style="margin:8px 0"><li>วิเคราะห์เบอร์เจาะลึก ได้ทุกเบอร์</li><li>วิเคราะห์ชื่อและตั้งชื่อแบบละเอียด</li><li>ฤกษ์มงคล ดวงคู่ และวิเคราะห์ บ้าน ร้าน ทะเบียน บัญชี แบบละเอียด</li><li>ดวงชะตาฉบับละเอียด และรายงานดวงปี 2570 ในหน้าดูดวง</li></ul>
   <p class="note">ถ้าซื้อแยกครบทุกอย่างเกิน 2,000 บาท แพ็กรวมจ่ายครั้งเดียว ${BUNDLE_PRICE} บาท ใช้ได้กับวันเกิดนี้</p>
   <div style="display:flex;justify-content:center;margin:8px 0"><div style="width:200px;height:200px;background:#fff;border-radius:8px;padding:6px;box-sizing:border-box">${qrSvg(ppPayload(BUNDLE_PRICE),188)}</div></div>
@@ -8448,6 +8459,7 @@ function upsellInject(){try{["deep","kdeep"].forEach(id=>{const el=$(id);if(!el|
   const sc=+(((($("result").querySelector(".score")||{}).textContent)||"").match(/\d+/)||[0])[0];
   const what=id==="deep"?"เบอร์":(NUMK[MODE]||{n:"เลข"}).n;
   const lead=id==="deep"?(sc&&sc<700?`เบอร์นี้ได้ ${sc} คะแนนจาก 1000 ยังไม่ถึงระดับที่ดวงของคุณควรได้ เบอร์ที่ร้อยเรียงเข้ากับดวงจริงมักได้ 800 คะแนนขึ้นไป`:sc>=800?`เบอร์นี้ได้ ${sc} คะแนน ดีอยู่แล้ว ใช้ต่อได้ ถ้าอยากได้เบอร์สำรองหรือเบอร์ทำงานที่ดีระดับเดียวกัน คุยกับผมได้`:`เบอร์นี้ได้ ${sc} คะแนน ใช้ได้ แต่ยังขยับขึ้นได้อีก ถ้าร้อยเรียงให้เข้ากับดวงและงานของคุณจริง`):`ถ้าอยากได้${what}ใหม่ที่ได้คะแนนสูงกว่านี้ หรืออยากให้ผมร้อยเรียงเบอร์ที่ใช้คู่กันให้หนุน${what}นี้ คุยกับผมได้`;
+  if(id==="deep"&&sc<800&&_ASK&&_ASK.inp){const tz=stockTeaserHtml(_ASK.inp,_ASK.r,"after");if(tz)el.insertAdjacentHTML("beforeend",tz.replace('class="card stktz"','class="card stktz" style="margin-top:14px"'));}
   el.insertAdjacentHTML("beforeend",`<section class="card upsell" style="margin-top:14px;border-color:var(--accent)"><h2>อยากได้เบอร์ที่ดีกว่านี้</h2><p class="para">${lead}</p>${pkgListHtml()}<div class="btns"><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener" class="primary">ทักไลน์คุยกับผม</a><a href="#stock" class="ghost">ดูสต็อกเบอร์</a></div></section>`);});}catch(e){}}
 try{new MutationObserver(()=>{bundleInject();upsellInject();}).observe($("result"),{subtree:true,childList:true,attributes:true,attributeFilter:["hidden"]});}catch(e){}
 
