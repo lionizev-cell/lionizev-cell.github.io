@@ -6940,6 +6940,20 @@ function aboutRender(){
 }
 
 // ===== สต็อกเบอร์ =====
+let stockCat="all";
+// หมวดเบอร์: สวย = เลขเรียงเป็นแพทเทิร์นจำง่าย หรือราคาตั้งแต่ 10,000 หรือหมายเหตุระบุว่าเบอร์สวย / มงคล = ที่เหลือ (คัดตามความหมายเลข)
+function stockPattern(ph){const t=ph.slice(3),L=ph.slice(-4),L6=ph.slice(-6);
+  if(/(\d)\1\1/.test(t))return "เลขตอง";
+  if(L[0]===L[2]&&L[1]===L[3]&&L[0]!==L[1])return "เลขคู่ซ้ำ "+L;
+  if(L6.slice(0,3)===L6.slice(3))return "เลขชุดซ้ำ "+L6;
+  if(L[0]===L[1]&&L[2]===L[3]&&L[0]!==L[2])return "เลขเบิ้ลคู่ "+L;
+  if(L[0]===L[3]&&L[1]===L[2]&&L[0]!==L[1])return "เลขกระจก "+L;
+  for(let i=3;i<=6;i++){const w=ph.slice(i,i+4).split("").map(Number);if(w.every((d,k)=>k===0||d===w[k-1]+1)||w.every((d,k)=>k===0||d===w[k-1]-1))return "เลขเรียง "+ph.slice(i,i+4);}
+  return "";}
+function stockCatOf(r){const note=String(r.note||""),ph=r.ph;
+  if(/มงคล/.test(note)&&!/สวย/.test(note))return {c:"luck",why:""};
+  const pt=stockPattern(ph); if(/สวย/.test(note)||pt||r.price>=10000)return {c:"pretty",why:pt};
+  return {c:"luck",why:""};}
 let stockSort="new";
 function stockRender(){
   const el=$("stock");
@@ -6949,6 +6963,8 @@ function stockRender(){
      <div class="prose"><p>เบอร์ที่ผมคัดและลงขายในเพจ กดปุ่ม "ดูว่าเข้ากับดวงไหม" แล้วระบบจะนำเบอร์ไปวิเคราะห์กับข้อมูลวันเกิดที่คุณกรอกในหน้าแรกทันที</p>
      <p class="note">สนใจเบอร์ไหนทักไลน์มาได้เลย เบอร์มีจำนวนจำกัด ไม่รับจอง ชำระเต็มจำนวนเท่านั้น ส่งซิมฟรีทั่วประเทศ <a href="#policy" class="flink">ดูขั้นตอนซื้อ</a></p></div></section>
     <section class="card libtools">
+     <div class="libfil stcat" role="group" aria-label="หมวดเบอร์">${[["all","ทั้งหมด"],["luck","เบอร์มงคล"],["pretty","เบอร์สวย"]].map(([v,t])=>`<button type="button" data-c="${v}" aria-pressed="${v===stockCat}">${t} <span class="stcn" data-cn="${v}"></span></button>`).join("")}</div>
+     <p class="note stcatnote" style="margin:4px 0 10px"></p>
      <label for="stq">ค้นหาเลขที่อยากได้<input id="stq" inputmode="numeric" placeholder="เช่น 789 หรือ 24"></label>
      <div class="libfil" role="group" aria-label="เรียงลำดับ">${[["new","ล่าสุด"],["low","ราคาต่ำไปสูง"],["high","ราคาสูงไปต่ำ"]].map(([v,t])=>`<button type="button" data-s="${v}" aria-pressed="${v===stockSort}">${t}</button>`).join("")}</div>
     </section>
@@ -6959,7 +6975,8 @@ function stockRender(){
     <div><a href="#" class="libback">กลับไปวิเคราะห์เบอร์</a></div>`;
     el.dataset.built=1;
     $("stq").oninput=stockList;
-    el.querySelectorAll(".libfil button").forEach(b=>b.onclick=()=>{stockSort=b.dataset.s;el.querySelectorAll(".libfil button").forEach(x=>x.setAttribute("aria-pressed",x===b));stockList();});
+    el.querySelectorAll(".libfil:not(.stcat) button").forEach(b=>b.onclick=()=>{stockSort=b.dataset.s;el.querySelectorAll(".libfil:not(.stcat) button").forEach(x=>x.setAttribute("aria-pressed",x===b));stockList();});
+    el.querySelectorAll(".stcat button").forEach(b=>b.onclick=()=>{stockCat=b.dataset.c;el.querySelectorAll(".stcat button").forEach(x=>x.setAttribute("aria-pressed",x===b));stockList();});
     $("stlist").addEventListener("click",e=>{const bb=e.target.closest("button[data-buy]");if(bb){const slot=document.querySelector(`[data-buyslot="${bb.dataset.buy}"]`);if(slot.innerHTML){slot.innerHTML="";return;}slot.innerHTML=buyBoxHtml(bb.dataset.buy,+bb.dataset.price);buyWire(slot.firstElementChild);slot.scrollIntoView({behavior:"smooth",block:"start"});return;}
       const b=e.target.closest("button[data-ph]");if(!b)return;
       $("phone").value=b.dataset.ph;try{history.replaceState(null,"",location.pathname+location.search);}catch(_){}showLib("");
@@ -6982,6 +6999,11 @@ function stockList(){
   const q=($("stq").value||"").replace(/\D/g,"");
   rsvLoadAll();
   let rows=STOCK.map((r,i)=>{const s=stockState(r);return {ph:String(r[0]).replace(/\D/g,""),price:+r[1]||0,net:r[2]||"",note:r[3]||"",st:s,sold:s==="sold"?2:s==="rsv"?1:0,i};}).filter(r=>/^0\d{9}$/.test(r.ph));
+  rows.forEach(r=>{const c=stockCatOf(r);r.cat=c.c;r.catWhy=c.why;});
+  {const live=rows.filter(r=>!r.sold),cnt={all:live.length,luck:live.filter(r=>r.cat==="luck").length,pretty:live.filter(r=>r.cat==="pretty").length};
+   document.querySelectorAll(".stcn").forEach(x=>x.textContent="("+cnt[x.dataset.cn]+")");
+   const nt=document.querySelector(".stcatnote");if(nt)nt.textContent=stockCat==="pretty"?"เบอร์สวย คือเบอร์ที่เลขเรียงจำง่าย เช่น เลขตอง เลขคู่ซ้ำ เลขเรียง ราคาตามตลาดเบอร์สวย กดดูว่าเข้ากับดวงคุณไหมก่อนซื้อได้":stockCat==="luck"?"เบอร์มงคล คือเบอร์ที่ผมคัดจากความหมายคู่เลขในตำแหน่งสำคัญ ราคาเข้าถึงง่าย กดดูว่าเข้ากับดวงคุณไหมได้ทุกเบอร์":"";}
+  if(stockCat!=="all") rows=rows.filter(r=>r.cat===stockCat);
   if(q) rows=rows.filter(r=>r.ph.includes(q));
   if(stockSort==="low") rows.sort((a,b)=>a.sold-b.sold||a.price-b.price);
   else if(stockSort==="high") rows.sort((a,b)=>a.sold-b.sold||b.price-a.price);
@@ -6990,7 +7012,7 @@ function stockList(){
   $("stlist").innerHTML=rows.length?rows.map(r=>{
     const n=r.ph.split("").map(Number), sum=n.reduce((a,b)=>a+b,0), si=sumGen(sum), tail=libPair(r.ph.slice(-2));
     return `<li class="${r.sold?"sold":""}"><div class="stn"><b class="exn">${fmt(r.ph)}</b>${r.st==="sold"?'<span class="pill b">ขายแล้ว</span>':r.st==="rsv"?'<span class="pill m">จองแล้ว</span>':`<span class="stp">${r.price?r.price.toLocaleString("th-TH")+" บาท":"สอบถามราคา"}</span>`}</div>
-      <div class="note">${r.net?esc(r.net)+" · ":""}ผลรวม ${sum} <span class="pill ${si[0]}">${String(si[1]).replace(/^ผลรวม\s*\d+\s*/,"")}</span> · ท้ายเบอร์ ${r.ph.slice(-2)} <span class="pill ${tail[0]}">${tail[1]}</span></div>
+      <div class="note"><span class="pill ${r.cat==="pretty"?"m":"g"}" style="margin-right:4px">${r.cat==="pretty"?"เบอร์สวย"+(r.catWhy?" · "+esc(r.catWhy):""):"เบอร์มงคล"}</span>${r.net?esc(r.net)+" · ":""}ผลรวม ${sum} <span class="pill ${si[0]}">${String(si[1]).replace(/^ผลรวม\s*\d+\s*/,"")}</span> · ท้ายเบอร์ ${r.ph.slice(-2)} <span class="pill ${tail[0]}">${tail[1]}</span></div>
       ${r.note?`<p style="margin:2px 0 0">${esc(r.note)}</p>`:""}
       ${r.sold?"":`<details class="libd stkd"><summary>ดูความหมายเบอร์</summary>${stockMeaning(r.ph)}</details>`}
       ${r.sold?"":`<div class="btns">${r.price?`<button type="button" class="primary sm" data-buy="${r.ph}" data-price="${r.price}">ซื้อเบอร์นี้</button>`:""}<button type="button" class="ghost" data-ph="${r.ph}">ดูว่าเข้ากับดวงไหม</button><a class="ghost" href="${CONFIG.chatUrl}" target="_blank" rel="noopener">ถามทางไลน์</a></div><div data-buyslot="${r.ph}"></div>`}</li>`;}).join("")
