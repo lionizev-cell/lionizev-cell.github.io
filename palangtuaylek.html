@@ -395,10 +395,15 @@ a.dgo{display:inline-block;background:var(--accent-deep);color:var(--on-accent);
   </div>
   <h2 id="fh">วิเคราะห์เบอร์มือถือ</h2>
   <form id="f" novalidate>
-    <div class="phtop" data-show="phone cmp">
+    <div class="phtop" data-show="phone cmp plate house shop bank idcard">
     <label for="phone" class="phbig" data-show="phone cmp"><span id="t_ph">เบอร์มือถือที่ต้องการวิเคราะห์</span><input id="phone" type="tel" inputmode="numeric" placeholder="0812345678" maxlength="12" autocomplete="off"></label>
     <label for="phone2" class="phbig" data-show="cmp">เบอร์ที่ 2<input id="phone2" type="tel" inputmode="numeric" placeholder="0898765432" maxlength="12" autocomplete="off"></label>
-    <p class="note" style="margin:0">แล้วกรอกวันเกิดและอาชีพด้านล่าง เพื่อเทียบเบอร์กับดวงของคุณ</p>
+    <label for="plate" class="phbig" data-show="plate">ทะเบียนรถ (ใส่ตัวอักษรและตัวเลข ไม่ต้องใส่จังหวัด)<input id="plate" placeholder="เช่น 1กข 2345" maxlength="12" autocomplete="off"></label>
+    <label for="house" class="phbig" data-show="house">บ้านเลขที่<input id="house" placeholder="เช่น 123/45" maxlength="20" autocomplete="off"></label>
+    <label for="shop" class="phbig" data-show="shop">เลขที่ร้าน หรือเลขห้องเช่า<input id="shop" placeholder="เช่น 88/9" maxlength="20" autocomplete="off"></label>
+    <label for="bank" class="phbig" data-show="bank">เลขบัญชีธนาคาร<input id="bank" type="tel" inputmode="numeric" placeholder="123-4-56789-0" maxlength="22" autocomplete="off"></label>
+    <label for="idcard" class="phbig" data-show="idcard">เลขบัตรประชาชน 13 หลัก<input id="idcard" type="tel" inputmode="numeric" placeholder="1 2345 67890 12 3" maxlength="17" autocomplete="off"></label>
+    <p class="note" style="margin:0">แล้วกรอกวันเกิดและอาชีพด้านล่าง เพื่อเทียบกับดวงของคุณ</p>
     </div>
     <h3 class="sub" data-show="love" style="margin:0">คนที่ 1 ข้อมูลของคุณ</h3>
     <div class="row" data-show="phone name plate house idcard cmp rk love bank shop today baby dir chong">
@@ -431,13 +436,8 @@ a.dgo{display:inline-block;background:var(--accent-deep);color:var(--on-accent);
       <label class="check" for="notime2"><input type="checkbox" id="notime2"> ไม่ทราบเวลาเกิด</label>
       <label for="prov2">จังหวัดที่เกิด<select id="prov2"></select></label>
     </div>
-    <label for="plate" data-show="plate">ทะเบียนรถ (ใส่ตัวอักษรและตัวเลข ไม่ต้องใส่จังหวัด)<input id="plate" placeholder="เช่น 1กข 2345" maxlength="12" autocomplete="off"></label>
-    <label for="house" data-show="house">บ้านเลขที่<input id="house" placeholder="เช่น 123/45" maxlength="20" autocomplete="off"></label>
     <div class="hsbox" data-show="house"><p class="note" style="margin:0">ข้อมูลด้านบนคือของเจ้าบ้าน อยากรู้ว่าบ้านนี้หนุนคนอื่นในบ้านไหม เพิ่มได้อีก 5 คน</p><div id="hsppl"></div><button type="button" class="ghost" id="hsadd">เพิ่มคนในบ้าน</button></div>
     <label for="hdir" data-show="house shop">ทิศหน้าบ้าน หรือหน้าร้าน (ไม่ทราบไม่ต้องเลือก)<select id="hdir"><option value="">ไม่ทราบ หรือไม่ระบุ</option><option value="n">เหนือ</option><option value="ne">อีสาน (ตะวันออกเฉียงเหนือ)</option><option value="e">ตะวันออก</option><option value="se">อาคเนย์ (ตะวันออกเฉียงใต้)</option><option value="s">ใต้</option><option value="sw">หรดี (ตะวันตกเฉียงใต้)</option><option value="w">ตะวันตก</option><option value="nw">พายัพ (ตะวันตกเฉียงเหนือ)</option></select></label>
-    <label for="shop" data-show="shop">เลขที่ร้าน หรือเลขห้องเช่า<input id="shop" placeholder="เช่น 88/9" maxlength="20" autocomplete="off"></label>
-    <label for="bank" data-show="bank">เลขบัญชีธนาคาร<input id="bank" inputmode="numeric" placeholder="123-4-56789-0" maxlength="22" autocomplete="off"></label>
-    <label for="idcard" data-show="idcard">เลขบัตรประชาชน 13 หลัก<input id="idcard" inputmode="numeric" placeholder="1 2345 67890 12 3" maxlength="17" autocomplete="off"></label>
     <p class="err" id="err" hidden></p>
     <button class="primary" type="submit" id="gobtn">วิเคราะห์เบอร์</button>
     <p class="note" id="memnote" hidden style="margin:6px 0 0">ระบบจำวันเกิดและอาชีพไว้ในมือถือเครื่องนี้เท่านั้น ครั้งหน้าไม่ต้องกรอกใหม่ <a href="#" id="memclr" class="flink">ล้างข้อมูลที่จำไว้</a></p>
