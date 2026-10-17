@@ -22,7 +22,7 @@
 <title>เช็คเบอร์มงคล วิเคราะห์เบอร์มือถือ ชื่อ ทะเบียนรถ ตามวันเกิด | ความลับพลังตัวเลข</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"></noscript>
 <style>
 /* Layout: one narrow reading column, form card then result stacked; the phone number is the hero, set in big mono digits with position letters underneath */
 :root{
@@ -4178,7 +4178,18 @@ function pctRank(inp,s){
   const below=a.filter(v=>v<s).length, eq=a.filter(v=>v===s).length;
   return {pct:Math.round((below+eq/2)/a.length*100),med:a[Math.floor(a.length/2)],top10:a[Math.floor(a.length*0.9)]};
 }
-function pctHtml(inp,r){let P;try{P=pctRank(inp,r.s1000);}catch(e){return "";} if(!P) return "";
+function pctKey(inp){return [inp.y,inp.m,inp.d,inp.h,inp.mi,inp.lat,inp.lon,inp.sex,inp.jobText||"",inp.fname||"",inp.lname||""].join(",");}
+// คำนวณเปอร์เซ็นต์ต้องวิเคราะห์เบอร์สุ่ม 400 เบอร์ ใช้เวลานาน จึงแสดงผลหลักก่อน แล้วค่อยเติมกล่องนี้ทีหลัง
+let _pctSeq=0;
+function pctHtml(inp,r,isSample){
+  if(_PCT[pctKey(inp)]) return pctHtmlNow(inp,r);
+  const id="pctw"+(++_pctSeq);
+  const run=()=>{const el=document.getElementById(id); if(!el) return; const sv=_PCTX; let h=""; try{h=pctHtmlNow(inp,r);}catch(e){} _PCTX=sv; el.outerHTML=h;};
+  const later=f=>window.requestIdleCallback?requestIdleCallback(f,{timeout:isSample?4000:400}):setTimeout(f,isSample?1500:60);
+  setTimeout(()=>later(run),isSample?1200:30);
+  return `<div class="pctbox" id="${id}" style="min-height:92px"><p class="pctl note">กำลังเทียบกับเบอร์ทั่วไป...</p></div>`;
+}
+function pctHtmlNow(inp,r){let P;try{P=pctRank(inp,r.s1000);}catch(e){return "";} if(!P) return "";
   const p=Math.max(1,Math.min(99,P.pct)), c=p>=80?"g":p>=50?"m":"b";
   const t=p>=90?"อยู่กลุ่มท็อป 10% เบอร์ที่เข้ากับดวงคุณได้ดีมาก":p>=70?"ดีกว่าเบอร์ส่วนใหญ่":p>=40?"ใกล้เคียงเบอร์ทั่วไป":"ยังด้อยกว่าเบอร์ส่วนใหญ่";
   return `<div class="pctbox"><p class="pctl">ดีกว่าเบอร์ทั่วไป <b class="pc${c}">${p}%</b></p>
@@ -4214,7 +4225,7 @@ function render(inp,r,isSample){
     ${isSample?"":`<nav class="rjump" aria-label="ไปยังส่วนของผล"><a href="#" data-j="h1r">สรุป</a><a href="#" data-j="hfp">คู่เลข</a><a href="#" data-j="hpay">เจาะลึก 399</a><a href="#" data-j="hsr">เบอร์แนะนำ</a></nav>`}
     <div class="num" aria-label="เบอร์ ${inp.phone}">${numHtml}</div>
     <div class="verdict"><div class="score">${r.s1000} <small>/ 1000</small></div><div><span class="pill ${r.band[0]}">${r.band[1]}</span></div></div>
-    ${pctHtml(inp,r)}
+    ${pctHtml(inp,r,isSample)}
     <p class="sumline">ผลรวม <b>${r.sum}</b> <span class="pill ${r.sumInfo[0]}">${({g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"})[r.sumInfo[0]]}</span> <span>${esc(r.sumInfo[1]||"")}</span></p>
     ${sumWhyHtml(inp,r)}
     ${simpleSummary(inp,r,NM)}
