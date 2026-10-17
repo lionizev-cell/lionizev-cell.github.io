@@ -2010,7 +2010,7 @@ function bindPay(id,price,key,lineMsg,onOK){
   f.addEventListener('change',function(){var x=f.files[0];g('slipn').textContent=x?x.name:'แตะเพื่อเลือกรูปสลิป';go.disabled=!x;st.textContent=''});
   go.addEventListener('click',function(){var x=f.files[0];if(!x)return;go.disabled=true;st.style.color='';st.textContent='กำลังตรวจสลิป รอสักครู่...';
     hSlipB64(x).then(function(b){return hThunder(b,price)}).then(function(j){
-      if(j.ok){var code=unlockNum(key);saveUnlock(key);st.style.color='var(--good)';st.textContent='ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ '+code+' เก็บไว้ใช้เปิดดูอีกครั้งได้';setTimeout(onOK,1200)}
+      if(j.ok){var code=unlockNum(key);saveUnlock(key);hHit('slip-ok');hHit(/\|y2570$/.test(key)?'pay-y2570':'pay-horo');st.style.color='var(--good)';st.textContent='ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ '+code+' เก็บไว้ใช้เปิดดูอีกครั้งได้';setTimeout(onOK,1200)}
       else{st.style.color='var(--bad)';st.textContent=j.msg+' ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ';go.disabled=false}
     }).catch(function(){st.style.color='var(--bad)';st.textContent='เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ';go.disabled=false})});
   g('ugo').addEventListener('click',function(){var v=(g('ucode').value||'').replace(/[๐-๙]/g,function(c){return '๐๑๒๓๔๕๖๗๘๙'.indexOf(c)}).replace(/\D/g,'');
@@ -2168,7 +2168,7 @@ function render(){
   r=free+(UL?renderPaid(c,A,QQ,paidX):paywall(c.key));
   LASTQ={QQ:QQ,c:c,share:SHARE};
   var box=document.getElementById('result');box.innerHTML=r;box.style.display='block';box.classList.remove('show');void box.offsetWidth;box.classList.add('show');
-  bindOverride();bindPaywall(c.key);if(document.getElementById('slipy'))bindPay('y',PAY.yPrice,c.key+'|y2570','โอนค่ารายงานดวงปี 2570 '+PAY.yPrice+' บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อก (แนบสลิป)\nเกิด '+(c?c.label:''),function(){render();var t=document.getElementById('s-y2570');if(t&&t.scrollIntoView)t.scrollIntoView()});bindPhone();bindShare();var pb=document.getElementById('pdfbtn');if(pb){pb.addEventListener('click',function(){pdfSave(c.key)});if(window.__PDF){window.__PDF=0;setTimeout(function(){pb.scrollIntoView({block:'center'});pb.classList.add('primary')},400)}}
+  bindOverride();bindPaywall(c.key);if(document.getElementById('slipy'))bindPay('y',PAY.yPrice,c.key+'|y2570','โอนค่ารายงานดวงปี 2570 '+PAY.yPrice+' บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อก (แนบสลิป)\nเกิด '+(c?c.label:''),function(){render();var t=document.getElementById('s-y2570');if(t&&t.scrollIntoView)t.scrollIntoView()});bindPhone();bindShare();var pb=document.getElementById('pdfbtn');if(pb){pb.addEventListener('click',function(){hHit('pdf-horo');pdfSave(c.key)});if(window.__PDF){window.__PDF=0;setTimeout(function(){pb.scrollIntoView({block:'center'});pb.classList.add('primary')},400)}}
 }
 
 function tsign(TRp,k){return Math.floor(TRp.points[k].longitudeArcMinutes/1800)}
@@ -2479,6 +2479,12 @@ function y2570Html(c,A,QQ){
   o+='<h3>ดวงทีละเดือน มกราคม ถึง ธันวาคม 2570</h3>'+TC.mh.join('');
   o+='<p class="note">ปีชง: '+R[2]+' ถ้าเดือนที่ต้องระวังด้านบนตรงกับเรื่องใหญ่ที่วางแผนไว้ ให้เลื่อนไปเดือนที่ดี หรือหาฤกษ์เฉพาะดวงก่อนทำ</p>';
   return o}
+
+
+var HCNT={ns:"palangtuaylek-lionizev",base:"https://abacus.jasoncameron.dev"};
+function hHit(k){try{if(!/github\.io$|palangtuaylek\.com$/.test(location.hostname)||isOwnerH())return;var d=new Date(),day=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  [k,k+"-"+day].forEach(function(x){fetch(HCNT.base+"/hit/"+HCNT.ns+"/"+x,{mode:"cors"}).catch(function(){})})}catch(e){}}
+(function(){try{if(!sessionStorage.getItem("plk_hv")){sessionStorage.setItem("plk_hv","1");hHit("horo-visit")}}catch(e){}})();
 
 function renderPaid(c,A,QQ,paidX){
   var L=c.lagna,r='',tl=A.lordOf(1),TK={3:'mars',5:'jupiter',7:'saturn',8:'rahu'};
@@ -2895,7 +2901,7 @@ document.getElementById('f').addEventListener('submit',function(e){
   if(Y<1900||Y>2100){err.textContent='ปีเกิดต้องอยู่ระหว่าง ค.ศ. 1900 ถึง 2100 (ใส่เป็น ค.ศ.)';return}
   var c=buildChart(Y,M,D,hh,mm,+sel.value,document.getElementById('meth').value,false);
   if(!document.getElementById('pdate1').value){document.getElementById('pname1').value=document.getElementById('name').value;document.getElementById('pdate1').value=dv;document.getElementById('ptime1').value=tv;document.getElementById('pprov1').value=sel.value}
-  chart=c;render();if(/^#s-(now|time|chong|y2570)$/.test(location.hash)){var _h=document.getElementById(location.hash.slice(1));if(_h){setTimeout(function(){_h.scrollIntoView({behavior:'smooth',block:'start'})},80);}}else document.getElementById('result').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  chart=c;render();try{var _hk='plk_hr_'+c.key;if(!sessionStorage.getItem(_hk)){sessionStorage.setItem(_hk,'1');hHit('horo-read')}}catch(e){}if(/^#s-(now|time|chong|y2570)$/.test(location.hash)){var _h=document.getElementById(location.hash.slice(1));if(_h){setTimeout(function(){_h.scrollIntoView({behavior:'smooth',block:'start'})},80);}}else document.getElementById('result').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 });
 })();
 </script>
