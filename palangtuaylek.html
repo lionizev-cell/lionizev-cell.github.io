@@ -7527,7 +7527,16 @@ function preInfo(pre,a){
 function preDep(k){const v=+k;return !!(GSEX.f.pairs[k]||GSEX.f.same[k]||GSEX.m.pairs[k]||GSEX.m.same[k])||[47,74,58,85,87,33,83].includes(v);}
 const PRE_DEP=' <span class="note">ผลจริงขึ้นกับเพศ พื้นดวง และอาชีพ ดูได้ตอนวิเคราะห์เบอร์</span>';
 function prefixLearnHtml(){
-  const rows=PRE_LIST.map(p=>{const o=preInfo(p);return `<li><span class="pv sm ${o.p21[0]}">${p}</span><span><b>คู่ ${o.k21}</b> ${o.p21[1]} <span class="note">${o.p21[2]}</span>${preDep(o.k21)?PRE_DEP:""}</span></li>`;}).join("");
+  const T={g:"ดี",m:"กลาง",b:"ต้องระวัง"};
+  const rows=PRE_LIST.map(p=>{const o=preInfo(p), ld=LD[o.k21], cx=CTX["21"][o.p21[0]];
+    const con=[0,1,2,3,4,5,6,7,8,9].map(a=>{const q=preInfo(p,a);return `<li><span class="pv sm ${q.pA[0]}">${q.kA}</span><span><b>${p}${a}</b> ตัวเชื่อม ${q.kA} ${q.pA[1]} <span class="pill ${q.pA[0]}">${T[q.pA[0]]}</span>${preDep(q.kA)?' <span class="note">ขึ้นกับเพศ ดวง และอาชีพ</span>':""}</span></li>`;}).join("");
+    return `<li><span class="pv sm ${o.p21[0]}">${p}</span><div><b>คู่ ${o.k21}</b> ${o.p21[1]} <span class="note">${o.p21[2]}</span>${preDep(o.k21)?PRE_DEP:""}
+     <details class="pmore"><summary>อ่านเพิ่มเติม</summary>
+      <p><b>ตำแหน่งนี้ส่งผลต่อภาพลักษณ์ และสังคมภายนอก มีผลน้อยประมาณ 5 เปอร์เซ็นต์</b> ${cx}</p>
+      ${ld?`<p><b>ภาพที่คนอื่นเห็น</b> ${ld[0]}</p><p><b>ข้อควรระวัง</b> ${ld[3]}</p>`:""}
+      <p><b>อ่านร่วมกับตัวถัดไป</b> เลขตัวแรกของเจ็ดตัวหลังจะจับคู่กับเลข ${p[2]} เป็นตัวเชื่อม บอกว่าภาพลักษณ์จากหัวเบอร์ ${p} ส่งเข้าตัวเบอร์ได้ดีแค่ไหน</p>
+      <ul class="pp">${con}</ul>
+     </details></div></li>`;}).join("");
   return `<section class="card" id="lpre"><h2>หัวเบอร์ 065 ถึง 099 มีผลแค่ไหน</h2>
    <div class="prose"><p>หัวเบอร์คือเลขสามตัวแรกของเบอร์ ตั้งแต่ 065 ไปจนถึง 099 เป็นเลขที่มากับเครือข่ายตอนออกเบอร์ เราเลือกเองได้น้อย ผมจึงให้น้ำหนักหัวเบอร์ไว้ต่ำ</p>
    <p>หัวเบอร์ส่งผลเรื่องภาพลักษณ์ และสังคมภายนอก คือภาพแรกที่คนอื่นมองเห็นคุณ มีผลน้อย ประมาณ 5 เปอร์เซ็นต์ของทั้งเบอร์ เรื่องหลักของชีวิตทั้งการงาน การเงิน ความรัก อยู่ที่เลขเจ็ดตัวหลัง</p>
@@ -7542,9 +7551,9 @@ function prefixLearnHtml(){
     <label for="lpreA">ตัวแรกของเจ็ดตัวหลัง<select id="lpreA">${[0,1,2,3,4,5,6,7,8,9].map(d=>`<option${d===6?" selected":""}>${d}</option>`).join("")}</select></label>
    </div>
    <div id="lpreOut" style="margin-top:10px"></div>
-   <details class="pmore" style="margin-top:14px"><summary>ดูคู่หัวเบอร์ทั้งหมด 065 ถึง 099</summary>
+   <div style="margin-top:16px"><h3 style="margin:0 0 4px">หัวเบอร์ 065 ถึง 099 (อ่านร่วมกับตัวถัดไป)</h3>
     <p class="note">คู่ที่อ่านจากหลังมาหน้าของเลขตัวที่สองและสามในหัวเบอร์ ใช้ดูภาพลักษณ์ภายนอก มีผลน้อย ประมาณ 5 เปอร์เซ็นต์</p>
-    <ul class="pp">${rows}</ul></details></section>`;
+    <ul class="pp prel">${rows}</ul></div></section>`;
 }
 function prefixLearnInit(){
   const s=$("lpreS"), a=$("lpreA"); if(!s) return;
