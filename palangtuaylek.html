@@ -2418,6 +2418,7 @@ function s1000(inp,r){
   if(weakT.length){f-=weakT.length*14;fl("เลขพลังอ่อนช่วงท้าย "+weakT.length+" ตัว ไม่มีเลขดีประกบช่วย");}
   if(n[9]===5&&f<150){f+=6;fl("ลงท้ายด้วย 5 เงินไม่รั่ว");}
   {const tf=tailFit(inp,r); if(tf.t.length) fl(tf.t[0]+(tf.t.length>1&&/ใจร้อน/.test(tf.t[tf.t.length-1])?" "+tf.t.find(x=>/ใจร้อน/.test(x)):"")); f+=Math.round(tf.sc*8)-(tf.sc<0?6:0);}
+  energyBalance(inp,r).forEach(x=>{f+=Math.round(x.sc*20);fl(x.t);});
   if(!why.flow.length||why.flow.every(x=>/ส่งต่อกันดี|ไม่รั่ว|หนุนงาน/.test(x))) why.flow.unshift("ลำดับเลขต่อกันราบรื่น ไม่มีจุดสะดุด");
   P.flow=Math.round(cl(f,0,150)*0.97);
   // 3 เข้ากับพื้นดวง (ตัวท้ายมีน้ำหนักมากกว่า)
@@ -3053,6 +3054,45 @@ function repSets(inp,r){
     if(hot&&!drive){sc+=0.3;why.push("พื้นดวงใจร้อน ชุดเลขนิ่งช่วยให้ใจเย็นลงบ้าง");}
     if(i>=6) sc*=1.2;
     out.push({t,i,sc,g:sc<=-0.8?"b":"m",why});}
+  return out;
+}
+// ===== สมดุลพลัง: เลขขยัน (1 3 7 8) กับเลขปัญญา (4 5 9) ไม่สุดโต่งไปทางใดทางหนึ่ง ดูพื้นดวงประกอบ =====
+const WIS_D=[4,5,9];
+// พื้นดวงคิดเยอะอยู่แล้ว: ดาวเสาร์หรือดาวจันทร์ กุมหรือเล็งลัคนา
+function thinkChart(r){const ds=r.ds,x=[]; if(!ds||!ds.info) return x;
+  if(ds.info[7]&&ds.info[7].house===1)x.push("ดาวเสาร์กุมลัคนา"); if(ds.info[7]&&ds.info[7].house===7)x.push("ดาวเสาร์เล็งลัคนา");
+  if(ds.info[2]&&ds.info[2].house===1)x.push("ดาวจันทร์กุมลัคนา"); if(ds.info[2]&&ds.info[2].house===7)x.push("ดาวจันทร์เล็งลัคนา");
+  return x;}
+function energyBalance(inp,r){
+  const n=r.n; if(!n||n.length<10||!r.ds) return [];
+  const out=[], s7=n.slice(3), tc=thinkChart(r), hot=hotChart(r), stage=r.AG&&r.AG.k;
+  const gks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0).map(k=>(JOB_GRP[k]||[])[0]);
+  const w=s7.filter(d=>WIS_D.includes(d)).length, dv=s7.filter(d=>DRIVE_D.includes(d)).length;
+  // เลขปัญญามากเกินไป
+  if(w>=3){
+    if(stage==="senior") out.push({k:"wis",sc:0,t:"7 ตัวหลังมีเลขปัญญา (4 5 9) "+w+" ตัว ค่อนข้างเยอะ แต่วัยนี้ต้องการความนิ่งและการคิดไตร่ตรอง จึงยังใช้ได้"});
+    else{let sc=w>=4?-0.7:-0.4; const t=["7 ตัวหลังมีเลขปัญญา (4 5 9) "+w+" ตัว เยอะเกินไป ทำให้ช้าและเฉื่อย คิดเยอะแต่ไม่ลงมือทำ เหมาะกับวัยเกษียณมากกว่า"];
+      if(dv===0){sc-=0.2;t.push("และไม่มีเลขขยันมาช่วยผลักให้ลงมือ");}
+      if(tc.length){sc-=0.3;t.push("พื้นดวงเป็นคนคิดเยอะอยู่แล้ว ("+tc[0]+") ไม่ควรเติมเลขปัญญาเยอะ");}
+      if(gks.includes("wisdom")){sc*=0.6;t.push("งานของคุณใช้ความคิดเป็นหลัก ผลเสียจึงเบากว่าคนทั่วไป");}
+      out.push({k:"wis",sc,t:t.join(" ")});}}
+  // เลขขยันมากเกินไป
+  if(dv>=5){let sc=-0.4; const t=["7 ตัวหลังมีเลขขยัน (1 3 7 8) "+dv+" ตัว แรงเกินไป ลุยจนเหนื่อย ใจร้อน พักไม่เป็น"];
+    if(hot.length){sc-=0.2;t.push("พื้นดวงใจร้อนอยู่แล้ว ("+hot[0]+") ยิ่งแรงเกิน");}
+    out.push({k:"drv",sc,t:t.join(" ")});}
+  // วัยทำงาน: เลขขยันควรอยู่ในตำแหน่งที่ดี
+  if((stage==="work"||stage==="mid")&&dv>0){
+    const MAINP=["GF","FG","FE","DE","AB","EF"];
+    const ok=r.pos.filter(p=>MAINP.includes(p.k)&&p.info[0]!=="b"&&[n[p.i[0]],n[p.i[1]]].some(d=>DRIVE_D.includes(d)));
+    if(!ok.length) out.push({k:"drvpos",sc:-0.2,t:"เลขขยันในเบอร์ไม่ได้อยู่ในตำแหน่งหลัก (ตัวตน รายได้ การงาน ทางเข้าของทรัพย์) หรืออยู่ในคู่เสีย แรงขยันจึงส่งผลไม่เต็ม"});
+  }
+  if(stage==="mid"&&dv===0) out.push({k:"drv0",sc:-0.3,t:"เบอร์ไม่มีเลขขยัน (1 3 7 8) เลย วัยทำงานควรมีเลขขยันที่เข้ากับงานผสมอยู่บ้าง"});
+  // ตำแหน่งความคิด (GF): ระวังเลข 7 และคู่ 16 61
+  {const a=n[9],b=n[8], gf=""+a+b;
+    if(a===7||b===7||gf==="16"||gf==="61"){let sc=-0.2; const t=["ตำแหน่งตัวตนและความคิด (GF) เป็น "+gf+(a===7||b===7?" มีเลข 7":"")+" ควรระวัง ทำให้คิดเยอะ เก็บเรื่องไว้ในใจ"];
+      if(tc.length){sc-=0.25;t.push("ยิ่งพื้นดวงคิดเยอะอยู่แล้ว ("+tc[0]+") ยิ่งต้องระวัง");}
+      if((a===7||b===7)&&r.ds.cls[7]==="b"){sc-=0.15;t.push("และเลข 7 เป็นพลังอ่อนในดวงคุณ");}
+      out.push({k:"gf",sc,t:t.join(" ")});}}
   return out;
 }
 // ===== ยุคออนไลน์: ควรมีเลข 9 อย่างน้อย 1 ตัว แต่ไม่เกิน 2 ตัว (นับใน 7 ตัวหลังเป็นหลัก ถ้าอยู่ช่วงหน้าอนุโลมแต่พลังอ่อนกว่า) =====
