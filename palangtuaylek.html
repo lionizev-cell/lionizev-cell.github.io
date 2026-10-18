@@ -4036,21 +4036,6 @@ function isOwner(){try{return localStorage.getItem("plk_owner")==="1";}catch(e){
 function setOwner(on){try{on?localStorage.setItem("plk_owner","1"):localStorage.removeItem("plk_owner");}catch(e){}}
 function wasUnlocked(ph){if(isOwner())return true;try{const a=JSON.parse(localStorage.getItem(UNL_KEY)||"[]");if(a.includes(ph))return true;const bk=typeof bundleKey==="function"?bundleKey():"";return !!bk&&a.includes(bk);}catch(e){return false;}}
 function markUnlocked(ph){try{const a=JSON.parse(localStorage.getItem(UNL_KEY)||"[]");if(!a.includes(ph)){a.push(ph);localStorage.setItem(UNL_KEY,JSON.stringify(a.slice(-30)));}}catch(e){}}
-// ===== สิทธิ์ 399 ต่อ 1 ดวง เช็กได้ 5 เบอร์ ภายใน 30 วัน =====
-const PASS_N=5,PASS_D=30,PASS_KEY="plk_pass";
-function passKey(inp){return "5"+String(inp.d).padStart(2,"0")+String(inp.m).padStart(2,"0")+(inp.y+543)+(inp.notime?"nt":String(inp.h).padStart(2,"0")+String(inp.mi).padStart(2,"0"));}
-function passDay(){return Math.floor((Date.now()+252e5)/864e5);}
-function passAll(){try{return JSON.parse(localStorage.getItem(PASS_KEY)||"{}")||{};}catch(e){return {};}}
-function passPut(inp,o){try{const A=passAll();A[passKey(inp)]=o;localStorage.setItem(PASS_KEY,JSON.stringify(A));}catch(e){}}
-function passGet(inp){const o=passAll()[passKey(inp)];if(!o||!Array.isArray(o.p)||passDay()-o.s>=PASS_D||passDay()<o.s)return null;return o;}
-function passStart(inp,day){let o=passGet(inp);if(!o)o={s:day==null?passDay():day,p:[]};if(!o.p.includes(inp.phone)&&o.p.length<PASS_N)o.p.push(inp.phone);passPut(inp,o);return o;}
-function passTry(inp){const o=passGet(inp);if(!o)return false;if(!o.p.includes(inp.phone)){if(o.p.length>=PASS_N)return false;o.p.push(inp.phone);passPut(inp,o);}markUnlocked(inp.phone);return true;}
-function passCode(inp,day){return unlockCode(passKey(inp)+"|"+day);}
-function passCodeDay(inp,c){const t=passDay();for(let i=0;i<PASS_D;i++){if(passCode(inp,t-i)===c)return t-i;}return null;}
-function passInfoHtml(inp){if(isOwner())return "";const o=passGet(inp);if(!o)return "";
-  const left=PASS_N-o.p.length,e=new Date((o.s+PASS_D-1)*864e5),exp=e.getUTCDate()+" "+MONTHS[e.getUTCMonth()]+" "+(e.getUTCFullYear()+543);
-  return `<div class="passinfo" style="margin:10px 0;padding:10px 12px;border:1px dashed var(--line);border-radius:10px"><p style="margin:0">สิทธิ์วิเคราะห์เจาะลึกของดวงนี้ ใช้ไปแล้ว <b>${o.p.length} จาก ${PASS_N} เบอร์</b> ใช้ได้ถึงวันที่ <b>${exp}</b></p>`+
-   (left>0?`<p class="note" style="margin:6px 0 0">อยากเช็กเบอร์อื่น เปลี่ยนเบอร์ในช่องด้านบนแล้วกดวิเคราะห์ได้เลย ผลเจาะลึกจะเปิดให้เอง วันเวลาเกิดต้องเหมือนเดิม เหลืออีก ${left} เบอร์</p><p class="note" style="margin:4px 0 0">ถ้าเปิดบนมือถือเครื่องอื่น ใส่รหัสสิทธิ์ <b>${passCode(inp,o.s)}</b> ในช่องรหัสปลดล็อก</p>`:`<p class="note" style="margin:6px 0 0">ใช้ครบ ${PASS_N} เบอร์แล้ว อยากให้ผมช่วยวางเบอร์ใหม่ให้ ทักไลน์มาได้เลยครับ</p>`)+`</div>`;}
 function normDigits(s){return String(s||"").replace(/[๐-๙]/g,c=>String("๐๑๒๓๔๕๖๗๘๙".indexOf(c))).replace(/\D/g,"");}
 function adminRender(){
   const el=$("adminpage"); if(el.dataset.built) return;
@@ -4105,7 +4090,7 @@ function adminRender(){
   $("admlv1").oninput=lvA;$("admlv2").oninput=lvA;
   $("admph").oninput=()=>{const v=$("admph").value.replace(/\D/g,"");
     if(v.length!==10){$("admout").innerHTML="";return;}
-    const c=unlockCode(v), msg="ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกผลวิเคราะห์เจาะลึกของเบอร์ "+v+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ ปลดล็อกแล้วเปลี่ยนเบอร์ดูต่อได้อีก รวม "+PASS_N+" เบอร์ ภายใน "+PASS_D+" วัน ใช้วันเวลาเกิดเดิมและมือถือเครื่องเดิมครับ";
+    const c=unlockCode(v), msg="ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกผลวิเคราะห์เจาะลึกของเบอร์ "+v+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ";
     $("admout").innerHTML=`<p class="admcode">${c}</p><p class="para">${msg}</p><button type="button" class="primary" id="admcopy">คัดลอกข้อความส่งลูกค้า</button> <span class="note" id="admok" hidden>คัดลอกแล้ว</span>`;
     $("admcopy").onclick=()=>{const done=()=>{$("admok").hidden=false;};try{navigator.clipboard.writeText(msg).then(done,()=>fallback(msg,done));}catch(e){fallback(msg,done);}};};
 }
@@ -4138,7 +4123,7 @@ async function thunderCheck(dataUrl,phone,amount){const AMT=amount||PAY.amount,A
 function payHtml(){
   return `<section class="card pay" aria-labelledby="hpay">
     <h2 id="hpay">วิเคราะห์แบบเจาะลึก ${PAY.amount} บาท</h2>
-    <p style="margin:0">ได้ทันทีหลังโอน จ่ายครั้งเดียว ใช้กับวันเวลาเกิดเดียวกันได้ ${PASS_N} เบอร์ ภายใน ${PASS_D} วัน</p>
+    <p style="margin:0">ได้ทันทีหลังโอน</p>
     <ul class="plain">
       <li>วิเคราะห์ละเอียดครอบคลุมทุกตำแหน่งของเบอร์ พร้อมพื้นดวงเต็ม</li>
       <li>คุณภาพดาวทั้ง 0 ถึง 9 ในดวงคุณ ว่าตัวไหนพลังดี ตัวไหนพลังอ่อน เพราะอะไร</li>
@@ -4169,7 +4154,7 @@ function payHtml(){
     <label for="ucode">รหัสปลดล็อก 6 หลัก</label>
     <div class="codebox"><input id="ucode" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="000000"><button type="button" class="primary" id="unlock">ดูผลวิเคราะห์เจาะลึก</button></div>
     <p class="err" id="unlockerr" hidden>รหัสไม่ถูกต้อง ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ</p>
-    <p class="note">ปลดล็อกแล้ว เปลี่ยนเบอร์ดูต่อได้ รวม ${PASS_N} เบอร์ ภายใน ${PASS_D} วัน วันเวลาเกิดต้องเหมือนเดิม</p>${(CONFIG.slipApi||CONFIG.thunderKey)?"</details>":""}
+    <p class="note">รหัสใช้ได้กับเบอร์ที่วิเคราะห์อยู่นี้เท่านั้น</p>${(CONFIG.slipApi||CONFIG.thunderKey)?"</details>":""}
   </section>`;
 }
 
@@ -4262,7 +4247,6 @@ function pctHtmlNow(inp,r){let P;try{P=pctRank(inp,r.s1000);}catch(e){return "";
     <div class="pctbar" role="img" aria-label="ดีกว่าเบอร์ทั่วไป ${p} เปอร์เซ็นต์"><span class="pmed" style="left:50%"></span><i class="${c}" style="left:${p}%"></i></div>
     <p class="note" style="margin:8px 0 0">${t} เทียบกับเบอร์สุ่ม 400 เบอร์ที่วิเคราะห์กับดวงของคุณแบบเดียวกัน เบอร์ทั่วไปได้ราว ${P.med} คะแนน ท็อป 10% ได้ ${P.top10} ขึ้นไป</p></div>`;}
 function render(inp,r,isSample){
-  if(!isSample&&!isOwner()&&!wasUnlocked(inp.phone))passTry(inp);
   finalScore(inp,r);
   r.band=({fail:["b","ไม่แนะนำให้ใช้"],bad:["b","ไม่แนะนำให้ใช้"],mid:["m","กลาง ๆ ยังไม่ใช่เบอร์ที่ใช่"],ok:["g","ใช้ได้ มีจุดต้องระวัง"],good:r.s1000>=850?["g","เบอร์ดีมาก เข้ากับคุณ"]:["g","เบอร์ดี ใช้ได้เลย"]}[r.level]);
   const lag=r.ds.lag, lords=LORD[lag];
@@ -4308,7 +4292,6 @@ function render(inp,r,isSample){
   ${isSample?"":readMoreHtml(inp,r)}
   <div class="expert" id="deep" hidden>
   <p class="unlocked">${isOwner()?"โหมดเจ้าของ ผลวิเคราะห์เจาะลึกของ"+who:"ขอบคุณที่ใช้บริการครับ ด้านล่างคือผลวิเคราะห์เจาะลึกของ"+who}</p>
-  <div id="passinfo"></div>
   <div id="deepgen"></div>
   <div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="phone">บันทึกผลวิเคราะห์เป็น PDF</button><p class="note" style="margin:6px 0 0">กดแล้วเลือก บันทึกเป็น PDF เก็บไว้อ่านทีหลังได้</p></div>
   ${paidLineHtml("phone")}
@@ -4316,17 +4299,14 @@ function render(inp,r,isSample){
   $("copyacc").onclick=()=>{const t=PAY.acc.replace(/-/g,"");try{navigator.clipboard.writeText(t).then(()=>{$("copyacc").textContent="คัดลอกแล้ว";},()=>fallback(t,()=>{$("copyacc").textContent="คัดลอกแล้ว";}));}catch(e){fallback(t,()=>{});}};
   const openDeep=scroll=>{
     if(!$("deepgen").dataset.done){$("deepgen").innerHTML=deepFull(inp,r,NM)+deepHtml(inp,r);$("deepgen").dataset.done="1";}
-    if(!isSample)$("passinfo").innerHTML=passInfoHtml(inp);
     $("deep").hidden=false; document.querySelectorAll("#result .dprev").forEach(x=>x.remove()); if(scroll) $("deep").scrollIntoView({behavior:"smooth",block:"start"});
   };
   const PKG=PAY.amount;
   $("unlock").onclick=()=>{
     const c=normDigits($("ucode").value);
     if(pinOk(c)){$("unlockerr").hidden=true;setOwner(true);openDeep(true);return;}
-    const pd=passCodeDay(inp,c);
-    if(pd!=null){passStart(inp,pd);if(!passTry(inp)){$("unlockerr").textContent="สิทธิ์ของดวงนี้ใช้ครบ "+PASS_N+" เบอร์แล้ว ทักไลน์มาได้เลยครับ";$("unlockerr").hidden=false;return;}$("unlockerr").hidden=true;openDeep(true);return;}
     if(!bundleCode(c)&&c!==unlockCode(inp.phone)){$("unlockerr").hidden=false;return;}
-    $("unlockerr").hidden=true; markUnlocked(inp.phone); if(!bundleOn())passStart(inp); openDeep(true);
+    $("unlockerr").hidden=true; markUnlocked(inp.phone); openDeep(true);
   };
   $("ucode").onkeydown=e=>{if(e.key==="Enter")$("unlock").click();};
   if(CONFIG.slipApi||CONFIG.thunderKey){
@@ -4338,7 +4318,7 @@ function render(inp,r,isSample){
         let j;
         j=await thunderCheck(b64,inp.phone,PKG);
         if(j.ok&&j.code===unlockCode(inp.phone)){st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ "+j.code+" (เก็บไว้ใช้เปิดดูอีกครั้งได้)";
-          $("ucode").value=j.code; markUnlocked(inp.phone); passStart(inp); cntHit("slip-ok"); cntHit("pay-phone"); openDeep(true);}
+          $("ucode").value=j.code; markUnlocked(inp.phone); cntHit("slip-ok"); cntHit("pay-phone"); openDeep(true);}
         else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
       }catch(err){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
     };
@@ -4346,7 +4326,7 @@ function render(inp,r,isSample){
   $("sendslip").onclick=()=>{const t="โอนค่าวิเคราะห์เจาะลึก "+PAY.amount+" บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อกของเบอร์ "+inp.phone+" (แนบสลิป)";
     const done=()=>{$("slipok").hidden=false;setTimeout(()=>{location.href=CONFIG.chatUrl;},700);};
     try{navigator.clipboard.writeText(t).then(done,()=>fallback(t,done));}catch(e){fallback(t,done);}};
-  if(!isSample&&wasUnlocked(inp.phone)){if(!isOwner()&&!bundleOn()&&!passGet(inp))passStart(inp);openDeep(false);}
+  if(!isSample&&wasUnlocked(inp.phone)) openDeep(false);
   const sr=$("stockrec"); if(sr) sr.addEventListener("click",e=>{const b=e.target.closest("button[data-ph]");if(!b)return;
     $("phone").value=b.dataset.ph;const i2=readForm();if(i2.error)return;render(i2,analyze(i2),false);$("result").scrollIntoView({behavior:"smooth",block:"start"});});
   $("copy").onclick=()=>{
@@ -8198,7 +8178,7 @@ function deepPreviewHtml(inp,r,NM){
   }catch(e){return "";}
 }
 // ===== ปุ่มทักไลน์ถามก่อนซื้อ (ใช้กับทุกกล่องจ่ายเงิน) =====
-function askLineHtml(kind){return `<div class="askline"><p class="para" style="margin:0 0 6px">ยังไม่แน่ใจว่าแบบละเอียดเหมาะกับคุณไหม ทักมาถามผมก่อนได้ ไม่ต้องจ่ายก่อน</p><button type="button" class="ghost" data-askline="${kind}">ทักไลน์ถามก่อนซื้อ</button></div>`;}
+function askLineHtml(kind){return ""; return `<div class="askline"><p class="para" style="margin:0 0 6px">ยังไม่แน่ใจว่าแบบละเอียดเหมาะกับคุณไหม ทักมาถามผมก่อนได้ ไม่ต้องจ่ายก่อน</p><button type="button" class="ghost" data-askline="${kind}">ทักไลน์ถามก่อนซื้อ</button></div>`;}
 document.addEventListener("click",e=>{const g=e.target.closest&&e.target.closest("a.dgo[data-j2]");if(g){e.preventDefault();const el=$(g.dataset.j2);if(el)(el.closest("section")||el).scrollIntoView({behavior:"smooth",block:"start"});return;}
   const b=e.target.closest&&e.target.closest("[data-askline]");if(!b)return;const k=b.dataset.askline;const i=readFormLoose(),bd=pad(i.d)+"/"+pad(i.m)+"/"+(i.y+543);
   const L={phone:"วิเคราะห์เบอร์แบบเจาะลึก (เบอร์ "+i.phone+")",name:"วิเคราะห์ชื่อแบบละเอียด (ชื่อ "+(($("fname").value+" "+$("lname").value).trim()||"-")+")",rk:"ฤกษ์มงคลเฉพาะดวง",love:"ดวงคู่แบบละเอียด",num:"วิเคราะห์"+((NUMK[MODE]||{}).n||"ตัวเลข")+"แบบละเอียด",baby:"รายชื่อมงคลสำหรับลูก ฉบับเต็ม"}[k]||"บริการแบบละเอียด";
