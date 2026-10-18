@@ -3059,7 +3059,7 @@ function repSets(inp,r){
     out.push({t,i,sc,g:sc<=-0.8?"b":"m",why});}
   return out;
 }
-// ===== สมดุลพลัง: เลขขยัน (1 3 7 8) กับเลขปัญญา (4 5 9) ไม่สุดโต่งไปทางใดทางหนึ่ง ดูพื้นดวงประกอบ =====
+// ===== สมดุลพลัง: เลขขยัน (1 3 7 8) ไม่สุดโต่ง และเลขตัวเดียวกันไม่ซ้ำเกิน 2 ตัว (เลข 5 คือเลขปัญญา) ดูพื้นดวง อาชีพ อายุ ประกอบ =====
 const WIS_D=[4,5,9];
 // พื้นดวงคิดเยอะอยู่แล้ว: ดาวเสาร์หรือดาวจันทร์ กุมหรือเล็งลัคนา
 function thinkChart(r){const ds=r.ds,x=[]; if(!ds||!ds.info) return x;
@@ -3070,18 +3070,27 @@ function energyBalance(inp,r){
   const n=r.n; if(!n||n.length<10||!r.ds) return [];
   const out=[], s7=n.slice(3), tc=thinkChart(r), hot=hotChart(r), stage=r.AG&&r.AG.k;
   const gks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0).map(k=>(JOB_GRP[k]||[])[0]);
-  const w=s7.filter(d=>WIS_D.includes(d)).length, dv=s7.filter(d=>DRIVE_D.includes(d)).length;
-  // เลขปัญญามากเกินไป
-  if(w>=3&&!(stage==="young"&&w<4)){
-    if(stage==="senior") out.push({k:"wis",sc:0,t:"7 ตัวหลังมีเลขปัญญา (4 5 9) "+w+" ตัว ค่อนข้างเยอะ แต่วัยนี้ต้องการความนิ่งและการคิดไตร่ตรอง จึงยังใช้ได้"});
-    else{let sc=w>=4?-0.7:-0.4; const t=["7 ตัวหลังมีเลขปัญญา (4 5 9) "+w+" ตัว เยอะเกินไป ทำให้ช้าและเฉื่อย คิดเยอะแต่ไม่ลงมือทำ เหมาะกับวัยเกษียณมากกว่า"];
-      {const c9=s7.filter(d=>d===9).length; if(c9>=1&&c9<=2) t.push("เลข 9 มีจำนวนพอดีกับยุคออนไลน์แล้ว แต่เมื่อรวมกับเลข 4 และ 5 ทั้งหมดจึงเยอะเกินไป");}
-      if(WIS_TAIL.includes(n[8]*10+n[9])&&!GF_CARE.includes(n[8]*10+n[9])) t.push("ถึงคู่ปิดท้ายจะเป็นกลุ่มสติปัญญาที่ดี แต่ทั้งเบอร์มีเลขปัญญามากเกินไป");
-      if(dv===0){sc-=0.2;t.push("และไม่มีเลขขยันมาช่วยผลักให้ลงมือ");}
-      if(tc.length){sc-=0.3;t.push("พื้นดวงเป็นคนคิดเยอะอยู่แล้ว ("+tc[0]+") ไม่ควรเติมเลขปัญญาเยอะ");}
-      if(stage==="young"){sc*=0.5;t.push("วัยเรียนใช้เลขปัญญาได้มากกว่าคนทั่วไป แต่ถ้าเยอะถึง "+w+" ตัวก็เฉื่อยเกินไป");}
-      if(gks.includes("wisdom")){sc*=0.6;t.push("งานของคุณใช้ความคิดเป็นหลัก ผลเสียจึงเบากว่าคนทั่วไป");}
-      out.push({k:"wis",sc,t:t.join(" ")});}}
+  const dv=s7.filter(d=>DRIVE_D.includes(d)).length;
+  // เลขตัวเดียวกันซ้ำเกิน 2 ตัวใน 7 ตัวหลัง ขาดความสมดุล (ดูบริบท อาชีพ อายุ เพศ พื้นดวง ประกอบ)
+  // เลข 9 มีกฎของตัวเองใน nineFit ส่วนซ้ำ 4 ตัวขึ้นไปหักแรงในหัวข้อการร้อยเรียงอยู่แล้ว
+  const need=new Set(gks.flatMap(g=>[...(DRIVE_JOB[g]||[]),...((JGRP[g]&&JGRP[g].p)||[]).flatMap(v=>[Math.floor(v/10),v%10])]));
+  for(let d=0;d<=8;d++){const c=s7.filter(x=>x===d).length; if(c<3) continue;
+    let sc=c>=4?-0.15:-0.35; const t=[];
+    if(d===5){t.push("7 ตัวหลังมีเลข 5 ถึง "+c+" ตัว เลข 5 คือเลขปัญญา มีเยอะเกินทำให้คิดเยอะ ตัดสินใจช้า คิดแต่ไม่ลงมือ");
+      if(stage==="senior"){sc=0;t.push("แต่วัยนี้ต้องการความนิ่งและการไตร่ตรอง จึงยังใช้ได้");}
+      else{ if(tc.length){sc-=0.3;t.push("พื้นดวงเป็นคนคิดเยอะอยู่แล้ว ("+tc[0]+") ไม่ควรเติมเลข 5 เยอะ");}
+        if(gks.includes("wisdom")){sc*=0.6;t.push("งานของคุณใช้ความคิดเป็นหลัก ผลเสียจึงเบากว่าคนทั่วไป");}
+        else if(gks.some(g=>["charm","money","broker","solo","labor"].includes(g))){sc-=0.15;t.push("งานของคุณต้องลงมือเร็ว ตัดสินใจไว ความช้าจึงเสียโอกาส");}
+        if(dv===0){sc-=0.15;t.push("และไม่มีเลขขยันมาช่วยผลักให้ลงมือ");}}}
+    else{t.push("7 ตัวหลังมีเลข "+d+" ถึง "+c+" ตัว เกิน 2 ตัว พลังเรื่อง"+DIGIT_MEAN[d]+"ของดาว"+PLN[d]+"แรงเกินจนขาดความสมดุล");
+      if(need.has(d)){sc*=0.6;t.push("งานของคุณใช้พลังเลข "+d+" อยู่แล้ว จึงเสียน้อยกว่าคนทั่วไป แต่ก็ไม่ควรเกิน 2 ตัว");}
+      if(d===0){sc-=0.2;t.push("เลข 0 ซ้ำมากยิ่งทำให้เรื่องต่าง ๆ ไม่แน่นอน");}
+      if((d===3||d===8)&&hot.length){sc-=0.25;t.push("พื้นดวงใจร้อนอยู่แล้ว ("+hot[0]+") ยิ่งแรงเกิน");}
+      if(d===2&&(softLv(inp,r)||{}).lv){sc-=0.2;t.push("พื้นดวงใจอ่อนอยู่แล้ว ยิ่งเกรงใจคนจนเสียประโยชน์");}
+      if(stage==="young"&&[8,3].includes(d)){sc-=0.1;t.push("วัยนี้พลังแรงแบบนี้ยังคุมได้ยาก");}}
+    if(r.ds.cls[d]==="b"){sc-=0.2;t.push("และเลข "+d+" เป็นพลังอ่อนในดวงคุณ ซ้ำมากยิ่งออกด้านลบ");}
+    else if(r.ds.cls[d]==="g"&&sc<0){sc*=0.8;t.push("ดีที่เลข "+d+" เป็นพลังดีในดวงคุณ ผลเสียจึงเบาลงบ้าง");}
+    out.push({k:"rep",d,sc:+sc.toFixed(2),t:t.join(" ")});}
   // เลขขยันมากเกินไป
   if(dv>=5){let sc=-0.4; const t=["7 ตัวหลังมีเลขขยัน (1 3 7 8) "+dv+" ตัว แรงเกินไป ลุยจนเหนื่อย ใจร้อน พักไม่เป็น"];
     if(hot.length){sc-=0.2;t.push("พื้นดวงใจร้อนอยู่แล้ว ("+hot[0]+") ยิ่งแรงเกิน");}
@@ -3585,7 +3594,7 @@ function genEx(inp,r,lv){
     if(dblFit(inp,x).some(q=>q.g!=="g")) continue;
     if(x.pos.some(q=>["AB","FE","DE","GF","FG","DC","CD","EF","ED"].includes(q.k)&&jobConflict(inp,q.v).length)) continue;
     if(repSets(inp,x).length) continue;
-    if(energyBalance(inp,x).some(q=>q.sc<0&&(lv<3||q.k==="wis"||q.k==="drv"))) continue;
+    if(energyBalance(inp,x).some(q=>q.sc<0&&(lv<3||q.k==="rep"||q.k==="drv"))) continue;
     {const N9=nineFit(inp,x); if(N9&&(N9.c>2||(N9.c===0&&r.ds.cls[9]!=="b"))) continue;}
     if(x.pos.some(q=>lv<2?q.info[0]!=="g"&&!(q.v%11===0&&DBL_JOB[q.v]):q.info[0]==="b")) continue;
     if(x.tri3[0].v==="b"||(lv<2&&x.tri3.some(q=>q.v==="b"))) continue;
@@ -7704,7 +7713,7 @@ function learnRender(){
    <p class="note">แถบยาวคือส่งผลมาก ตำแหน่ง 1 2 และ 2 A มีผลน้อยประมาณ 5 เปอร์เซ็นต์</p></section>
   <section class="card"><h2>สมดุลพลังในเบอร์ เลขขยันกับเลขปัญญา</h2>
    <div class="prose"><p>เบอร์ที่ดีควรมีเลขขยัน คือ 1 3 7 8 อยู่ในตำแหน่งที่ดี เช่น ตัวตน รายได้ การงาน หรือทางเข้าของทรัพย์ และเป็นเลขขยันที่เข้ากับอาชีพและพื้นดวงของคุณ แต่ไม่ควรมีมากจนสุดโต่ง ถ้า 7 ตัวหลังมีเลขขยัน 5 ตัวขึ้นไป จะลุยจนเหนื่อย ใจร้อน พักไม่เป็น</p>
-   <p>เลขปัญญา คือ 4 5 9 ถ้า 7 ตัวหลังมี 3 ตัวขึ้นไป จะช้าและเฉื่อย คิดเยอะแต่ไม่ลงมือทำ เหมาะกับวัยเกษียณมากกว่า ยิ่งพื้นดวงเป็นคนคิดเยอะอยู่แล้ว เช่น ดาวเสาร์หรือดาวจันทร์กุมหรือเล็งลัคนา ไม่ควรเติมเลขปัญญาเยอะ ส่วนวัยเรียนใช้เลขปัญญาได้มากกว่าคนทั่วไปเล็กน้อย</p>
+   <p>เลขตัวเดียวกันไม่ควรซ้ำเกิน 2 ตัวใน 7 ตัวหลัง ถ้าเกินพลังเลขนั้นจะแรงจนขาดความสมดุล เช่น เลข 5 คือเลขปัญญา มีเยอะเกินทำให้คิดเยอะ ตัดสินใจช้า เหมาะกับวัยเกษียณมากกว่า ยิ่งพื้นดวงเป็นคนคิดเยอะอยู่แล้ว เช่น ดาวเสาร์หรือดาวจันทร์กุมหรือเล็งลัคนา ไม่ควรเติมเลข 5 เยอะ ทั้งนี้ต้องดูอาชีพ อายุ เพศ และพื้นดวงประกอบ งานที่ใช้พลังเลขนั้นอยู่แล้วจะเสียน้อยกว่าคนทั่วไป</p>
    <p>ตำแหน่งตัวตนและความคิด คือคู่ท้ายสุด ควรระวังเลข 7 และคู่ 16 61 เพราะทำให้คิดเยอะ เก็บเรื่องไว้ในใจ คู่เหล่านี้วางตำแหน่งอื่นได้ดีกว่า</p></div></section>
   <section class="card"><h2>ผลรวมทั้งเบอร์</h2>
    <div class="prose"><p>เอาเลขทั้ง 10 หลักมาบวกกัน ผลรวมคือภาพรวมทุกมิติของชีวิต ส่งผลระยะยาว 4 ถึง 5 ปีขึ้นไป ถ้าคู่เลขในเบอร์ดี แต่ผลรวมเสีย ชีวิตจะดีแต่ไม่สุด</p></div>
@@ -8032,7 +8041,7 @@ function pinCodes(inp,ds){
   const r={ds}, stage=(()=>{const n0=new Date();let a=n0.getFullYear()-(inp.y<2400?inp.y:inp.y-543);return a<25?"young":a>=60?"senior":"adult";})();
   const ks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0);
   const JGP=ks.flatMap(k=>{const g=(JOB_GRP[k]||[])[0];return JGRP[g]?JGRP[g].p:[];});
-  const HOTC=hotChart(r).length, SOFTH=(softLv(inp,r)||{}).lv==="hard";
+  const HOTC=hotChart(r).length, SOFTH=(softLv(inp,r)||{}).lv==="hard", tc5=thinkChart(r).length>0;
   const gi=v=>pairInfoG(v,inp.sex);
   const fwdOK=v=>{const g=gi(v);return g[0]==="g"&&enemyOk(v,inp,r).ok&&!jobConflict(inp,v).length;};
   const backOK=v=>gi(v)[0]!=="b";
@@ -8058,7 +8067,7 @@ function pinCodes(inp,ds){
     if(HOTC&&[d[4],d[5]].some(x=>HOT_D.includes(x))) continue;          // พื้นดวงใจร้อน ท้ายไม่ใช้ 3 8
     if(SOFTH&&[d[4],d[5]].some(x=>SOFT_D.includes(x))) continue;        // พื้นดวงใจอ่อน ท้ายไม่ใช้ 2
     const wis=d.filter(x=>WIS_D.includes(x)).length, drv=d.filter(x=>DRIVE_D.includes(x)).length;
-    if(stage!=="senior"&&wis>=(stage==="young"?4:3)) continue;           // เลขปัญญาไม่มากเกิน
+    if(stage!=="senior"&&d.filter(x=>x===5).length>=2&&tc5) continue;      // พื้นดวงคิดเยอะ ไม่เติมเลข 5 ซ้ำ
     if(drv>=4) continue;                                                 // เลขขยันไม่สุดโต่ง
     if(stage!=="senior"&&drv===0) continue;                              // ต้องมีเลขขยัน
     const prs=[0,1,2,3,4].map(i=>{const v=d[i]*10+d[i+1];return {v,s:pad(v),g:gi(v),job:JGP.includes(v),money:MONEY_P.includes(v)};});
@@ -8080,7 +8089,7 @@ function pinExplain(c,inp,ds){
     return `<li><span class="pv sm ${p.g[0]}">${p.s}</span><span><b>${p.g[1]}</b> ${p.g[2]} <span class="note">${pos}${tags?" · "+tags:""}</span></span></li>`;}).join("");
   const gd=[...new Set(c.d.filter(x=>ds.cls[x]==="g"))];
   const sum=[gd.length?"เลข "+gd.join(" ")+" เป็นพลังดีในดวงคุณ":"",
-    "มีเลขขยัน "+c.drv+" ตัว"+(c.wis?" เลขปัญญา "+c.wis+" ตัว":"")+" พลังไม่สุดโต่งไปทางใดทางหนึ่ง",
+    "มีเลขขยัน "+c.drv+" ตัว เลขแต่ละตัวไม่ซ้ำเกิน 2 ตัว พลังสมดุล ไม่สุดโต่งไปทางใดทางหนึ่ง",
     "ทุกคู่ในรหัสเป็นคู่ดี ร้อยเรียงต่อกันไม่มีจุดสะดุด"].filter(Boolean).join(" ");
   return `<ul class="pp" style="margin-top:8px">${lines}</ul><p class="note" style="margin:8px 0 0">${sum}</p>`;
 }
