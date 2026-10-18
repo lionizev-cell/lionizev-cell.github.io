@@ -366,7 +366,7 @@ footer .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1f
 a.dgo{display:inline-block;background:var(--accent-deep);color:var(--on-accent);font-weight:700;padding:11px 18px;border-radius:10px;text-decoration:none}
 .askline{margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
 .hsbox{display:grid;gap:10px;border:1px dashed var(--line);border-radius:12px;padding:12px}.hsp{display:grid;gap:8px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}.hsp .hsdel{justify-self:start;font-size:13px;padding:5px 12px}.hsres{list-style:none;padding:0;margin:0;display:grid;gap:8px}.hsres li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;padding:10px 12px;border:1px solid var(--line);border-radius:10px}.hsres li p{flex-basis:100%}
-.phtop{display:grid;gap:10px;padding:14px;border:1.5px solid var(--accent);border-radius:16px;background:var(--accent-soft)}.phbig{font-weight:600;font-size:17px;color:var(--ink)}.phbig input{font-family:var(--f-mono);font-size:24px;letter-spacing:.06em;padding:14px 16px;border:1.5px solid var(--accent);width:100%}.phbig input::placeholder{opacity:.45}</style>
+.phtop{display:grid;gap:10px;padding:14px;border:1.5px solid var(--accent);border-radius:16px;background:var(--accent-soft)}.phbig{font-weight:600;font-size:17px;color:var(--ink)}.phbig input{font-family:var(--f-mono);font-size:24px;letter-spacing:.06em;padding:14px 16px;border:1.5px solid var(--accent);width:100%}.phbig input::placeholder{opacity:.45}.pyrvis{display:grid;gap:4px;justify-items:center;font-family:var(--f-mono);font-size:14px}.pyrrow{display:flex;gap:3px}.pyrrow span{width:20px;height:20px;display:grid;place-items:center;border-radius:6px;background:var(--surface);border:1px solid var(--line)}.pyrrow span.pyrtop{background:var(--accent);color:var(--on-accent);font-weight:700;border-color:var(--accent)}</style>
 </head>
 <body>
 <main class="wrap">
@@ -4234,6 +4234,18 @@ function pctRank(inp,s){
   const below=a.filter(v=>v<s).length, eq=a.filter(v=>v===s).length;
   return {pct:Math.round((below+eq/2)/a.length*100),med:a[Math.floor(a.length/2)],top10:a[Math.floor(a.length*0.9)]};
 }
+// ===== พีระมิดของเบอร์ลูกค้า (โชว์ภาพฟรี คำอ่านทีละชั้นอยู่ในผลเจาะลึก) =====
+function pyrTeaserHtml(inp,r,isSample){try{
+  const rows=pyr(inp.phone), top=rows[rows.length-1][0], c=r.ds&&r.ds.cls?r.ds.cls[top]:"m";
+  const vis=rows.slice().reverse().map((row,i)=>`<div class="pyrrow">${row.map(d=>`<span${i===0?' class="pyrtop"':""}>${d}</span>`).join("")}</div>`).join("");
+  const lock=!isSample&&!wasUnlocked(inp.phone);
+  return `<section class="card pyrtz"><h2>พีระมิดของเบอร์นี้</h2>
+   <p class="note" style="margin:0 0 10px">บวกเลขในเบอร์ทีละคู่ซ้อนขึ้นไปจนเหลือเลขเดียวบนยอด ใช้ดูพลังที่ซ่อนอยู่ลึก ๆ เป็นตัวเสริม น้ำหนักน้อยกว่าคู่เลขบนเบอร์</p>
+   <div class="pyrvis" aria-label="พีระมิดของเบอร์ ${inp.phone}">${vis}</div>
+   <p class="para" style="margin-top:10px">ยอดพีระมิดคือเลข <b>${top}</b> ดาว${PLN[top]} เรื่อง${DIGIT_MEAN[top]} ในดวงของคุณเป็น<span class="pill ${c}">${({g:"เลขพลังดี",m:"เลขพลังกลาง",b:"เลขพลังอ่อน"})[c]}</span></p>
+   ${lock?`<p class="para">คำอ่านทีละชั้น ทั้งตัวตนข้างใน ความคิดและจิตใจ และคนรอบตัว อยู่ในผลเจาะลึก <a href="#" class="dgo flink" data-j2="hpay">ปลดล็อก 399 บาท</a></p>`:""}
+   <p class="note" style="margin:6px 0 0"><a href="#pyramid" class="flink">วิธีคำนวณและอ่านพีระมิด</a></p></section>`;
+}catch(e){return "";}}
 function pctKey(inp){return [inp.y,inp.m,inp.d,inp.h,inp.mi,inp.lat,inp.lon,inp.sex,inp.jobText||"",inp.fname||"",inp.lname||""].join(",");}
 // คำนวณเปอร์เซ็นต์ต้องวิเคราะห์เบอร์สุ่ม 400 เบอร์ ใช้เวลานาน จึงแสดงผลหลักก่อน แล้วค่อยเติมกล่องนี้ทีหลัง
 let _pctSeq=0;
@@ -4289,6 +4301,7 @@ function render(inp,r,isSample){
   ${isSample||!(r.s1000<700||r.band[0]==="b")?"":stockTeaserHtml(inp,r,"before")}
   ${s1000Html(r)}
   ${freePairsHtml(inp,r)}
+  ${pyrTeaserHtml(inp,r,isSample)}
   ${isSample?"":askBoxHtml(inp,r)}
   ${isSample||wasUnlocked(inp.phone)?"":deepPreviewHtml(inp,r,NM)}
   ${payHtml()}
