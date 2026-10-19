@@ -1,0 +1,14 @@
+[
+ {
+  "relation": [
+   "delegate_permission/common.handle_all_urls"
+  ],
+  "target": {
+   "namespace": "android_app",
+   "package_name": "com.palangtuaylek.app",
+   "sha256_cert_fingerprints": [
+    "8E:19:8F:CE:BF:7D:EA:B6:35:FE:3A:09:27:9E:6D:AF:1F:E8:1D:05:8F:4B:A8:F7:E1:67:C6:54:DE:41:7A:14"
+   ]
+  }
+ }
+]
