@@ -4188,6 +4188,19 @@ function topOfferHtml(inp,r){
     <p class="para" style="margin:0">${weak.length?"จุดที่ดึงอยู่คือเรื่อง"+weak.slice(0,3).join(" ")+" ":""}ในแบบเจาะลึก ผมบอกว่าคู่เลขไหนเข้ากับดวงและอาชีพของคุณ ควรวางตรงไหน พร้อมตัวอย่างเบอร์ 5 เบอร์ที่วางให้แล้ว</p>
     <div class="btns"><a href="#" class="primary dgo" data-j2="hpay">ดูวิธีแก้ ${PAY.amount} บาท</a><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener">ทักถามผมก่อน</a></div></section>`;
 }
+// ===== ดวงปี 2570 (ใช้วันเกิดเดียวกันส่งไปหน้าดูดวง) =====
+function y2570CardHtml(){
+  return `<section class="card toff" aria-label="ดวงปี 2570"><h2>ดวงปี 2570 ของคุณ ทีละเดือน</h2>
+    <p class="para" style="margin:0">ใช้วันเวลาเกิดเดียวกับที่กรอกไว้ ผมผูกดวงให้ดูว่าปี 2570 เดือนไหนการเงินขึ้น เดือนไหนต้องระวัง ควรเริ่มงานใหม่ ย้ายงาน หรือลงทุนช่วงไหน เปิดอ่านภาพรวมได้ฟรีก่อน</p>
+    <div class="btns"><a href="#" class="primary" data-horo="s-y2570">ดูดวงปี 2570 ของฉัน</a></div>
+    <p class="note" style="margin:0">ฉบับเต็มทีละเดือน 299 บาท ได้ทันทีหลังโอน</p></section>`;
+}
+// ===== อีบุ๊กสำหรับคนที่อยากอ่านเบอร์เป็นเอง =====
+function ebookCardHtml(){
+  return `<section class="card" aria-label="อีบุ๊กอ่านเบอร์เป็นเอง"><h2>อยากอ่านเบอร์เป็นเอง</h2>
+    <p class="para" style="margin:0">อีบุ๊ก ความลับพลังตัวเลข รวมวิธีที่ผมใช้อ่านเบอร์จริง ทั้งตำแหน่ง คู่เลข 00 ถึง 99 ผลรวม พีระมิด และการร้อยเรียง อ่านจบแล้วเช็กเบอร์ตัวเอง คนในบ้าน และลูกค้าได้เอง</p>
+    <div class="btns"><a href="ebook.html" class="primary">ดูตัวอย่างและสั่งซื้อ 399 บาท</a></div></section>`;
+}
 function stickyCtaHtml(){
   return `<div class="stickycta" role="region" aria-label="ปุ่มลัด"><a href="#" class="primary dgo" data-j2="hpay">ปลดล็อก ${PAY.amount} บาท</a><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener" class="ghostbtn">ทักถาม LINE</a></div><div class="stickysp" aria-hidden="true"></div>`;
 }
@@ -4369,11 +4382,13 @@ function render(inp,r,isSample){
   ${s1000Html(r)}
   ${freePairsHtml(inp,r)}
   ${pyrTeaserHtml(inp,r,isSample)}
+  ${isSample?"":y2570CardHtml()}
   ${isSample?"":askBoxHtml(inp,r)}
   ${isSample||wasUnlocked(inp.phone)?"":deepPreviewHtml(inp,r,NM)}
   ${payHtml()}
   ${isSample?"":stockRecHtml(inp,r)}
   ${CTA}
+  ${isSample?"":ebookCardHtml()}
   ${isSample?"":readMoreHtml(inp,r)}
   ${isSample||wasUnlocked(inp.phone)?"":stickyCtaHtml()}
   <div class="expert" id="deep" hidden>
