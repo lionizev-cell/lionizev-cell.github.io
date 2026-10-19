@@ -2431,6 +2431,7 @@ function s1000(inp,r){
     if(weak4&&talk){f-=6;fl("เลข 4 ท้ายเบอร์เป็นพลังอ่อนในดวงคุณ และงานของคุณต้องใช้การพูดการเจรจามาก ด้านลบของเลข 4 จึงออกชัด");}
     else if(c4==="g"&&talk){f+=4;fl("เลข 4 เป็นพลังดีในดวงคุณ และงานของคุณใช้การพูดการค้า ปิดท้ายด้วยเลข 4 จึงหนุนงาน");}}
   const fg=n[8]*10+n[9]; if(fg===38||fg===83){f-=15;fl("38 หรือ 83 อยู่ท้ายสุด ไม่ควรวางตรงนี้");}
+  if(fg===68||fg===86){const W=tail6886(inp,r); if(W.length){f-=15;fl("68 หรือ 86 อยู่ท้ายสุด "+W.join(" และ")+" ไม่ควรปิดท้ายแบบนี้ เงินจะไหลไปกับความอยากและสิ่งยั่วยุ");} else fl("68 หรือ 86 อยู่ท้ายสุด ถ้าใช้เงินเก่งหรือมีปัญหาการเงินอยู่ ไม่ควรปิดท้ายแบบนี้");}
   let en=0;for(let i=3;i<9;i++){const a=n[i],b=n[i+1];if(ENEMY.some(([x,y])=>(a===x&&b===y)||(a===y&&b===x))&&pairInfoG(a*10+b,inp.sex)[0]!=="g")en++;}
   if(en){f-=en*6;fl("มีดาวคู่ศัตรูเรียงติดกัน "+en+" จุด");}
   const weakT=[6,7,8,9].filter(i=>ds.cls[n[i]]==="b"&&weakRescue(n,i,ds.cls,inp.sex)===undefined);
@@ -2676,6 +2677,11 @@ const GF_CARE=[16,61];;
 const WIS_TRI=["164","165","145","154","156","356","635","645","456","654","465","546","564","453","454","451","541","415","615","651","516","915","519","159","591","951","965","956","659","153","351"];
 const CHARM_TAIL=[24,42,26,62,46,64,23,32,36,63,69,96,29,92,28,82];
 const HOT_D=[3,8,0];
+// 68 86 ปิดท้าย: คนมีรายได้ประจำ หรือพื้นดวงใจร้อน ไม่ควรปิดท้ายด้วย 68 86 (คนใช้เงินเก่งหรือมีปัญหาการเงินก็ไม่ควร แต่ข้อนี้ต้องถามเจ้าของเอง)
+const SALARY_JOBS=[1,2];
+function tail6886(inp,r){const ks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0);const why=[];
+  if(ks.some(k=>SALARY_JOBS.includes(k))||/เงินเดือน|รายได้ประจำ|ลูกจ้างประจำ/.test(inp.jobText||""))why.push("คุณมีรายได้ประจำ");
+  const h=hotChart(r);if(h.length)why.push("พื้นดวงใจร้อนอยู่แล้ว ("+h[0]+")");return why;}
 function hotChart(r){const ds=r.ds,x=[]; if(!ds||!ds.info) return x;
   if(ds.info[3]&&ds.info[3].house===1)x.push("ดาวอังคารกุมลัคนา"); if(ds.info[3]&&ds.info[3].house===7)x.push("ดาวอังคารเล็งลัคนา");
   if(ds.info[8]&&ds.info[8].house===1)x.push("ราหูกุมลัคนา"); if((LORD[ds.lag]||[]).includes(3))x.push("ดาวอังคารเป็นเจ้าเรือนลัคนา");
@@ -3639,6 +3645,7 @@ function genEx(inp,r,lv){
     if(x.pos.some(q=>lv<2?q.info[0]!=="g"&&!(q.v%11===0&&DBL_JOB[q.v]):q.info[0]==="b")) continue;
     if(x.tri3[0].v==="b"||(lv<2&&x.tri3.some(q=>q.v==="b"))) continue;
     if(HOTC.length&&[x.n[8],x.n[9]].some(d=>HOT_D.includes(d))) continue;
+    if([68,86].includes(x.n[8]*10+x.n[9])&&tail6886(inp,r).length) continue;
     if(SOFTC&&[x.n[8],x.n[9]].some(d=>SOFT_D.includes(d))) continue;
     const hf=houseFit(x,HN); if(lv<3&&hf.hurt.some(([h])=>HN[h-1].g==="b")) continue;
     {const AD=ageDrive(inp,x); const JF=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0).map(k=>jobFitPos({...inp,job:k},x)).filter(Boolean); const jsc=JF.length?JF.reduce((a,q)=>a+q.sc,0)/JF.length:0; res.push({ph,sc:x.score,rk:Math.round(jsc*15)+x.score+hf.sc*2+(x.tri3[0].v==="g"?3:0)+Math.round(tailFit(inp,x).sc*5)+(AD?Math.round(AD.sc*4):0),x,hf});}
