@@ -1,0 +1,47 @@
+name: ตรวจเว็บก่อนขึ้นจริง
+
+# รันเมื่อมีคำขอแก้ไข (PR) และเมื่อมีการอัปโหลดไฟล์เข้า main ตรง ๆ
+# เทียบ palangtuaylek.html เวอร์ชันใหม่กับเวอร์ชันก่อนหน้า ดูผลได้ที่แท็บ Actions หรือในหน้า PR
+on:
+  pull_request:
+    paths: ["palangtuaylek.html", "tests/**", ".github/workflows/check-site.yml"]
+  push:
+    branches: [main]
+    paths: ["palangtuaylek.html"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: ติดตั้ง Playwright และ Chromium
+        run: |
+          pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium
+          sudo apt-get install -y fonts-thai-tlwg >/dev/null
+
+      - name: หาเวอร์ชันก่อนแก้
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            BASE="${{ github.event.before }}"
+          else
+            BASE="HEAD~1"
+          fi
+          git show "$BASE:palangtuaylek.html" > /tmp/before.html 2>/dev/null || cp palangtuaylek.html /tmp/before.html
+
+      - name: ตรวจหน้าผลวิเคราะห์และค่าสำคัญ
+        run: python tests/check_site.py /tmp/before.html palangtuaylek.html
