@@ -1,0 +1,38 @@
+{
+ "name": "ความลับพลังตัวเลข วิเคราะห์เบอร์มงคล",
+ "short_name": "พลังตัวเลข",
+ "id": "/palangtuaylek.html",
+ "start_url": "/palangtuaylek.html",
+ "scope": "/",
+ "display": "standalone",
+ "orientation": "portrait",
+ "lang": "th",
+ "dir": "ltr",
+ "background_color": "#0b0907",
+ "theme_color": "#0b0907",
+ "categories": [
+  "lifestyle",
+  "entertainment"
+ ],
+ "description": "วิเคราะห์เบอร์มือถือ ชื่อ ทะเบียนรถ บ้านเลขที่ เทียบกับพื้นดวงจริงของคุณ",
+ "icons": [
+  {
+   "src": "/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
