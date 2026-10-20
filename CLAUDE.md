@@ -15,7 +15,7 @@
 - `const CONFIG={...}` ค่าตั้งเว็บ
   - `codeSalt` ห้ามเปลี่ยน รหัสปลดล็อกของลูกค้าทุกคนจะใช้ไม่ได้
   - `adminHash` `slipApi` ห้ามแตะ เว้นแต่เจ้าของสั่ง
-  - `chatUrl` ลิงก์ LINE OA ใช้ `https://lin.ee/tnnRdLE` (บัญชี @367xgtjh)
+  - `chatUrl` ลิงก์ LINE OA ใช้ `https://lin.ee/TJ05Mnd` (บัญชี @367xgtjh)
 - `const P={` ความหมายคู่เลข [เกรด g/m/b, ชื่อคู่, ความหมาย] | `const GSEX={` กฎตามเพศ | `SUM_OVR` + `sumGen()` ผลรวมเบอร์ | `const POS=[` ตำแหน่ง 012-ABCDEFG และน้ำหนัก
 - `LORD` `EXALT` `HOUSE` การผูกดวง สุริยยาตร์แบบ myhora ลัคนาอันโตนาทีสามัญ
 - `render()` หน้าผลเบอร์, `topOfferHtml()` ข้อเสนอตามคะแนน, `stickyCtaHtml()` ปุ่มลอยล่างจอ, `deepPreviewHtml()` ตัวอย่างเจาะลึก (คู่แนะนำต้องซ่อนเป็น "?"), `payHtml()` กล่องจ่าย 399
