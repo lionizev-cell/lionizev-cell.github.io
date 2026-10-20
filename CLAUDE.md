@@ -19,6 +19,7 @@
 - `const P={` ความหมายคู่เลข [เกรด g/m/b, ชื่อคู่, ความหมาย] | `const GSEX={` กฎตามเพศ | `SUM_OVR` + `sumGen()` ผลรวมเบอร์ | `const POS=[` ตำแหน่ง 012-ABCDEFG และน้ำหนัก
 - `LORD` `EXALT` `HOUSE` การผูกดวง สุริยยาตร์แบบ myhora ลัคนาอันโตนาทีสามัญ
 - `render()` หน้าผลเบอร์, `topOfferHtml()` ข้อเสนอตามคะแนน, `stickyCtaHtml()` ปุ่มลอยล่างจอ, `deepPreviewHtml()` ตัวอย่างเจาะลึก (คู่แนะนำต้องซ่อนเป็น "?"), `payHtml()` กล่องจ่าย 399
+- `funnelHooks()` นับขั้นการขายในหน้าผลเบอร์ (f-pay-view f-pay-jump f-copyacc f-slip-pick f-slip-send ต่อด้วย slip-ok)
 - `cntHit()` / `CNT_KEYS` ตัวนับสถิติที่ abacus.jasoncameron.dev ห้ามเปลี่ยนชื่อ key เดิม (สรุปยอดรายสัปดาห์อ่านจาก key เหล่านี้)
 - ถ้าแก้คู่เลข/กฎในตาราง ต้องแก้ `lek-*.html` และ `bt-*.html` ที่พูดถึงเรื่องเดียวกันให้ตรงกันด้วย
 
