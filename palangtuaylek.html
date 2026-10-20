@@ -2382,6 +2382,45 @@ const _CC={};
 // ===== คะแนนเต็ม 1000 แยก 7 หมวด =====
 // ตั้งใจให้ได้เต็มยาก เบอร์ที่ดีจริงสำหรับคนคนนั้นจะอยู่ราว 800 ถึง 900
 const S1K=[["pos","คู่เลขตามตำแหน่ง",250],["flow","การร้อยเรียง",150],["chart","เข้ากับพื้นดวง",200],["job","อาชีพและธุรกิจ",140],["sex","เพศ",80],["age","ช่วงวัย",80],["sum","ผลรวม",100]];
+// ===== คะแนนตามประเภทคู่ (มิตร ศัตรู ธาตุ ปะทะ สมพล) ดูอาชีพ พื้นดวง บริบท อายุ เพศ ประกอบ =====
+function typeScore(inp,r){
+  const n=r.n, out=[]; if(!n||n.length<10||!r.ds) return {sc:0,items:out};
+  const cls=r.ds.cls, age=r.age!==undefined?r.age:30, f=inp.sex==="f", hot=hotChart(r).length>0, think=thinkChart(r).length>0;
+  const ks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0), gks=ks.flatMap(k=>JOB_GRP[k]||[]), g1=ks.map(k=>(JOB_GRP[k]||[])[0]);
+  const has=(...g)=>g.some(x=>g1.includes(x)), jn=esc(inp.jobText||"");
+  const seen=new Set();
+  r.pos.filter(p=>p.i[0]>=3&&p.i[1]>=3).forEach(p=>{
+    const s=p.s, d=[...new Set(s.split("").map(Number))], wk=d.filter(x=>cls[x]==="b").length, gd=d.filter(x=>cls[x]==="g").length===d.length;
+    const tail=p.k==="GF"||p.k==="FG", money=["FG","DC"].includes(p.k);
+    let sc=0; const t=[];
+    if(FRIEND[s]){const F=FRIEND[s]; sc+=0.3; t.push(F.nm+" "+s+" ได้โอกาสง่ายขึ้น");
+      if(age>=15&&gks.some(g=>F.gk.includes(g))){sc+=0.3;t.push("ตรงกับงาน"+jn);}
+      if(gd){sc+=0.2;t.push("เลขทั้งสองตัวดีในดวง");} if(wk){sc-=0.35;t.push("แต่มีเลขพลังอ่อนในดวง โอกาสมาไม่เต็ม");}
+      if(s==="78"||s==="87"){sc-=0.1;}}
+    else if(PTYPE[s]){const T=PTYPE[s], lv=enemyLv(+s);
+      if(lv==="s"){sc-=0.25;t.push(T.nm+" "+s+" ระวังเหตุพลิกผัน"); if(hot&&(s==="13"||s==="31")){sc-=0.2;t.push("พื้นดวงใจร้อนยิ่งแรง");} if(wk){sc-=0.15;}}
+      else if(lv==="m"){sc-=0.2;t.push(T.nm+" "+s); if(wk){sc-=0.2;t.push("มีเลขพลังอ่อนในดวง");} if(has("broker","money")&&!wk){sc+=0.1;}}
+      else if(s==="56"||s==="65"){ if(wk){sc-=0.25;t.push("คู่ศัตรูเบา ๆ "+s+" มีเลขพลังอ่อนในดวง");} else if(gd){sc+=0.05;} }
+      else if(s==="25"||s==="52"){ sc+=has("wisdom","power")?0.1:0; if(f){sc-=0.3;t.push("คู่ศัตรูเบา ๆ "+s+" ผู้หญิงใช้ส่งผลเสียมากกว่า");} else {sc-=0.1;t.push("คู่ธาตุดิน "+s+" โตแบบค่อยเป็นค่อยไป แต่ขัดแย้งกับผู้ใหญ่ได้");} if(wk) sc-=0.15;}
+      else if(s==="17"||s==="71"){ if(has("labor","power","skill")&&age<60){sc+=0.25;t.push("คู่ธาตุไฟ "+s+" ให้ความมุ่งมั่นตรงกับงาน"+jn);} if(age>=60){sc-=0.15;t.push("คู่ธาตุไฟ "+s+" ผลงานมาช้า วัยนี้ไม่ควรแบกงานหนัก");} if(hot){sc-=0.2;t.push("คู่ธาตุไฟ "+s+" กับพื้นดวงใจร้อน ไฟแรงเกิน");} if(wk) sc-=0.15;}
+      else if(s==="38"||s==="83"){ if(has("money","broker","charm")&&!hot){sc+=0.2;t.push("คู่ธาตุลม "+s+" หาเงินเก่ง เข้ากับงาน"+jn);} if(money){sc-=0.25;t.push("คู่ธาตุลม "+s+" อยู่ตำแหน่งเงิน เงินมักอยู่ไม่นาน");} if(age<25){sc-=0.15;} if(wk) sc-=0.15;}
+      else if(s==="46"||s==="64"){ sc+=has("charm","broker","money")?0.35:0.1; t.push("คู่ธาตุน้ำ "+s+" ปรับตัวเก่ง"+(has("charm","broker","money")?" ค้าขายเก่ง ตรงกับงาน"+jn:"")); if(wk){sc-=0.2;}}
+      else if(T.nm==="ศัตรูคู่ธาตุ"){ sc-=0.1; if(wk){sc-=0.2;t.push("ศัตรูคู่ธาตุ "+s+" มีเลขพลังอ่อนในดวง ผลเสียแฝงออกง่าย");} if(tail){sc-=0.1;t.push("ศัตรูคู่ธาตุ "+s+" อยู่ท้ายเบอร์ ผลเสียแฝงชัดขึ้น");}
+        if((s==="26"||s==="62")&&has("charm","home")) sc+=0.1; if((s==="14"||s==="41")&&has("wisdom","power")) sc+=0.1; if((s==="58"||s==="85")&&has("broker","wisdom")) sc+=0.1;}
+      else if(T.nm==="คู่ปะทะ"){ sc-=0.25; t.push("คู่ปะทะ "+s+" ระวังอุบัติเหตุ"); if(age>=60){sc-=0.2;t.push("วัยนี้ยิ่งต้องระวัง");} if(ks.some(k=>[10,11,6].includes(k))){sc-=0.2;t.push("งาน"+jn+"เสี่ยงอุบัติเหตุอยู่แล้ว");} if(hot){sc-=0.15;t.push("พื้นดวงใจร้อน");}}
+      else if(T.nm==="คู่สมพล"){
+        if(s==="28"||s==="82"){ if(has("money","broker")){sc+=0.3;t.push("คู่สมพล "+s+" หมุนเงินเก่ง ตรงกับงาน"+jn);} else {sc-=0.1;t.push("คู่สมพล "+s+" งานไม่ได้หมุนเงิน ระวังเป็นหนี้");} if(cls[2]==="b"||cls[8]==="b"){sc-=0.2;t.push("เลข 2 หรือ 8 อ่อนในดวง ยิ่งเสี่ยงหนี้");}}
+        else if(s==="16"||s==="61"){ if(has("wisdom","power","money")){sc+=0.2;t.push("คู่สมพล "+s+" วางแผนการเงินเก่ง เข้ากับงาน"+jn);} if(think){sc-=0.15;t.push("พื้นดวงคิดเยอะอยู่แล้ว");}}
+        else if(s==="35"||s==="53"){ if(ks.some(k=>[1,2].includes(k))||has("power")){sc+=0.3;t.push("คู่สมพล "+s+" ทำงานตามระบบเก่ง ได้อภิสิทธิ์ เข้ากับงาน"+jn);} else sc+=0.1;}
+        else if(s==="47"||s==="74"){ if(ks.some(k=>HARDWORK_JOBS.includes(k))||has("skill","labor")){sc+=0.3;t.push("คู่สมพล "+s+" ขยัน ทำงานเก่ง เข้ากับงาน"+jn);} else sc+=0.1; if(think){sc-=0.15;t.push("แต่พื้นดวงคิดเยอะ ระวังเครียด");}}
+        if(wk) sc-=0.15;}
+    }
+    if(!sc) return;
+    const w=p.w0/10, key=s+p.k; if(seen.has(key)) return; seen.add(key);
+    out.push({s,k:p.k,n:p.n,sc:+(sc*w).toFixed(3),t:t.join(" ")});
+  });
+  return {sc:+out.reduce((a,x)=>a+x.sc,0).toFixed(3),items:out.sort((a,b)=>Math.abs(b.sc)-Math.abs(a.sc))};
+}
 function s1000(inp,r){
   const n=r.n, ds=r.ds, P={}, why={}; S1K.forEach(([k])=>why[k]=[]);
   const cl=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -2389,6 +2428,7 @@ function s1000(inp,r){
   // 1 คู่เลขตามตำแหน่ง (ถ่วงตามน้ำหนักตำแหน่ง ท้ายเบอร์แรงสุด)
   let tw=0,ts=0; r.pos.forEach(p=>{const v=pairScore(p,r);tw+=p.w;ts+=p.w*v;});
   const avg=ts/tw; P.pos=Math.round(250*cl((avg+1.35)/2.55,0,1)*0.97);
+  {const TS=typeScore(inp,r); r._ts=TS; if(TS.items.length){P.pos=Math.round(cl(P.pos+TS.sc*30,0,250)); TS.items.filter(x=>x.t).slice(0,3).forEach(x=>why.pos.push("ตำแหน่ง"+x.n+" "+x.t));}}
   const bp=r.pos.filter(p=>posGrade(p,r,inp).g==="b").sort((a,b)=>b.w-a.w);
   if(bp.length) why.pos.push("มีคู่ควรระวัง "+bp.length+" ตำแหน่ง หนักสุดคือตำแหน่ง"+bp[0].n+" ("+bp[0].s+")");
   else why.pos.push("ไม่มีคู่ควรระวังในทุกตำแหน่ง");
@@ -2939,8 +2979,9 @@ function pairContext(p,r,inp){
   if(p.k==="A2"&&p.s==="25"&&f) gt.push("ผู้หญิงมี 25 ตรงนี้ มักมีเรื่องไม่ลงรอยกับพ่อ");
   out.push(["เพศ",gt.length?gt.join(" "):(f?"ผู้หญิง":"ผู้ชาย")+"ใช้คู่นี้ได้ตามความหมายปกติ"]);
   if(p.k==="GF"&&r.n){const TR=tailRule(inp,r.n[8]*10+r.n[9]); if(TR) out.push(["ท้ายเบอร์",TR.t.replace(/^ท้ายเบอร์ \d\d /,"เลข "+r.n[8]+r.n[9]+" ปิดท้าย ")]);}
-  if(FRIEND[p.s]) out.push([FRIEND[p.s].nm,friendCtx(p.s,inp,r)]);
-  else if(PTYPE[p.s]) out.push([PTYPE[p.s].nm,ptypeCtx(p.s,inp,r)]);
+  if(FRIEND[p.s]||PTYPE[p.s]){const it=p.i[0]>=3&&p.i[1]>=3?(r._ts||typeScore(inp,r)).items.find(x=>x.k===p.k):null;
+    const base=FRIEND[p.s]?friendCtx(p.s,inp,r):ptypeCtx(p.s,inp,r);
+    out.push([(FRIEND[p.s]||PTYPE[p.s]).nm,base+(it?" <b>รวมแล้วตรงตำแหน่งนี้"+(it.sc>0.02?"ออกด้านดีกับคุณ":it.sc<-0.02?"ออกด้านเสียกับคุณ":"ให้ผลกลาง ๆ")+"</b>":"")]);}
   const ch=ctrlHtml(p,r,inp.sex); if(ch) out.push(["สองด้าน",ch]);
   return out;
 }
@@ -3801,7 +3842,7 @@ function genEx(inp,r,lv){
     if(HOTC.length&&[x.n[8],x.n[9]].some(d=>HOT_D.includes(d))) continue;
     if(SOFTC&&[x.n[8],x.n[9]].some(d=>SOFT_D.includes(d))) continue;
     const hf=houseFit(x,HN); if(lv<3&&hf.hurt.some(([h])=>HN[h-1].g==="b")) continue;
-    {const AD=ageDrive(inp,x); const JF=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0).map(k=>jobFitPos({...inp,job:k},x)).filter(Boolean); const jsc=JF.length?JF.reduce((a,q)=>a+q.sc,0)/JF.length:0; res.push({ph,sc:x.score,rk:Math.round(jsc*15)+x.score+hf.sc*2+(x.tri3[0].v==="g"?3:0)+Math.round(tailFit(inp,x).sc*5)+(AD?Math.round(AD.sc*4):0),x,hf});}
+    {const AD=ageDrive(inp,x); const JF=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0).map(k=>jobFitPos({...inp,job:k},x)).filter(Boolean); const jsc=JF.length?JF.reduce((a,q)=>a+q.sc,0)/JF.length:0; res.push({ph,sc:x.score,rk:Math.round(jsc*15)+Math.round(typeScore(inp,x).sc*12)+x.score+hf.sc*2+(x.tri3[0].v==="g"?3:0)+Math.round(tailFit(inp,x).sc*5)+(AD?Math.round(AD.sc*4):0),x,hf});}
   }
   res.sort((a,b)=>b.rk-a.rk);
   const pick=[];for(const c of res){if(pick.every(p=>p.ph.slice(-4)!==c.ph.slice(-4))) pick.push(c); if(pick.length===5) break;}
@@ -6465,6 +6506,7 @@ function libRender(){
    <p>เลขตัวหน้าคือพลังหลัก เลขตัวหลังคือผลที่ตามมา คู่เดียวกันที่สลับหน้าหลัง เช่น 24 กับ 42 จึงมีความหมายใกล้กันแต่น้ำหนักต่างกัน</p>
    <p>${PAIR_CTX_NOTE}</p>
    <p><b>คู่มิตร</b> คือดาวที่เป็นมิตรกัน ทำให้ชีวิตได้รับโอกาสง่ายขึ้น มี 4 คู่ คือ 15 51 ได้โอกาสจากผู้ใหญ่ 78 87 คู่มิตรใหญ่ ได้โอกาสจากผู้คนและพรรคพวก แต่ปัญหาเรื่องคนก็เยอะตาม 36 63 ได้โอกาสจากเพื่อน สังคม และคนรัก 24 42 เจรจาค้าขายดี มีกัลยาณมิตร</p>
+   <p><b>คู่ศัตรู</b> รุนแรงคือ 67 76 13 31 ระวังเหตุพลิกผันฉับพลัน กลาง ๆ คือ 48 84 เบา ๆ คือ 25 52 56 65 <b>คู่ธาตุ</b> 17 71 ไฟ 25 52 ดิน 38 83 ลม 46 64 น้ำ <b>ศัตรูคู่ธาตุ</b> 14 41 23 32 26 62 58 85 มีผลเสียแฝง <b>คู่ปะทะ</b> 37 73 33 ระวังอุบัติเหตุ <b>คู่สมพล</b> 28 82 16 61 35 53 47 74 ทุกกลุ่มมีผลกับคะแนนเบอร์ โดยผมคิดรวมกับอาชีพ พื้นดวง อายุ เพศ และตำแหน่งที่วาง คู่เดียวกันจึงได้คะแนนต่างกันในแต่ละคน</p>
    <p class="note">ความหมายในหน้านี้เป็นความหมายพื้นฐานของคู่เลข ผลจริงในเบอร์ของแต่ละคนยังขึ้นกับตำแหน่งที่คู่เลขวางอยู่ พื้นดวง อาชีพ เพศ และวัย คู่ควรระวังบางคู่ร้อยเรียงให้ดีได้ถ้าเข้ากับดวง และคู่ดีบางคู่ก็ไม่เหมาะกับบางคน อยากรู้ว่าเบอร์ของคุณเป็นอย่างไร กลับไปกรอกข้อมูลด้านบนได้เลย</p></div></section>
   <section class="card libtools">
    <label for="libq">ค้นหาคู่เลขหรือคำ<input id="libq" inputmode="search" placeholder="เช่น 24 หรือ ค้าขาย"></label>
@@ -8099,7 +8141,7 @@ function stockRecList(inp,r){const ck=[inp.d,inp.m,inp.y,inp.h,inp.mi,inp.sex,in
   const res=cand.map(c=>{const x=analyze({...inp,phone:c.ph}); x.score=capScore(inp,x);
     const tail=[...new Set(x.n.slice(6))], tg=tail.filter(d=>x.ds.cls[d]==="g"), tb=tail.filter(d=>x.ds.cls[d]==="b");
     let sc=x.score+(x.jobNote[0]==="g"?6:x.jobNote[0]==="b"?-6:0)+tg.length*2-tb.length*4+(x.sumInfo[0]==="g"?3:x.sumInfo[0]==="b"?-5:0);
-    if(x.strong) sc-=40;
+    if(x.strong) sc-=40; sc+=Math.round(typeScore(inp,x).sc*12);
     const hf=houseFit(x,HN); sc+=hf.sc; if(x.tri3[0].v==="g") sc+=3; else if(x.tri3[0].v==="b") sc-=6;
     const why=[];const gf=x.pos.find(p=>p.k==="GF"), jf=x.jf;
     if(jf&&inp.job>=0){const jn=esc(inp.jobText||JOBS[inp.job][0]);
