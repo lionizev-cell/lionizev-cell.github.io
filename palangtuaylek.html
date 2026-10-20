@@ -2553,7 +2553,7 @@ function analyze(inp){
   if(sum===53) sumInfo=["m","ผลรวม 53","คนของประชาชน ต้องเหนื่อยถึงจะสำเร็จ"];
   if(SUM_OVR[sum]) sumInfo=[SUM_OVR[sum][0],SUM_OVR[sum][1],SUM_OVR[sum][2],"",SUM_OVR[sum][0]];
   if(sumInfo[3]) sumInfo=[...sumInfo.slice(0,3),String(sumInfo[3]).replace(/\s*(แต่)?\S*เบิ้?ล.*$/,"").trim(),...sumInfo.slice(4)]; // ผลรวมเบิ้ลไม่ได้ ตัดคำเตือนเรื่องเบิ้ลของคู่เลขออก
-  const stg=age<15?"child":(age<22||inp.job===12)?"student":"";
+  const _wk=inp.job>=0&&inp.job!==12&&inp.job!==13; const stg=age<15?"child":((age<25&&!(age>=18&&_wk))||(inp.job===12&&age<30))?"student":"";
   if(stg) sumInfo=youngSum(sum,sumInfo,stg);
   S+=gv[sumInfo[0]]*0.15;
   const tail=n.slice(6), seven=n.slice(3);
@@ -3516,7 +3516,7 @@ function simpleSummary(inp,r,nm){
   const PV={g:1,m:0,b:-1};
   const joinS=arr=>{const L=arr.filter(Boolean).map(x=>Array.isArray(x)?x:[x,null]).map(([x,p,dc])=>{x=x.replace(/^(แต่ยังดีที่|ยังดีที่|แต่|และ|ส่วน|อีกทั้ง)\s*/,"").trim();return [x,p===null||p===undefined?sPol(x.split(" แต่")[0]):p,p===null||p===undefined?sPol(x.split(" แต่").pop()):p,dc||""];}); if(!L.length) return "";
     const out=[L[0][0]]; let prev=L[0][2];
-    L.slice(1).forEach(([x,p0,p1,dc])=>{let c=""; if(p0<0&&prev>=0)c="แต่"; else if(p0>0&&prev<0)c="ยังดีที่"; else if(p0<0&&prev<0)c=dc||"และ"; else c=dc; out.push(c&&/^[0-9A-Za-z(]/.test(x)?c+" "+x:c+x); prev=p1;});
+    L.slice(1).forEach(([x,p0,p1,dc])=>{let c=""; if(p0<0&&prev>0)c="แต่"; else if(p0<0&&prev===0)c=dc||"ส่วน"; else if(p0>0&&prev<0)c="ยังดีที่"; else if(p0<0&&prev<0)c=dc||"และ"; else c=dc; out.push(c&&/^[0-9A-Za-z(]/.test(x)?c+" "+x:c+x); prev=p1;});
     return out.join(" ");};
   const failWhy=(r.flags||[]).find(x=>/ไม่ให้ผ่าน|ตัดทิ้ง/.test(x));
   const P1=[], P2=[], P3=[];
@@ -3529,33 +3529,35 @@ function simpleSummary(inp,r,nm){
   const t=r.pos.find(p=>p.k==="GF"), dgT=dblFit(inp,r).find(x=>x.v===t.s), TRs=tailRule(inp,r.n[8]*10+r.n[9]); let tg2=dgT?dgT.g:pairScore(t,r)>=0.5?"g":pairScore(t,r)<=-0.1?"b":"m";
   if(TRs&&TRs.lv==="no") tg2="b"; else if(TRs&&(TRs.lv==="care"||TRs.lv==="warn")&&tg2==="g") tg2="m";
   const T3=(r.tri3||phoneTriples(r,inp))[0];
-  {const tk=String(r.n[8])+r.n[9], TT=TAIL_R[tk]?TAIL_R[tk][0]:"", body=TRs&&TRs.lv!=="ok"?(TT==="biz"||TT==="job"?"":TAIL_R[tk][1].replace(/^ไม่ควรวางท้าย /,"").replace(/^วางท้ายแล้ว/,"").replace(/^วางท้ายต้องดูอาชีพ /,"").replace(/ ถ้าเป็นเบอร์กิจการให้ใช้ \d\d ปิดท้ายแทน/,"").replace(/ แต่น้อยกว่า \d\d/," แต่ไม่มาก")):"";
-   const tb=TRs&&TRs.lv!=="ok"?(TT==="biz"||TT==="job"?" ปิดด้วยพลังที่เหมาะกับบางอาชีพเท่านั้น ซึ่งไม่ตรงกับคุณ จึงไม่ควรอยู่ท้ายเบอร์":TRs.lv==="warn"?" ปิดด้วยพลังที่ต้องระวัง ทำให้"+body:" ปิดด้วยพลังที่ไม่ควรอยู่ท้ายเบอร์ ทำให้"+body):"";
+  {const tk=String(r.n[8])+r.n[9], TT=TAIL_R[tk]?TAIL_R[tk][0]:"", body=TRs&&TRs.lv!=="ok"?(TT==="biz"||TT==="job"?"":TAIL_R[tk][1].replace(/^ไม่ควรวางท้าย /,"").replace(/^วางท้ายแล้ว/,"").replace(/^วางท้ายต้องดูอาชีพ /,"").replace(/ ถ้าเป็นเบอร์กิจการให้ใช้ \d\d ปิดท้ายแทน/,"").replace(/ แต่น้อยกว่า \d\d/," แต่ไม่มาก").replace(/^กลายเป็นกลางค่อนระวัง /,"").replace(/^ระวังปัญหา(.*)$/,"มีปัญหา$1เข้ามาง่าย").replace(/^ระวัง/,"ต้องระวัง").replace(/^แล้ว/,"")):"";
+   const tb=TRs&&TRs.lv!=="ok"?(r.age<15?" ปิดด้วยพลังที่ไม่ค่อยเหมาะกับวัยเด็ก":TT==="biz"||TT==="job"?" ปิดด้วยพลังที่เหมาะกับบางอาชีพเท่านั้น ซึ่งไม่ตรงกับคุณ จึงไม่ควรอยู่ท้ายเบอร์":TRs.lv==="warn"?" ปิดด้วยพลังที่ต้องระวัง ทำให้"+body:" ปิดด้วยพลังที่ไม่ควรอยู่ท้ายเบอร์ ทำให้"+body):"";
    P2.push([tb?"ช่วงท้ายของเบอร์ซึ่งส่งผลแรงที่สุดกับชีวิตประจำวัน"+tb:"ช่วงท้ายของเบอร์ซึ่งส่งผลแรงที่สุดกับชีวิตประจำวัน"+(tg2==="g"?"ออกมาดี คนรอบตัวมองคุณในแง่ดี":tg2==="b"?"ออกมาไม่ดี ทำให้ชีวิตประจำวันเหนื่อยกว่าที่ควร":"ให้ผลกลาง ๆ นิสัยออกมาทั้งด้านดีและด้านที่ต้องคุม"),PV[tg2]]);}
   P2.push([(T3.v==="g"?"พลังช่วงท้ายส่งต่อกันราบรื่น เรื่องที่เริ่มดีมักไปจบดี":T3.v==="b"?"พลังช่วงท้ายส่งต่อกันสะดุด ส่งผลกับชีวิตประจำวันโดยตรง":"พลังช่วงท้ายส่งต่อกันกลาง ๆ มีทั้งช่วงลื่นและช่วงสะดุด"),PV[T3.v]]);
   {const N9=nineFit(inp,r); if(N9){const c9=r.ds.cls[9]; let t9="";
     if(N9.c===0) t9=c9==="b"?"":"เบอร์นี้ยังขาดพลังสัญชาตญาณและจังหวะ ซึ่งยุคออนไลน์ควรมี";
     else if(N9.c>2) t9="พลังสัญชาตญาณในเบอร์มากเกินไป หลงเชื่อง่าย อารมณ์ขึ้นลง ตัดสินใจตามความรู้สึก";
     else t9="เบอร์มีพลังสัญชาตญาณพอดีกับยุคออนไลน์"+(c9==="g"?" และเข้ากับดวงคุณ ได้จังหวะและโอกาสดี":c9==="b"?" แต่พลังนี้ยังไม่ถูกกับดวงคุณ ผลจึงไม่เต็ม":"");
-    if(t9) P2.push([t9,{g:1,m:0,b:-1}[N9.g]]);}}
+    if(t9) P2.push([t9,N9.c===0||N9.c>2?-1:{g:1,m:0,b:-1}[N9.g]]);}}
   {const si=r.sumInfo; P2.push(["ผลรวมของทั้งเบอร์"+(si[0]==="g"?"ดี":si[0]==="b"?"ไม่ค่อยส่งเสริม":"ให้ผลกลาง ๆ")+" ในระยะยาว 4 ถึง 5 ปีขึ้นไปจะส่งผลไปทาง"+si[2],PV[si[0]],"ส่วน"]);}
   let fv=0,fw=0; r.AG.focus.forEach(k=>{const p=r.pos.find(x=>x.k===k);fw+=p.w0;fv+=p.w0*pairScore(p,r);}); let fg=gradeOf(fv/fw);
   {const idx={work:[0,1],mid:[0],senior:[4],young:[3]}[r.AG.k]||[]; const rk={b:0,m:1,g:2}; idx.forEach(i=>{const x=rows[i]; if(x&&rk[x.g]<rk[fg]) fg=x.g;});}
   {const AD0=ageDrive(inp,r); if(AD0&&AD0.sc<=-0.4&&fg==="g") fg="m";}
+  {const nb=rows.filter(x=>x.g==="b").length; if(fg==="g"&&nb) fg="m"; else if(fg==="m"&&nb>=2) fg="b";}
   P3.push(["ตอนนี้"+who+"อายุ "+r.age+" ปี อยู่ใน"+r.AG.name+" เรื่องที่สำคัญที่สุดของวัยนี้คือ"+r.AG.txt+" "+(fg==="g"?"ซึ่งเบอร์นี้หนุนได้ดี":fg==="m"?"ซึ่งเบอร์นี้ช่วยได้ปานกลาง":"ซึ่งเบอร์นี้ยังไม่ช่วยเรื่องนี้"),PV[fg]]);
-  {const AD=ageDrive(inp,r); if(AD){const L=AD.t.filter(x=>!/^ชุด \d{3} /.test(x)).map(x=>x.replace(/^วัยสร้างตัวควรมีเลขขยันผสมในเบอร์ เบอร์นี้มี/,"เบอร์นี้มี").replace(/^ตอนนี้อยู่ในวัยสร้างตัว แต่/,"").replace(/^วัยสร้างตัวควรมีเลขขยันผสมในเบอร์ /,""));
-    const rk=x=>/ควรเสริม/.test(x)?4:/ใจร้อน|แรงเกิน/.test(x)?3:/ถูกกับดวง|พลังอ่อน/.test(x)?2:/คู่เสีย/.test(x)?1:0;
-    L.sort((a,b)=>rk(a)-rk(b)).slice(0,4).forEach(x=>P3.push([x,/ควรเสริม/.test(x)?0:null]));
-    const RB=(AD.RS||[]).filter(x=>x.g==="b"), RM=(AD.RS||[]).filter(x=>x.g==="m");
-    if(RB.length) P3.push(["มีชุดเลขวนซ้ำ "+RB.map(x=>x.t).join(" ")+" ซึ่งไม่เหมาะกับวัยสร้างตัว พลังวนอยู่กับที่ ทำให้ก้าวหน้าช้า",-1]);
-    if(RM.length) P3.push(["ชุดเลขวนซ้ำ "+RM.map(x=>x.t).join(" ")+" ก็ไม่ค่อยเหมาะกับวัยนี้นัก",-1]);}}
-  dblFit(inp,r).forEach(x=>{const ng=x.why.filter(w=>!/ร้อยเรียงดี|ถูกกับดวง|ตรงกับงาน|ใช้ได้/.test(w)); P3.push(["เลขเบิ้ล "+x.v+(x.g==="g"?" ใช้ได้ดีกับคุณ เพราะ"+x.why.slice(0,2).join(" "):x.g==="m"?(ng.length?" พอใช้ได้ แต่ต้องระวัง เพราะ"+ng.slice(0,2).join(" "):" พอใช้ได้ แต่ยังไม่เด่นพอจะหนุนคุณเต็มที่ "+x.why.slice(0,1).join(" ")):" ไม่เหมาะกับคุณ เพราะ"+(ng.length?ng:x.why).slice(0,2).join(" ")),PV[x.g]]);});
-  const yp=[...new Set(r.pos.filter(p=>p.info[5]==="young").map(p=>p.s))];
-  if(yp.length) P3.push([(r.age<15?"สำหรับเด็กอายุ "+r.age+" ปี":"สำหรับวัยเรียน")+" เบอร์นี้มีคู่ "+yp.join(" ")+" ซึ่งเป็นพลังเงินและความทะเยอทะยานของผู้ใหญ่ แรงเกินวัย อาจทำให้ใจร้อนหรือไม่โฟกัสการเรียน",-1]);
-  const con=r.pos.find(p=>p.k==="A2"); if(con.info[0]==="b"&&!(failWhy&&/ตัวเชื่อม/.test(failWhy))) P3.push(["ช่วงที่เชื่อมหัวเบอร์กับเลขเจ็ดตัวหลังสะดุดเล็กน้อย แต่ส่งผลน้อย ให้ดูเจ็ดตัวหลังเป็นหลัก",0]);
+  {const AD=ageDrive(inp,r), jt=inp.jobText?"งาน"+esc(inp.jobText):"งานของคุณ";
+   if(AD&&r.AG.k==="work"){
+     if(AD.sc>=0.4) P3.push(["เบอร์นี้มีแรงขยันที่ช่วยผลักให้ลุยงาน"+(inp.jobText?" เข้ากับ"+jt:""),1]);
+     else if(AD.sc<=-0.4) P3.push(["เบอร์นี้ยังขาดแรงผลักให้ลุยงาน ความขยันที่มีออกมาเป็นความเหนื่อยมากกว่าผลงาน",-1]);
+     else P3.push(["แรงผลักเรื่องงานในเบอร์ยังกลาง ๆ",0]);
+     const ms=AD.t.find(x=>/ควรเสริม/.test(x)); if(ms){const ds=[...new Set((ms.match(/เลข (\d)/g)||[]).map(x=>+x.slice(4)))].slice(0,2); if(ds.length) P3.push([jt+"ควรมีพลัง"+ds.map(d=>ENERGY[d]).join(" หรือพลัง")+"เพิ่มขึ้น",0,null,"และ"]);}
+     if((AD.RS||[]).some(x=>x.g!=="g")) P3.push(["เบอร์มีชุดเลขวนซ้ำ พลังวนอยู่กับที่ ทำให้ก้าวหน้าช้า",-1]);}}
+  dblFit(inp,r).forEach(x=>{const d=+x.v[0], E=ENERGY[d], wk=r.ds.cls[d]==="b", jc=x.why.some(w=>/ขัดกับงาน|ไม่ต้องการพลังนี้/.test(w)), yg=x.why.some(w=>/แรงเกินวัย/.test(w)), run=x.why.some(w=>/ติดกัน \d ตัว/.test(w));
+    const why=run?"ซ้ำกันหลายตัวจนแรงเกินไป":wk?"ไม่ถูกกับดวงคุณ":jc?"ซ้ำกันจนแรงเกินสำหรับงานที่ทำ":yg?"แรงเกินวัย":"";
+    P3.push([x.g==="g"?"พลัง"+E+"ที่ซ้ำกันในเบอร์เข้ากับคุณดี":x.g==="m"?"พลัง"+E+"ที่ซ้ำกันในเบอร์พอใช้ได้"+(why?" แต่"+why:" แต่ต้องคุมไม่ให้แรงเกิน"):"พลัง"+E+"ที่ซ้ำกันในเบอร์ไม่เหมาะกับคุณ"+(why?" เพราะ"+why:""),PV[x.g]]);});
+  if(r.age<20&&r.pos.some(p=>p.info[5]==="young")) P3.push([(r.age<15?"สำหรับเด็กอายุ "+r.age+" ปี":"สำหรับวัยเรียน")+" เบอร์นี้มีพลังเรื่องเงินและความทะเยอทะยานที่แรงเกินวัย อาจทำให้ใจร้อนหรือไม่โฟกัสการเรียน",-1]);
   const ovH=[["ภาพรวม",plainTxt(P1.join(" "))],["ท้ายเบอร์และผลรวม",plainTxt(joinS(P2))],["ช่วงวัยของคุณ",plainTxt(joinS(P3.map(x=>Array.isArray(x)?[plainTxt(x[0]),...x.slice(1)]:plainTxt(x))))]].filter(x=>x[1]);
   let advice={fail:"แนะนำให้เปลี่ยนเบอร์",bad:"แนะนำให้เปลี่ยนเบอร์",mid:"ควรพิจารณาเปลี่ยนเบอร์",ok:"ใช้ต่อได้ แต่ถ้าอยากให้เบอร์ช่วยชีวิตมากขึ้น ควรหาเบอร์ที่เข้ากับดวงกว่านี้",good:"ใช้ต่อได้เลย"}[r.level];
-  advice+=r.stg==="child"?" เบอร์ของเด็กควรร้อยเรียงให้เหมาะกับวัย เน้นคู่เลขที่หนุนการเรียน สมาธิ และให้ผู้ใหญ่เอ็นดู ไม่ควรมีคู่พลังเงินหรือความทะเยอทะยานของผู้ใหญ่":r.stg?" เบอร์ช่วงวัยเรียนควรร้อยเรียงให้หนุนการเรียน สมาธิ และเพื่อนที่ดี ไม่ควรมีคู่พลังเงินหรือความทะเยอทะยานที่แรงเกินวัย":" และเบอร์ที่ดีควรร้อยเรียงให้เหมาะสมกับอาชีพ"+(inp.jobText?esc(inp.jobText):"")+"ของคุณด้วย";
+  advice+=r.stg==="child"?" เบอร์ของเด็กควรร้อยเรียงให้เหมาะกับวัย เน้นคู่เลขที่หนุนการเรียน สมาธิ และให้ผู้ใหญ่เอ็นดู ไม่ควรมีคู่พลังเงินหรือความทะเยอทะยานของผู้ใหญ่":r.stg?" เบอร์ช่วงวัยเรียนควรร้อยเรียงให้หนุนการเรียน สมาธิ และเพื่อนที่ดี ไม่ควรมีคู่พลังเงินหรือความทะเยอทะยานที่แรงเกินวัย":inp.jobText?" และเบอร์ที่ดีควรร้อยเรียงให้เหมาะกับงาน"+esc(inp.jobText)+"ของคุณด้วย":" และเบอร์ที่ดีควรร้อยเรียงให้เหมาะกับดวงและสิ่งที่คุณทำอยู่";
   const good=[],mid=[],bad=[];for(let d=0;d<10;d++){(r.ds.cls[d]==="g"?good:r.ds.cls[d]==="b"?bad:mid).push(d);}
   let nameP="";
   if(nm&&(inp.fname||inp.lname)){const L=[];const rd=(lab,x)=>x?lab+(x.info[0]==="g"?"เป็นเลขดี":x.info[0]==="m"?"ให้ผลกลาง ๆ":"ไม่ค่อยส่งเสริม")+(x.info[5]?" ("+x.info[5]+")":x.info[2].indexOf("ไม่อยู่ในกลุ่ม")<0?" "+x.info[2]:"")+(x.info[3]?" "+x.info[3]:""):"";
@@ -4517,7 +4519,7 @@ function freePairsHtml(inp,r){
 // ทำให้คำวิเคราะห์สรุปอ่านต่อเนื่อง ไม่อธิบายคู่เลขหรือเลขรายตัว
 function plainTxt(x){x=String(x);
   Object.entries(DRIVE_NAME).forEach(([d,t])=>{x=x.split(t).join("พลัง"+t.replace(/^เลข \d /,""));});
-  x=x.replace(/\s*\(คู่ [\d ]+\)/g,"").replace(/\s*\(\d\d( \d\d)*\)/g,"").replace(/เลขเบิ้ล (\d)\1/g,(m,d)=>"เลขเบิ้ลพลัง"+ENERGY[d]).replace(/(ชุดเลขวนซ้ำ|ชุดเลข|ชุด) \d{3}( \d{3})*/g,"$1").replace(/มีคู่ \d\d( \d\d)* ซึ่ง/g,"มีคู่เลขที่").replace(/คู่ \d\d( \d\d)*/g,"คู่เลข")
+  x=x.replace(/\s*\(\d( \d)+\)/g,"").replace(/ที่มี \d{3}/g,"ที่มีชุดเลขแบบนี้").replace(/เลข (\d)((?: \d)+)/g,(m,a,b)=>"เลข "+a+b.split(" ").filter(Boolean).map(c=>" และเลข "+c).join("")).replace(/\s*\(คู่ [\d ]+\)/g,"").replace(/\s*\(\d\d( \d\d)*\)/g,"").replace(/เลขเบิ้ล (\d)\1/g,(m,d)=>"เลขเบิ้ลพลัง"+ENERGY[d]).replace(/(ชุดเลขวนซ้ำ|ชุดเลข|ชุด) \d{3}( \d{3})*/g,"$1").replace(/มีคู่ \d\d( \d\d)* ซึ่ง/g,"มีคู่เลขที่").replace(/คู่ \d\d( \d\d)*/g,"คู่เลข")
    .replace(/เลข (\d)( (?:หรือ|และ|กับ) ?เลข (\d))?/g,(m,a,b,c)=>"พลัง"+ENERGY[a]+(c?(b.includes("หรือ")?" หรือ":" และ")+"พลัง"+ENERGY[c]:"")).replace(/พลังพลัง/g,"พลัง").replace(/ร้อยเรียงไม่ดี คู่ที่ต่อกัน\s*เป็นคู่เสีย/g,"และต่อกับเลขข้าง ๆ ได้ไม่ดี").replace(/ร้อยเรียงดี คู่ที่ต่อกัน\s*ไม่เสีย/g,"และต่อกับเลขข้าง ๆ ได้ราบรื่น").replace(/\s{2,}/g," ");
   return x.trim();}
 function finalScore(inp,r){
