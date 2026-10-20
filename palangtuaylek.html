@@ -2160,7 +2160,7 @@ const GSEX={
 let _PCTX=null;
 const HARDWORK_JOBS=[14,6,10,11];
 // คู่พลังผู้ใหญ่ เงิน การค้า ความทะเยอทะยาน เรื่องรักใคร่ แรงเกินไปสำหรับเด็กและนักเรียน
-const ADULT_P=[28,82,89,98,88,78,87,68,86,38,83,18,81,48,84,58,85,36,63,66,13,31,33];
+const ADULT_P=[28,82,89,98,88,78,87,68,86,38,83,18,81,48,84,58,85,36,63,13,31,33];
 function youngCtx(v,base){
   if(!_PCTX||_PCTX.age==null) return null;
   const a=_PCTX.age, stu=_PCTX.job===12;
@@ -3355,7 +3355,7 @@ function dblCtx(v,inp,r){
   else if(gk&&J.b.includes(gk)){sc-=1;why.push("-"+"งาน"+jn+"ไม่ต้องการพลังนี้ ด้านลบคือ"+J.bt);}
   else why.push("~ให้พลัง"+J.gt+" แต่ต้องระวัง"+J.bt);
   const age=r.age||30, f=inp.sex==="f";
-  if(age<25&&[88,66,33].includes(v)){sc-=0.8;why.push("-"+"อายุยังน้อย พลังคู่นี้แรงเกินวัย");}
+  if(age<25&&[88,33].includes(v)){sc-=0.8;why.push("-"+"อายุยังน้อย พลังคู่นี้แรงเกินวัย");}
   if(age>=60&&v===33){sc-=0.6;why.push("-"+"วัยนี้ระวังอุบัติเหตุ");}
   if(age>=45&&[55,99].includes(v)){sc+=0.3;why.push("+"+"วัยนี้ได้บารมีจากคู่นี้");}
   if(!f&&v===22){sc-=0.8;why.push("-"+"ผู้ชายใช้แล้วใจอ่อนเกิน");}
@@ -4504,7 +4504,7 @@ function triMoreHtml(inp,r,t,sx){
 function freePairsHtml(inp,r){
   const GT={g:"ดี",m:"กลาง",b:"ควรระวัง"};
   const DG={};dblFit(inp,r).forEach(x=>{DG[x.v]=x.g;});
-  const rows=r.pos.map((p,i)=>{const PG=posGrade(p,r,inp),g=PG.g,cg=gradeOf(pairScore(p,r));const fit=g!=="b"&&cg==="b"?' <span class="note">ไม่ถูกกับดวงคุณ</span>':g!=="g"&&cg==="g"?' <span class="note">ถูกกับดวงคุณ</span>':"";return `<li${i>=5?' class="ppx"':""}><span class="pv sm ${g}">${p.s}</span><span><b>${p.n}</b> <span class="pill ${g}">${PG.lab}</span>${fit}<br><span class="fpm">${esc(p.info[1])}</span> ${esc(shortTxt(p.info[2],70))}${pairMoreHtml(inp,r,p,g)}</span></li>`;}).join("");
+  const rows=r.pos.map((p,i)=>{const PG=posGrade(p,r,inp),g=PG.g,cg=gradeOf(pairScore(p,r));const dgx=dblFit(inp,r).find(x=>x.v===p.s), dRs=dgx?(w=>/ร้อยเรียงไม่ดี/.test(w)?"เลขเบิ้ลนี้ไปติดกับคู่ที่ต้องระวัง":/ติดกัน \d ตัว/.test(w)?"เลขเดียวกันซ้ำหลายตัวเกินไป":/ขัดกับงาน/.test(w)?w.replace(/ คือ.*$/,"").replace(/^/,"เลขเบิ้ลนี้"):/แรงเกินวัย/.test(w)?"เลขเบิ้ลนี้แรงเกินวัย":/ผู้ชายใช้|ผู้หญิงใช้/.test(w)?"เลขเบิ้ลนี้ไม่เหมาะกับเพศของคุณ":/พลังอ่อน/.test(w)?"":"เลขเบิ้ลนี้ไม่เหมาะกับคุณ")(dgx.why.find(w=>!/ร้อยเรียงดี|ถูกกับดวง|ตรงกับงาน|^ให้พลัง|^ได้พลัง/.test(w))||""):"", fit=g==="b"&&cg!=="b"?' <span class="note">'+(dgx?(cg==="g"?"เลขถูกกับดวง แต่":"")+(dRs||"เลขเบิ้ลนี้ไม่เหมาะกับคุณ"):"เลขไม่ขัดกับดวง แต่คู่นี้ยังต้องระวัง")+'</span>':g!=="b"&&cg==="b"?' <span class="note">ไม่ถูกกับดวงคุณ</span>':g==="m"&&cg==="g"?' <span class="note">ถูกกับดวงคุณ</span>':"";return `<li${i>=5?' class="ppx"':""}><span class="pv sm ${g}">${p.s}</span><span><b>${p.n}</b> <span class="pill ${g}">${PG.lab}</span>${fit}<br><span class="fpm">${esc(p.info[1])}</span> ${esc(shortTxt(p.info[2],70))}${pairMoreHtml(inp,r,p,g)}</span></li>`;}).join("");
   const tri=(r.tri3||[]).map((t,i)=>{const sx=(r.trips||[]).find(x=>x.pt===t.t);const v=sx?"b":t.v;
     return `<li${i>=2?' class="ppx"':""}><span class="pv sm ${v}">${t.t}</span><span><b>${esc(t.name)}</b> <span class="pill ${v}">${GT[v]}</span>${t.tail?' <span class="note">ท้ายเบอร์</span>':""}<br>${sx?"เลขเบิ้ลที่ไม่เหมาะกับ"+(inp.sex==="f"?"ผู้หญิง":"ผู้ชาย")+" "+esc(sx.txt):esc(shortTxt(t.short,90))}${triMoreHtml(inp,r,t,sx)}</span></li>`;}).join("");
   return `<section class="card" aria-labelledby="hfp"><h2 id="hfp">ความหมายคู่เลขในเบอร์นี้</h2>
