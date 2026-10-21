@@ -3,6 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b0907">
+<script>
+/* โหมดแอป Play Store: เปิดจากแอป (TWA) จะซ่อนส่วนที่เป็นการจ่ายเงินดิจิทัล บนเว็บปกติทุกอย่างเหมือนเดิม */
+(function(){var a=false;try{a=/[?&]app=1/.test(location.search)||document.referrer.indexOf("android-app://")===0||sessionStorage.getItem("plk_app")==="1";if(a)sessionStorage.setItem("plk_app","1");}catch(e){}
+if(a)document.documentElement.classList.add("plk-app");})();
+</script>
+<style>
+.plk-app .pay,.plk-app .dprev,.plk-app .paidline,.plk-app .askline,.plk-app a.dgo,.plk-app section.cta,
+.plk-app a[href*="duang.html"],.plk-app a[href*="fs-2570"],.plk-app a[href*="ebook"],.plk-app a[href*="index.html"],.plk-app .plk-hide{display:none!important}
+html.plk-app body .plk-hide,html.plk-app body a[href*="ebook"],html.plk-app body a[href*="duang.html"],html.plk-app body a[href*="fs-2570"]{display:none!important}
+</style>
+
 <meta name="robots" content="noindex,follow">
 <meta name="description" content="วิเคราะห์เบอร์มือถือ ชื่อ ทะเบียนรถ บ้านเลขที่ และชื่อร้าน เทียบกับพื้นดวง ฟรี โดย ความลับพลังตัวเลข">
 <style>*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
@@ -3587,7 +3600,7 @@ function simpleSummary(inp,r,nm){
     P3.push([x.g==="g"?"พลัง"+E+"ที่ซ้ำกันในเบอร์เข้ากับคุณดี":x.g==="m"?"พลัง"+E+"ที่ซ้ำกันในเบอร์พอใช้ได้"+(why?" แต่"+why:" แต่ต้องคุมไม่ให้แรงเกิน"):"พลัง"+E+"ที่ซ้ำกันในเบอร์ไม่เหมาะกับคุณ"+(why?" เพราะ"+why:""),PV[x.g]]);});
   if(r.age<20&&r.pos.some(p=>p.info[5]==="young")) P3.push([(r.age<15?"สำหรับเด็กอายุ "+r.age+" ปี":"สำหรับวัยเรียน")+" เบอร์นี้มีพลังเรื่องเงินและความทะเยอทะยานที่แรงเกินวัย อาจทำให้ใจร้อนหรือไม่โฟกัสการเรียน",-1]);
   const ovH=[["ภาพรวม",plainTxt(P1.join(" "))],["ท้ายเบอร์และผลรวม",plainTxt(joinS(P2))],["ช่วงวัยของคุณ",plainTxt(joinS(P3.map(x=>Array.isArray(x)?[plainTxt(x[0]),...x.slice(1)]:plainTxt(x))))]].filter(x=>x[1]);
-  let advice={fail:"แนะนำให้เปลี่ยนเบอร์",bad:"แนะนำให้เปลี่ยนเบอร์",mid:"ควรพิจารณาเปลี่ยนเบอร์",ok:"เข้ากับดวงคุณพอใช้ ถ้าอยากให้เบอร์ช่วยชีวิตมากขึ้น ควรหาเบอร์ที่เข้ากับดวงกว่านี้",good:"เบอร์นี้เข้ากับดวงคุณดี"}[r.level];
+  let advice={fail:"แนะนำให้เปลี่ยนเบอร์",bad:"แนะนำให้เปลี่ยนเบอร์",mid:"ควรพิจารณาเปลี่ยนเบอร์",ok:"ใช้ต่อได้ แต่ถ้าอยากให้เบอร์ช่วยชีวิตมากขึ้น ควรหาเบอร์ที่เข้ากับดวงกว่านี้",good:"ใช้ต่อได้เลย"}[r.level];
   advice+=r.stg==="child"?" เบอร์ของเด็กควรร้อยเรียงให้เหมาะกับวัย เน้นคู่เลขที่หนุนการเรียน สมาธิ และให้ผู้ใหญ่เอ็นดู ไม่ควรมีคู่พลังเงินหรือความทะเยอทะยานของผู้ใหญ่":r.stg?" เบอร์ช่วงวัยเรียนควรร้อยเรียงให้หนุนการเรียน สมาธิ และเพื่อนที่ดี ไม่ควรมีคู่พลังเงินหรือความทะเยอทะยานที่แรงเกินวัย":inp.jobText?" และเบอร์ที่ดีควรร้อยเรียงให้เหมาะกับงาน"+esc(inp.jobText)+"ของคุณด้วย":" และเบอร์ที่ดีควรร้อยเรียงให้เหมาะกับดวงและสิ่งที่คุณทำอยู่";
   const good=[],mid=[],bad=[];for(let d=0;d<10;d++){(r.ds.cls[d]==="g"?good:r.ds.cls[d]==="b"?bad:mid).push(d);}
   let nameP="";
@@ -4715,7 +4728,7 @@ function fallback(t,done){const ta=document.createElement("textarea");ta.value=t
 function verdictText(r){
   const fg=r.pos.find(p=>p.k==="GF").info[0], ab=r.pos.find(p=>p.k==="AB").info[0];
   if(r.strong) return "เบอร์นี้ไม่ผ่าน ต่อให้คู่อื่นดีแค่ไหนก็ไม่คุ้มเสี่ยง เปลี่ยนดีกว่า";
-  if(r.score>=75) return "เบอร์นี้เข้ากับดวงคุณดี ยังไม่จำเป็นต้องเปลี่ยน";
+  if(r.score>=75) return "เบอร์นี้ดี เข้ากับดวง ใช้ต่อได้เลย ไม่ต้องเปลี่ยน";
   if(r.score>=60) return "ใช้ได้ แต่ยังมีจุดที่ดึงอยู่ ถ้าจะเอาให้สุดควรหาเบอร์ที่เข้ากับดวงกว่านี้";
   if(r.score>=45) return fg==="b"?"ท้ายเบอร์ไม่ดี ซึ่งเป็นตำแหน่งที่แรงที่สุด เบอร์นี้จึงพาเหนื่อยมากกว่าพาไปข้างหน้า":"กลาง ๆ ไม่ได้ร้าย แต่ไม่ได้ช่วยดวงคุณ ใช้ไปก็ทรงตัว";
   return ab==="b"?"เบอร์นี้เสีย ทั้งทางเข้าทรัพย์และหลายตำแหน่งไม่หนุน ควรเปลี่ยน":"เบอร์นี้เสีย ไม่เข้ากับดวงคุณ ควรเปลี่ยน";
@@ -5784,7 +5797,7 @@ let SHARE=null;
 function addShare(d){
   SHARE=d; const R=$("result"); if(!R) return;
   const s=document.createElement("section"); s.className="card sharebox";
-  s.innerHTML=`<h2>เก็บผลไว้ หรือส่งให้เพื่อน</h2><p class="note" style="margin:0">ผมทำผลสรุปเป็นรูปให้ เอาไปลงสตอรี่หรือส่งต่อในไลน์ได้เลย รูปไม่มีวันเดือนปีเกิดของคุณ</p><button type="button" class="primary" id="sharebtn">บันทึกผลเป็นรูป</button>`;
+  s.innerHTML=`<h2>เก็บผลไว้ หรือส่งให้เพื่อน</h2><p class="note" style="margin:0">ระบบทำผลสรุปเป็นรูป เอาไปลงสตอรี่หรือส่งต่อในไลน์ได้เลย รูปไม่มีวันเดือนปีเกิดของคุณ</p><button type="button" class="primary" id="sharebtn">บันทึกผลเป็นรูป</button>`;
   const cta=R.querySelector(".cta"); if(cta) R.insertBefore(s,cta); else R.appendChild(s);
   $("sharebtn").onclick=makeShareImg;
 }
@@ -6013,6 +6026,23 @@ function admUpdUI(){
    <button type="button" class="primary" id="updgo" hidden>อัปโหลดขึ้นเว็บ</button>
    <p class="para" id="updst" aria-live="polite"></p>
    <details class="libd"><summary>ลบไฟล์ที่ชื่อเพี้ยนหรือเวอร์ชันเก่า</summary><div id="updold"><button type="button" class="ghost" id="updscan">ดูรายการไฟล์ในเว็บ</button></div></details>`;
+  box.insertAdjacentHTML("beforeend",`<details class="libd" id="twabox"><summary>ตั้งค่าแอป Play Store (ลายนิ้วมือ SHA-256)</summary>
+   <p class="note">วางลายนิ้วมือ SHA-256 บรรทัดละค่า ใส่ทั้งค่าจากไฟล์ที่ PWABuilder ให้มา และค่า App signing key จาก Play Console (หัวข้อ App integrity) ใส่แล้วแอปจะเปิดเต็มจอ ไม่มีแถบลิงก์ด้านบน</p>
+   <label>ชื่อแพ็กเกจ<input id="twapkg" value="com.palangtuaylek.app"></label>
+   <label>ลายนิ้วมือ SHA-256<textarea id="twasha" rows="3" placeholder="AA:BB:CC:..."></textarea></label>
+   <button type="button" class="primary" id="twago">บันทึกขึ้นเว็บ</button>
+   <p class="para" id="twast" aria-live="polite"></p></details>`);
+  $("twago").onclick=async()=>{const st2=t=>{$("twast").textContent=t;};
+    const pkg=$("twapkg").value.trim(), fps=$("twasha").value.split(/[\s,]+/).map(x=>x.trim().toUpperCase()).filter(Boolean);
+    if(!/^[a-z][\w]*(\.[a-z][\w]*)+$/i.test(pkg)){st2("ชื่อแพ็กเกจไม่ถูกต้อง");return;}
+    const bad=fps.find(x=>!/^([0-9A-F]{2}:){31}[0-9A-F]{2}$/.test(x)); if(!fps.length||bad){st2(bad?"ลายนิ้วมือนี้รูปแบบไม่ถูก: "+bad:"ใส่ลายนิ้วมืออย่างน้อย 1 ค่า");return;}
+    const json=JSON.stringify([{relation:["delegate_permission/common.handle_all_urls"],target:{namespace:"android_app",package_name:pkg,sha256_cert_fingerprints:[...new Set(fps)]}}],null,1);
+    const b64=t=>btoa(unescape(encodeURIComponent(t)));
+    $("twago").disabled=true;
+    try{await ghBatch([{name:".nojekyll",b64:b64("\n")},{name:".well-known/assetlinks.json",b64:b64(json)}],"ตั้งค่าแอป Play Store",(i,n,nm)=>st2(i===null?nm:"กำลังส่ง "+nm));
+      st2("บันทึกแล้ว รอ 1 ถึง 3 นาที แล้วเปิดแอปใหม่ แถบลิงก์ด้านบนจะหายไป");}
+    catch(err){st2(err.message);}
+    $("twago").disabled=false;};
   const st=t=>{$("updst").textContent=t;};
   $("updf").onchange=async e=>{UPD=[];const fs=[...e.target.files];if(!fs.length)return;st("กำลังอ่านไฟล์...");
     const next=APP_FILE;
@@ -9497,5 +9527,35 @@ function fsColorHtml(inp,ds,who){
   </section>`;}
 function fsYearLinkHtml(){return `<section class="card"><h2>ฮวงจุ้ยปี 2570 ทิศไหนของบ้านดี ทิศไหนต้องระวัง</h2><p class="para">ดาวเหินประจำปีเปลี่ยนทุกปี ผลเหมือนกันทุกบ้าน ใช้คู่กับทิศมงคลของคุณด้านบน ปี 2570 ดาวร้ายแรงที่สุดย้ายไปอยู่ทิศเหนือ</p><div class="btns"><a class="primary" href="fs-2570.html" style="text-decoration:none;display:inline-block;padding:10px 16px;border-radius:10px">ดูฮวงจุ้ยปี 2570</a></div></section>`;}
 
+</script>
+<script>
+/* โหมดแอป: ตัดส่วนจ่ายเงินดิจิทัลออก และให้อยู่ในหน้านี้หน้าเดียว */
+(function(){
+  if(!document.documentElement.classList.contains("plk-app")) return;
+  var PAYRE=/ปลดล็อก|เจาะลึก|399|2,999|5,999|ตรวจสลิปและเปิดผล|ได้ทันทีหลังโอน|แบบละเอียด\s*\d/;
+  var SECRE=/ปลดล็อก|เจาะลึก|399|2,999|5,999|แบบละเอียด\s*[\d,]+\s*บาท|ร้อยเรียงเบอร์/;
+  function sweep(root){
+    try{
+      (root||document).querySelectorAll("section").forEach(function(sec){var h=sec.querySelector("h2,h3");if(h&&SECRE.test(h.textContent||""))sec.classList.add("plk-hide");});
+      (root||document).querySelectorAll("a,button,p,li,div.btns,div.stkact").forEach(function(el){
+        if(el.closest("details")&&el.tagName!=="A"&&el.tagName!=="BUTTON") return;
+        var t=el.textContent||""; if(t.length>400) return;
+        if(PAYRE.test(t)) el.classList.add("plk-hide");});
+      (root||document).querySelectorAll('a[href$=".html"],a[href*=".html?"],a[href*=".html#"]').forEach(function(a){
+        var h=a.getAttribute("href")||""; if(/^https?:/.test(h)&&h.indexOf("palangtuaylek.com")<0) return;
+        if(/(^|\/)palangtuaylek\.html/.test(h)) return;
+        var m=h.match(/lek-(\d\d)\.html/); if(m){a.setAttribute("href","#pairs");return;}
+        a.classList.add("plk-hide");});
+    }catch(e){}
+  }
+  sweep();
+  var t=null; new MutationObserver(function(){clearTimeout(t);t=setTimeout(sweep,60);}).observe(document.body,{childList:true,subtree:true});
+  // หน้าแอดมินไม่เปิดในแอป
+  function noAdmin(){if(location.hash==="#admin"){try{history.replaceState(null,"",location.pathname+location.search);}catch(e){} location.hash="";}}
+  noAdmin(); window.addEventListener("hashchange",noAdmin);
+  // ลิงก์ไปหน้าอื่นของเว็บ ให้อยู่ในหน้านี้แทน
+  document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var h=a.getAttribute("href")||"";
+    if(/\.html/.test(h)&&!/(^|\/)palangtuaylek\.html/.test(h)&&(!/^https?:/.test(h)||h.indexOf("palangtuaylek.com")>=0)){e.preventDefault();}},true);
+})();
 </script>
 </body></html>
