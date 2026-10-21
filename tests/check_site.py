@@ -25,6 +25,12 @@ CASES = [
     ("name", {"#fname": "ธนวัตน์", "#lname": "จิระเมธาทรัพย์"}, "ชื่อ ธนวัตน์ จิระเมธาทรัพย์"),
 ]
 SECRETS = ["codeSalt", "adminHash", "slipApi"]
+# ของที่ต้องมีอยู่ในไฟล์เสมอ และคำที่ห้ามขึ้นกับลูกค้า (ถ้าเจอ = มีคนอัปไฟล์ชุดเก่าทับ)
+MUST_HAVE = {"function funnelHooks": "ตัวนับขั้นการขาย funnelHooks หายไป", "lin.ee/TJ05Mnd": "ลิงก์ LINE ใหม่ TJ05Mnd หายไป"}
+MUST_NOT = {"เข้ากับดวง ใช้ต่อได้เลย": "หน้าผลเบอร์กลับมาใช้คำว่า ใช้ต่อได้เลย กับเบอร์ของลูกค้า",
+            "good:\"ใช้ต่อได้เลย\"": "คำแนะนำเบอร์ดีกลับมาใช้คำว่า ใช้ต่อได้เลย",
+            "ระบบทำผลสรุป": "กล่องบันทึกรูปกลับมาใช้คำว่า ระบบ",
+            "lin.ee/ujF7VHa": "มีลิงก์ LINE เก่า ujF7VHa", "lin.ee/tnnRdLE": "มีลิงก์ LINE เก่า tnnRdLE"}
 
 
 def config_values(path):
@@ -86,6 +92,13 @@ def main():
                          + (" (รหัสปลดล็อกของลูกค้าทุกคนจะใช้ไม่ได้)" if key == "codeSalt" else ""))
     if not fails:
         oks.append("ค่าสำคัญใน CONFIG ไม่ถูกแตะ")
+    new_html = open(new_path, encoding="utf-8").read()
+    guard = [msg for key, msg in MUST_HAVE.items() if key not in new_html]
+    guard += [msg for key, msg in MUST_NOT.items() if key in new_html]
+    for msg in guard:
+        fails.append(msg + " (น่าจะอัปไฟล์ชุดเก่าทับ ให้ดึงไฟล์ล่าสุดจาก GitHub แล้วแก้ใหม่)")
+    if not guard:
+        oks.append("ตัวนับขั้นการขาย ลิงก์ LINE และคำที่ลูกค้าเห็น ถูกต้อง")
 
     old_res, new_res = analyse(old_path), analyse(new_path)
     for _, _, label in CASES:
