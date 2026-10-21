@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="d4dbad605da948a291302de4aab75d1d77741690">
+<meta name="plk-base" content="474fab9e3a7d130808b1dd59b325fbd3093bade9">
 <script>
 /* โหมดแอป Play Store: เปิดจากแอป (TWA) จะซ่อนส่วนที่เป็นการจ่ายเงินดิจิทัล บนเว็บปกติทุกอย่างเหมือนเดิม */
 (function(){var a=false;try{a=/[?&]app=1/.test(location.search)||document.referrer.indexOf("android-app://")===0||sessionStorage.getItem("plk_app")==="1";if(a)sessionStorage.setItem("plk_app","1");}catch(e){}
@@ -148,7 +148,7 @@ footer{font-size:13px;color:var(--muted);text-align:center}
 .pay h2{color:var(--accent)}
 .pay{display:grid;gap:12px;border-color:var(--accent-deep)}
 .paybox{display:flex;flex-wrap:wrap;gap:16px;align-items:center;background:var(--bg);border-radius:12px;padding:14px}
-.payteaser{margin:12px 0;padding:12px 14px;border:1px solid var(--accent,#c9a227);border-radius:12px;background:var(--bg)}.payteaser li{margin:4px 0}.pmask{font-family:ui-monospace,Menlo,monospace;letter-spacing:.5px;white-space:nowrap}.payrev{margin:12px 0}
+.cpbadge{margin:8px 0 10px;padding:10px 14px;border-radius:12px;background:var(--accent,#c9a227);color:#1a1307}.cpbadge .note{color:#2b200b;opacity:.9}.payteaser{margin:12px 0;padding:12px 14px;border:1px solid var(--accent,#c9a227);border-radius:12px;background:var(--bg)}.payteaser li{margin:4px 0}.pmask{font-family:ui-monospace,Menlo,monospace;letter-spacing:.5px;white-space:nowrap}.payrev{margin:12px 0}
 .paybox img{width:200px;height:200px;border-radius:8px;background:#fff;max-width:100%}
 .payinfo{display:grid;gap:8px;min-width:0}
 .payinfo p{margin:0}
@@ -4408,6 +4408,15 @@ function isOwner(){try{return localStorage.getItem("plk_owner")==="1";}catch(e){
 function setOwner(on){try{on?localStorage.setItem("plk_owner","1"):localStorage.removeItem("plk_owner");}catch(e){}}
 function wasUnlocked(ph){if(isOwner())return true;try{const a=JSON.parse(localStorage.getItem(UNL_KEY)||"[]");if(a.includes(ph))return true;const bk=typeof bundleKey==="function"?bundleKey():"";return !!bk&&a.includes(bk);}catch(e){return false;}}
 function markUnlocked(ph){try{const a=JSON.parse(localStorage.getItem(UNL_KEY)||"[]");if(!a.includes(ph)){a.push(ph);localStorage.setItem(UNL_KEY,JSON.stringify(a.slice(-30)));}}catch(e){}}
+// 399 ต่อ 1 พื้นดวง: ดวงเดิม (วันเวลาเกิดและเพศเดิม) ตรวจได้ 5 เบอร์ภายใน 30 วัน ในเครื่องเดิม
+const CP_KEY="plk_chartpass", CP_N=5, CP_DAYS=30;
+function chartKey(inp){return [inp.d,inp.m,inp.y,inp.notime?"x":(inp.h+":"+inp.mi),inp.sex].join("|");}
+function cpLoad(){try{return JSON.parse(localStorage.getItem(CP_KEY)||"{}")||{};}catch(e){return {};}}
+function cpSave(o){try{localStorage.setItem(CP_KEY,JSON.stringify(o));}catch(e){}}
+function chartPass(inp){const o=cpLoad(),p=o[chartKey(inp)]; if(!p) return null; const left=p.t+CP_DAYS*864e5-Date.now(); if(left<=0) return null; return {...p,left};}
+function chartGrant(inp,ph){const o=cpLoad(),k=chartKey(inp); let p=o[k]; if(!p||p.t+CP_DAYS*864e5<Date.now()) p={t:Date.now(),ph:[]}; if(!p.ph.includes(ph)&&p.ph.length<CP_N) p.ph.push(ph); o[k]=p; cpSave(o);}
+function phoneUnlocked(inp){if(wasUnlocked(inp.phone))return true; const p=chartPass(inp); if(!p) return false; if(p.ph.includes(inp.phone)) return true; if(p.ph.length<CP_N){chartGrant(inp,inp.phone);return true;} return false;}
+function chartPassNote(inp){const p=chartPass(inp); if(!p||isOwner()) return ""; const d=new Date(p.t+CP_DAYS*864e5); return `<p class="note" style="margin:6px 0 0">ดวงนี้ตรวจไปแล้ว ${p.ph.length} จาก ${CP_N} เบอร์ เหลืออีก ${Math.max(0,CP_N-p.ph.length)} เบอร์ ใช้ได้ถึงวันที่ ${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()+543} ใส่วันเกิดและเวลาเกิดเดิมในเครื่องนี้ แล้ววิเคราะห์เบอร์ใหม่ได้เลย</p>`;}
 function normDigits(s){return String(s||"").replace(/[๐-๙]/g,c=>String("๐๑๒๓๔๕๖๗๘๙".indexOf(c))).replace(/\D/g,"");}
 function adminRender(){
   const el=$("adminpage"); if(el.dataset.built) return;
@@ -4538,6 +4547,7 @@ function payReviewHtml(){
 function payHtml(inp,r){
   return `<section class="card pay" aria-labelledby="hpay">
     <h2 id="hpay">วิเคราะห์แบบเจาะลึก ${PAY.amount} บาท</h2>
+    <p class="cpbadge"><b>${PAY.amount} บาท ต่อ 1 พื้นดวง ตรวจได้ ${CP_N} เบอร์ ภายใน ${CP_DAYS} วัน</b><br><span class="note">จ่ายครั้งเดียว ดูเบอร์นี้ได้ทันที เบอร์ที่กำลังเล็งไว้อีก ${CP_N-1} เบอร์ ใส่วันเกิดเดิมในเครื่องนี้ แล้วกดวิเคราะห์ ผลเจาะลึกเปิดให้อัตโนมัติ${inp&&chartPass(inp)&&chartPass(inp).ph.length>=CP_N?" (สิทธิ์ "+CP_N+" เบอร์ของดวงนี้ใช้ครบแล้ว)":""}</span></p>
     <p style="margin:0">ได้ผลทันทีหลังโอน ไม่ต้องรอแอดมิน ถ้าเปิดผลไม่ได้ ผมแก้ให้ ถ้าแก้ไม่ได้ คืนเงินเต็มจำนวน</p>
     ${payTeaserHtml(inp,r)}
     <ul class="plain">
@@ -4657,7 +4667,7 @@ function pctRank(inp,s){
 function pyrTeaserHtml(inp,r,isSample){try{
   const rows=pyr(inp.phone), top=rows[rows.length-1][0], c=r.ds&&r.ds.cls?r.ds.cls[top]:"m";
   const vis=rows.slice().reverse().map((row,i)=>`<div class="pyrrow">${row.map(d=>`<span${i===0?' class="pyrtop"':""}>${d}</span>`).join("")}</div>`).join("");
-  const lock=!isSample&&!wasUnlocked(inp.phone);
+  const lock=!isSample&&!phoneUnlocked(inp);
   return `<section class="card pyrtz"><h2>พีระมิดของเบอร์นี้</h2>
    <p class="note" style="margin:0 0 10px">ใส่เบอร์แบบ 66 แทนเลข 0 ตัวหน้า แล้วบวกเลขทีละคู่ซ้อนขึ้นไปจนเหลือเลขเดียวบนยอด ใช้ดูพลังที่ซ่อนอยู่ลึก ๆ เป็นตัวเสริม น้ำหนักน้อยกว่าคู่เลขบนเบอร์</p>
    <div class="pyrvis" aria-label="พีระมิดของเบอร์ ${inp.phone}">${vis}</div>
@@ -4722,13 +4732,14 @@ function render(inp,r,isSample){
   ${freePairsHtml(inp,r)}
   ${pyrTeaserHtml(inp,r,isSample)}
   ${isSample?"":askBoxHtml(inp,r)}
-  ${isSample||wasUnlocked(inp.phone)?"":deepPreviewHtml(inp,r,NM)}
+  ${isSample||phoneUnlocked(inp)?"":deepPreviewHtml(inp,r,NM)}
   ${payHtml(isSample?null:inp,isSample?null:r)}
   ${isSample?"":stockRecHtml(inp,r)}
   ${CTA}
   ${isSample?"":readMoreHtml(inp,r)}
   <div class="expert" id="deep" hidden>
   <p class="unlocked">${isOwner()?"โหมดเจ้าของ ผลวิเคราะห์เจาะลึกของ"+who:"ขอบคุณที่ใช้บริการครับ ด้านล่างคือผลวิเคราะห์เจาะลึกของ"+who}</p>
+  ${isSample?"":chartPassNote(inp)}
   <div id="deepgen"></div>
   <div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="phone">บันทึกผลวิเคราะห์เป็น PDF</button><p class="note" style="margin:6px 0 0">กดแล้วเลือก บันทึกเป็น PDF เก็บไว้อ่านทีหลังได้</p></div>
   ${paidLineHtml("phone")}
@@ -4746,7 +4757,7 @@ function render(inp,r,isSample){
     const c=normDigits($("ucode").value);
     if(pinOk(c)){$("unlockerr").hidden=true;setOwner(true);openDeep(true);return;}
     if(!bundleCode(c)&&c!==unlockCode(inp.phone)){$("unlockerr").hidden=false;return;}
-    $("unlockerr").hidden=true; markUnlocked(inp.phone); openDeep(true);
+    $("unlockerr").hidden=true; markUnlocked(inp.phone); chartGrant(inp,inp.phone); openDeep(true);
   };
   $("ucode").onkeydown=e=>{if(e.key==="Enter")$("unlock").click();};
   if(CONFIG.slipApi||CONFIG.thunderKey){
@@ -4758,7 +4769,7 @@ function render(inp,r,isSample){
         let j;
         j=await thunderCheck(b64,inp.phone,PKG);
         if(j.ok&&j.code===unlockCode(inp.phone)){st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ "+j.code+" (เก็บไว้ใช้เปิดดูอีกครั้งได้)";
-          $("ucode").value=j.code; markUnlocked(inp.phone); cntHit("slip-ok"); cntHit("pay-phone"); openDeep(true);}
+          $("ucode").value=j.code; markUnlocked(inp.phone); chartGrant(inp,inp.phone); cntHit("slip-ok"); cntHit("pay-phone"); openDeep(true);}
         else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
       }catch(err){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
     };
@@ -4766,7 +4777,7 @@ function render(inp,r,isSample){
   $("sendslip").onclick=()=>{const t="โอนค่าวิเคราะห์เจาะลึก "+PAY.amount+" บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อกของเบอร์ "+inp.phone+" (แนบสลิป)";
     const done=()=>{$("slipok").hidden=false;setTimeout(()=>{location.href=CONFIG.chatUrl;},700);};
     try{navigator.clipboard.writeText(t).then(done,()=>fallback(t,done));}catch(e){fallback(t,done);}};
-  if(!isSample&&wasUnlocked(inp.phone)) openDeep(false);
+  if(!isSample&&phoneUnlocked(inp)) openDeep(false);
   const sr=$("stockrec"); if(sr) sr.addEventListener("click",e=>{const b=e.target.closest("button[data-ph]");if(!b)return;
     $("phone").value=b.dataset.ph;const i2=readForm();if(i2.error)return;render(i2,analyze(i2),false);$("result").scrollIntoView({behavior:"smooth",block:"start"});});
   $("copy").onclick=()=>{
