@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="15f3258da984d4d4bc03d5f98990a9fa09f78141">
+<meta name="plk-base" content="d4dbad605da948a291302de4aab75d1d77741690">
 <script>
 /* โหมดแอป Play Store: เปิดจากแอป (TWA) จะซ่อนส่วนที่เป็นการจ่ายเงินดิจิทัล บนเว็บปกติทุกอย่างเหมือนเดิม */
 (function(){var a=false;try{a=/[?&]app=1/.test(location.search)||document.referrer.indexOf("android-app://")===0||sessionStorage.getItem("plk_app")==="1";if(a)sessionStorage.setItem("plk_app","1");}catch(e){}
@@ -148,6 +148,7 @@ footer{font-size:13px;color:var(--muted);text-align:center}
 .pay h2{color:var(--accent)}
 .pay{display:grid;gap:12px;border-color:var(--accent-deep)}
 .paybox{display:flex;flex-wrap:wrap;gap:16px;align-items:center;background:var(--bg);border-radius:12px;padding:14px}
+.payteaser{margin:12px 0;padding:12px 14px;border:1px solid var(--accent,#c9a227);border-radius:12px;background:var(--bg)}.payteaser li{margin:4px 0}.pmask{font-family:ui-monospace,Menlo,monospace;letter-spacing:.5px;white-space:nowrap}.payrev{margin:12px 0}
 .paybox img{width:200px;height:200px;border-radius:8px;background:#fff;max-width:100%}
 .payinfo{display:grid;gap:8px;min-width:0}
 .payinfo p{margin:0}
@@ -3852,7 +3853,12 @@ function recPairs(inp,r){
     out.push({v:String(v),sc,info,where,why:why+(en.t?" "+en.t:"")});}
   return out.sort((x,y)=>y.sc-x.sc).slice(0,10);
 }
+const _EXM={};
 function exampleNumbers(inp,r){
+  const _k=[inp.d,inp.m,inp.y,inp.h,inp.mi,inp.notime,inp.sex,inp.job,JSON.stringify(inp.jobs||[]),inp.jobText,(r.n||[]).join("")].join("|"); if(_EXM[_k]) return _EXM[_k];
+  const _r=exampleNumbers0(inp,r); _EXM[_k]=_r; return _r;
+}
+function exampleNumbers0(inp,r){
   // ไล่จากเกณฑ์เข้มที่สุดก่อน ถ้าดวงมีเลขพลังดีน้อยจนหาไม่ครบ ค่อยผ่อนทีละขั้น
   let out=[];for(let lv=0;lv<5&&out.length<5;lv++){genEx(inp,r,lv).forEach(e=>{if(out.length<5&&out.every(o=>o.ph!==e.ph&&o.ph.slice(-4)!==e.ph.slice(-4))){e.lv=lv;out.push(e);}});}
   return out;
@@ -4494,10 +4500,46 @@ async function thunderCheck(dataUrl,phone,amount){const AMT=amount||PAY.amount,A
   if(amt&&amt<AMT) return {ok:false,msg:"ยอดเงินในสลิป "+amt+" บาท ยังไม่ครบ "+AMT+" บาท"};
   return {ok:true,code:unlockCode(phone)};
 }
-function payHtml(){
+// กล่อง 399: บอกให้เห็นว่าผลเจาะลึกของคนนี้มีอะไร คำนวณจากดวงและเบอร์จริง ไม่เปิดเลขให้ดู
+function payTeaserHtml(inp,r){
+  if(!inp||!r||!r.ds) return "";
+  try{
+    const cls=r.ds.cls, nG=[0,1,2,3,4,5,6,7,8,9].filter(d=>cls[d]==="g").length, nB=[0,1,2,3,4,5,6,7,8,9].filter(d=>cls[d]==="b").length;
+    let rp=0; try{const x=recPairs(inp,r); rp=Array.isArray(x)?x.length:0;}catch(e){}
+    const L=[];
+    L.push("ในดวงคุณมีเลขพลังดี "+nG+" ตัว และเลขพลังอ่อน "+nB+" ตัว ผลเจาะลึกบอกว่าเป็นเลขอะไร และเพราะอะไร");
+    if(rp) L.push("คู่เลขที่ควรมีในเบอร์ของคุณ "+rp+" คู่ พร้อมบอกว่าควรวางตรงตำแหน่งไหน");
+    window._PAYCTX={inp,r};
+    return `<div class="payteaser"><h3 class="sub" style="margin:0 0 6px">ผลเจาะลึกของคุณมีอะไรบ้าง</h3>
+      <ul class="plain">${L.map(t=>`<li>${t}</li>`).join("")}<li id="payex">ตัวอย่างการจัดวางเลข 5 เบอร์ ที่เข้ากับดวง${inp.jobText?"และงาน"+esc(inp.jobText):""}ของคุณ</li></ul>
+      <p class="note" id="payexm" style="margin:6px 0 0"></p></div>`;
+  }catch(e){return "";}
+}
+// คำนวณตัวอย่างเบอร์ตอนที่กล่อง 399 เลื่อนมาถึงจอ (คำนวณหนัก ไม่ทำตอนโหลดผล)
+function payTeaserFill(){
+  const li=$("payex"); if(!li||li.dataset.done) return; li.dataset.done=1;
+  const C=window._PAYCTX; if(!C) return;
+  setTimeout(()=>{try{const {inp,r}=C, ex=exampleNumbers(inp,r)||[]; if(!ex.length) return;
+    const scs=ex.map(e=>e.x&&e.x.s1000).filter(v=>typeof v==="number"), best=scs.length?Math.max(...scs):0, cur=r.s1000||0;
+    const mask=ph=>ph.slice(0,3)+"-"+ph.slice(3,6).replace(/\d/g,"•")+"-"+ph.slice(6,8).replace(/\d/g,"•")+ph.slice(8);
+    li.textContent="ตัวอย่างการจัดวางเลข "+ex.length+" เบอร์ ที่เข้ากับดวง"+(inp.jobText?"และงาน"+inp.jobText:"")+"ของคุณ"+(best>cur?" เบอร์ที่ดีที่สุดได้ "+best+" คะแนน ส่วนเบอร์นี้ได้ "+cur+" คะแนน":"");
+    const m=$("payexm"); if(m) m.innerHTML="ตัวอย่างเบอร์ของคุณ "+ex.slice(0,3).map(e=>`<b class="pmask">${mask(e.ph)}</b>`).join(" ")+" เปิดเลขครบหลังปลดล็อก";
+  }catch(e){}},60);
+}
+function payTeaserWatch(){clearInterval(window._PAYW);let n=0;window._PAYW=setInterval(()=>{n++;const li=$("payex");if(!li||li.dataset.done||n>300){if(!li||li.dataset.done||n>300)clearInterval(window._PAYW);return;}
+  const rc=li.getBoundingClientRect();if(rc.height&&rc.top<innerHeight+300&&rc.bottom>-300){clearInterval(window._PAYW);payTeaserFill();}},600);}
+function payReviewHtml(){
+  try{if(typeof REVIEWS==="undefined") return "";
+    const pick=["ความเชื่อมั่น","งานบริการ ลูกค้าดีขึ้น"].map(t=>REVIEWS.find(x=>x.tag===t)).filter(Boolean);
+    if(!pick.length) return "";
+    return `<div class="payrev"><p class="note" style="margin:0 0 4px">ข้อความจริงจากลูกค้าที่เปลี่ยนเบอร์กับผม</p>${pick.map(x=>`<p class="rvb" style="margin:4px 0">${shortTxt(x.msg[x.tag==="ความเชื่อมั่น"?0:0],140)}</p>`).join("")}</div>`;
+  }catch(e){return "";}
+}
+function payHtml(inp,r){
   return `<section class="card pay" aria-labelledby="hpay">
     <h2 id="hpay">วิเคราะห์แบบเจาะลึก ${PAY.amount} บาท</h2>
-    <p style="margin:0">ได้ทันทีหลังโอน</p>
+    <p style="margin:0">ได้ผลทันทีหลังโอน ไม่ต้องรอแอดมิน ถ้าเปิดผลไม่ได้ ผมแก้ให้ ถ้าแก้ไม่ได้ คืนเงินเต็มจำนวน</p>
+    ${payTeaserHtml(inp,r)}
     <ul class="plain">
       <li>วิเคราะห์ละเอียดครอบคลุมทุกตำแหน่งของเบอร์ พร้อมพื้นดวงเต็ม</li>
       <li>คุณภาพดาวทั้ง 0 ถึง 9 ในดวงคุณ ว่าตัวไหนพลังดี ตัวไหนพลังอ่อน เพราะอะไร</li>
@@ -4506,6 +4548,7 @@ function payHtml(){
       <li><b>แถมฟรี</b> ฤกษ์เปิดเบอร์ เฉพาะพื้นดวงของคุณ เรียงจากฤกษ์ที่ดีที่สุด พร้อมวิธีเปิดเบอร์และวันที่ควรเลี่ยง</li>
       <li><b>แถมฟรี</b> รหัส 6 หลักสำหรับล็อกหน้าจอและ ATM ที่ดึงดูดเงินและโอกาส เลือกให้เข้ากับดวงและอาชีพของคุณ</li>
     </ul>
+    ${payReviewHtml()}
     <p class="note" style="margin:6px 0 0"><a href="#review" class="flink">ดูรีวิวจากลูกค้าที่เปลี่ยนเบอร์กับผมแล้ว</a></p>
     ${sampleHtml("phone")}
     <div class="paybox">
@@ -4680,7 +4723,7 @@ function render(inp,r,isSample){
   ${pyrTeaserHtml(inp,r,isSample)}
   ${isSample?"":askBoxHtml(inp,r)}
   ${isSample||wasUnlocked(inp.phone)?"":deepPreviewHtml(inp,r,NM)}
-  ${payHtml()}
+  ${payHtml(isSample?null:inp,isSample?null:r)}
   ${isSample?"":stockRecHtml(inp,r)}
   ${CTA}
   ${isSample?"":readMoreHtml(inp,r)}
@@ -4693,6 +4736,7 @@ function render(inp,r,isSample){
   if(r.stg==="child") kidSweep($("result")); else if(r.age>=65) kidSweep($("result"),"senior");
   $("copyacc").onclick=()=>{const t=PAY.acc.replace(/-/g,"");try{navigator.clipboard.writeText(t).then(()=>{$("copyacc").textContent="คัดลอกแล้ว";},()=>fallback(t,()=>{$("copyacc").textContent="คัดลอกแล้ว";}));}catch(e){fallback(t,()=>{});}};
   if(!isSample) funnelHooks();
+  if(!isSample) payTeaserWatch();
   const openDeep=scroll=>{
     if(!$("deepgen").dataset.done){$("deepgen").innerHTML=deepFull(inp,r,NM)+deepHtml(inp,r);$("deepgen").dataset.done="1";if(r.stg==="child")kidSweep($("deepgen")); else if(r.age>=65)kidSweep($("deepgen"),"senior");}
     $("deep").hidden=false; document.querySelectorAll("#result .dprev").forEach(x=>x.remove()); if(scroll) $("deep").scrollIntoView({behavior:"smooth",block:"start"});
