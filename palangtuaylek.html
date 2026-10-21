@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
+<meta name="plk-base" content="8f2d6b87ba69fb211b8a9a2f477a029aa0aaee49">
 <script>
 /* โหมดแอป Play Store: เปิดจากแอป (TWA) จะซ่อนส่วนที่เป็นการจ่ายเงินดิจิทัล บนเว็บปกติทุกอย่างเหมือนเดิม */
 (function(){var a=false;try{a=/[?&]app=1/.test(location.search)||document.referrer.indexOf("android-app://")===0||sessionStorage.getItem("plk_app")==="1";if(a)sessionStorage.setItem("plk_app","1");}catch(e){}
@@ -5979,6 +5980,9 @@ async function ghPutB64(path,b64,msg,sha){const tok=ghTok(), url=`https://api.gi
   const p=await fetch(url,{method:"PUT",headers:h,body:JSON.stringify(body)});
   if(!p.ok){let m="";try{m=(await p.json()).message;}catch(e){} throw new Error(p.status===403||p.status===404?"รหัส GitHub ไม่มีสิทธิ์แก้ไฟล์":"อัปโหลด "+path+" ไม่สำเร็จ ("+p.status+" "+m+")");}}
 // อัปโหลดหลายไฟล์เป็น commit เดียว (ใช้กับชุดหน้าเว็บ) ส่งเฉพาะไฟล์ที่เปลี่ยน และเว้นจังหวะไม่ให้ GitHub บล็อก
+// กันไฟล์ทับกัน: เทียบไฟล์ที่จะอัปกับไฟล์บนเว็บตอนนี้ (git blob sha)
+async function gitSha(bytes){const h=new TextEncoder().encode("blob "+bytes.length+"\0"),a=new Uint8Array(h.length+bytes.length);a.set(h);a.set(bytes,h.length);const d=await crypto.subtle.digest("SHA-1",a);return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,"0")).join("");}
+const b64Bytes=b=>Uint8Array.from(atob(b),c=>c.charCodeAt(0));
 async function ghBatch(files,msg,prog){const tok=ghTok(),B=`https://api.github.com/repos/${GH.owner}/${GH.repo}`,h={"Authorization":"Bearer "+tok,"Accept":"application/vnd.github+json","Content-Type":"application/json"};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const J=async(u,o,lab)=>{let last="";for(let t=0;t<6;t++){try{const r=await fetch(B+u,{...(o||{}),headers:h,cache:"no-store"});
@@ -6023,6 +6027,7 @@ function admUpdUI(){
    <p class="note" style="margin:0">ดาวน์โหลดไฟล์ที่ผมส่งให้ แล้วเลือกที่นี่ ชื่อไฟล์ในมือถือจะเพี้ยนแค่ไหนก็ได้ ระบบดูจากเนื้อไฟล์แล้วตั้งชื่อที่ถูกให้เอง ใช้รหัส GitHub ตัวเดียวกับการบันทึกสต็อก</p>
    <input type="file" id="updf" multiple accept=".html,.htm,.txt,.xml,.json,.png,text/html">
    <div id="updlist"></div>
+   <div id="updguard"></div>
    <button type="button" class="primary" id="updgo" hidden>อัปโหลดขึ้นเว็บ</button>
    <p class="para" id="updst" aria-live="polite"></p>
    <details class="libd"><summary>ลบไฟล์ที่ชื่อเพี้ยนหรือเวอร์ชันเก่า</summary><div id="updold"><button type="button" class="ghost" id="updscan">ดูรายการไฟล์ในเว็บ</button></div></details>`;
@@ -6049,20 +6054,28 @@ function admUpdUI(){
     try{const L=await ghList();UPD.sha=Object.fromEntries(L.map(f=>[f.name,f.sha]));}catch(err){st(err.message);return;}
     let packN=0;
     for(const f of fs){const isTxt=!/\.png$/i.test(f.name);const txt=isTxt?await f.text():"";
-      if(/\.json$/i.test(f.name)&&/^\s*\{\s*"plkPack"/.test(txt)){try{const P=JSON.parse(txt);for(const [n,b64] of Object.entries(P.files||{})){if(!/^[\w.-]+\.(html|xml|txt|jpg|png|json)$/.test(n))continue;UPD.push({b64,t:[n,"ชุดหน้าเว็บ"],pack:1});packN++;}}catch(e){}continue;}
-      const t=updTarget(f.name,txt,next);
-      UPD.push({f,t});}
+      if(/\.json$/i.test(f.name)&&/^\s*\{\s*"plkPack"/.test(txt)){try{const P=JSON.parse(txt);const BS=P.base||{};for(const [n,b64] of Object.entries(P.files||{})){if(!/^[\w.-]+\.(html|xml|txt|jpg|png|json)$/.test(n))continue;UPD.push({b64,t:[n,"ชุดหน้าเว็บ"],pack:1,base:BS[n]||""});packN++;}}catch(e){}continue;}
+      const t=updTarget(f.name,txt,next), mb=(txt.match(/<meta name="plk-base" content="([0-9a-f]{40})"/)||[])[1]||"";
+      UPD.push({f,t,base:mb});}
+    // เช็กทับซ้อน: same = เหมือนบนเว็บแล้ว, ok = ทำจากเวอร์ชันล่าสุด, new = ไฟล์ใหม่, old = ทำจากเวอร์ชันเก่า, unk = ไม่รู้ว่าทำจากเวอร์ชันไหน
+    for(const u of UPD){if(!u.t)continue;try{const by=u.b64?b64Bytes(u.b64):new Uint8Array(await u.f.arrayBuffer());const sh=await gitSha(by),cur=UPD.sha[u.t[0]];
+      u.st=!cur?"new":sh===cur?"same":u.base&&u.base===cur?"ok":u.base?"old":"unk";}catch(e){u.st="unk";}}
+    {const old=UPD.filter(u=>u.st==="old"),unk=UPD.filter(u=>u.st==="unk"),same=UPD.filter(u=>u.st==="same").length,go=UPD.filter(u=>u.st==="ok"||u.st==="new").length;
+      $("updguard").innerHTML=`<p class="para">พร้อมอัป ${go} ไฟล์${same?` · เหมือนบนเว็บอยู่แล้ว ข้าม ${same} ไฟล์`:""}</p>`+
+       (old.length?`<p class="para" style="color:var(--b,#f2877b)"><b>ไม่อัป ${old.length} ไฟล์</b> เพราะทำจากเวอร์ชันเก่า บนเว็บมีการแก้หลังจากนั้น ถ้าอัปจะทับงานใหม่: ${old.slice(0,8).map(u=>esc(u.t[0])).join(" ")}${old.length>8?" ...":""} ให้แชทที่แก้ดึงไฟล์ล่าสุดแล้วทำใหม่</p>`:"")+
+       (unk.length?`<p class="para" style="color:var(--b,#f2877b)"><b>${unk.length} ไฟล์ไม่รู้ว่าทำจากเวอร์ชันไหน</b> และต่างจากบนเว็บ: ${unk.slice(0,8).map(u=>esc(u.t[0])).join(" ")}${unk.length>8?" ...":""}</p><label class="note"><input type="checkbox" id="updforce"> ยืนยันว่าไฟล์เหล่านี้ทำจากเวอร์ชันล่าสุด ให้อัปทับได้</label>`:"");}
     const vis=UPD.filter(u=>!u.pack);
     $("updlist").innerHTML=(packN?`<p class="para"><b>ชุดหน้าเว็บ ${packN} ไฟล์</b> <span class="note">หน้าบริการ หน้าความหมายคู่เลข บทความ แผนผังเว็บ และไฟล์อื่น ๆ</span></p>`:"")+`<ul class="plain">${vis.map(u=>`<li>${esc(u.f.name)} → ${u.t?`<b>${u.t[0]}</b> <span class="note">${u.t[1]}</span>`:`<span style="color:var(--b,#f2877b)">ไม่รู้จักไฟล์นี้ จะข้ามไป</span>`}</li>`).join("")}</ul>`;
-    $("updgo").hidden=!UPD.some(u=>u.t); st("");};
+    {const gs=()=>{const fz=$("updforce")&&$("updforce").checked;$("updgo").hidden=!UPD.some(u=>u.t&&(u.st==="ok"||u.st==="new"||(u.st==="unk"&&fz)));};gs();if($("updforce"))$("updforce").onchange=gs;} st("");};
   $("updgo").onclick=async()=>{const b=$("updgo");b.disabled=true;let ok=0;
-    const PK=UPD.filter(u=>u.pack&&u.t);
+    const fz=$("updforce")&&$("updforce").checked; UPD.forEach(u=>{if(u.t&&(u.st==="same"||u.st==="old"||(u.st==="unk"&&!fz)))u.skip=1;});
+    const PK=UPD.filter(u=>u.pack&&u.t&&!u.skip);
     if(PK.length){try{const n=await ghBatch(PK.map(u=>({name:u.t[0],b64:u.b64})),"อัปเดตชุดหน้าเว็บ",(i,n,nm)=>st(i===null?nm:n?"กำลังส่งชุดหน้าเว็บ "+i+" จาก "+n+" ไฟล์ ("+nm+") อย่าปิดหน้านี้":nm));ok+=n;}catch(err){st(err.message);b.disabled=false;return;}}
-    for(const u of UPD){if(!u.t||u.pack)continue;st("กำลังอัปโหลด "+u.t[0]+" ...");
+    for(const u of UPD){if(!u.t||u.pack||u.skip)continue;st("กำลังอัปโหลด "+u.t[0]+" ...");
       try{const b64=u.b64||await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(",")[1]);r.onerror=rej;r.readAsDataURL(u.f);});
         await ghPutB64(u.t[0],b64,"อัปเดต "+u.t[0],UPD.sha&&UPD.sha[u.t[0]]);ok++;}
       catch(err){st(err.message);b.disabled=false;return;}}
-    st("อัปโหลดเสร็จ "+ok+" ไฟล์ รอ 1 ถึง 3 นาทีแล้วเปิดเว็บดูได้เลย");b.disabled=false;$("updgo").hidden=true;};
+    {const sk=UPD.filter(u=>u.t&&u.skip&&u.st!=="same").length; st("อัปโหลดเสร็จ "+ok+" ไฟล์"+(sk?" ข้าม "+sk+" ไฟล์ที่อาจทับงานใหม่":"")+" รอ 1 ถึง 3 นาทีแล้วเปิดเว็บดูได้เลย");}b.disabled=false;$("updgo").hidden=true;};
   $("updscan").onclick=async()=>{const box2=$("updold");box2.textContent="กำลังโหลด...";
     try{const L=await ghList();const apps=L.filter(f=>verKey(f.name)).sort((a,b)=>{const x=verKey(a.name),y=verKey(b.name);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]??-1)-(y[i]??-1);if(d)return d;}return 0;});
       const latest=APP_FILE;
