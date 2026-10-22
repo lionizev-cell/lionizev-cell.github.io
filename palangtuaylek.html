@@ -2,10 +2,10 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
+<meta name="plk-base" content="b88befa990a5a205d75e6d2028f106ed95015ac9">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="254db71f5efef8786196b452e92ce9b753c09038">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -5588,7 +5588,7 @@ const KIND={
  plate:{name:"ทะเบียนรถ",lead:"ทะเบียนรถอยู่กับเราทุกครั้งที่เดินทาง ส่งผลเรื่องความปลอดภัย การเดินทาง โชค และงานที่ต้องใช้รถ หลักการอ่านคือรวมค่าตัวอักษรตามเลขศาสตร์กับตัวเลข ได้ผลรวมของทะเบียน แล้วอ่านคู่เลขในส่วนตัวเลข โดยเลขท้ายส่งผลแรงที่สุด",tail:"เลขท้ายทะเบียน"},
  house:{name:"บ้านเลขที่",lead:"บ้านเลขที่คือพลังของที่อยู่อาศัย ส่งผลกับความสงบในบ้าน ความสัมพันธ์ของคนในครอบครัว การเงินที่ไหลเข้าออกบ้าน และสุขภาพของคนที่อยู่ หลักการอ่านคือรวมทุกตัวเลข รวมเลขหลังเครื่องหมาย / ด้วย แล้วอ่านคู่เลขที่อยู่ติดกัน โดยเลขท้ายส่งผลแรงที่สุด",tail:"เลขท้ายบ้านเลขที่"},
  bank:{name:"เลขบัญชีธนาคาร",lead:"เลขบัญชีธนาคารคือเลขที่เงินเข้าออกทุกวัน ส่งผลเรื่องการเงิน การเก็บเงิน และเงินที่ไหลเข้ามา คนค้าขายออนไลน์ที่ให้ลูกค้าโอนเข้าบัญชียิ่งควรดู หลักการอ่านคือรวมทุกตัวเลข แล้วอ่านคู่เลขที่อยู่ติดกัน โดยช่วงท้ายส่งผลแรงที่สุด",tail:"คู่ท้ายเลขบัญชี"},
- idcard:{name:"เลขบัตรประชาชน",lead:"เลขบัตรประชาชนเป็นเลขประจำตัวที่ติดตัวไปตลอดชีวิตและเปลี่ยนไม่ได้ จึงบอกพลังพื้นฐานที่ติดตัวเรามา การอ่านมีไว้เพื่อรู้จุดแข็งจุดอ่อน แล้วใช้เบอร์มือถือ ชื่อ หรือทะเบียนรถช่วยเสริมส่วนที่ขาด หลักการอ่านคือรวมทั้ง 13 หลัก และอ่านคู่เลขที่อยู่ติดกัน โดยช่วงท้ายส่งผลแรงที่สุด",tail:"คู่ท้ายบัตร"}};
+ idcard:{name:"เลขบัตรประชาชน",lead:"เลขบัตรประชาชนเป็นเลขประจำตัวที่ติดตัวไปตลอดชีวิตและเปลี่ยนไม่ได้ จึงบอกพลังพื้นฐานที่ติดตัวเรามา การอ่านมีไว้เพื่อรู้จุดแข็งจุดอ่อน แล้วใช้เบอร์มือถือ ชื่อ หรือทะเบียนรถช่วยเสริมส่วนที่ขาด หลักการอ่านคือรวมทั้ง 13 หลักเป็นผลรวม และอ่านคู่เลขที่อยู่ติดกัน โดยให้น้ำหนักหลักที่ 9 ถึง 13 เป็นหลัก คู่ท้ายบัตรส่งผลแรงที่สุด ส่วนหลักที่ 1 ถึง 8 เป็นรหัสประเภทบุคคลและพื้นที่ที่ออกเลข คนเกิดที่เดียวกันจึงมักได้เลขชุดนี้คล้ายกัน ผมนับให้ส่งผลน้อย",tail:"คู่ท้ายบัตร"}};
 function readMode(){
   const d=+$("dd").value,m=+$("mm").value,y=+$("yy").value-543;
   const dt=new Date(Date.UTC(y,m-1,d));
@@ -6205,12 +6205,7 @@ function admUpdUI(){
     let packN=0;
     for(const f of fs){const isTxt=!/\.png$/i.test(f.name);const txt=isTxt?await f.text():"";
       if(/\.json$/i.test(f.name)&&/^\s*\{\s*"plkPack"/.test(txt)){try{const P=JSON.parse(txt);const BS=P.base||{};for(const [n,b64] of Object.entries(P.files||{})){if(!/^[\w.-]+\.(html|xml|txt|jpg|png|json)$/.test(n))continue;UPD.push({b64,t:[n,"ชุดหน้าเว็บ"],pack:1,base:BS[n]||""});packN++;}}catch(e){}continue;}
-      const t=updTarget(f.name,txt,next), mb=(txt.match(/<meta name="plk-base" content="([0-9a-f]{40})"/)||[])[1]||"";
-      UPD.push({f,t,base:mb});}
-    // เช็กทับซ้อน: same = เหมือนบนเว็บแล้ว, ok = ทำจากเวอร์ชันล่าสุด, new = ไฟล์ใหม่, old = ทำจากเวอร์ชันเก่า, unk = ไม่รู้ว่าทำจากเวอร์ชันไหน
-    for(const u of UPD){if(!u.t)continue;try{const by=u.b64?b64Bytes(u.b64):new Uint8Array(await u.f.arrayBuffer());const sh=await gitSha(by),cur=UPD.sha[u.t[0]];
-      u.st=!cur?"new":sh===cur?"same":u.base&&u.base===cur?"ok":u.base?"old":"unk";}catch(e){u.st="unk";}}
-    {const old=UPD.filter(u=>u.st==="old"),unk=UPD.filter(u=>u.st==="unk"),same=UPD.filter(u=>u.st==="same").length,go=UPD.filter(u=>u.st==="ok"||u.st==="new").length;
+      const t=updTarget(f.name,txt,next), mb=(txt.match(/u.st==="old"),unk=UPD.filter(u=>u.st==="unk"),same=UPD.filter(u=>u.st==="same").length,go=UPD.filter(u=>u.st==="ok"||u.st==="new").length;
       $("updguard").innerHTML=`<p class="para">พร้อมอัป ${go} ไฟล์${same?` · เหมือนบนเว็บอยู่แล้ว ข้าม ${same} ไฟล์`:""}</p>`+
        (old.length?`<p class="para" style="color:var(--b,#f2877b)"><b>ไม่อัป ${old.length} ไฟล์</b> เพราะทำจากเวอร์ชันเก่า บนเว็บมีการแก้หลังจากนั้น ถ้าอัปจะทับงานใหม่: ${old.slice(0,8).map(u=>esc(u.t[0])).join(" ")}${old.length>8?" ...":""} ให้แชทที่แก้ดึงไฟล์ล่าสุดแล้วทำใหม่</p>`:"")+
        (unk.length?`<p class="para" style="color:var(--b,#f2877b)"><b>${unk.length} ไฟล์ไม่รู้ว่าทำจากเวอร์ชันไหน</b> และต่างจากบนเว็บ: ${unk.slice(0,8).map(u=>esc(u.t[0])).join(" ")}${unk.length>8?" ...":""}</p><label class="note"><input type="checkbox" id="updforce"> ยืนยันว่าไฟล์เหล่านี้ทำจากเวอร์ชันล่าสุด ให้อัปทับได้</label>`:"");}
@@ -9138,28 +9133,28 @@ const SH_AREA=[
 function hsParse(t){const g=String(t||"").replace(/[๐-๙]/g,c=>String("๐๑๒๓๔๕๖๗๘๙".indexOf(c))).split("/").map(x=>(x.match(/\d+/)||[""])[0]).filter(Boolean);
   return g.slice(0,2).map(x=>x.split("").map(Number));}
 // อ่านคู่เลขทีละส่วน ไม่อ่านข้ามเครื่องหมาย /
-function hsPairs(parts,inp,ds){
+function hsPairs(parts,inp,ds,wf){
   const out=[];const last=parts.length-1;
   parts.forEach((D,pi)=>{for(let i=0;i<D.length-1;i++){const v=D[i]*10+D[i+1],s=String(v).padStart(2,"0"),info=pairInfoG(v,inp.sex);
     const g=gradeOf(pairScore({info,s},{ds}));const tail=i===D.length-2;
-    const w=pi===last?(tail?3:i===D.length-3?2:1.2):(tail?1.5:0.8);
+    const w=wf?wf(i,D.length):pi===last?(tail?3:i===D.length-3?2:1.2):(tail?1.5:0.8);
     out.push({pi,i,s,info,g,w,tail,part:parts.length>1?(pi===0?"เลขหน้า /":"เลขหลัง /"):"บ้านเลขที่"});}});
   return out;}
-function hsScore(parts,inp,ds){
-  const P=hsPairs(parts,inp,ds),all=parts.flat(),sum=all.reduce((a,b)=>a+b,0),si=numSum(sum,"house",inp),gv={g:1,m:0.2,b:-1};
+function hsScore(parts,inp,ds,o){
+  o=o||{}; const P=hsPairs(parts,inp,ds,o.wf),all=parts.flat(),sum=all.reduce((a,b)=>a+b,0),si=numSum(sum,"house",inp),gv={g:1,m:0.2,b:-1};
   let tw=0,ts=0;P.forEach(p=>{tw+=p.w;ts+=p.w*gv[p.g];});
   if(!P.length){const d=all[0];ts=gv[ds.cls[d]]||0;tw=1;}
   let S=(ts/tw)*0.72+gv[si[0]]*0.2;
-  const key=parts[parts.length-1];const kd=[...new Set(key.slice(-2))];kd.forEach(d=>{if(ds.cls[d]==="g")S+=0.06;if(ds.cls[d]==="b")S-=0.08;});
+  const key=parts[parts.length-1];const kd=[...new Set(o.key?o.key(key):key.slice(-2))];kd.forEach(d=>{if(ds.cls[d]==="g")S+=0.06;if(ds.cls[d]==="b")S-=0.08;});
   // คะแนนเต็ม 1000 แยกหมวด
   const pv=P.length?ts/tw:(gv[ds.cls[all[0]]]||0)*0.5, cv=d=>gv[ds.cls[d]]||0, avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
   let sv=gv[si[0]]; if(sum>=10){const sd=String(sum).split("").map(Number);sd.forEach(d=>{if(ds.cls[d]==="g")sv+=0.12;if(ds.cls[d]==="b")sv-=0.18;});}
   const kv=avg(kd.map(cv)), av=avg([...new Set(all)].map(cv));
   const pt=(v,mx)=>Math.round(mx*Math.max(0.03,Math.min(0.97,0.5+0.47*v)));
-  const comp=[["คู่เลขตามตำแหน่ง",pt(pv,400),400],["ผลรวม",pt(sv,150),150],["เลขท้ายเข้ากับดวง",pt(kv,150),150],["ตัวเลขทั้งหมดเข้ากับพื้นดวง",pt(av,150),150]];
+  const comp=[["คู่เลขตามตำแหน่ง",pt(pv,400),400],["ผลรวม",pt(sv,150),150],[o.keyName||"เลขท้ายเข้ากับดวง",pt(kv,150),150],["ตัวเลขทั้งหมดเข้ากับพื้นดวง",pt(av,150),150]];
   const base=comp.reduce((a,c)=>a+c[1],0);
   const score=Math.max(50,Math.min(980,Math.round(base*1000/850)));
-  return {P,sum,si,score,all,comp};}
+  return {P,sum,si,score,all,comp,dw:o.dw?all.map((d,i)=>o.dw(i,all.length)):null};}
 function hsFinal(H,areas){const ap=Math.round(150*areas.reduce((a,x)=>a+x.pct,0)/areas.length/100);
   const comp=H.comp.concat([["ผลแยกตามเรื่อง",ap,150]]);const score=Math.max(50,Math.min(980,comp.reduce((a,c)=>a+c[1],0)));
   return {comp,score};}
@@ -9171,7 +9166,7 @@ function hsAreas(H,ds,AR){
   const gv={g:1,m:0.2,b:-1};
   return (AR||HS_AREA).map(A=>{let w=0,v=0;
     H.P.forEach(p=>{const ds2=p.s.split("").map(Number);const rel=Math.max(...ds2.map(d=>A.d[d]||0));if(!rel)return;const ww=rel*p.w;w+=ww;v+=ww*gv[p.g];});
-    H.all.forEach(d=>{const rel=A.d[d]||0;if(!rel)return;w+=rel*0.4;v+=rel*0.4*(gv[ds.cls[d]]||0);});
+    H.all.forEach((d,ix)=>{const rel=(A.d[d]||0)*(H.dw?H.dw[ix]:1);if(!rel)return;w+=rel*0.4;v+=rel*0.4*(gv[ds.cls[d]]||0);});
     if(H.sum!=null&&H.si){const rel=Math.max(...String(H.sum).split("").map(d=>A.d[+d]||0));if(rel){const ww=rel*1.6;w+=ww;v+=ww*gv[H.si[0]];}}
     const r=w?v/w:0;const pct=Math.max(15,Math.min(97,Math.round(58+r*38)));const g=pct>=70?"g":pct>=45?"m":"b";
     return {...A,pct,g,txt:A.t[g],has:w>0};});}
@@ -9249,7 +9244,9 @@ function calcPlate(t,inp,ds){
   const areas=hsAreas(H,ds,PL_AREA),F=hsFinal(H,areas);H.score=F.score;
   return {t,H,areas,F,front,back,main,lsum,dsum,score:F.score};}
 function calcHouseLike(t,inp,ds,AR){const parts=hsParse(t);if(!parts.length)return null;const H=hsScore(parts,inp,ds),areas=hsAreas(H,ds,AR),F=hsFinal(H,areas);H.score=F.score;return {t,H,areas,F,score:F.score};}
-function calcDigitsK(D,inp,ds,AR,nm){const H=hsScore([D],inp,ds);H.P.forEach(p=>{p.part=nm;});const areas=hsAreas(H,ds,AR),F=hsFinal(H,areas);H.score=F.score;return {t:D.join(""),H,areas,F,score:F.score};}
+// เลขบัตรประชาชน: หลัก 1 ถึง 8 เป็นรหัสประเภทบุคคลและพื้นที่ออกเลข ส่งผลน้อย หลัก 9 ถึง 13 เป็นช่วงหลัก
+const ID_OPT={wf:(i)=>i>=11?3:i===10?2.5:i===9?2:i===8?1.5:i===7?0.6:0.3, key:k=>k.slice(8), keyName:"หลัก 9 ถึง 13 เข้ากับดวง", dw:(i)=>i>=8?1:0.25};
+function calcDigitsK(D,inp,ds,AR,nm){const H=hsScore([D],inp,ds,AR===ID_AREA?ID_OPT:null);H.P.forEach(p=>{p.part=nm;});const areas=hsAreas(H,ds,AR),F=hsFinal(H,areas);H.score=F.score;return {t:D.join(""),H,areas,F,score:F.score};}
 function renderPlate(inp,ch,ds,who,cta){
   const t=inp.plate, C=calcPlate(t,inp,ds), {H,areas,F,front,back,main,lsum,dsum}=C;
   const band=hsBand(H.score,"ผู้ขับ");
@@ -9313,7 +9310,7 @@ function renderBankId(inp,ch,ds,who,cta){
   if(bank&&H.score<600) summ.push("ถ้าบัญชีนี้ใช้รับเงินหลัก และยังไม่อยากเปลี่ยน ให้เสริมด้วยเบอร์มือถือที่ผูกพร้อมเพย์ให้มีเลขพลังดีในดวงคุณ"+(good.length?" ("+good.join(" ")+")":""));
   if(!bank) summ.push("เลขบัตรเปลี่ยนไม่ได้ ส่วนที่อ่อนให้เสริมด้วยเบอร์มือถือที่มีเลขพลังดีในดวงคุณ"+(good.length?" ("+good.join(" ")+")":"")+" แทน");
   const ordered=H.P.slice().sort((a,b)=>b.i-a.i), top=ordered.slice(0,6), rest=ordered.slice(6);
-  const pairLi=p=>`<li><div class="pv ${p.g}">${p.s}</div><div><h3>${p.info[1]} <span class="pill ${p.g}">${HS_GL[p.g]}</span></h3><p class="note" style="margin:0">${p.tail?"คู่ท้าย ส่งผลแรงที่สุด":p.w===2?"ส่งผลรองลงมา":"ส่งผลน้อย"}</p><p>${p.info[2]}${p.info[3]?" "+p.info[3]:""}</p><p class="note">${p.s.split("").map(d=>"เลข "+d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงคุณ${wkNote(p.s,p.g,ds.cls,p.info[3])}</p></div></li>`;
+  const pairLi=p=>`<li><div class="pv ${p.g}">${p.s}</div><div><h3>${p.info[1]} <span class="pill ${p.g}">${HS_GL[p.g]}</span></h3><p class="note" style="margin:0">${p.tail?"คู่ท้าย ส่งผลแรงที่สุด":!bank?(p.i>=8?"อยู่ในช่วงหลัก 9 ถึง 13 ส่งผลหลัก":"อยู่ในช่วงรหัสต้นบัตร ส่งผลน้อย"):p.w===2?"ส่งผลรองลงมา":"ส่งผลน้อย"}</p><p>${p.info[2]}${p.info[3]?" "+p.info[3]:""}</p><p class="note">${p.s.split("").map(d=>"เลข "+d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงคุณ${wkNote(p.s,p.g,ds.cls,p.info[3])}</p></div></li>`;
   const showNum=bank?D.join(""):D.join("").replace(/^(\d)(\d{4})(\d{5})(\d{2})(\d)$/,"$1 $2 $3 $4 $5");
   $("result").innerHTML=`<section class="card"><h2>${nm}ของ${who}</h2>
     <div class="num" style="font-size:26px;letter-spacing:2px;text-align:center;font-family:var(--f-mono)">${showNum}</div>
