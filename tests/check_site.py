@@ -4,7 +4,8 @@
 (ทั้งสองเป็น palangtuaylek.html)
 
 สิ่งที่ตรวจ
-1. ค่าสำคัญใน CONFIG (codeSalt adminHash slipApi) ต้องไม่เปลี่ยน ถ้าเปลี่ยน = ไม่ผ่าน
+1. ห้ามมีค่าลับในหน้าเว็บ (codeSalt adminHash เกลือรหัสเก่า) ระบบปลดล็อกต้องใช้ PLKPAY ที่ตรวจกับหลังบ้าน
+   และ slipApi ต้องไม่เปลี่ยน ถ้าผิด = ไม่ผ่าน
 2. หน้าวิเคราะห์เบอร์ ทะเบียนรถ และชื่อ ต้องเปิดได้ ออกผล และไม่มี error = ไม่ผ่านถ้าพัง
 3. คะแนน ผลรวม และคู่เลข เทียบกับเวอร์ชันก่อนแก้ ถ้าเปลี่ยนจะแจ้งเตือน (ไม่ถือว่าพัง
    เพราะบางครั้งเจ้าของตั้งใจเปลี่ยนกฎ) ให้ดูว่าตั้งใจหรือไม่
@@ -24,9 +25,13 @@ CASES = [
     ("plate", {"#plate": "1กข 2345"}, "ทะเบียน 1กข 2345"),
     ("name", {"#fname": "ธนวัตน์", "#lname": "จิระเมธาทรัพย์"}, "ชื่อ ธนวัตน์ จิระเมธาทรัพย์"),
 ]
-SECRETS = ["codeSalt", "adminHash", "slipApi"]
+SECRETS = ["slipApi"]
+# ค่าลับที่ต้องไม่อยู่ในหน้าเว็บอีกแล้ว (ย้ายไปหลังบ้าน Apps Script ไฟล์ pay)
+FORBIDDEN = {"codeSalt": "มีค่า codeSalt ในหน้าเว็บ", "adminHash": "มีค่า adminHash ในหน้าเว็บ",
+             "plk-7Hq2-2569": "มีเกลือรหัสเก่าในหน้าเว็บ", "531379db": "มีค่าแฮชรหัสแอดมินเก่าในหน้าเว็บ",
+             "plk-admin-v1": "มีสูตรตรวจรหัสแอดมินในหน้าเว็บ"}
 # ของที่ต้องมีอยู่ในไฟล์เสมอ และคำที่ห้ามขึ้นกับลูกค้า (ถ้าเจอ = มีคนอัปไฟล์ชุดเก่าทับ)
-MUST_HAVE = {"function funnelHooks": "ตัวนับขั้นการขาย funnelHooks หายไป", "lin.ee/TJ05Mnd": "ลิงก์ LINE ใหม่ TJ05Mnd หายไป"}
+MUST_HAVE = {"var PLKPAY=": "ระบบปลดล็อกแบบตรวจที่หลังบ้าน PLKPAY หายไป", "function funnelHooks": "ตัวนับขั้นการขาย funnelHooks หายไป", "lin.ee/TJ05Mnd": "ลิงก์ LINE ใหม่ TJ05Mnd หายไป"}
 MUST_NOT = {"เข้ากับดวง ใช้ต่อได้เลย": "หน้าผลเบอร์กลับมาใช้คำว่า ใช้ต่อได้เลย กับเบอร์ของลูกค้า",
             "good:\"ใช้ต่อได้เลย\"": "คำแนะนำเบอร์ดีกลับมาใช้คำว่า ใช้ต่อได้เลย",
             "ระบบทำผลสรุป": "กล่องบันทึกรูปกลับมาใช้คำว่า ระบบ",
@@ -88,10 +93,13 @@ def main():
     old_cfg, new_cfg = config_values(old_path), config_values(new_path)
     for key in SECRETS:
         if old_cfg[key] != new_cfg[key]:
-            fails.append(f"ค่า `{key}` ใน CONFIG ถูกเปลี่ยน ถ้าไม่ได้ตั้งใจ ให้แก้กลับเป็นค่าเดิม"
-                         + (" (รหัสปลดล็อกของลูกค้าทุกคนจะใช้ไม่ได้)" if key == "codeSalt" else ""))
+            fails.append(f"ค่า `{key}` ใน CONFIG ถูกเปลี่ยน ถ้าไม่ได้ตั้งใจ ให้แก้กลับเป็นค่าเดิม")
+    new_text = open(new_path, encoding="utf-8").read()
+    for key, msg in FORBIDDEN.items():
+        if key in new_text:
+            fails.append(msg + " ค่าลับต้องอยู่ที่หลังบ้านเท่านั้น (น่าจะอัปไฟล์ชุดเก่าทับ)")
     if not fails:
-        oks.append("ค่าสำคัญใน CONFIG ไม่ถูกแตะ")
+        oks.append("ไม่มีค่าลับในหน้าเว็บ และลิงก์หลังบ้านไม่ถูกแตะ")
     new_html = open(new_path, encoding="utf-8").read()
     guard = [msg for key, msg in MUST_HAVE.items() if key not in new_html]
     guard += [msg for key, msg in MUST_NOT.items() if key in new_html]
