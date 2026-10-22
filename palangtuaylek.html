@@ -5,7 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="54fa4474d434d2203260a9acc2bef92865440faa">
+<meta name="plk-base" content="898aa94d3165116b16ea06ff0b59ce20311fe265">
+<script>
+/* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
+   หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
+   หน้าเว็บตรวจลายเซ็นด้วยกุญแจสาธารณะด้านล่าง ปลอมใบรับรองเองไม่ได้ ห้ามแก้ส่วนนี้ถ้าไม่แน่ใจ */
+var PLKPAY=(function(){
+  var API="https://script.google.com/macros/s/AKfycbxTojydK9-0hlZb_IlFDYwtOhIzPoJHjiF71VTKvUFm6O1akDukpyhdnuVtocREeQ-a/exec";
+  var PUB="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArqc3oTCiRjlenpHkA+QuIadxKBXThqRKW2XAGZvA02DTMkhsxE1rHVjvQ8rESV+ttSskyBTS+bfKiYfZmEbjiGDFD6vFX1Tur55vQc5q7Bo33sRt3dtQTrSPKm2SnhcskpePJRVmk028Jbm+2923NayxoCBFgQc+hJSN2NX37qYFwJeO3S3dvZqgb0XYeef8TXFsHEoDfFJlJ5seV3MYK7bz0N8esO9yAP1gJY6MlkA98MPLyC3xd5IiaMyEcYoO0Zm8PVBzqj4bf2MybeFbCu6BZ8yB2r2QOh1a5YD3WxFb69MJ4NOoSSDui7wijpuZAxWNAQqZ0MQ73t1vi8+2hwIDAQAB";
+  var GRACE=Date.UTC(2026,10,30,17,0,0); // ปลดล็อกแบบเก่าในเครื่องลูกค้า ใช้ได้ถึง 30 พ.ย. 2569
+  var RC="plk_rc",CD="plk_codes",PS="plk_pass",EB="plk_ebk",OFF="plk_ownoff";
+  var OK={},rdy=false,keyP=null;
+  function ld(k){try{return JSON.parse(localStorage.getItem(k)||"{}")||{}}catch(e){return {}}}
+  function sv(k,o){try{localStorage.setItem(k,JSON.stringify(o))}catch(e){}}
+  function bytes(b){var s=atob(b),a=new Uint8Array(s.length);for(var i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a}
+  function sub(){return (window.crypto&&crypto.subtle)?crypto.subtle:null}
+  function pk(){if(!keyP)keyP=sub().importKey("spki",bytes(PUB),{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},false,["verify"]);return keyP}
+  function vf(p,s){try{return pk().then(function(k){return sub().verify("RSASSA-PKCS1-v1_5",k,bytes(s),new TextEncoder().encode(p))}).catch(function(){return false})}catch(e){return Promise.resolve(false)}}
+  function add(p,s){return vf(p,s).then(function(ok){if(ok){OK[p]=1;var o=ld(RC);o[p]=s;sv(RC,o)}return ok})}
+  var ready=(function(){var o=ld(RC),ks=Object.keys(o);if(!ks.length||!sub()){rdy=true;return Promise.resolve()}
+    return Promise.all(ks.map(function(p){return vf(p,o[p]).then(function(ok){if(ok)OK[p]=1})})).then(function(){rdy=true},function(){rdy=true})})();
+  function call(b){return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(b)})
+    .then(function(r){return r.json()}).then(function(j){
+      if(j&&j.ok===undefined&&!j.msg)return {ok:false,msg:"หลังบ้านยังไม่ได้อัปเดต ส่งสลิปทางไลน์ได้เลยครับ",old:1};return j});}
+  function absorb(j){if(!j||!j.ok)return Promise.resolve(j||{ok:false});
+    if(j.key&&j.code){var c=ld(CD);c[j.key]=j.code;sv(CD,c)}
+    if(j.pass&&j.pass.c){var q=ld(PS);q[j.pass.c]={n:j.pass.n,t:j.pass.t};sv(PS,q)}
+    if(j.k){try{localStorage.setItem(EB,j.k)}catch(e){}}
+    if(j.owner){try{localStorage.removeItem(OFF)}catch(e){}}
+    return Promise.all((j.rc||[]).map(function(x){return add(x.p,x.s)})).then(function(r){
+      if(r.some(function(v){return !v}))return {ok:false,msg:"ตรวจใบรับรองไม่ผ่าน ลองใหม่อีกครั้ง หรือทักไลน์มาได้เลยครับ"};return j})}
+  function legacyList(){try{return JSON.parse(localStorage.getItem("plk_unlocked")||"[]")}catch(e){return []}}
+  function ownTok(){var o=Object.keys(OK).filter(function(p){return p.indexOf("o|")===0}).sort().pop();return o?{o:o,s:ld(RC)[o]}:null}
+  var api={
+    api:API, ready:ready, isReady:function(){return rdy},
+    has:function(p){return !!OK[p]},
+    unlocked:function(key){return !!OK["u|"+key]},
+    phone:function(ph,chart){return !!OK["u|"+ph+"|"+chart]},
+    anyPhone:function(ph){return Object.keys(OK).some(function(p){return p.indexOf("u|"+ph+"|")===0})},
+    ownerTok:function(){return !!ownTok()},
+    owner:function(){if(!ownTok())return false;try{return localStorage.getItem(OFF)!=="1"}catch(e){return true}},
+    ownerView:function(on){try{on?localStorage.removeItem(OFF):localStorage.setItem(OFF,"1")}catch(e){}},
+    code:function(key){return ld(CD)[key]||""},
+    passInfo:function(chart){var p=ld(PS)[chart];if(!p||p.t+30*864e5<Date.now())return null;return p},
+    ebookKey:function(){try{return localStorage.getItem(EB)||""}catch(e){return ""}},
+    legacy:function(key){return Date.now()<GRACE&&legacyList().indexOf(key)>=0},
+    grace:function(){return Date.now()<GRACE},
+    call:call,
+    slip:function(key,b64,x){x=x||{};return call({action:"p2slip",key:key,base64:b64,chart:x.chart||"",site:x.site||"num"}).then(absorb)},
+    check:function(key,code,x){x=x||{};return call({action:"p2code",key:key,code:String(code||"").replace(/\D/g,""),chart:x.chart||"",alt:x.alt||[]}).then(absorb)},
+    pin:function(pin){return call({action:"p2pin",pin:String(pin||"").replace(/\D/g,"")}).then(absorb)},
+    adm:function(keys){var t=ownTok();if(!t)return Promise.resolve({ok:false,msg:"ต้องเข้าหน้าแอดมินด้วยรหัสแอดมินก่อน"});
+      return call({action:"p2adm",o:t.o,s:t.s,keys:[].concat(keys)})},
+    ebkOwner:function(){var t=ownTok();if(!t)return Promise.resolve({ok:false});return call({action:"p2ebk",o:t.o,s:t.s}).then(absorb)},
+    tryPass:function(ph,chart){var c=ld(CD),from=Object.keys(OK).map(function(p){var m=p.match(/^u\|(0\d{9})\|(.+)$/);return m&&m[2]===chart&&m[1]!==ph&&c[m[1]]?m[1]:null}).filter(Boolean)[0];
+      if(!from)return Promise.resolve({ok:false});
+      return call({action:"p2pass",key:ph,chart:chart,from:from,code:c[from]}).then(absorb).catch(function(){return {ok:false}})}
+  };
+  return api;
+})();
+
+</script>
 <script>
 /* โหมดแอป Play Store: เปิดจากแอป (TWA) จะซ่อนส่วนที่เป็นการจ่ายเงินดิจิทัล บนเว็บปกติทุกอย่างเหมือนเดิม */
 (function(){var a=false;try{a=/[?&]app=1/.test(location.search)||document.referrer.indexOf("android-app://")===0||sessionStorage.getItem("plk_app")==="1";if(a)sessionStorage.setItem("plk_app","1");}catch(e){}
@@ -1964,8 +2024,6 @@ const LOGO="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFB
 const CONFIG={visitBase:0, // ยอดเข้าชมจริงก่อนติดระบบนับ (ใส่เฉพาะตัวเลขที่มีหลักฐาน เช่น จาก GitHub Insights หรือสถิติเพจ)
  
   chatUrl:"https://lin.ee/TJ05Mnd", // ลิงก์แอดไลน์
-  codeSalt:"plk-7Hq2-2569", // เปลี่ยนคำนี้ รหัสปลดล็อกทุกเบอร์จะเปลี่ยนทั้งหมด
-  adminHash:"531379db", // รหัสแอดมินเก็บแบบแปลงแล้ว ไม่มีตัวเลขจริงในหน้าเว็บ
   thunderKey:"", // API key จาก developer.thunder.in.th (ตรวจสลิปอัตโนมัติ)
   consignForm:"", // ลิงก์ Google ฟอร์มฝากขายแบบกรอกล่วงหน้า (ใส่คำ PH PR NET NAME CONTACT NOTE ในแต่ละช่อง) ว่างไว้ = ให้ลูกค้าส่งทางไลน์
   consignCsv:"", // ลิงก์ CSV ของแท็บ เว็บ ที่เผยแพร่จาก Google ชีต
@@ -4397,49 +4455,61 @@ function deepFull(inp,r,NM){
       <p class="para"><b>สรุปชื่อ</b> <span class="pill ${NM.verdict[0]}">${NM.verdict[1]}</span></p></section>`;}
   return sec1+sec2+sec3+talentHtml(inp,r)+bigMoneyHtml(inp,r)+jobFitHtml(inp,r)+moneyHtml(inp,r)+dblHtml(inp,r)+sec4+behHtml(inp,r)+triplesSection(r,inp)+sec5+sec6;
 }
-// ===== รหัสปลดล็อก 399 =====
-function pinOk(v){let h=2166136261>>>0;const t=String(v)+"|plk-admin-v1";for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return ("0000000"+h.toString(16)).slice(-8)===CONFIG.adminHash;}
-function unlockCode(phone){
-  const s=String(phone).replace(/\D/g,"")+"|"+CONFIG.codeSalt; let h=2166136261>>>0;
-  for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}
-  for(let k=0;k<3;k++){h^=h>>>13;h=Math.imul(h,0x5bd1e995)>>>0;}
-  return String(h%1000000).padStart(6,"0");
-}
+// ===== รหัสปลดล็อก: ตรวจที่หลังบ้านทั้งหมด (ดู PLKPAY) หน้าเว็บไม่มีสูตรรหัสและไม่มีรหัสแอดมิน =====
+function pinOk(v){return false;}
+function unlockCode(key){return PLKPAY.code(String(key));} // รหัสที่เครื่องนี้ได้รับจากหลังบ้านแล้ว ไว้แสดงให้ลูกค้าเก็บ
 const UNL_KEY="plk_unlocked";
-function isOwner(){try{return localStorage.getItem("plk_owner")==="1";}catch(e){return false;}}
-function setOwner(on){try{on?localStorage.setItem("plk_owner","1"):localStorage.removeItem("plk_owner");}catch(e){}}
-function wasUnlocked(ph){if(isOwner())return true;try{const a=JSON.parse(localStorage.getItem(UNL_KEY)||"[]");if(a.includes(ph))return true;const bk=typeof bundleKey==="function"?bundleKey():"";return !!bk&&a.includes(bk);}catch(e){return false;}}
-function markUnlocked(ph){try{const a=JSON.parse(localStorage.getItem(UNL_KEY)||"[]");if(!a.includes(ph)){a.push(ph);localStorage.setItem(UNL_KEY,JSON.stringify(a.slice(-30)));}}catch(e){}}
+function isOwner(){return PLKPAY.owner();}
+function setOwner(on){PLKPAY.ownerView(on);}
+function bundleHas(){const bk=typeof bundleKey==="function"?bundleKey():"";return !!bk&&(PLKPAY.unlocked(bk)||PLKPAY.legacy(bk));}
+function wasUnlocked(key){if(isOwner())return true;key=String(key);if(PLKPAY.unlocked(key)||PLKPAY.legacy(key))return true;
+  if(/^0\d{9}$/.test(key)&&PLKPAY.anyPhone(key))return true;return bundleHas();}
+function markUnlocked(){} // ปลดล็อกได้จากใบรับรองของหลังบ้านเท่านั้น
+// ตรวจรหัสที่หลังบ้าน แล้วเปิดผล
+function codeTry(btId,inId,erId,key,opt,ok){const c=normDigits($(inId).value),e=$(erId),b=$(btId);
+  if(c.length<6){e.textContent="ใส่รหัส 6 หลักก่อนครับ";e.hidden=false;return;}
+  if(b.disabled)return;b.disabled=true;const t0=b.textContent;b.textContent="กำลังตรวจรหัส...";e.hidden=true;
+  const bk=typeof bundleKey==="function"?bundleKey():"";
+  PLKPAY.check(String(key),c,Object.assign({alt:bk?[bk]:[]},opt||{}))
+    .catch(()=>({ok:false,msg:"เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองใหม่ หรือทักไลน์มาได้เลยครับ"}))
+    .then(j=>{b.disabled=false;b.textContent=t0;if(j&&j.ok){ok(j);return;}
+      e.textContent=(j&&j.msg)||"รหัสไม่ถูกต้อง ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ";e.hidden=false;});}
 // 399 ต่อ 1 พื้นดวง: ดวงเดิม (วันเวลาเกิดและเพศเดิม) ตรวจได้ 5 เบอร์ภายใน 30 วัน ในเครื่องเดิม
 const CP_KEY="plk_chartpass", CP_N=5, CP_DAYS=30;
 function chartKey(inp){return [inp.d,inp.m,inp.y,inp.notime?"x":(inp.h+":"+inp.mi),inp.sex].join("|");}
 function cpLoad(){try{return JSON.parse(localStorage.getItem(CP_KEY)||"{}")||{};}catch(e){return {};}}
 function cpSave(o){try{localStorage.setItem(CP_KEY,JSON.stringify(o));}catch(e){}}
-function chartPass(inp){const o=cpLoad(),p=o[chartKey(inp)]; if(!p) return null; const left=p.t+CP_DAYS*864e5-Date.now(); if(left<=0) return null; return {...p,left};}
+function legacyChartPass(inp){const o=cpLoad(),p=o[chartKey(inp)]; if(!p) return null; const left=p.t+CP_DAYS*864e5-Date.now(); if(left<=0) return null; return {...p,left};}
 function chartGrant(inp,ph){const o=cpLoad(),k=chartKey(inp); let p=o[k]; if(!p||p.t+CP_DAYS*864e5<Date.now()) p={t:Date.now(),ph:[]}; if(!p.ph.includes(ph)&&p.ph.length<CP_N) p.ph.push(ph); o[k]=p; cpSave(o);}
 // เบอร์ที่จ่ายแล้วผูกกับดวงที่ใช้ตอนจ่าย เปลี่ยนวันเกิดเป็นคนอื่นจะไม่เปิดผล (ดวงคนอื่นต้องซื้อแยก)
 const UB_KEY="plk_unlbind";
 function ubGet(ph){try{return (JSON.parse(localStorage.getItem(UB_KEY)||"{}")||{})[ph]||null;}catch(e){return null;}}
 function ubAdd(ph,ck){try{const o=JSON.parse(localStorage.getItem(UB_KEY)||"{}")||{};const a=o[ph]||[];if(!a.includes(ck))a.push(ck);o[ph]=a;localStorage.setItem(UB_KEY,JSON.stringify(o));}catch(e){}}
 function paidList(){try{return JSON.parse(localStorage.getItem(UNL_KEY)||"[]");}catch(e){return [];}}
-function phoneUnlocked(inp){
-  if(isOwner()) return true;
+function legacyPhoneUnlocked(inp){
+  if(!PLKPAY.grace()) return false;
   const ph=inp.phone, ck=chartKey(inp);
-  {const bk=typeof bundleKey==="function"?bundleKey():""; if(bk&&paidList().includes(bk)) return true;}
   if(paidList().includes(ph)){const b=ubGet(ph);
     if(!b){ubAdd(ph,ck);chartGrant(inp,ph);return true;} // ปลดล็อกไว้ก่อนมีการผูกดวง: ผูกกับดวงที่เปิดครั้งแรก และได้สิทธิ์ 5 เบอร์ครั้งเดียว
     if(b.includes(ck)) return true;}
-  const p=chartPass(inp); if(!p) return false; if(p.ph.includes(ph)) return true; if(p.ph.length<CP_N){chartGrant(inp,ph);return true;} return false;}
-function phoneCodeNote(inp){if(isOwner()||!paidList().includes(inp.phone)&&!(chartPass(inp)&&chartPass(inp).ph.includes(inp.phone))) return "";
-  return `<p class="note codekeep" style="margin:6px 0 0">รหัสปลดล็อกเบอร์ ${inp.phone} คือ <b style="letter-spacing:2px">${unlockCode(inp.phone)}</b> แคปหน้าจอหรือจดเก็บไว้ ใช้เปิดผลเบอร์นี้อีกครั้งได้ แม้เปลี่ยนมือถือ โดยใส่วันเกิดและเวลาเกิดเดิม</p>`;}
-function chartPassNote(inp){const p=chartPass(inp); if(!p||isOwner()) return ""; const d=new Date(p.t+CP_DAYS*864e5); return `<p class="note" style="margin:6px 0 0">ดวงนี้ตรวจไปแล้ว ${p.ph.length} จาก ${CP_N} เบอร์ เหลืออีก ${Math.max(0,CP_N-p.ph.length)} เบอร์ ใช้ได้ถึงวันที่ ${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()+543} ใส่วันเกิดและเวลาเกิดเดิมในเครื่องนี้ แล้ววิเคราะห์เบอร์ใหม่ได้เลย</p>`;}
+  const p=legacyChartPass(inp); if(!p) return false; if(p.ph.includes(ph)) return true; if(p.ph.length<CP_N){chartGrant(inp,ph);return true;} return false;}
+// สิทธิ์ 5 เบอร์ต่อ 1 ดวงใน 30 วัน และการผูกเบอร์กับดวง หลังบ้านเป็นคนนับ (ข้อมูลในเครื่องเป็นของเก่า ใช้ได้ถึงสิ้นช่วงผ่อนผัน)
+function chartPass(inp){const s=PLKPAY.passInfo(chartKey(inp));if(s){const n=Math.min(CP_N,s.n||0);return {t:s.t,ph:Array(n).fill(""),left:s.t+CP_DAYS*864e5-Date.now()};}return PLKPAY.grace()?legacyChartPass(inp):null;}
+function phoneUnlocked(inp){
+  if(isOwner()) return true;
+  if(bundleHas()) return true;
+  if(PLKPAY.phone(inp.phone,chartKey(inp))) return true;
+  return legacyPhoneUnlocked(inp);}
+function phoneCodeNote(inp){const c=unlockCode(inp.phone); if(isOwner()||!c) return "";
+  return `<p class="note codekeep" style="margin:6px 0 0">รหัสปลดล็อกเบอร์ ${inp.phone} คือ <b style="letter-spacing:2px">${c}</b> แคปหน้าจอหรือจดเก็บไว้ ใช้เปิดผลเบอร์นี้อีกครั้งได้ แม้เปลี่ยนมือถือ โดยใส่วันเกิดและเวลาเกิดเดิม</p>`;}
+function chartPassNote(inp){const p=chartPass(inp); if(!p||isOwner()) return ""; const d=new Date(p.t+CP_DAYS*864e5); return `<p class="note" style="margin:6px 0 0">ดวงนี้ตรวจไปแล้ว ${p.ph.length} จาก ${CP_N} เบอร์ เหลืออีก ${Math.max(0,CP_N-p.ph.length)} เบอร์ ใช้ได้ถึงวันที่ ${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()+543} ใส่วันเกิดและเวลาเกิดเดิม แล้ววิเคราะห์เบอร์ใหม่ได้เลย ถ้าเปลี่ยนเครื่อง ใส่รหัสเดิมในช่องรหัสปลดล็อก</p>`;}
 function normDigits(s){return String(s||"").replace(/[๐-๙]/g,c=>String("๐๑๒๓๔๕๖๗๘๙".indexOf(c))).replace(/\D/g,"");}
 function adminRender(){
   const el=$("adminpage"); if(el.dataset.built) return;
   el.innerHTML=`<div><a href="#" class="libback">กลับไปหน้าหลัก</a></div>
   <section class="card"><h2 id="hadm">ออกรหัสปลดล็อก 399</h2>
    <p class="note">หน้านี้สำหรับแอดมินเท่านั้น ใส่รหัสแอดมินก่อน</p>
-   <div id="admlock" class="codebox"><input id="admpin" type="password" inputmode="numeric" autocomplete="one-time-code" autocapitalize="off" spellcheck="false" maxlength="12" placeholder="รหัสแอดมิน 6 หลัก" aria-label="รหัสแอดมิน"><button type="button" class="primary" id="admgo">เข้า</button></div>
+   <div id="admlock" class="codebox"><input id="admpin" type="password" inputmode="numeric" autocomplete="one-time-code" autocapitalize="off" spellcheck="false" maxlength="12" placeholder="รหัสแอดมิน 8 หลัก" aria-label="รหัสแอดมิน"><button type="button" class="primary" id="admgo">เข้า</button></div>
    <p class="err" id="admerr" hidden>รหัสไม่ถูกต้อง ลองพิมพ์ใหม่ทีละตัว ถ้ามือถือเติมรหัสอื่นให้เอง ให้ลบออกก่อน</p>
    <div id="admin" hidden>
     <section class="card" id="admstock" style="margin:0 0 14px;padding:14px;display:grid;gap:10px"></section>
@@ -4468,34 +4538,37 @@ function adminRender(){
     <input id="admpc" inputmode="numeric" maxlength="10" placeholder="15032535" aria-label="วันเกิดลูกค้า รหัสมงคล">
     <div id="admpcout" aria-live="polite"></div></div></section>`;
   el.dataset.built=1;
-  $("admgo").onclick=()=>{if(pinOk(normDigits($("admpin").value))){window._ADMPIN=normDigits($("admpin").value);$("admlock").hidden=true;$("admerr").hidden=true;$("admin").hidden=false;setOwner(true);ownUI();admStockUI();admUpdUI();admStatsUI();}else $("admerr").hidden=false;};
+  $("admgo").onclick=()=>{const pin=normDigits($("admpin").value),b=$("admgo");if(!pin||b.disabled)return;b.disabled=true;$("admerr").hidden=true;
+    PLKPAY.pin(pin).catch(()=>({ok:false,msg:"เชื่อมต่อหลังบ้านไม่ได้"})).then(j=>{b.disabled=false;if(j&&j.ok){window._ADMPIN=pin;$("admlock").hidden=true;$("admerr").hidden=true;$("admin").hidden=false;setOwner(true);ownUI();admStockUI();admUpdUI();admStatsUI();}
+      else{$("admerr").textContent=(j&&j.msg)||"รหัสไม่ถูกต้อง";$("admerr").hidden=false;}});};
+  const _admC={};const admCode=async k=>{if(_admC[k])return _admC[k];try{const j=await PLKPAY.adm(k);if(j&&j.ok&&j.codes&&j.codes[k])return (_admC[k]=j.codes[k]);}catch(e){}return "";};
   const ownUI=()=>{const o=isOwner();$("ownst").innerHTML=o?"<b>โหมดเจ้าของเปิดอยู่ในเครื่องนี้</b> วิเคราะห์เบอร์ไหนก็เห็นผลวิเคราะห์เจาะลึกทันที ไม่ต้องแนบสลิป":"โหมดเจ้าของปิดอยู่ เครื่องนี้จะเห็นหน้าเว็บเหมือนลูกค้า";$("owntog").textContent=o?"ปิดโหมดเจ้าของ (ดูแบบลูกค้า)":"เปิดโหมดเจ้าของในเครื่องนี้";};
   $("owntog").onclick=()=>{setOwner(!isOwner());ownUI();};
   $("admpin").onkeydown=e=>{if(e.key==="Enter")$("admgo").click();};
-  $("admeb").oninput=()=>{const v=normDigits($("admeb").value);if(!/^0\d{9}$/.test(v)){$("admebout").innerHTML="";return;}
-    const c=unlockCode("3"+v), msg="ได้รับยอดโอนค่าอีบุ๊กเรียบร้อยครับ เปิดหน้า www.palangtuaylek.com/ebook.html ใส่เบอร์ "+v+" และรหัส "+c+" ในช่องมีรหัสแล้ว แล้วกดเปิดอ่านได้เลยครับ";
+  $("admeb").oninput=async()=>{const v=normDigits($("admeb").value);if(!/^0\d{9}$/.test(v)){$("admebout").innerHTML="";return;}
+    const c=await admCode("3"+v);if(!c||normDigits($("admeb").value)!==v)return;const _x=0, msg="ได้รับยอดโอนค่าอีบุ๊กเรียบร้อยครับ เปิดหน้า www.palangtuaylek.com/ebook.html ใส่เบอร์ "+v+" และรหัส "+c+" ในช่องมีรหัสแล้ว แล้วกดเปิดอ่านได้เลยครับ";
     $("admebout").innerHTML=`<p class="admcode">${c}</p><p class="para">${msg}</p><button type="button" class="primary" id="admebcopy">คัดลอกข้อความส่งลูกค้า</button> <span class="note" id="admebok" hidden>คัดลอกแล้ว</span>`;
     $("admebcopy").onclick=()=>{const done=()=>{$("admebok").hidden=false;};try{navigator.clipboard.writeText(msg).then(done,()=>fallback(msg,done));}catch(e){fallback(msg,done);}};};
-  $("admbd").oninput=()=>{const v=normDigits($("admbd").value);if(v.length!==8){$("admbout").innerHTML="";return;}
-    const c=unlockCode("7"+v), msg="ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกวิเคราะห์ชื่อแบบละเอียด วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ";
+  $("admbd").oninput=async()=>{const v=normDigits($("admbd").value);if(v.length!==8){$("admbout").innerHTML="";return;}
+    const c=await admCode("7"+v);if(!c||normDigits($("admbd").value)!==v)return;const _x=0, msg="ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกวิเคราะห์ชื่อแบบละเอียด วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ";
     $("admbout").innerHTML=`<p class="admcode">${c}</p><p class="para">${msg}</p><button type="button" class="primary" id="admbcopy">คัดลอกข้อความส่งลูกค้า</button> <span class="note" id="admbok" hidden>คัดลอกแล้ว</span>`;
     $("admbcopy").onclick=()=>{const done=()=>{$("admbok").hidden=false;};try{navigator.clipboard.writeText(msg).then(done,()=>fallback(msg,done));}catch(e){fallback(msg,done);}};};
   const admMsg=(out,c,msg)=>{$(out).innerHTML=`<p class="admcode">${c}</p><p class="para">${msg}</p><button type="button" class="primary">คัดลอกข้อความส่งลูกค้า</button> <span class="note" hidden>คัดลอกแล้ว</span>`;const bt=$(out).querySelector("button"),ok=$(out).querySelector("span");bt.onclick=()=>{const done=()=>{ok.hidden=false;};try{navigator.clipboard.writeText(msg).then(done,()=>fallback(msg,done));}catch(e){fallback(msg,done);}};};
-  $("admrk").oninput=()=>{const v=normDigits($("admrk").value);if(v.length!==8){$("admrkout").innerHTML="";return;}
-    const c=unlockCode("6"+v);admMsg("admrkout",c,"ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกฤกษ์มงคล วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ ใช้หาฤกษ์งานอื่นหรือเดือนอื่นได้ด้วยรหัสเดิม");};
-  $("admnum").oninput=()=>{const v=normDigits($("admnum").value);if(v.length!==8){$("admnumout").innerHTML="";return;}
-    const c=unlockCode("9"+v);admMsg("admnumout",c,"ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกวิเคราะห์ตัวเลขแบบละเอียด วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ ใช้เปิดผลละเอียดของบ้านเลขที่ เลขที่ร้าน ทะเบียนรถ และเลขบัญชีได้ทุกเลข");};
-  $("admbun").oninput=()=>{const v=normDigits($("admbun").value);if(v.length!==8){$("admbunout").innerHTML="";return;}
-    const c=unlockCode("1"+v);admMsg("admbunout",c,"ได้รับยอดโอนเรียบร้อยครับ รหัสแพ็กรวม วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสปลดล็อกของบริการไหนก็ได้ เปิดได้ทุกบริการของวันเกิดนี้ รวมถึงดวงชะตาฉบับละเอียดในหน้าดูดวงครับ");};
+  $("admrk").oninput=async()=>{const v=normDigits($("admrk").value);if(v.length!==8){$("admrkout").innerHTML="";return;}
+    const c=await admCode("6"+v);if(!c||normDigits($("admrk").value)!==v)return;const _x=0;admMsg("admrkout",c,"ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกฤกษ์มงคล วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ ใช้หาฤกษ์งานอื่นหรือเดือนอื่นได้ด้วยรหัสเดิม");};
+  $("admnum").oninput=async()=>{const v=normDigits($("admnum").value);if(v.length!==8){$("admnumout").innerHTML="";return;}
+    const c=await admCode("9"+v);if(!c||normDigits($("admnum").value)!==v)return;const _x=0;admMsg("admnumout",c,"ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกวิเคราะห์ตัวเลขแบบละเอียด วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ ใช้เปิดผลละเอียดของบ้านเลขที่ เลขที่ร้าน ทะเบียนรถ และเลขบัญชีได้ทุกเลข");};
+  $("admbun").oninput=async()=>{const v=normDigits($("admbun").value);if(v.length!==8){$("admbunout").innerHTML="";return;}
+    const c=await admCode("1"+v);if(!c||normDigits($("admbun").value)!==v)return;const _x=0;admMsg("admbunout",c,"ได้รับยอดโอนเรียบร้อยครับ รหัสแพ็กรวม วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสปลดล็อกของบริการไหนก็ได้ เปิดได้ทุกบริการของวันเกิดนี้ รวมถึงดวงชะตาฉบับละเอียดในหน้าดูดวงครับ");};
   if($("admwp"))$("admwp").onclick=async()=>{$("admwpout").innerHTML='<p class="note">กำลังออกรหัส...</p>';try{const j=await wpApi({action:"wpadmin",pin:window._ADMPIN||""});if(j.ok)admMsg("admwpout",j.ticket,"ได้รับยอดโอนเรียบร้อยครับ รหัสวอลเปเปอร์ของคุณคือ "+j.ticket+" เปิดเว็บ www.palangtuaylek.com/palangtuaylek.html?m=wall กรอกวันเกิดแล้วกดดูวอลเปเปอร์ ใส่รหัสในช่องมีรหัสวอลเปเปอร์แล้ว สร้างภาพได้ 3 ภาพครับ");else $("admwpout").innerHTML='<p class="err">'+(j.msg||"ออกรหัสไม่ได้")+'</p>';}catch(e){$("admwpout").innerHTML='<p class="err">เชื่อมต่อระบบหลังบ้านไม่ได้</p>';}};
-  if($("admpc"))$("admpc").oninput=()=>{const v=normDigits($("admpc").value);if(v.length!==8){$("admpcout").innerHTML="";return;}
-    const c=unlockCode("5"+v);admMsg("admpcout",c,"ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกรหัสมงคล วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ");};
-  const lvA=()=>{const a=normDigits($("admlv1").value),b=normDigits($("admlv2").value);if(a.length!==8||b.length!==8){$("admlvout").innerHTML="";return;}
-    const s=[a,b].sort(),c=unlockCode("4"+s[0]+s[1]);admMsg("admlvout",c,"ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกดวงคู่ คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ");};
+  if($("admpc"))$("admpc").oninput=async()=>{const v=normDigits($("admpc").value);if(v.length!==8){$("admpcout").innerHTML="";return;}
+    const c=await admCode("5"+v);if(!c||normDigits($("admpc").value)!==v)return;const _x=0;admMsg("admpcout",c,"ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกรหัสมงคล วันเกิด "+v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4)+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ");};
+  const lvA=async()=>{const a=normDigits($("admlv1").value),b=normDigits($("admlv2").value);if(a.length!==8||b.length!==8){$("admlvout").innerHTML="";return;}
+    const s=[a,b].sort(),c=await admCode("4"+s[0]+s[1]);if(!c)return;admMsg("admlvout",c,"ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกดวงคู่ คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ");};
   $("admlv1").oninput=lvA;$("admlv2").oninput=lvA;
-  $("admph").oninput=()=>{const v=$("admph").value.replace(/\D/g,"");
+  $("admph").oninput=async()=>{const v=$("admph").value.replace(/\D/g,"");
     if(v.length!==10){$("admout").innerHTML="";return;}
-    const c=unlockCode(v), msg="ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกผลวิเคราะห์เจาะลึกของเบอร์ "+v+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ ใส่วันเกิดและเวลาเกิดของคุณให้ตรงก่อนใส่รหัส รบกวนเก็บรหัสนี้ไว้ ใช้เปิดผลเบอร์นี้อีกครั้งได้ แม้เปลี่ยนมือถือครับ";
+    const c=await admCode(v);if(!c||$("admph").value.replace(/\D/g,"")!==v)return;const msg="ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกผลวิเคราะห์เจาะลึกของเบอร์ "+v+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ ใส่วันเกิดและเวลาเกิดของคุณให้ตรงก่อนใส่รหัส รบกวนเก็บรหัสนี้ไว้ ใช้เปิดผลเบอร์นี้อีกครั้งได้ แม้เปลี่ยนมือถือครับ";
     $("admout").innerHTML=`<p class="admcode">${c}</p><p class="para">${msg}</p><button type="button" class="primary" id="admcopy">คัดลอกข้อความส่งลูกค้า</button> <span class="note" id="admok" hidden>คัดลอกแล้ว</span>`;
     $("admcopy").onclick=()=>{const done=()=>{$("admok").hidden=false;};try{navigator.clipboard.writeText(msg).then(done,()=>fallback(msg,done));}catch(e){fallback(msg,done);}};};
 }
@@ -4503,27 +4576,11 @@ function adminRender(){
 function slipToBase64(file){return new Promise((ok,no)=>{const fr=new FileReader();fr.onerror=no;fr.onload=()=>{const im=new Image();im.onerror=()=>ok(fr.result);im.onload=()=>{
   const M=1400,sc=Math.min(1,M/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);
   const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);ok(c.toDataURL("image/jpeg",0.9));};im.src=fr.result;};fr.readAsDataURL(file);});}
-// ตรวจสลิปกับ Thunder โดยตรงจากหน้าเว็บ
-// ส่งสลิปผ่านระบบหลังบ้าน (Google Apps Script) คีย์ Thunder อยู่ที่หลังบ้าน ไม่อยู่ในหน้าเว็บ
-async function slipProxy(b,amount){try{const r=await fetch(CONFIG.slipApi,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({base64:b,matchAmount:amount,site:"num"})});return await r.json();}catch(e){return {success:false,error:{message:"proxy "+e.message}};}}
-async function thunderCheck(dataUrl,phone,amount){const AMT=amount||PAY.amount,AMTX=AMT;
-  const call=async b=>{if(CONFIG.slipApi)return slipProxy(b,AMTX);const r=await fetch("https://api.thunder.in.th/v2/verify/bank",{method:"POST",headers:{"Authorization":"Bearer "+CONFIG.thunderKey,"Content-Type":"application/json"},body:JSON.stringify({base64:b,checkDuplicate:true,matchAccount:true,matchAmount:AMT})});
-    try{return await r.json();}catch(e){return {success:false,error:{message:"HTTP "+r.status}};}};
-  const raw=dataUrl.replace(/^data:image\/\w+;base64,/,"");
-  let res=await call(raw);
-  if(!res.success&&res.error&&/base64|image|format/i.test(String(res.error.message||res.error.code))) res=await call(dataUrl);
-  if(!res.success){const m=String((res.error&&(res.error.message||res.error.code))||"");
-    let msg="ตรวจสลิปไม่ผ่าน ลองใช้ไฟล์สลิปจากแอปธนาคารโดยตรง";
-    if(/duplicate/i.test(m)) msg="สลิปนี้เคยใช้แล้ว";
-    else if(/account/i.test(m)) msg="บัญชีผู้รับในสลิปไม่ใช่บัญชีของร้าน";
-    else if(/amount/i.test(m)) msg="ยอดเงินในสลิปไม่ตรงกับ "+AMT+" บาท";
-    else if(/qr|not found|invalid/i.test(m)) msg="อ่าน QR บนสลิปไม่ได้ ใช้ไฟล์สลิปจากแอปธนาคารโดยตรง";
-    else if(/quota|limit|credit|unauthor|401|403|proxy/i.test(m)) msg="ระบบตรวจสลิปขัดข้องชั่วคราว";
-    return {ok:false,msg};}
-  const d=res.data||{}, rs=d.rawSlip||{}, amt=Number(rs.amount&&rs.amount.amount)||0;
-  if(d.isDuplicate) return {ok:false,msg:"สลิปนี้เคยใช้แล้ว"};
-  if(amt&&amt<AMT) return {ok:false,msg:"ยอดเงินในสลิป "+amt+" บาท ยังไม่ครบ "+AMT+" บาท"};
-  return {ok:true,code:unlockCode(phone)};
+// ตรวจสลิปที่หลังบ้าน หลังบ้านกำหนดราคาเอง ผ่านแล้วส่งรหัสและใบรับรองกลับมา
+async function thunderCheck(dataUrl,key,amount,chart){
+  try{const raw=String(dataUrl).replace(/^data:image\/\w+;base64,/,"");const j=await PLKPAY.slip(String(key),raw,{chart:chart||"",site:"num"});
+    return j&&j.ok?{ok:true,code:j.code}:{ok:false,msg:(j&&j.msg)||"ตรวจสลิปไม่ผ่าน"};}
+  catch(e){return {ok:false,msg:"เชื่อมต่อระบบตรวจสลิปไม่ได้"};}
 }
 // กล่อง 399: บอกให้เห็นว่าผลเจาะลึกของคนนี้มีอะไร คำนวณจากดวงและเบอร์จริง ไม่เปิดเลขให้ดู
 function payTeaserHtml(inp,r){
@@ -4596,7 +4653,7 @@ function payHtml(inp,r){
     <div class="btns"><button type="button" class="ghost" id="sendslip">คัดลอกข้อความ แล้วส่งสลิปทางไลน์</button></div>
     <p class="note" id="slipok" hidden>คัดลอกแล้ว วางในไลน์พร้อมสลิปได้เลย</p>
     <label for="ucode">รหัสปลดล็อก 6 หลัก</label>
-    <div class="codebox"><input id="ucode" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="000000"><button type="button" class="primary" id="unlock">ดูผลวิเคราะห์เจาะลึก</button></div>
+    <div class="codebox"><input id="ucode" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="000000"><button type="button" class="primary" id="unlock">ดูผลวิเคราะห์เจาะลึก</button></div>
     <p class="err" id="unlockerr" hidden>รหัสไม่ถูกต้อง ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ</p>
     <p class="note">รหัสใช้ได้กับเบอร์ที่วิเคราะห์อยู่นี้ และวันเกิดที่ใช้ตอนซื้อ ได้รหัสแล้วเก็บไว้ ใช้เปิดผลอีกครั้งได้ แม้เปลี่ยนมือถือ</p>${(CONFIG.slipApi||CONFIG.thunderKey)?"</details>":""}
   </section>`;
@@ -4770,14 +4827,7 @@ function render(inp,r,isSample){
     {const u=document.querySelector("#deep p.unlocked"); if(u&&!document.querySelector("#deep .codekeep")&&!isSample) u.insertAdjacentHTML("afterend",phoneCodeNote(inp)+chartPassNote(inp));} if(scroll) $("deep").scrollIntoView({behavior:"smooth",block:"start"});
   };
   const PKG=PAY.amount;
-  $("unlock").onclick=()=>{
-    const c=normDigits($("ucode").value);
-    if(pinOk(c)){$("unlockerr").hidden=true;setOwner(true);openDeep(true);return;}
-    if(bundleCode(c)){$("unlockerr").hidden=true;openDeep(true);return;}
-    if(c!==unlockCode(inp.phone)){$("unlockerr").textContent="รหัสไม่ถูกต้อง ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ";$("unlockerr").hidden=false;return;}
-    {const b=ubGet(inp.phone); if(b&&!b.includes(chartKey(inp))){const er=$("unlockerr");er.textContent="รหัสนี้ใช้กับวันเกิดที่ปลดล็อกเบอร์นี้ไว้แล้ว ถ้าเป็นดวงของคนอื่น ต้องซื้อแยกครับ ถ้าใส่วันเกิดผิด แก้ให้ตรงกับตอนซื้อแล้วกดใหม่ได้เลย";er.hidden=false;return;}}
-    $("unlockerr").hidden=true; markUnlocked(inp.phone); ubAdd(inp.phone,chartKey(inp)); chartGrant(inp,inp.phone); openDeep(true);
-  };
+  $("unlock").onclick=()=>codeTry("unlock","ucode","unlockerr",inp.phone,{chart:chartKey(inp)},()=>openDeep(true));
   $("ucode").onkeydown=e=>{if(e.key==="Enter")$("unlock").click();};
   if(CONFIG.slipApi||CONFIG.thunderKey){
     $("slipfile").onchange=()=>{const f=$("slipfile").files[0];$("slipname").textContent=f?f.name:"แตะเพื่อเลือกรูปสลิป";$("slipgo").disabled=!f;$("slipst").textContent="";};
@@ -4786,9 +4836,9 @@ function render(inp,r,isSample){
       try{
         const b64=await slipToBase64(f);
         let j;
-        j=await thunderCheck(b64,inp.phone,PKG);
+        j=await thunderCheck(b64,inp.phone,PKG,chartKey(inp));
         if(j.ok&&j.code===unlockCode(inp.phone)){st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ "+j.code+" แคปหน้าจอหรือจดเก็บไว้ ใช้เปิดผลเบอร์นี้อีกครั้งได้ แม้เปลี่ยนมือถือ";
-          $("ucode").value=j.code; markUnlocked(inp.phone); ubAdd(inp.phone,chartKey(inp)); chartGrant(inp,inp.phone); cntHit("slip-ok"); cntHit("pay-phone"); openDeep(true);}
+          $("ucode").value=j.code; cntHit("slip-ok"); cntHit("pay-phone"); openDeep(true);}
         else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
       }catch(err){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
     };
@@ -4797,6 +4847,7 @@ function render(inp,r,isSample){
     const done=()=>{$("slipok").hidden=false;setTimeout(()=>{location.href=CONFIG.chatUrl;},700);};
     try{navigator.clipboard.writeText(t).then(done,()=>fallback(t,done));}catch(e){fallback(t,done);}};
   if(!isSample&&phoneUnlocked(inp)) openDeep(false);
+  else if(!isSample) PLKPAY.tryPass(inp.phone,chartKey(inp)).then(j=>{if(j&&j.ok&&$("deep"))openDeep(false);});
   const sr=$("stockrec"); if(sr) sr.addEventListener("click",e=>{const b=e.target.closest("button[data-ph]");if(!b)return;
     $("phone").value=b.dataset.ph;const i2=readForm();if(i2.error)return;render(i2,analyze(i2),false);$("result").scrollIntoView({behavior:"smooth",block:"start"});});
   $("copy").onclick=()=>{
@@ -5769,17 +5820,14 @@ function namePayHtml(){
     <div class="btns"><button type="button" class="ghost" id="nsendslip">คัดลอกข้อความ แล้วส่งสลิปทางไลน์</button></div>
     <p class="note" id="nslipok" hidden>คัดลอกแล้ว วางในไลน์พร้อมสลิปได้เลย</p>
     <label for="nucode">รหัสปลดล็อก 6 หลัก</label>
-    <div class="codebox"><input id="nucode" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="000000"><button type="button" class="primary" id="nunlock">เปิดผลวิเคราะห์ชื่อ</button></div>
+    <div class="codebox"><input id="nucode" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="000000"><button type="button" class="primary" id="nunlock">เปิดผลวิเคราะห์ชื่อ</button></div>
     <p class="err" id="nunlockerr" hidden>รหัสไม่ถูกต้อง ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ</p>
     <p class="note">รหัสใช้ได้กับวันเกิดนี้ ตรวจชื่อไหนก็เปิดดูได้</p>${(CONFIG.slipApi||CONFIG.thunderKey)?"</details>":""}
   </section>`;
 }
 function bindNamePay(inp,key,open){
   const ca=$("ncopyacc"); if(ca) ca.onclick=()=>{const t=PAY.acc.replace(/-/g,"");const d=()=>{ca.textContent="คัดลอกแล้ว";};try{navigator.clipboard.writeText(t).then(d,()=>fallback(t,d));}catch(e){fallback(t,d);}};
-  $("nunlock").onclick=()=>{const c=normDigits($("nucode").value);
-    if(pinOk(c)){$("nunlockerr").hidden=true;setOwner(true);open(true);return;}
-    if(!bundleCode(c)&&c!==unlockCode(key)){$("nunlockerr").hidden=false;return;}
-    $("nunlockerr").hidden=true;markUnlocked(key);open(true);};
+  $("nunlock").onclick=()=>codeTry("nunlock","nucode","nunlockerr",key,{},()=>open(true));
   $("nucode").onkeydown=e=>{if(e.key==="Enter")$("nunlock").click();};
   if($("nslipfile")){
     $("nslipfile").onchange=()=>{const f=$("nslipfile").files[0];$("nslipname").textContent=f?f.name:"แตะเพื่อเลือกรูปสลิป";$("nslipgo").disabled=!f;$("nslipst").textContent="";};
@@ -5801,7 +5849,7 @@ function inAppBrowser(){const u=navigator.userAgent||"";return /FBAN|FBAV|FB_IAB
 function pdfLink(kind){const q=new URLSearchParams(),v=id=>$(id)?$(id).value:"";
   q.set("r",kind);["dd","mm","yy","hh","mi","prov","sex","fname","lname","nick","job","phone","rkact","rkmon","nick2","sex2","dd2","mm2","yy2","hh2","mi2","prov2","house","shop","plate","bank","hdir"].forEach(id=>{const x=v(id);if(x!=="")q.set(id,x);});
   if($("notime").checked)q.set("notime","1"); if($("notime2").checked)q.set("notime2","1");
-  try{const key=pdfKeyOf(kind);if(key&&wasUnlocked(key))q.set("u",unlockCode(key));}catch(e){}
+  try{const key=pdfKeyOf(kind);const uc=key&&unlockCode(key);if(uc)q.set("u",uc);}catch(e){}
   return location.origin+location.pathname+"?"+q.toString();}
 function pdfKeyOf(k){const i=readFormLoose();if(typeof NUMK!=="undefined"&&NUMK[k])return numKey(i);if(k==="name"||k==="baby")return nameKey(i);if(k==="rk")return rkKey(i);if(k==="love"){const B2={d:+$("dd2").value,m:+$("mm2").value,y:+$("yy2").value-543};return lvKey(i,B2);}return i.phone;}
 const PDF_K={phone:["deep",1,"ผลวิเคราะห์เบอร์แบบละเอียด"],name:["ndeep",2,"ผลวิเคราะห์ชื่อแบบละเอียด"],rk:["xdeep",1,"ฤกษ์มงคลเฉพาะดวง"],love:["vdeep",1,"ดวงคู่แบบละเอียด"],house:["kdeep",1,"ผลวิเคราะห์บ้านเลขที่แบบละเอียด"],shop:["kdeep",1,"ผลวิเคราะห์เลขที่ร้านแบบละเอียด"],plate:["kdeep",1,"ผลวิเคราะห์ทะเบียนรถแบบละเอียด"],bank:["kdeep",1,"ผลวิเคราะห์เลขบัญชีแบบละเอียด"],baby:["zdeep",2,"รายชื่อมงคลสำหรับลูก"]};
@@ -5844,8 +5892,10 @@ function pdfRestore(){try{const q=new URLSearchParams(location.search),k=q.get("
   const nt2=q.get("notime2")==="1";if($("notime2").checked!==nt2){$("notime2").checked=nt2;$("notime2").dispatchEvent(new Event("change",{bubbles:true}));}
   ["hh","mi","hh2","mi2"].forEach(id=>{if(q.has(id)){$(id).value=q.get(id);}});
   ["fname","lname","nick","job","phone","nick2","house","shop","plate","bank"].forEach(id=>{if($(id)){$(id).value=q.get(id)||"";$(id).dispatchEvent(new Event("input",{bubbles:true}));}});
-  const u=q.get("u");if(u){const key=pdfKeyOf(k);if(key&&u===unlockCode(key))markUnlocked(key);}
-  setTimeout(()=>{$("gobtn").click();setTimeout(()=>{const pb=document.querySelector(`button[data-pdf="${k}"]`);if(pb&&pb.offsetParent){pb.scrollIntoView({block:"center"});pb.classList.add("primary");}},500);},80);
+  const u=q.get("u"), go=()=>setTimeout(()=>{$("gobtn").click();setTimeout(()=>{const pb=document.querySelector(`button[data-pdf="${k}"]`);if(pb&&pb.offsetParent){pb.scrollIntoView({block:"center"});pb.classList.add("primary");}},500);},80);
+  PLKPAY.ready.then(()=>{if(!u)return go();const key=pdfKeyOf(k);if(!key||wasUnlocked(key))return go();
+    let ch="";try{const fi=readForm();if(fi&&!fi.error)ch=chartKey(fi);}catch(e){}
+    PLKPAY.check(String(key),u,{chart:ch,alt:[bundleKey()].filter(Boolean)}).catch(()=>0).then(go);});
 }catch(e){}}
 setTimeout(pdfRestore,30);
 
@@ -6474,7 +6524,7 @@ function modeTabsInit(){
 }
 
 $("f").addEventListener("submit",e=>{
-  e.preventDefault(); window.__userRun=1; smpClear(); anHit(); if(MODE!=="baby") memSave();
+  e.preventDefault(); if(!PLKPAY.isReady()){PLKPAY.ready.then(()=>{$("f").requestSubmit?$("f").requestSubmit():$("gobtn").click();});return;} window.__userRun=1; smpClear(); anHit(); if(MODE!=="baby") memSave();
   if(MODE!=="phone"){const mi=readMode();if(mi.error){$("err").textContent=mi.error;$("err").hidden=false;return;}$("err").hidden=true;renderMode(mi);$("result").scrollIntoView({behavior:"smooth",block:"start"});return;}
   const inp=readForm();
   if(inp.error){$("err").textContent=inp.error;$("err").hidden=false;return;}
@@ -7478,7 +7528,7 @@ window.addEventListener("hashchange",buyDeep);
 
 window.addEventListener("popstate",route);
 // ลิงก์ลับของเจ้าของ: เปิดครั้งเดียว เครื่องนั้นจะดูผลละเอียดได้ทุกเบอร์โดยไม่ต้องใส่รหัส
-function ownerHash(){if(location.hash!=="#owner-tnw789")return;setOwner(true);try{history.replaceState(null,"",location.pathname+location.search);}catch(_){}
+function ownerHash(){if(location.hash!=="#owner-tnw789")return;if(!PLKPAY.ownerTok())return;setOwner(true);try{history.replaceState(null,"",location.pathname+location.search);}catch(_){}
   setTimeout(()=>{const b=document.createElement("div");b.textContent="เปิดโหมดเจ้าของแล้ว วิเคราะห์เบอร์ไหนก็เห็นผลละเอียดทันที";b.style.cssText="position:fixed;left:16px;right:16px;top:16px;z-index:99;padding:14px;border-radius:12px;background:var(--good-bg);color:var(--good);font-weight:600;text-align:center";document.body.appendChild(b);setTimeout(()=>b.remove(),4000);},300);}
 ownerHash(); window.addEventListener("hashchange",ownerHash);
 
@@ -8550,16 +8600,13 @@ function payKitHtml(P){const slip=CONFIG.slipApi||CONFIG.thunderKey, AMT=PK[P].a
     <div class="btns"><button type="button" class="ghost" id="${P}sendslip">คัดลอกข้อความ แล้วส่งสลิปทางไลน์</button></div>
     <p class="note" id="${P}slipok" hidden>คัดลอกแล้ว วางในไลน์พร้อมสลิปได้เลย</p>
     <label for="${P}ucode">รหัสปลดล็อก 6 หลัก</label>
-    <div class="codebox"><input id="${P}ucode" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="000000"><button type="button" class="primary" id="${P}unlock">${PK[P].btn}</button></div>
+    <div class="codebox"><input id="${P}ucode" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="000000"><button type="button" class="primary" id="${P}unlock">${PK[P].btn}</button></div>
     <p class="err" id="${P}unlockerr" hidden>รหัสไม่ถูกต้อง ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ</p>
     <p class="note">${PK[P].codeNote}</p>${slip?"</details>":""}
   </section>`;}
 function bindPayKit(P,key,open,lineMsg){
   const ca=$(P+"copyacc"); if(ca) ca.onclick=()=>{const t=PAY.acc.replace(/-/g,"");const d=()=>{ca.textContent="คัดลอกแล้ว";};try{navigator.clipboard.writeText(t).then(d,()=>fallback(t,d));}catch(e){fallback(t,d);}};
-  $(P+"unlock").onclick=()=>{const c=normDigits($(P+"ucode").value);
-    if(pinOk(c)){$(P+"unlockerr").hidden=true;setOwner(true);open(true);return;}
-    if(!bundleCode(c)&&c!==unlockCode(key)){$(P+"unlockerr").hidden=false;return;}
-    $(P+"unlockerr").hidden=true;markUnlocked(key);open(true);};
+  $(P+"unlock").onclick=()=>codeTry(P+"unlock",P+"ucode",P+"unlockerr",key,{},()=>open(true));
   $(P+"ucode").onkeydown=e=>{if(e.key==="Enter")$(P+"unlock").click();};
   if($(P+"slipfile")){
     $(P+"slipfile").onchange=()=>{const f=$(P+"slipfile").files[0];$(P+"slipname").textContent=f?f.name:"แตะเพื่อเลือกรูปสลิป";$(P+"slipgo").disabled=!f;$(P+"slipst").textContent="";};
@@ -9467,7 +9514,7 @@ document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest
 // ===== แพ็กรวม 999 ปลดล็อกทุกบริการของวันเกิดเดียว =====
 const BUNDLE_PRICE=999;
 function bundleKey(){try{const i=readFormLoose();if(!i.d||!i.m||!i.y)return "";return "1"+pad(i.d)+pad(i.m)+(i.y+543);}catch(e){return "";}}
-function bundleOn(){const k=bundleKey();if(!k)return false;try{return (JSON.parse(localStorage.getItem(UNL_KEY)||"[]")).includes(k);}catch(e){return false;}}
+function bundleOn(){return bundleHas();}
 function bundleBoxHtml(){const slip=CONFIG.slipApi||CONFIG.thunderKey;return `<details class="bundle libd" style="margin-top:14px;padding-top:10px;border-top:1px dashed var(--line)"><summary style="font-size:13px;font-weight:400;color:var(--muted,inherit)">อยากดูหลายบริการ (ชื่อ ฤกษ์ บ้าน ดวงปี 2570) เหมาจ่ายแพ็กรวม ${BUNDLE_PRICE} บาท</summary>
   <ul class="plain" style="margin:8px 0"><li>วิเคราะห์เบอร์เจาะลึก ได้ทุกเบอร์</li><li>วิเคราะห์ชื่อและตั้งชื่อแบบละเอียด</li><li>ฤกษ์มงคล ดวงคู่ และวิเคราะห์ บ้าน ร้าน ทะเบียน บัญชี แบบละเอียด</li><li>ดวงชะตาฉบับละเอียด และรายงานดวงปี 2570 ในหน้าดูดวง</li></ul>
   <p class="note">ถ้าซื้อแยกครบทุกอย่างเกิน 2,000 บาท แพ็กรวมจ่ายครั้งเดียว ${BUNDLE_PRICE} บาท ใช้ได้กับวันเกิดนี้</p>
@@ -9483,7 +9530,7 @@ function bundleInject(){try{if(isOwner())return;document.querySelectorAll("#resu
       if(j.ok&&j.code===unlockCode(k)){markUnlocked(k);cntHit("slip-ok");cntHit("pay-bundle");st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว รหัสแพ็กรวมของคุณคือ "+j.code+" เก็บไว้ใช้เปิดทุกบริการของวันเกิดนี้";setTimeout(()=>$("gobtn").click(),900);}
       else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";go.disabled=false;}}
     catch(e){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";go.disabled=false;}};});}catch(e){}}
-function bundleCode(c){const k=bundleKey();if(k&&c===unlockCode(k)){markUnlocked(k);return true;}return false;}
+function bundleCode(){return false;} // รหัสแพ็กรวมตรวจที่หลังบ้านพร้อมรหัสของบริการ
 
 // ===== ชวนต่อแพ็กเกจหลังผลละเอียด =====
 function upsellInject(){try{["deep","kdeep"].forEach(id=>{const el=$(id);if(!el||el.hidden||el.querySelector(".upsell"))return;

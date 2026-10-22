@@ -223,6 +223,66 @@ a{color:var(--gold)}
   </section>
 </main><footer style="text-align:center;padding:12px 16px 28px;font-size:14px"><!--soc--><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/fontawesome.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/brands.min.css" media="print" onload="this.media='all'"><p class="soc" style="margin:8px 0;display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap"><span>ติดตามเพิ่มเติม</span><a href="https://www.facebook.com/share/1DrFcWc5it/" target="_blank" rel="noopener" style="color:#e0701f;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border:1px solid #3a2f27;border-radius:99px;padding:6px 14px;font-weight:600" aria-label="เพจ Facebook ความลับพลังตัวเลข"><i class="fa-brands fa-facebook" aria-hidden="true" style="font-size:18px"></i>Facebook</a><a href="https://www.tiktok.com/@chv_numerology" target="_blank" rel="noopener" style="color:#e0701f;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border:1px solid #3a2f27;border-radius:99px;padding:6px 14px;font-weight:600" aria-label="TikTok @chv_numerology"><i class="fa-brands fa-tiktok" aria-hidden="true" style="font-size:16px"></i>TikTok</a><a href="https://lin.ee/TJ05Mnd" target="_blank" rel="noopener" style="color:#e0701f;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border:1px solid #3a2f27;border-radius:99px;padding:6px 14px;font-weight:600" aria-label="แอดไลน์ ความลับพลังตัวเลข"><i class="fa-brands fa-line" aria-hidden="true" style="font-size:18px"></i>LINE</a><a href="https://www.facebook.com/share/g/1EbxvHQ6F6/" target="_blank" rel="noopener" style="color:#e0701f;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border:1px solid #3a2f27;border-radius:99px;padding:6px 14px;font-weight:600" aria-label="กลุ่ม Facebook พูดคุยเรื่องพลังตัวเลขเบอร์โทรศัพท์"><i class="fa-brands fa-facebook" aria-hidden="true" style="font-size:18px"></i>กลุ่มพูดคุยเรื่องเบอร์</a></p><!--/soc--></footer>
 
+<script>
+/* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
+   หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
+   หน้าเว็บตรวจลายเซ็นด้วยกุญแจสาธารณะด้านล่าง ปลอมใบรับรองเองไม่ได้ ห้ามแก้ส่วนนี้ถ้าไม่แน่ใจ */
+var PLKPAY=(function(){
+  var API="https://script.google.com/macros/s/AKfycbxTojydK9-0hlZb_IlFDYwtOhIzPoJHjiF71VTKvUFm6O1akDukpyhdnuVtocREeQ-a/exec";
+  var PUB="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArqc3oTCiRjlenpHkA+QuIadxKBXThqRKW2XAGZvA02DTMkhsxE1rHVjvQ8rESV+ttSskyBTS+bfKiYfZmEbjiGDFD6vFX1Tur55vQc5q7Bo33sRt3dtQTrSPKm2SnhcskpePJRVmk028Jbm+2923NayxoCBFgQc+hJSN2NX37qYFwJeO3S3dvZqgb0XYeef8TXFsHEoDfFJlJ5seV3MYK7bz0N8esO9yAP1gJY6MlkA98MPLyC3xd5IiaMyEcYoO0Zm8PVBzqj4bf2MybeFbCu6BZ8yB2r2QOh1a5YD3WxFb69MJ4NOoSSDui7wijpuZAxWNAQqZ0MQ73t1vi8+2hwIDAQAB";
+  var GRACE=Date.UTC(2026,10,30,17,0,0); // ปลดล็อกแบบเก่าในเครื่องลูกค้า ใช้ได้ถึง 30 พ.ย. 2569
+  var RC="plk_rc",CD="plk_codes",PS="plk_pass",EB="plk_ebk",OFF="plk_ownoff";
+  var OK={},rdy=false,keyP=null;
+  function ld(k){try{return JSON.parse(localStorage.getItem(k)||"{}")||{}}catch(e){return {}}}
+  function sv(k,o){try{localStorage.setItem(k,JSON.stringify(o))}catch(e){}}
+  function bytes(b){var s=atob(b),a=new Uint8Array(s.length);for(var i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a}
+  function sub(){return (window.crypto&&crypto.subtle)?crypto.subtle:null}
+  function pk(){if(!keyP)keyP=sub().importKey("spki",bytes(PUB),{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},false,["verify"]);return keyP}
+  function vf(p,s){try{return pk().then(function(k){return sub().verify("RSASSA-PKCS1-v1_5",k,bytes(s),new TextEncoder().encode(p))}).catch(function(){return false})}catch(e){return Promise.resolve(false)}}
+  function add(p,s){return vf(p,s).then(function(ok){if(ok){OK[p]=1;var o=ld(RC);o[p]=s;sv(RC,o)}return ok})}
+  var ready=(function(){var o=ld(RC),ks=Object.keys(o);if(!ks.length||!sub()){rdy=true;return Promise.resolve()}
+    return Promise.all(ks.map(function(p){return vf(p,o[p]).then(function(ok){if(ok)OK[p]=1})})).then(function(){rdy=true},function(){rdy=true})})();
+  function call(b){return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(b)})
+    .then(function(r){return r.json()}).then(function(j){
+      if(j&&j.ok===undefined&&!j.msg)return {ok:false,msg:"หลังบ้านยังไม่ได้อัปเดต ส่งสลิปทางไลน์ได้เลยครับ",old:1};return j});}
+  function absorb(j){if(!j||!j.ok)return Promise.resolve(j||{ok:false});
+    if(j.key&&j.code){var c=ld(CD);c[j.key]=j.code;sv(CD,c)}
+    if(j.pass&&j.pass.c){var q=ld(PS);q[j.pass.c]={n:j.pass.n,t:j.pass.t};sv(PS,q)}
+    if(j.k){try{localStorage.setItem(EB,j.k)}catch(e){}}
+    if(j.owner){try{localStorage.removeItem(OFF)}catch(e){}}
+    return Promise.all((j.rc||[]).map(function(x){return add(x.p,x.s)})).then(function(r){
+      if(r.some(function(v){return !v}))return {ok:false,msg:"ตรวจใบรับรองไม่ผ่าน ลองใหม่อีกครั้ง หรือทักไลน์มาได้เลยครับ"};return j})}
+  function legacyList(){try{return JSON.parse(localStorage.getItem("plk_unlocked")||"[]")}catch(e){return []}}
+  function ownTok(){var o=Object.keys(OK).filter(function(p){return p.indexOf("o|")===0}).sort().pop();return o?{o:o,s:ld(RC)[o]}:null}
+  var api={
+    api:API, ready:ready, isReady:function(){return rdy},
+    has:function(p){return !!OK[p]},
+    unlocked:function(key){return !!OK["u|"+key]},
+    phone:function(ph,chart){return !!OK["u|"+ph+"|"+chart]},
+    anyPhone:function(ph){return Object.keys(OK).some(function(p){return p.indexOf("u|"+ph+"|")===0})},
+    ownerTok:function(){return !!ownTok()},
+    owner:function(){if(!ownTok())return false;try{return localStorage.getItem(OFF)!=="1"}catch(e){return true}},
+    ownerView:function(on){try{on?localStorage.removeItem(OFF):localStorage.setItem(OFF,"1")}catch(e){}},
+    code:function(key){return ld(CD)[key]||""},
+    passInfo:function(chart){var p=ld(PS)[chart];if(!p||p.t+30*864e5<Date.now())return null;return p},
+    ebookKey:function(){try{return localStorage.getItem(EB)||""}catch(e){return ""}},
+    legacy:function(key){return Date.now()<GRACE&&legacyList().indexOf(key)>=0},
+    grace:function(){return Date.now()<GRACE},
+    call:call,
+    slip:function(key,b64,x){x=x||{};return call({action:"p2slip",key:key,base64:b64,chart:x.chart||"",site:x.site||"num"}).then(absorb)},
+    check:function(key,code,x){x=x||{};return call({action:"p2code",key:key,code:String(code||"").replace(/\D/g,""),chart:x.chart||"",alt:x.alt||[]}).then(absorb)},
+    pin:function(pin){return call({action:"p2pin",pin:String(pin||"").replace(/\D/g,"")}).then(absorb)},
+    adm:function(keys){var t=ownTok();if(!t)return Promise.resolve({ok:false,msg:"ต้องเข้าหน้าแอดมินด้วยรหัสแอดมินก่อน"});
+      return call({action:"p2adm",o:t.o,s:t.s,keys:[].concat(keys)})},
+    ebkOwner:function(){var t=ownTok();if(!t)return Promise.resolve({ok:false});return call({action:"p2ebk",o:t.o,s:t.s}).then(absorb)},
+    tryPass:function(ph,chart){var c=ld(CD),from=Object.keys(OK).map(function(p){var m=p.match(/^u\|(0\d{9})\|(.+)$/);return m&&m[2]===chart&&m[1]!==ph&&c[m[1]]?m[1]:null}).filter(Boolean)[0];
+      if(!from)return Promise.resolve({ok:false});
+      return call({action:"p2pass",key:ph,chart:chart,from:from,code:c[from]}).then(absorb).catch(function(){return {ok:false}})}
+  };
+  return api;
+})();
+
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 
@@ -1928,25 +1988,22 @@ function yearBlock(c,A,age,start,end,transit){
 }
 
 /* ===== ตั้งค่าการชำระเงิน (แก้ตรงนี้) ===== */
-var PAY={price:399,yPrice:299,pairPrice:299,promptpay:'0997891585',accountName:'ธนวัตน์ จิระเมธาทรัพย์',bankName:'ธนาคารไทยพาณิชย์ (SCB)',bankNo:'648-284-4987',line:'https://lin.ee/TJ05Mnd',salt:'KLPT-2569-horo'};
+var PAY={price:399,yPrice:299,pairPrice:299,promptpay:'0997891585',accountName:'ธนวัตน์ จิระเมธาทรัพย์',bankName:'ธนาคารไทยพาณิชย์ (SCB)',bankNo:'648-284-4987',line:'https://lin.ee/TJ05Mnd'};
 function crc16(s){var c=0xFFFF;for(var i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(var j=0;j<8;j++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return ('0000'+c.toString(16).toUpperCase()).slice(-4)}
 function tlv(id,v){return id+('0'+v.length).slice(-2)+v}
 function promptpayPayload(target,amount){var t=String(target).replace(/\D/g,''),sub;
   if(t.length>=13)sub=tlv('02',t);else sub=tlv('01',('0000000000000'+('66'+t.replace(/^0/,''))).slice(-13));
   var p=tlv('00','01')+tlv('01','12')+tlv('29',tlv('00','A000000677010111')+sub)+tlv('53','764')+tlv('54',amount.toFixed(2))+tlv('58','TH')+'6304';return p+crc16(p)}
-function unlockCode(key){var s=key+'|'+PAY.salt,h1=2166136261,h2=5381;for(var i=0;i<s.length;i++){var ch=s.charCodeAt(i);h1=Math.imul(h1^ch,16777619)>>>0;h2=(Math.imul(h2,33)+ch)>>>0}
-  var n=(h1^(h2<<7))>>>0,A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',o='';for(var k=0;k<6;k++){o+=A[n%32];n=Math.floor(n/32);if(k===2)n=(n^h2)>>>0}return o}
-
-var HCFG={thunderKey:'',slipApi:'https://script.google.com/macros/s/AKfycbxTojydK9-0hlZb_IlFDYwtOhIzPoJHjiF71VTKvUFm6O1akDukpyhdnuVtocREeQ-a/exec',adminHash:'531379db',lineOA:'@367xgtjh'};
-function pinOkH(v){var h=2166136261>>>0,t=String(v)+'|plk-admin-v1';for(var i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return ('0000000'+h.toString(16)).slice(-8)===HCFG.adminHash}
-function isOwnerH(){try{return localStorage.getItem('plk_owner')==='1'}catch(e){return false}}
-function setOwnerH(on){try{on?localStorage.setItem('plk_owner','1'):localStorage.removeItem('plk_owner')}catch(e){}}
-function unlockNum(key){var s=String(key)+'|'+PAY.salt+'|num',h=2166136261>>>0;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}
-  for(var k=0;k<3;k++){h^=h>>>13;h=Math.imul(h,0x5bd1e995)>>>0}return String(h%1000000).padStart(6,'0')}
+var HCFG={thunderKey:'',slipApi:'https://script.google.com/macros/s/AKfycbxTojydK9-0hlZb_IlFDYwtOhIzPoJHjiF71VTKvUFm6O1akDukpyhdnuVtocREeQ-a/exec',lineOA:'@367xgtjh'};
+// รหัสปลดล็อกและรหัสแอดมินตรวจที่หลังบ้าน (PLKPAY) หน้าเว็บไม่มีสูตรรหัส
+function pinOkH(v){return false}
+function isOwnerH(){return PLKPAY.owner()}
+function setOwnerH(on){PLKPAY.ownerView(on)}
+function unlockNum(key){return PLKPAY.code(String(key))}
 function inApp(){var u=navigator.userAgent||'';return /FBAN|FBAV|FB_IAB|FBIOS|Instagram|Line\/|KAKAOTALK|MicroMessenger|TikTok|musical_ly|Bytedance/i.test(u)||(/Android/i.test(u)&&/; wv\)/.test(u))}
 function pdfLink(key){var g=function(i){return document.getElementById(i)},sl=g('prov'),q=new URLSearchParams();
  q.set('d',g('date').value);if(g('time').value)q.set('t',g('time').value);if(sl&&sl.selectedIndex>=0)q.set('p',sl.options[sl.selectedIndex].text.trim());if(g('name').value)q.set('n',g('name').value);
- if(g('meth'))q.set('m',g('meth').value);if(key&&isUnlocked(key))q.set('u',unlockNum(key));q.set('pdf','1');
+ if(g('meth'))q.set('m',g('meth').value);var uc=key&&unlockNum(key);if(uc)q.set('u',uc);q.set('pdf','1');
  return location.origin+location.pathname+'?'+q.toString()}
 function pdfSave(key){
  if(!inApp()&&typeof window.print==='function'){try{window.print();return}catch(e){}}
@@ -1974,23 +2031,14 @@ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.c
  var draw=function(){ov.innerHTML='<div class="smpbar"><span>หน้า '+(i+1)+' จาก '+HSMP.length+'</span><span>'+(i>0?'<button type="button" data-nav="-1">ก่อนหน้า</button>':'')+(i<HSMP.length-1?'<button type="button" data-nav="1">ถัดไป</button>':'')+'<button type="button" data-close="1">ปิด</button></span></div><div class="smpimg"><img src="'+HSMP[i]+'" alt="ตัวอย่างหน้า '+(i+1)+'"></div>'};
  draw();document.body.appendChild(ov);document.body.style.overflow='hidden';
  ov.addEventListener('click',function(ev){var n=ev.target.closest('[data-nav]');if(n){i+=+n.getAttribute('data-nav');draw();return}if(ev.target.closest('[data-close]')||ev.target===ov){ov.remove();document.body.style.overflow=''}})});
-function isUnlocked(key){if(isOwnerH())return true;if(typeof bundleOnH==='function'&&bundleOnH())return true;try{var v=localStorage.getItem('horo-unlock:'+key);return v===unlockNum(key)}catch(e){return false}}
-function saveUnlock(key){try{localStorage.setItem('horo-unlock:'+key,unlockNum(key))}catch(e){}}
+function isUnlocked(key){if(isOwnerH())return true;if(typeof bundleOnH==='function'&&bundleOnH())return true;if(PLKPAY.unlocked(String(key)))return true;
+  try{return PLKPAY.grace()&&!!localStorage.getItem('horo-unlock:'+key)}catch(e){return false}} // ของเก่าในเครื่อง ใช้ได้ถึงสิ้นช่วงผ่อนผัน
+function saveUnlock(){} // ปลดล็อกได้จากใบรับรองหลังบ้านเท่านั้น
 function hSlipB64(file){return new Promise(function(ok,no){var fr=new FileReader();fr.onerror=no;fr.onload=function(){var im=new Image();im.onerror=function(){ok(fr.result)};im.onload=function(){
   var M=1400,sc=Math.min(1,M/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);
   var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',0.9))};im.src=fr.result};fr.readAsDataURL(file)})}
-function hThunder(dataUrl,amount){
-  var call=function(b){if(HCFG.slipApi)return fetch(HCFG.slipApi,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({base64:b,matchAmount:amount,site:'duang'})}).then(function(r){return r.json()}).catch(function(e){return {success:false,error:{message:'proxy '+e.message}}});return fetch('https://api.thunder.in.th/v2/verify/bank',{method:'POST',headers:{'Authorization':'Bearer '+HCFG.thunderKey,'Content-Type':'application/json'},body:JSON.stringify({base64:b,checkDuplicate:true,matchAccount:true,matchAmount:amount})}).then(function(r){return r.json().catch(function(){return {success:false,error:{message:'HTTP '+r.status}}})})};
-  var raw=dataUrl.replace(/^data:image\/\w+;base64,/,'');
-  return call(raw).then(function(res){if(!res.success&&res.error&&/base64|image|format/i.test(String(res.error.message||res.error.code)))return call(dataUrl);return res}).then(function(res){
-    if(!res.success){var m=String((res.error&&(res.error.message||res.error.code))||''),msg='ตรวจสลิปไม่ผ่าน ลองใช้ไฟล์สลิปจากแอปธนาคารโดยตรง';
-      if(/duplicate/i.test(m))msg='สลิปนี้เคยใช้แล้ว';else if(/account/i.test(m))msg='บัญชีผู้รับในสลิปไม่ใช่บัญชีของร้าน';else if(/amount/i.test(m))msg='ยอดเงินในสลิปไม่ตรงกับ '+amount+' บาท';
-      else if(/qr|not found|invalid/i.test(m))msg='อ่าน QR บนสลิปไม่ได้ ใช้ไฟล์สลิปจากแอปธนาคารโดยตรง';else if(/quota|limit|credit|unauthor|401|403/i.test(m))msg='ระบบตรวจสลิปขัดข้องชั่วคราว';
-      return {ok:false,msg:msg}}
-    var d=res.data||{},rs=d.rawSlip||{},amt=Number(rs.amount&&rs.amount.amount)||0;
-    if(d.isDuplicate)return {ok:false,msg:'สลิปนี้เคยใช้แล้ว'};
-    if(amt&&amt<amount)return {ok:false,msg:'ยอดเงินในสลิป '+amt+' บาท ยังไม่ครบ '+amount+' บาท'};
-    return {ok:true}})}
+function hThunder(dataUrl,key){var raw=String(dataUrl).replace(/^data:image\/\w+;base64,/,'');
+  return PLKPAY.slip(String(key),raw,{site:'duang'}).then(function(j){return j&&j.ok?{ok:true,code:j.code}:{ok:false,msg:(j&&j.msg)||'ตรวจสลิปไม่ผ่าน'}})}
 function payBox(id,price,title,items){
   var q=PAY.promptpay?'<div id="ppqr'+id+'" class="qr" aria-label="คิวอาร์พร้อมเพย์"></div><p class="note">สแกนจ่ายด้วยแอปธนาคาร ยอด '+price+' บาท ขึ้นอัตโนมัติ</p>':'';
   var bk=PAY.bankNo?'<p>หรือโอนเข้า '+esc(PAY.bankName)+' เลขที่ <strong>'+esc(PAY.bankNo)+'</strong> ชื่อบัญชี '+esc(PAY.accountName)+'</p>':'';
@@ -2001,7 +2049,7 @@ function payBox(id,price,title,items){
   r+='<p><button type="button" id="slipgo'+id+'" disabled>ตรวจสลิปและเปิดฉบับละเอียด</button></p><p class="note" id="slipst'+id+'" aria-live="polite"></p>';
   r+='<details><summary>มีรหัสปลดล็อกแล้ว หรือส่งสลิปทางไลน์แทน</summary><p class="note">ส่งสลิปทางไลน์ ผมจะส่งรหัส 6 หลักกลับไป แล้วใส่รหัสในช่องด้านล่าง</p>';
   r+='<p><button type="button" class="ghost" id="sline'+id+'">คัดลอกข้อความ แล้วส่งสลิปทางไลน์</button></p><p class="note" id="slineok'+id+'" hidden>คัดลอกแล้ว วางในไลน์พร้อมสลิปได้เลย</p>';
-  r+='<div class="unlock"><label for="ucode'+id+'">รหัสปลดล็อก 6 หลัก</label><input id="ucode'+id+'" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="000000"><button type="button" id="ugo'+id+'">ปลดล็อก</button></div>';
+  r+='<div class="unlock"><label for="ucode'+id+'">รหัสปลดล็อก 6 หลัก</label><input id="ucode'+id+'" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="000000"><button type="button" id="ugo'+id+'">ปลดล็อก</button></div>';
   r+='<p class="err" id="uerr'+id+'" hidden>รหัสไม่ถูกต้อง ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ</p><p class="note">รหัสใช้ได้กับวันเวลาเกิดชุดนี้เท่านั้น</p></details>';
   return r+'</section>'}
 function bindPay(id,price,key,lineMsg,onOK){
@@ -2009,21 +2057,24 @@ function bindPay(id,price,key,lineMsg,onOK){
   var qd=g('ppqr');if(qd&&window.QRCode){try{new QRCode(qd,{text:promptpayPayload(PAY.promptpay,price),width:200,height:200,correctLevel:QRCode.CorrectLevel.M})}catch(e){}}
   f.addEventListener('change',function(){var x=f.files[0];g('slipn').textContent=x?x.name:'แตะเพื่อเลือกรูปสลิป';go.disabled=!x;st.textContent=''});
   go.addEventListener('click',function(){var x=f.files[0];if(!x)return;go.disabled=true;st.style.color='';st.textContent='กำลังตรวจสลิป รอสักครู่...';
-    hSlipB64(x).then(function(b){return hThunder(b,price)}).then(function(j){
-      if(j.ok){var code=unlockNum(key);saveUnlock(key);hHit('slip-ok');hHit(/\|y2570$/.test(key)?'pay-y2570':'pay-horo');st.style.color='var(--good)';st.textContent='ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ '+code+' เก็บไว้ใช้เปิดดูอีกครั้งได้';setTimeout(onOK,1200)}
+    hSlipB64(x).then(function(b){return hThunder(b,key)}).then(function(j){
+      if(j.ok){var code=j.code;hHit('slip-ok');hHit(/\|y2570$/.test(key)?'pay-y2570':'pay-horo');st.style.color='var(--good)';st.textContent='ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ '+code+' เก็บไว้ใช้เปิดดูอีกครั้งได้';setTimeout(onOK,1200)}
       else{st.style.color='var(--bad)';st.textContent=j.msg+' ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ';go.disabled=false}
     }).catch(function(){st.style.color='var(--bad)';st.textContent='เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ';go.disabled=false})});
-  g('ugo').addEventListener('click',function(){var v=(g('ucode').value||'').replace(/[๐-๙]/g,function(c){return '๐๑๒๓๔๕๖๗๘๙'.indexOf(c)}).replace(/\D/g,'');
-    if(pinOkH(v)){setOwnerH(true);onOK();return}
-    if(v===plkCode(bundleKeyH())){bundleSaveH();g('uerr').hidden=true;onOK();return}
-    if(v!==unlockNum(key)){g('uerr').hidden=false;return}
-    g('uerr').hidden=true;saveUnlock(key);onOK()});
+  g('ugo').addEventListener('click',function(){var v=(g('ucode').value||'').replace(/[๐-๙]/g,function(c){return '๐๑๒๓๔๕๖๗๘๙'.indexOf(c)}).replace(/\D/g,''),bt=g('ugo'),er=g('uerr');
+    if(v.length<6){er.textContent='ใส่รหัส 6 หลักก่อนครับ';er.hidden=false;return}
+    if(bt.disabled)return;bt.disabled=true;er.hidden=true;var bk=bundleKeyH();
+    PLKPAY.check(String(key),v,{alt:bk?[bk]:[]}).catch(function(){return {ok:false,msg:'เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองใหม่ หรือทักไลน์มาได้เลยครับ'}}).then(function(j){bt.disabled=false;
+      if(j&&j.ok){onOK();return}er.textContent=(j&&j.msg)||'รหัสไม่ถูกต้อง ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ';er.hidden=false})});
   g('ucode').addEventListener('keydown',function(e){if(e.key==='Enter')g('ugo').click()});
   g('sline').addEventListener('click',function(){var t=lineMsg,go2=HCFG.lineOA?'https://line.me/R/oaMessage/'+encodeURIComponent(HCFG.lineOA)+'/?'+encodeURIComponent(t):PAY.line;
     var done=function(){g('slineok').hidden=false;setTimeout(function(){location.href=go2},700)};
     try{navigator.clipboard.writeText(t).then(done,done)}catch(e){done()}})}
-function ownerBox(key,what){if(!isOwnerH())return '';var c=unlockNum(key),msg='ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อก'+what+'คือ '+c+' ใส่ในช่องรหัสปลดล็อกได้เลยครับ';
-  return '<div class="owner"><strong>โหมดแอดมิน</strong> เห็นฉบับละเอียดทุกดวงโดยไม่ต้องจ่าย<br>รหัสปลดล็อกของ'+what+'นี้สำหรับส่งลูกค้า: <strong style="font-size:22px;letter-spacing:3px">'+c+'</strong><br><button type="button" class="ghost" data-ocopy="'+esc(msg)+'">คัดลอกข้อความส่งลูกค้า</button> <button type="button" class="ghost" data-ooff="1">ปิดโหมดแอดมินในเครื่องนี้</button></div>'}
+function ownerBox(key,what){if(!isOwnerH())return '';setTimeout(ownerFill,60);var c='<span data-okey="'+esc(key)+'" data-owhat="'+esc(what)+'">กำลังออกรหัส...</span>',msg='';
+  return '<div class="owner"><strong>โหมดแอดมิน</strong> เห็นฉบับละเอียดทุกดวงโดยไม่ต้องจ่าย<br>รหัสปลดล็อกของ'+what+'นี้สำหรับส่งลูกค้า: <strong style="font-size:22px;letter-spacing:3px">'+c+'</strong><br><button type="button" class="ghost" data-ocopy="">คัดลอกข้อความส่งลูกค้า</button> <button type="button" class="ghost" data-ooff="1">ปิดโหมดแอดมินในเครื่องนี้</button></div>'}
+function ownerFill(){[].forEach.call(document.querySelectorAll('span[data-okey]'),function(s){if(s.dataset.done)return;s.dataset.done='1';var k=s.getAttribute('data-okey'),w=s.getAttribute('data-owhat');
+  PLKPAY.adm(k).then(function(j){var c=j&&j.ok&&j.codes&&j.codes[k];if(!c){s.textContent=(j&&j.msg)||'ออกรหัสไม่ได้';return}s.textContent=c;
+    var bt=s.closest('.owner')&&s.closest('.owner').querySelector('button[data-ocopy]');if(bt)bt.setAttribute('data-ocopy','ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อก'+w+'คือ '+c+' ใส่ในช่องรหัสปลดล็อกได้เลยครับ')}).catch(function(){s.textContent='เชื่อมต่อหลังบ้านไม่ได้'})})}
 document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('button[data-ocopy],button[data-ooff]');if(!b)return;
   if(b.dataset.ooff){setOwnerH(false);location.reload();return}
   var t=b.dataset.ocopy;try{navigator.clipboard.writeText(t).then(function(){b.textContent='คัดลอกแล้ว'})}catch(_){}});
@@ -2161,7 +2212,7 @@ function render(){
   r+='</ul><p class="note">การแก้เคล็ดตามตำราช่วยผ่อนหนักเป็นเบา ไม่ได้ทำให้เรื่องหายไป</p>';
   r+='<p class="note">ตำแหน่งดาวคำนวณตามปฏิทินสุริยยาตร์ ลัคนาแบบอันโตนาทีสามัญ สมผุสอาทิตย์อุทัย ผลควรตรงกับ myhora</p>';
 
-  if(window.__U&&window.__U===unlockNum(c.key)){saveUnlock(c.key);window.__U=null}var M4=r.length,UL=isUnlocked(c.key);
+  if(window.__U){var __u=window.__U;window.__U=null;if(!isUnlocked(c.key)){var __bk=bundleKeyH();PLKPAY.check(String(c.key),__u,{alt:__bk?[__bk]:[]}).then(function(j){if(j&&j.ok){var f=document.getElementById('f');if(f.requestSubmit)f.requestSubmit();else f.dispatchEvent(new Event('submit',{cancelable:true}))}}).catch(function(){})}}var M4=r.length,UL=isUnlocked(c.key);
   var shortT=sec('s-topics','ดวงแต่ละด้าน (ย่อ)')+TD.map(function(t){return t.short}).join('')+(UL?'':'<p class="note">ฉบับละเอียดอ่านแต่ละด้านแบบ 2 จังหวะครบ พร้อมดาวที่เกี่ยวข้อง</p>');
   var free=r.slice(0,M0)+r.slice(M1,M2)+shortT+timeFree(c,A,QQ,UL)+y2570Html(c,A,QQ)+phoneBlock(c,QQ)+stockBlock(QQ);
   var paidX=r.slice(M0,M1)+r.slice(M2,M3).replace('id="s-topics">ดวงแต่ละด้าน','id="p-topics">ดวงแต่ละด้าน (เต็ม)')+r.slice(M3,M4);
@@ -2455,11 +2506,11 @@ function timeFree(c,A,QQ,UL){var TC=timeCalc(c,A),o='';
 
 
 /* ===== แพ็กรวม 999 จากเว็บวิเคราะห์ตัวเลข ===== */
-function plkCode(key){var s=String(key).replace(/\D/g,'')+'|plk-7Hq2-2569',h=2166136261>>>0;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}
+function plkCodeOld(key){var s=String(key).replace(/\D/g,'')+'|',h=2166136261>>>0;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}
   for(var k=0;k<3;k++){h^=h>>>13;h=Math.imul(h,0x5bd1e995)>>>0}return String(h%1000000).padStart(6,'0')}
 function bundleKeyH(){var d=(document.getElementById('date')||{}).value||'';var m=d.match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?'1'+m[3]+m[2]+(+m[1]+543):''}
-function bundleOnH(){var k=bundleKeyH();if(!k)return false;try{return JSON.parse(localStorage.getItem('plk_unlocked')||'[]').indexOf(k)>=0}catch(e){return false}}
-function bundleSaveH(){var k=bundleKeyH();if(!k)return;try{var a=JSON.parse(localStorage.getItem('plk_unlocked')||'[]');if(a.indexOf(k)<0){a.push(k);localStorage.setItem('plk_unlocked',JSON.stringify(a.slice(-30)))}}catch(e){}}
+function bundleOnH(){var k=bundleKeyH();if(!k)return false;return PLKPAY.unlocked(k)||PLKPAY.legacy(k)}
+function bundleSaveH(){}
 
 /* ===== รายงานดวงปี 2570 ===== */
 function y2570Html(c,A,QQ){
@@ -2894,7 +2945,7 @@ function pairRender(){
 })();
 
 document.getElementById('f').addEventListener('submit',function(e){
-  e.preventDefault();var err=document.getElementById('err');err.textContent='';
+  e.preventDefault();if(!PLKPAY.isReady()){PLKPAY.ready.then(function(){var f=document.getElementById('f');if(f.requestSubmit)f.requestSubmit();else f.dispatchEvent(new Event('submit',{cancelable:true}))});return}var err=document.getElementById('err');err.textContent='';
   var dv=document.getElementById('date').value,tv=document.getElementById('time').value;
   if(!dv){err.textContent='ใส่วันเกิดก่อน';return}if(!tv){err.textContent='ใส่เวลาเกิดก่อน ถ้าไม่ทราบให้ใส่เวลาใกล้เคียงที่สุด';return}
   var Y=+dv.slice(0,4),M=+dv.slice(5,7),D=+dv.slice(8,10),hh=+tv.slice(0,2),mm=+tv.slice(3,5);
