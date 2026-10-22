@@ -241,15 +241,18 @@ var PLKPAY=(function(){
   function sub(){return (window.crypto&&crypto.subtle)?crypto.subtle:null}
   function pk(){if(!keyP)keyP=sub().importKey("spki",bytes(PUB),{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},false,["verify"]);return keyP}
   function vf(p,s){try{return pk().then(function(k){return sub().verify("RSASSA-PKCS1-v1_5",k,bytes(s),new TextEncoder().encode(p))}).catch(function(){return false})}catch(e){return Promise.resolve(false)}}
-  function add(p,s){if(!sub()){OK[p]=1;var o0=ld(RC);o0[p]=s;sv(RC,o0);return Promise.resolve(true)} // เบราว์เซอร์ที่ตรวจลายเซ็นไม่ได้ เชื่อคำตอบจากหลังบ้านโดยตรง
+  var NOV=false,TS="hevaRhLQgabzzlpD0957xwrRr76aDh2aR9eR3gFWfA3b5kAp39/JgcfzbhZYAIzH4EUo99EVcN37TV+j+nk2DHEtOTq5ilu4Wif+dZwdKZ44l8yoNq2A97KYUwgPtlJX+1hGsjoeOQoQsIuebWcmBuBySjepOWeu+O1j3qYZg5H1yR/aVlAp5UVkhgI8gpI9jsazttktZpcXjQP1z4T3L/1ITcOlZGwMACq0KlcOq+s+RlqObTrL8Y822MzKFHkBsiI2UIvXZ8uUcIomBuJxK1yLuzbV6IEUI43/584tmaW3NqgcqzugnxLOFRFfmh/58tXLTkkaHX4XQJGPxGGodQ=="; // ลายเซ็นทดสอบ ใช้เช็กว่าเบราว์เซอร์นี้ตรวจลายเซ็นได้ไหม (เช่นเบราว์เซอร์ในแอป Facebook บางรุ่นตรวจไม่ได้)
+  function add(p,s){if(NOV||!sub()){OK[p]=1;var o0=ld(RC);o0[p]=s;sv(RC,o0);return Promise.resolve(true)} // เบราว์เซอร์ที่ตรวจลายเซ็นไม่ได้ เชื่อคำตอบจากหลังบ้านโดยตรง
     return vf(p,s).then(function(ok){if(ok){OK[p]=1;var o=ld(RC);o[p]=s;sv(RC,o)}return ok})}
-  var ready=(function(){var o=ld(RC),ks=Object.keys(o);if(!sub()){ks.forEach(function(p){OK[p]=1});rdy=true;return Promise.resolve()}if(!ks.length){rdy=true;return Promise.resolve()}
-    return Promise.all(ks.map(function(p){return vf(p,o[p]).then(function(ok){if(ok)OK[p]=1})})).then(function(){rdy=true},function(){rdy=true})})();
+  var ready=(function(){var o=ld(RC),ks=Object.keys(o);
+    return (sub()?vf("t|selftest",TS):Promise.resolve(false)).then(function(cv){NOV=!cv;if(NOV){ks.forEach(function(p){OK[p]=1});return}
+      return Promise.all(ks.map(function(p){return vf(p,o[p]).then(function(ok){if(ok)OK[p]=1})}))}).then(function(){rdy=true},function(){rdy=true})})();
   function call(b){var ac=window.AbortController?new AbortController():null,tm=ac?setTimeout(function(){ac.abort()},30000):0;
     return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(b),signal:ac?ac.signal:undefined})
     .then(function(r){clearTimeout(tm);return r.json()},function(e){clearTimeout(tm);return {ok:false,msg:"หลังบ้านตอบช้า ลองกดใหม่อีกครั้ง ถ้ายังไม่ได้ ลองเปิดเว็บใน Chrome หรือ Safari แทนแอป Facebook ครับ"}}).then(function(j){
       if(j&&j.ok===undefined&&!j.msg)return {ok:false,msg:"หลังบ้านยังไม่ได้อัปเดต ส่งสลิปทางไลน์ได้เลยครับ",old:1};return j});}
-  function absorb(j){if(!j||!j.ok)return Promise.resolve(j||{ok:false});
+  function absorb(j){if(!j||!j.ok)return Promise.resolve(j||{ok:false});return ready.then(function(){return absorb2(j)})}
+  function absorb2(j){
     if(j.key&&j.code){var c=ld(CD);c[j.key]=j.code;sv(CD,c)}
     if(j.pass&&j.pass.c){var q=ld(PS);q[j.pass.c]={n:j.pass.n,t:j.pass.t};sv(PS,q)}
     if(j.k){try{localStorage.setItem(EB,j.k)}catch(e){}}
