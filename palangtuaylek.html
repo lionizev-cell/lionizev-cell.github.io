@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="cfabae0fd30a4aab468d6c722599fbf7d47a1ca9">
+<meta name="plk-base" content="2871615025bc8da3bcbd5592b49d99b43a06a96d">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -2684,7 +2684,7 @@ function analyze(inp){
   const hit=[...new Set(pairs7.filter(v=>job[1].includes(v)||(inp.jobText&&jobFitV(String(v).padStart(2,"0"),inp.jobText)===1&&pairInfoG(v,inp.sex)[0]!=="b")))].map(v=>String(v).padStart(2,"0"));
   let jobNote=hit.length>=3?["g","เบอร์นี้หนุนงานของคุณดี มีคู่ "+hit.join(" ")+" ช่วยเรื่องงานโดยตรง"]:hit.length?["m","หนุนงานได้บ้าง มีคู่ "+hit.join(" ")+" แต่ยังไม่เด่นพอ"]:["b","เบอร์นี้ไม่มีคู่ที่หนุนอาชีพ"+esc(job[0])+"โดยตรง"];
   if(inp.job<0&&hit.length) jobNote=hit.length>=3?["g","ตามความหมายคู่เลข เบอร์นี้มีคู่ "+hit.join(" ")+" ที่เหมาะกับอาชีพ"+esc(job[0])]:["m","มีคู่ "+hit.join(" ")+" ที่เหมาะกับอาชีพ"+esc(job[0])+" แต่ยังไม่เด่นพอ"];
-  else if(inp.job<0) jobNote=["m",inp.jobText?"อาชีพนี้ผมยังไม่ได้จัดกลุ่มเลขไว้ในเว็บ ทักไลน์มา ผมดูให้ว่าเบอร์หนุนงานไหม":"ไม่ได้ใส่อาชีพ ระบบจึงยังดูไม่ได้ว่าเบอร์หนุนงานหรือไม่"];
+  else if(inp.job<0) jobNote=["m",inp.jobText?"อาชีพนี้ผมยังไม่ได้จัดกลุ่มเลขไว้ในเว็บ ทักไลน์มา ผมดูให้ว่าเบอร์หนุนงานไหม":"ไม่ได้ใส่อาชีพ ผมจึงยังดูไม่ได้ว่าเบอร์หนุนงานหรือไม่"];
   if(inp.job===0&&(n[3]*10+n[4]===87)) jobNote=["b","ตำแหน่งทรัพย์เป็น 87 พลังเหมาะคนคุมทีม ไม่เหมาะงานขายที่คุณทำอยู่"];
   const jfs=(inp.jobs&&inp.jobs.length>1?inp.jobs:[inp.job]).map(k=>{if(k<0)return null;const pc=jobPieceFor(inp.jobText,k)||JOBS[k][0];return jobFitPos({...inp,job:k,jobText:inp.jobs&&inp.jobs.length>1?pc:inp.jobText},{pos,ds,n});}).filter(Boolean);
   const jf=jfs.length>1?jobFitMerge(jfs):jfs[0]||null; if(jf) jobNote=[jf.g,jobFitShort(jf)+(hit.length?" มีคู่ "+hit.join(" ")+" ที่เกี่ยวกับงานนี้":"")];
@@ -3122,7 +3122,7 @@ function pairCard(p,r,inp){
 const dms=x=>Math.floor(x)+"°"+String(Math.floor((x%1)*60)).padStart(2,"0")+"'";
 function lagNote(inp,r){
   const L=r.c.calcLagna, sg=Math.floor(L/30), deg=L%30, calc="ราศี"+SIGNS[sg]+" "+dms(deg);
-  if(inp.lagOv>=0) return inp.lagOv===sg?` <span class="note">(ตรงกับที่ระบบคำนวณได้ ${calc})</span>`:` <span class="note">(ใช้ตามที่เลือกไว้ ระบบคำนวณได้${calc})</span>`;
+  if(inp.lagOv>=0) return inp.lagOv===sg?` <span class="note">(ตรงกับที่คำนวณได้ ${calc})</span>`:` <span class="note">(ใช้ตามที่เลือกไว้ คำนวณได้${calc})</span>`;
   let t=` <span class="note">${dms(deg)}`;
   if(deg>=26) t+=` ใกล้รอยต่อราศี${SIGNS[(sg+1)%12]} ถ้าเวลาเกิดคลาดเคลื่อนไม่กี่นาทีจะกลายเป็นราศี${SIGNS[(sg+1)%12]} ควรเช็กกับดวงที่ผูกไว้`;
   else if(deg<4) t+=` ใกล้รอยต่อราศี${SIGNS[(sg+11)%12]} ถ้าเวลาเกิดคลาดเคลื่อนไม่กี่นาทีจะกลายเป็นราศี${SIGNS[(sg+11)%12]} ควรเช็กกับดวงที่ผูกไว้`;
@@ -4142,7 +4142,7 @@ function rerkHtml(inp,r){
 }
 let DEEPSAVE=null;
 function deepSaveHtml(){
-  return `<section class="card sharebox"><h2>เก็บผลเจาะลึกไว้ดู</h2><p class="note" style="margin:0">ระบบทำเป็นรูปเก็บไว้ในเครื่อง เวลาไปเลือกเบอร์หรือตั้งรหัสจะได้เปิดดูได้ทันที</p>
+  return `<section class="card sharebox"><h2>เก็บผลเจาะลึกไว้ดู</h2><p class="note" style="margin:0">เว็บทำเป็นรูปเก็บไว้ในเครื่อง เวลาไปเลือกเบอร์หรือตั้งรหัสจะได้เปิดดูได้ทันที</p>
    <div class="btns"><button type="button" class="primary" id="dsave1">บันทึกคู่เลขและเบอร์ตัวอย่างเป็นรูป</button>${DEEPSAVE&&DEEPSAVE.pins.length?'<button type="button" class="ghost" id="dsave2">บันทึกรหัส 6 หลักเป็นรูป</button>':""}</div>
    <p class="note">รูปรหัส 6 หลักเก็บไว้ดูเองเท่านั้น ตั้งรหัสเสร็จแล้วควรลบรูปทิ้ง และอย่าส่งต่อให้ใคร</p></section>`;
 }
@@ -4594,7 +4594,7 @@ function slipToBase64(file){return new Promise((ok,no)=>{const fr=new FileReader
 async function thunderCheck(dataUrl,key,amount,chart){
   try{const raw=String(dataUrl).replace(/^data:image\/\w+;base64,/,"");const j=await PLKPAY.slip(String(key),raw,{chart:chart||"",site:"num"});
     return j&&j.ok?{ok:true,code:j.code}:{ok:false,msg:(j&&j.msg)||"ตรวจสลิปไม่ผ่าน"};}
-  catch(e){return {ok:false,msg:"เชื่อมต่อระบบตรวจสลิปไม่ได้"};}
+  catch(e){return {ok:false,msg:"ตอนนี้ตรวจสลิปไม่ได้"};}
 }
 // กล่อง 399: บอกให้เห็นว่าผลเจาะลึกของคนนี้มีอะไร คำนวณจากดวงและเบอร์จริง ไม่เปิดเลขให้ดู
 function payTeaserHtml(inp,r){
@@ -4792,7 +4792,7 @@ function render(inp,r,isSample){
   const tailGood=[...new Set(r.n.slice(6).filter(d=>r.ds.cls[d]==="g"))];
   const strongD=good.join(" "), weakD=bad.join(" ");
   let chartLine="เลขพลังดีที่ควรมีในเบอร์ของ"+who+"คือ "+(strongD||"ไม่มีตัวที่เด่นชัด")+" ส่วนเลขพลังอ่อนคือ "+(weakD||"ไม่มี")+" เลขพลังอ่อนควรร้อยเรียงอย่างระวัง ถ้าประกบคู่กับเลขพลังดีเป็นคู่ดี และวางในตำแหน่งดี ก็ร้อยเรียงให้กลายเป็นเลขดีได้";
-  const unk=inp.notime?`<p class="note">ไม่ทราบเวลาเกิด ระบบใช้เวลา 06:00 ลัคนาจึงเป็นค่าโดยประมาณ</p>`:"";
+  const unk=inp.notime?`<p class="note">ไม่ทราบเวลาเกิด ผมใช้เวลา 06:00 ลัคนาจึงเป็นค่าโดยประมาณ</p>`:"";
   const NM=analyzeName(inp,r);
   const CTA=`<section class="cta">
     <h2>${r.s1000>=700&&r.band[0]!=="b"?"มีคำถามเรื่องเบอร์นี้ คุยกับผมได้":"อยากได้เบอร์ที่ใช่สำหรับคุณ"}</h2>
@@ -4854,7 +4854,7 @@ function render(inp,r,isSample){
         if(j.ok&&j.code===unlockCode(inp.phone)){st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ "+j.code+" แคปหน้าจอหรือจดเก็บไว้ ใช้เปิดผลเบอร์นี้อีกครั้งได้ แม้เปลี่ยนมือถือ";
           $("ucode").value=j.code; cntHit("slip-ok"); cntHit("pay-phone"); openDeep(true);}
         else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
-      }catch(err){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
+      }catch(err){st.style.color="var(--bad)";st.textContent="ตอนนี้ตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
     };
   }
   $("sendslip").onclick=()=>{const t="โอนค่าวิเคราะห์เจาะลึก "+PAY.amount+" บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อกของเบอร์ "+inp.phone+" (แนบสลิป)";
@@ -5490,7 +5490,7 @@ function nameDetailHtml(inp,nm,ds,opt){
    <li><b>ไม่ควรขึ้นต้นด้วย</b> ${LETW(nbAt(base,2))}</li>
    <li><b>ไม่ควรมีในชื่อเลย</b> ${LETW(nbAt(base,7))} ซึ่งเป็นอักษรกาลกิณีของคนเกิดวัน${nm.day}</li>
    <li><b>ผลรวมตัวเลขของชื่อที่ดี</b> ${sums.join(" ")||"ทักไลน์ให้ผมดู"}</li></ul>
-   <p class="note">ชื่อที่ดีต้องผ่านทั้งอักษรตัวแรกและผลรวมตัวเลข คิดชื่อได้แล้วพิมพ์ลงช่องชื่อด้านบนแล้วกดวิเคราะห์ได้เลย ระบบจะตรวจให้ทุกข้อ ถ้าอยากให้ผมคิดชื่อให้ แอดไลน์มาได้เลยครับ</p></section>`);
+   <p class="note">ชื่อที่ดีต้องผ่านทั้งอักษรตัวแรกและผลรวมตัวเลข คิดชื่อได้แล้วพิมพ์ลงช่องชื่อด้านบนแล้วกดวิเคราะห์ได้เลย ผมจะตรวจให้ทุกข้อ ถ้าอยากให้ผมคิดชื่อให้ แอดไลน์มาได้เลยครับ</p></section>`);
   if(opt.split) return [nameSuggestHtml(inp,bk,ds),surnameSuggestHtml(inp,bk),fullNameSuggestHtml(inp,bk,ds)].join("")+out.join("")+techCard;
   if(!opt.biz&&typeof TH_NAMES!=="undefined") out.unshift(nameSuggestHtml(inp,bk,ds),surnameSuggestHtml(inp,bk),fullNameSuggestHtml(inp,bk,ds));
   if(opt.biz) out.unshift(techCard); else out.push((opt.tail||"")+techCard);
@@ -5666,7 +5666,7 @@ function renderMode(inp){
     <div class="num" style="font-size:28px;letter-spacing:2px;text-align:center;font-family:var(--f-mono)">${showNum}</div>
     <div class="verdict"><div class="score">${score} / 100</div><div><span class="pill ${band[0]}">${band[1]}</span></div></div>
     <div class="easy"><h3 class="sub">สรุป</h3><p class="para">${summary.join(" ")}</p>${chartBox}</div></section>
-  <section class="card"><h2>หลักการอ่าน${K.name}</h2><p class="para">${K.lead}</p>${MODE==="idcard"||MODE==="bank"?`<p class="note">ระบบคำนวณในเครื่องของคุณเท่านั้น ไม่ได้ส่งหรือเก็บเลข${MODE==="bank"?"บัญชี":"บัตร"}ไว้ที่ไหน</p>`:""}</section>
+  <section class="card"><h2>หลักการอ่าน${K.name}</h2><p class="para">${K.lead}</p>${MODE==="idcard"||MODE==="bank"?`<p class="note">ทุกอย่างคำนวณในเครื่องของคุณเท่านั้น ไม่ได้ส่งหรือเก็บเลข${MODE==="bank"?"บัญชี":"บัตร"}ไว้ที่ไหน</p>`:""}</section>
   <section class="card"><h2>ผลรวม ${sum}</h2>${letterChips}<p class="para">${sumLine}</p>
     <p><span class="pill ${si[0]}">${GL[si[0]]}</span> <b>${si[1]}</b> ${si[2]}${si[3]?" "+si[3]:""}</p>
     <p class="note">ตัวเลขในผลรวม ${String(sum).split("").map(d=>d+" "+DL[ds.cls[+d]]).join(" ")} ในดวงคุณ${sum>=10?wkNote(sum,si[0],ds.cls,si[3]):""}</p></section>
@@ -5795,7 +5795,7 @@ function nameTeaserHtml(inp,nm,ds){
   if(!total) return {html:"",paid:false};
   const top=fs.length?fs[0].score:0, hi=fs.filter(x=>x.score>=950).length;
   const f=ns[0];
-  const lead=nm.score>=800?`ชื่อเดิมของคุณดีอยู่แล้ว ไม่จำเป็นต้องเปลี่ยน ส่วนนี้สำหรับคนที่อยากเห็นทางเลือกที่ดีกว่าเดิม`:`ระบบคัดชื่อที่เหมาะกับดวงคุณไว้ให้แล้ว ทุกชื่อผ่านครบทุกข้อ`;
+  const lead=nm.score>=800?`ชื่อเดิมของคุณดีอยู่แล้ว ไม่จำเป็นต้องเปลี่ยน ส่วนนี้สำหรับคนที่อยากเห็นทางเลือกที่ดีกว่าเดิม`:`ผมคัดชื่อที่เหมาะกับดวงคุณไว้ให้แล้ว ทุกชื่อผ่านครบทุกข้อ`;
   const blur=(fs.length?fs.slice(0,5):ns.slice(1,6)).map(x=>`<li class="sgn tz"><b>●●●●● ●●●●●</b><span class="note">${x.score?"คะแนน "+x.score+" / 1000":"ผ่านครบทุกข้อ"}</span></li>`).join("");
   return {paid:true,html:`<section class="card"><h2>ชื่อและนามสกุลที่เหมาะกับดวงคุณ</h2>
    <p class="para">${lead}</p>
@@ -5850,7 +5850,7 @@ function bindNamePay(inp,key,open){
         j=await thunderCheck(b64,key);
         if(j.ok&&j.code===unlockCode(key)){st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ "+j.code+" (เก็บไว้ใช้เปิดดูอีกครั้ง)";$("nucode").value=j.code;markUnlocked(key);cntHit("slip-ok");cntHit("pay-name");open(true);}
         else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
-      }catch(err){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}};
+      }catch(err){st.style.color="var(--bad)";st.textContent="ตอนนี้ตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}};
   }
   $("nsendslip").onclick=()=>{const t="โอนค่าวิเคราะห์ชื่อแบบละเอียด "+PAY.amount+" บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อก วันเกิด "+pad(inp.d)+"/"+pad(inp.m)+"/"+(inp.y<2400?inp.y+543:inp.y)+" (แนบสลิป)";
     const done=()=>{$("nslipok").hidden=false;setTimeout(()=>{location.href=CONFIG.chatUrl;},700);};
@@ -6021,7 +6021,7 @@ function renderBiz(inp,ch,ds,cta){
     <div class="num" style="font-size:26px;text-align:center;font-family:var(--f-display)">${esc(shop)}</div>
     <div class="verdict"><div><span class="pill ${nm.verdict[0]}">${nm.verdict[1]}</span></div></div>
     <p class="note">ตามตำรา ชื่อกิจการต้องดูจากดวงของวันเวลาที่เปิดร้านหรือจดทะเบียนบริษัท ไม่ได้ใช้ดวงของเจ้าของ</p>
-    ${unk.length?`<p class="note">ตัวอักษรภาษาอังกฤษและตัวเลขในชื่อ ระบบไม่นำมาคิด ใช้เฉพาะตัวอักษรไทย</p>`:""}
+    ${unk.length?`<p class="note">ตัวอักษรภาษาอังกฤษและตัวเลขในชื่อ ผมไม่นำมาคิด ใช้เฉพาะตัวอักษรไทย</p>`:""}
     ${nm.notes.map(n=>`<p><span class="pill ${n[0]}">${n[0]==="g"?"ส่ง":n[0]==="b"?"ระวัง":"รู้ไว้"}</span> ${esc(n[1])}</p>`).join("")}
     ${sriNote?`<p class="para">${sriNote}</p>`:""}</section>
     ${nm.fs?`<section class="card"><h2>เลขศาสตร์ของชื่อร้าน ${nm.fs.sum}</h2><div class="lts">${nm.F.parts.map(([c,v])=>`<span class="lt"><b>${esc(c)}</b><small>${v}</small></span>`).join("")}</div><p><span class="pill ${nm.fs.info[0]}">${GL[nm.fs.info[0]]}</span> <b>${nm.fs.info[5]||nm.fs.info[1]}</b> ${nm.fs.info[6]||nm.fs.info[2]}</p></section>`:""}
@@ -6081,7 +6081,7 @@ function admStockUI(){
    <div class="admadd"><label>เบอร์<input id="asph" inputmode="numeric" maxlength="12" placeholder="0812345678"></label><label>ราคา<input id="aspr" inputmode="numeric" maxlength="7" placeholder="2990"></label>
     <label>เครือข่าย<select id="asnet"><option>AIS ระบบเติมเงิน</option><option>True ระบบเติมเงิน</option><option>Dtac ระบบเติมเงิน</option></select></label>
     <label>หมายเหตุ (ไม่ใส่ก็ได้)<input id="asnote" maxlength="60"></label><button type="button" class="primary" id="asadd">เพิ่มเบอร์</button><p class="err" id="aserr" hidden></p></div>
-   <details class="libd"><summary>นำเข้าเบอร์ฝากขายจากลูกค้า</summary><p class="note">คัดลอกข้อความฝากขายที่ลูกค้าส่งมาทางไลน์ทั้งข้อความ มาวางที่นี่ ระบบจะกรอกช่องด้านบนให้ ปรับราคาขายได้ก่อนกดเพิ่มเบอร์</p><textarea id="csin" rows="4" style="width:100%"></textarea><button type="button" class="ghost" id="csimp">นำเข้า</button><p class="para" id="csinfo"></p></details>
+   <details class="libd"><summary>นำเข้าเบอร์ฝากขายจากลูกค้า</summary><p class="note">คัดลอกข้อความฝากขายที่ลูกค้าส่งมาทางไลน์ทั้งข้อความ มาวางที่นี่ เว็บจะกรอกช่องด้านบนให้ ปรับราคาขายได้ก่อนกดเพิ่มเบอร์</p><textarea id="csin" rows="4" style="width:100%"></textarea><button type="button" class="ghost" id="csimp">นำเข้า</button><p class="para" id="csinfo"></p></details>
    <ul class="admlist">${ADMS.map((r,i)=>`<li class="${r[4]===1?"sold":""}"><div><b>${fmt(r[0])}</b><span class="note">${(+r[1]).toLocaleString("th-TH")} บาท ${esc(r[2])}${r[3]?" "+esc(r[3]):""} <b>${({ok:"ว่าง",rsv:"จองแล้ว",sold:"ขายแล้ว"})[stockState(r)]}</b></span></div><div class="admbt"><button type="button" data-pr="${i}">แก้ราคา</button><button type="button" data-lnk="${r[0]}">ลิงก์</button><button type="button" data-sold="${i}">${({ok:"ติดจอง",rsv:"ขายแล้ว",sold:"ปล่อยว่าง"})[stockState(r)]}</button><button type="button" data-del="${i}">ลบ</button></div></li>`).join("")}</ul>
    <div class="btns"><button type="button" class="primary" id="assave">บันทึกขึ้นเว็บ</button><button type="button" class="ghost" id="asdl">ดาวน์โหลดไฟล์ stock.json</button></div>
    <p class="para" id="asst" aria-live="polite"></p>
@@ -6332,7 +6332,7 @@ function consignRender(){
   const el=$("consignpage"); if(el.dataset.built) return;
   el.innerHTML=`<div><a href="#stock" class="libback">กลับไปสต็อกเบอร์</a></div>
   <section class="card"><h2 id="hcons">ฝากขายเบอร์ของคุณ</h2>
-   <div class="prose"><p>มีเบอร์สวยที่ไม่ได้ใช้ หรืออยากขายต่อ ฝากผมลงขายในเว็บและเพจได้ ใส่ข้อมูลด้านล่าง ระบบจะอ่านความหมายเบอร์ให้ก่อน แล้วกดส่งให้ผมทางไลน์ ผมจะเป็นคนลงเบอร์ในสต็อกให้เอง</p>
+   <div class="prose"><p>มีเบอร์สวยที่ไม่ได้ใช้ หรืออยากขายต่อ ฝากผมลงขายในเว็บและเพจได้ ใส่ข้อมูลด้านล่าง ผมจะอ่านความหมายเบอร์ให้ก่อน แล้วกดส่งให้ผมทางไลน์ ผมจะเป็นคนลงเบอร์ในสต็อกให้เอง</p>
    <p class="csfee"><b>เงื่อนไข รับฝากขายเฉพาะเบอร์ระบบเติมเงินที่ไม่ติดสัญญารายเดือนเท่านั้น</b> ถ้าเบอร์ยังติดสัญญาหรือเป็นรายเดือน ให้ย้ายเป็นระบบเติมเงินและปิดสัญญาให้เรียบร้อยก่อน</p>
    <p class="csfee"><b>ค่าบริการ 10% จากราคาขาย</b> หักเมื่อขายได้เท่านั้น ถ้ายังขายไม่ได้ ไม่มีค่าใช้จ่าย</p>
    <p class="note">${gfInfo()?"กดลงขายแล้วเบอร์ขึ้นหน้าสต็อกได้เลย ผู้ซื้อติดต่อผ่านเพจ ผมเป็นคนประสานให้ ชื่อและช่องทางติดต่อของคุณจะไม่แสดงบนเว็บ":"ผมจะตรวจเบอร์และคุยรายละเอียดกับคุณทางไลน์ก่อนลงขายทุกเบอร์ ข้อมูลติดต่อของคุณจะไม่แสดงบนเว็บ"}</p></div></section>
@@ -6373,7 +6373,7 @@ function consignRender(){
         catch(e){b.disabled=false;$("csgfst").textContent="ส่งไม่สำเร็จ ลองใหม่อีกครั้ง หรือทักไลน์มาที่เพจ";}};
       $("csout").scrollIntoView({behavior:"smooth",block:"start"});return;}
     $("csout").innerHTML=`<section class="card"><h2>ความหมายเบอร์ ${fmt}</h2>${stockMeaning(ph)}</section>
-     <section class="cta"><h2>ส่งฝากขายให้ผม</h2><p class="csfee">ขายได้ ${pr.toLocaleString("th-TH")} บาท หักค่าบริการ 10% (${fee.toLocaleString("th-TH")} บาท) คุณจะได้รับ <b>${net.toLocaleString("th-TH")} บาท</b></p><p>กดปุ่มด้านล่าง ระบบจะคัดลอกข้อมูลเบอร์ของคุณ แล้วเปิดไลน์ของผม วางข้อความในแชตแล้วกดส่งได้เลย</p>
+     <section class="cta"><h2>ส่งฝากขายให้ผม</h2><p class="csfee">ขายได้ ${pr.toLocaleString("th-TH")} บาท หักค่าบริการ 10% (${fee.toLocaleString("th-TH")} บาท) คุณจะได้รับ <b>${net.toLocaleString("th-TH")} บาท</b></p><p>กดปุ่มด้านล่าง เว็บจะคัดลอกข้อมูลเบอร์ของคุณ แล้วเปิดไลน์ของผม วางข้อความในแชตแล้วกดส่งได้เลย</p>
       <div class="btns"><button type="button" id="cssend">คัดลอกข้อมูลแล้วเปิดไลน์</button></div><p class="note" id="csdone" hidden>คัดลอกแล้ว วางในแชตไลน์แล้วกดส่งได้เลย</p>
       <details class="libd"><summary>ดูข้อความที่จะส่ง</summary><pre class="cspre">${esc(msg)}</pre></details></section>`;
     $("cssend").onclick=()=>{cntHit("consign");const done=()=>{$("csdone").hidden=false;setTimeout(()=>{location.href=CONFIG.chatUrl;},700);};
@@ -6481,7 +6481,7 @@ async function thunderCheckAmt(dataUrl,amount){const AMTX=amount;
     else if(/account/i.test(m)) msg="บัญชีผู้รับในสลิปไม่ใช่บัญชีของร้าน";
     else if(/amount/i.test(m)) msg="ยอดเงินในสลิปไม่ตรงกับราคาเบอร์ "+amount.toLocaleString("th-TH")+" บาท";
     else if(/qr|not found|invalid/i.test(m)) msg="อ่าน QR บนสลิปไม่ได้ ใช้ไฟล์สลิปจากแอปธนาคารโดยตรง";
-    else if(/quota|limit|credit|unauthor|401|403/i.test(m)) msg="ระบบตรวจสลิปขัดข้องชั่วคราว ทักไลน์ส่งสลิปมาได้เลย";
+    else if(/quota|limit|credit|unauthor|401|403/i.test(m)) msg="ตรวจสลิปขัดข้องชั่วคราว ทักไลน์ส่งสลิปมาได้เลย";
     return {ok:false,msg};}
   const d=res.data||{}, rs=d.rawSlip||{}, amt=Number(rs.amount&&rs.amount.amount)||0;
   if(d.isDuplicate) return {ok:false,msg:"สลิปนี้เคยใช้แล้ว"};
@@ -6517,9 +6517,9 @@ function buyWire(box){
   q("nm").oninput=chk; q("ct").oninput=chk; q("ad").oninput=chk;
   go.onclick=async()=>{const ph=go.dataset.buygo, price=+go.dataset.price, st=q("st");
     if(stockState(STOCK.find(r=>String(r[0]).replace(/\D/g,"")===ph)||[ph,price])!=="ok"){st.textContent="เบอร์นี้มีคนจองไปแล้ว";return;}
-    if(!CONFIG.thunderKey&&!CONFIG.slipApi){st.textContent="ระบบตรวจสลิปยังไม่เปิด ทักไลน์ส่งสลิปมาได้เลย";return;}
+    if(!CONFIG.thunderKey&&!CONFIG.slipApi){st.textContent="ตรวจสลิปผ่านเว็บยังไม่เปิด ทักไลน์ส่งสลิปมาได้เลย";return;}
     go.disabled=true; st.style.color=""; st.textContent="กำลังตรวจสลิป...";
-    let r; try{r=await thunderCheckAmt(await slipToBase64(q("slip").files[0]),price);}catch(e){r={ok:false,msg:"เชื่อมต่อระบบตรวจสลิปไม่ได้ ลองใหม่อีกครั้ง หรือทักไลน์ส่งสลิปมา"};}
+    let r; try{r=await thunderCheckAmt(await slipToBase64(q("slip").files[0]),price);}catch(e){r={ok:false,msg:"ตอนนี้ตรวจสลิปไม่ได้ ลองใหม่อีกครั้ง หรือทักไลน์ส่งสลิปมา"};}
     if(!r.ok){st.style.color="var(--bad)";st.textContent=r.msg;go.disabled=false;return;}
     rsvMark(ph); cntHit("buy");
     const fmt=ph.slice(0,3)+"-"+ph.slice(3,6)+"-"+ph.slice(6);
@@ -7004,7 +7004,7 @@ function whyRender(){
   </section>
 
   <section class="card"><h2>อยากรู้ว่าเบอร์ของคุณเข้ากับดวงไหม</h2>
-   <div class="prose"><p>กลับไปหน้าแรก ใส่วันเวลาเกิดและเบอร์ของคุณ ระบบจะผูกดวง หาเลขพลังดีและเลขพลังอ่อนของคุณ แล้วอ่านเบอร์ทีละตำแหน่งให้ทันที</p></div>
+   <div class="prose"><p>กลับไปหน้าแรก ใส่วันเวลาเกิดและเบอร์ของคุณ ผมจะผูกดวง หาเลขพลังดีและเลขพลังอ่อนของคุณ แล้วอ่านเบอร์ทีละตำแหน่งให้ทันที</p></div>
    <div class="btns" style="margin-top:10px"><a href="#" class="libback">วิเคราะห์เบอร์ของฉัน</a></div>
   </section>
   <div><a href="#" class="libback">กลับไปวิเคราะห์เบอร์</a></div>`;
@@ -7240,17 +7240,17 @@ function kaliRender(){
   </div></section>
   <section class="card"><h2>ตารางอักษรกาลกิณีตามวันเกิด</h2>
    <ul class="pairs">${DAYS_ORDER.map(row).join("")}</ul>
-   <p class="note">ตารางนี้คำนวณจากหลักทักษาชุดเดียวกับที่ระบบวิเคราะห์ชื่อในเว็บใช้</p></section>
+   <p class="note">ตารางนี้คำนวณจากหลักทักษาชุดเดียวกับที่ผมใช้วิเคราะห์ชื่อในเว็บ</p></section>
   <section class="card"><h2>วันเกิดแบบไทย นับต่างจากปฏิทิน</h2><div class="prose">
    ${P("<b>เกิดก่อนพระอาทิตย์ขึ้น</b> ตำราไทยนับเป็นวันก่อนหน้า เช่น เกิดวันพฤหัสบดีตอนตีห้า ก่อนพระอาทิตย์ขึ้น จะนับเป็นคนเกิดวันพุธกลางคืน")}
    ${P("<b>วันพุธแบ่งเป็นสองช่วง</b> เกิดตั้งแต่หกโมงเย็นวันพุธจนถึงก่อนพระอาทิตย์ขึ้นวันพฤหัสบดี นับเป็นพุธกลางคืน ใช้ดาวราหูเป็นดาววันเกิด อักษรกาลกิณีจึงต่างจากคนเกิดพุธกลางวัน")}
-   ${P("ถ้าไม่แน่ใจว่าตัวเองเกิดวันอะไรแบบไทย ใส่วันเวลาเกิดในช่องวิเคราะห์ชื่อ ระบบจะคำนวณให้เอง")}
+   ${P("ถ้าไม่แน่ใจว่าตัวเองเกิดวันอะไรแบบไทย ใส่วันเวลาเกิดในช่องวิเคราะห์ชื่อ เว็บจะคำนวณให้เอง")}
   </div></section>
   <section class="card"><h2>ชื่อมีอักษรกาลกิณีแล้ว ต้องเปลี่ยนไหม</h2><div class="prose">
    ${P("<b>ถ้าอักษรกาลกิณีอยู่เป็นตัวแรกของชื่อ</b> ผมแนะนำให้เปลี่ยน เพราะอักษรตัวแรกส่งผลแรงที่สุด ตำราห้ามข้อนี้ชัดเจน")}
    ${P("<b>ถ้าอยู่ตำแหน่งอื่นในชื่อ</b> ผลดีของชื่อจะลดลง แต่ไม่ถึงขั้นต้องเปลี่ยนเพราะข้อนี้ข้อเดียว ต้องดูภาพรวมทั้งชื่อ ทั้งอักษรตัวแรก ผลรวม และพลังแฝง")}
    ${P("<b>ถ้าอยู่ในนามสกุล</b> ส่งผลน้อยกว่าในชื่อจริง เพราะนามสกุลเป็นของทั้งครอบครัว")}
-   ${P("อยากรู้ว่าชื่อของคุณผ่านไหม กดปุ่มด้านล่างแล้วใส่ชื่อกับวันเวลาเกิด ระบบตรวจให้ครบทุกข้อ")}
+   ${P("อยากรู้ว่าชื่อของคุณผ่านไหม กดปุ่มด้านล่างแล้วใส่ชื่อกับวันเวลาเกิด ผมตรวจให้ครบทุกข้อ")}
   </div><div class="btns"><a href="#" class="libback" data-gomode="name">ตรวจชื่อของฉัน</a><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener">ให้ผมช่วยตั้งชื่อ</a></div></section>`;
   el.insertAdjacentHTML("beforeend",`<section class="card"><h2>แชร์บทความนี้</h2>${shareBar("kali")}</section>`+relatedHtml("kali"));
   el.dataset.built=1;
@@ -7500,12 +7500,12 @@ function policyRender(){
     <li>ได้ซิมแล้ว การลงทะเบียนซิมหรือย้ายค่าย ผมแนะนำทุกขั้นตอน ติดตรงไหนทักถามได้ตลอด</li>
    </ol></section>
   <section class="card"><h2>วิเคราะห์เจาะลึก 399 บาท</h2>
-   <p class="para">โอนแล้วอัปสลิป ระบบปลดล็อกผลเจาะลึกให้ทันที ถ้าเปิดผลไม่ได้ ทักไลน์มาพร้อมสลิป ผมแก้ให้ ถ้าแก้ไม่ได้ คืนเงินเต็มจำนวน</p></section>
+   <p class="para">โอนแล้วอัปสลิป ผลเจาะลึกเปิดให้ทันที ถ้าเปิดผลไม่ได้ ทักไลน์มาพร้อมสลิป ผมแก้ให้ ถ้าแก้ไม่ได้ คืนเงินเต็มจำนวน</p></section>
   <section class="card"><h2>ติดต่อผม</h2>
    <p class="para">ตอบไลน์ทุกวัน 9.00 ถึง 21.00 น.</p>
    <div class="btns"><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener">แอดไลน์ ความลับพลังตัวเลข</a></div></section>
   <section class="card"><h2>ข้อมูลส่วนตัวของคุณ</h2>
-   <p class="para">การวิเคราะห์ทุกแบบคำนวณในเครื่องของคุณเอง วันเกิด ชื่อ และเบอร์ที่คุณกรอกไม่ถูกส่งออกไปที่ไหน ระบบจำวันเกิดกับอาชีพไว้ในมือถือของคุณเพื่อไม่ต้องกรอกใหม่ กดล้างได้ใต้ปุ่มวิเคราะห์ ข้อมูลจะถึงผมเฉพาะตอนที่คุณส่งเอง เช่น กดส่งผลทางไลน์ ส่งฝากขายเบอร์ กรอกที่อยู่ส่งซิม หรืออัปสลิปเพื่อตรวจการโอน และผมใช้ข้อมูลนั้นเพื่องานที่คุณขอเท่านั้น</p></section>
+   <p class="para">การวิเคราะห์ทุกแบบคำนวณในเครื่องของคุณเอง วันเกิด ชื่อ และเบอร์ที่คุณกรอกไม่ถูกส่งออกไปที่ไหน เว็บจำวันเกิดกับอาชีพไว้ในมือถือของคุณเพื่อไม่ต้องกรอกใหม่ กดล้างได้ใต้ปุ่มวิเคราะห์ ข้อมูลจะถึงผมเฉพาะตอนที่คุณส่งเอง เช่น กดส่งผลทางไลน์ ส่งฝากขายเบอร์ กรอกที่อยู่ส่งซิม หรืออัปสลิปเพื่อตรวจการโอน และผมใช้ข้อมูลนั้นเพื่องานที่คุณขอเท่านั้น</p></section>
   <section class="card"><h2>ข้อควรรู้</h2>
    <p class="para">การวิเคราะห์ตัวเลขและพื้นดวงเป็นศาสตร์ความเชื่อ ใช้ประกอบการตัดสินใจ ไม่ใช่การรับประกันผล เบอร์ที่ดีช่วยหนุน แต่ผลจริงยังขึ้นกับการกระทำของคุณเองด้วย</p></section>
   <div><a href="#" class="libback">กลับไปวิเคราะห์เบอร์</a></div>`;
@@ -7688,7 +7688,7 @@ function stockRender(){
   if(!el.dataset.built){
     el.innerHTML=`<div><a href="#" class="libback">กลับไปวิเคราะห์เบอร์</a></div>
     <section class="card"><h2 id="hstock">สต็อกเบอร์ที่ลงขาย</h2>
-     <div class="prose"><p>เบอร์ที่ผมคัดและลงขายในเพจ กดปุ่ม "ดูว่าเข้ากับดวงไหม" แล้วระบบจะนำเบอร์ไปวิเคราะห์กับข้อมูลวันเกิดที่คุณกรอกในหน้าแรกทันที</p>
+     <div class="prose"><p>เบอร์ที่ผมคัดและลงขายในเพจ กดปุ่ม "ดูว่าเข้ากับดวงไหม" แล้วผมจะนำเบอร์ไปวิเคราะห์กับข้อมูลวันเกิดที่คุณกรอกในหน้าแรกทันที</p>
      <p class="note">สนใจเบอร์ไหนทักไลน์มาได้เลย เบอร์มีจำนวนจำกัด ไม่รับจอง ชำระเต็มจำนวนเท่านั้น ส่งซิมฟรีทั่วประเทศ <a href="#policy" class="flink">ดูขั้นตอนซื้อ</a></p></div></section>
     <section class="card libtools">
      <div class="libfil stcat" role="group" aria-label="หมวดเบอร์">${[["all","ทั้งหมด"],["luck","เบอร์มงคล"],["pretty","เบอร์สวย"]].map(([v,t])=>`<button type="button" data-c="${v}" aria-pressed="${v===stockCat}">${t} <span class="stcn" data-cn="${v}"></span></button>`).join("")}</div>
@@ -8542,7 +8542,7 @@ const JOB_CHIP=[["ค้าขาย ขายออนไลน์","ค้า�
 function jobHint(){const el=$("job"),h=$("jobhint"),box=$("jobchips"); if(!el||!h) return; const v=el.value.trim(), ks=matchJobs(v);
   if(box){box.querySelectorAll("button[data-k]").forEach(b=>b.setAttribute("aria-pressed",String(ks.includes(+b.dataset.k))));if(box.querySelector(".jx[aria-pressed=true]")&&!box.classList.contains("all")){const m=box.querySelector(".jmore");if(m)m.click();}}
   const unk=jobPieces(v).filter(x=>!jobSpans(x).length);
-  h.textContent=!v?"ถ้าไม่มีอาชีพของคุณในปุ่ม พิมพ์เองในช่องด้านบนได้เลย ทำหลายงานก็เลือกหรือพิมพ์ได้หลายอาชีพ":ks.length>1?"ระบบอ่านเป็น "+ks.length+" อาชีพ: "+ks.map(k=>JOBS[k][0]).join(" และ ")+(unk.length?" (ยังไม่รู้จัก: "+unk.join(", ")+")":""):ks.length?"ระบบอ่านเป็นกลุ่ม "+JOBS[ks[0]][0]+(unk.length?" (ยังไม่รู้จัก: "+unk.join(", ")+")":"")+" แตะเพิ่มได้ถ้าทำหลายงาน":"ระบบยังไม่รู้จักอาชีพนี้ ใช้วิเคราะห์ได้ตามปกติ แต่ถ้าแตะเลือกกลุ่มที่ใกล้ที่สุดเพิ่ม ผลเรื่องงานจะแม่นขึ้น";}
+  h.textContent=!v?"ถ้าไม่มีอาชีพของคุณในปุ่ม พิมพ์เองในช่องด้านบนได้เลย ทำหลายงานก็เลือกหรือพิมพ์ได้หลายอาชีพ":ks.length>1?"อ่านเป็น "+ks.length+" อาชีพ: "+ks.map(k=>JOBS[k][0]).join(" และ ")+(unk.length?" (ยังไม่รู้จัก: "+unk.join(", ")+")":""):ks.length?"อ่านเป็นกลุ่ม "+JOBS[ks[0]][0]+(unk.length?" (ยังไม่รู้จัก: "+unk.join(", ")+")":"")+" แตะเพิ่มได้ถ้าทำหลายงาน":"ยังไม่รู้จักอาชีพนี้ ใช้วิเคราะห์ได้ตามปกติ แต่ถ้าแตะเลือกกลุ่มที่ใกล้ที่สุดเพิ่ม ผลเรื่องงานจะแม่นขึ้น";}
 function jobChipsInit(){const box=$("jobchips"); if(!box||box.dataset.w) return; box.dataset.w=1;
   box.innerHTML=JOB_CHIP.map(([lab,kw],i)=>`<button type="button" data-k="${matchJob(kw)}" data-kw="${kw}" aria-pressed="false"${i>=6?' class="jx"':""}>${lab}</button>`).join("")+`<button type="button" class="jmore" aria-expanded="false">ดูอาชีพทั้งหมด</button>`;
   box.onclick=e=>{const b=e.target.closest("button"); if(!b) return; if(b.classList.contains("jmore")){const on=box.classList.toggle("all");b.setAttribute("aria-expanded",String(on));b.textContent=on?"ย่ออาชีพ":"ดูอาชีพทั้งหมด";return;} const el=$("job"), k=+b.dataset.k;
@@ -8628,7 +8628,7 @@ function bindPayKit(P,key,open,lineMsg){
       try{const b64=await slipToBase64(f);const j=await thunderCheck(b64,key,PK[P].amount);
         if(j.ok&&j.code===unlockCode(key)){st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ "+j.code+" (เก็บไว้ใช้เปิดดูอีกครั้ง)";$(P+"ucode").value=j.code;markUnlocked(key);cntHit("slip-ok");cntHit("pay-"+PK[P].cnt);open(true);}
         else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
-      }catch(err){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}};
+      }catch(err){st.style.color="var(--bad)";st.textContent="ตอนนี้ตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}};
   }
   $(P+"sendslip").onclick=()=>{const t=lineMsg;const done=()=>{$(P+"slipok").hidden=false;setTimeout(()=>{location.href=CONFIG.chatUrl;},700);};
     try{navigator.clipboard.writeText(t).then(done,()=>fallback(t,done));}catch(e){fallback(t,done);}};
@@ -8712,10 +8712,10 @@ PK.p={title:"รหัสมงคล ล็อกหน้าจอและ AT
   items:["รหัส 6 หลัก 5 แบบ คัดเฉพาะพื้นดวงและอาชีพของคุณ ใช้เป็นรหัสล็อกหน้าจอ หรือรหัส ATM ได้","ทุกคู่ในรหัสเป็นคู่ดี ร้อยเรียงต่อกัน ท้ายรหัสเป็นเลขพลังดีในดวง","บอกความหมายการร้อยเรียงทีละคู่ ว่ารหัสนี้หนุนเรื่องอะไร","ตัดรหัสที่เดาง่ายออกแล้ว เช่น วันเกิด ปีเกิด และเลขเรียง"]};
 function renderPin(inp,ch,ds,who){
   const R=pinCodes(inp,ds), L=R.out, KEY=pinKey(inp);
-  if(!L.length){$("result").innerHTML=`<section class="card"><h2>รหัสมงคลของ${who}</h2><p class="para">ดวงนี้มีเลขพลังดีน้อยมาก ระบบหารหัสที่ผ่านครบทุกเกณฑ์ไม่ได้ ทักไลน์มาให้ผมคิดให้เองได้ครับ</p><div class="btns"><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener">แอดไลน์</a></div></section>`;return;}
+  if(!L.length){$("result").innerHTML=`<section class="card"><h2>รหัสมงคลของ${who}</h2><p class="para">ดวงนี้มีเลขพลังดีน้อยมาก ผมหารหัสที่ผ่านครบทุกเกณฑ์ไม่ได้ ทักไลน์มาให้ผมคิดให้เองได้ครับ</p><div class="btns"><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener">แอดไลน์</a></div></section>`;return;}
   const f=L[0];
   const free=`<section class="card"><h2>รหัสมงคลของ${who}</h2>
-   <p class="para">สำหรับคนที่ยังไม่พร้อมเปลี่ยนเบอร์ รหัสที่กดทุกวัน ทั้งรหัสล็อกหน้าจอและรหัส ATM ก็เป็นตัวเลขที่อยู่กับคุณตลอด ระบบคัดรหัส 6 หลักจากเลขพลังดีในดวงและคู่ที่หนุนอาชีพ${inp.jobText?esc(inp.jobText):""}ของคุณ</p>
+   <p class="para">สำหรับคนที่ยังไม่พร้อมเปลี่ยนเบอร์ รหัสที่กดทุกวัน ทั้งรหัสล็อกหน้าจอและรหัส ATM ก็เป็นตัวเลขที่อยู่กับคุณตลอด ผมคัดรหัส 6 หลักจากเลขพลังดีในดวงและคู่ที่หนุนอาชีพ${inp.jobText?esc(inp.jobText):""}ของคุณ</p>
    <p class="note" style="margin:8px 0 4px">ตัวอย่างรหัสแรก</p>
    <div class="num" aria-label="ตัวอย่างรหัส">${f.d.map((x,i)=>`<div><b>${i<2?x:"●"}</b><small>&nbsp;</small></div>`).join("")}</div>
    <ul class="pp" style="margin-top:8px"><li><span class="pv sm ${f.prs[0].g[0]}">${f.prs[0].s}</span><span><b>${f.prs[0].g[1]}</b> ${f.prs[0].g[2]}</span></li></ul>
@@ -8870,7 +8870,7 @@ function renderWall(inp,ch,ds,who){
   if(!D.chain.length){$("result").innerHTML=`<section class="card"><h2>วอลเปเปอร์เสริมดวงของ${who}</h2><p class="para">ดวงนี้หาเลขร้อยเรียงที่ผ่านครบทุกเกณฑ์ไม่ได้ ทักไลน์มาให้ผมดูให้เองได้ครับ</p></section>`;return;}
   let prev="";try{prev=wpScene(inp,"lock").url;}catch(e){}
   const free=`<section class="card"><h2>วอลเปเปอร์เสริมดวงและการเงินของ${who}</h2>
-   <p class="para">${WP_AI?"ระบบสร้างภาพใหม่ให้เฉพาะคุณด้วย AI ภาพไม่ซ้ำใคร":"ภาพธรรมชาติมงคล"} ตามธาตุของราศีลัคนาในดวง แล้ววางชุดเลขร้อยเรียงที่หนุนดวง งาน${inp.jobText?esc(inp.jobText):""} และการเงินของคุณลงบนภาพ</p>
+   <p class="para">${WP_AI?"เว็บสร้างภาพใหม่ให้เฉพาะคุณด้วย AI ภาพไม่ซ้ำใคร":"ภาพธรรมชาติมงคล"} ตามธาตุของราศีลัคนาในดวง แล้ววางชุดเลขร้อยเรียงที่หนุนดวง งาน${inp.jobText?esc(inp.jobText):""} และการเงินของคุณลงบนภาพ</p>
    <ul class="plain"><li>ลัคนาราศี${SIGNS[D.lag]} ธาตุ${D.el} ภาพ${sc.name}</li><li>${sc.mean}</li><li>สีหลักในภาพคือสี${TK_COL[D.si][0]} สีมงคลตามทักษาของคนเกิดวัน${esc(D.day)} ที่ดาวไม่อ่อนในดวงคุณ</li>
    <li>ชุดเลขร้อยเรียง ${D.chain.slice(0,2).join(" ")} ● ● ● ● เปิดครบหลังชำระเงิน</li></ul>
    ${prev?`<div style="display:grid;place-items:center;margin-top:10px"><img src="${prev}" alt="ตัวอย่างโทนภาพ" style="width:58%;max-width:240px;border-radius:14px;filter:blur(7px);opacity:.85"></div><p class="note" style="text-align:center">${WP_AI?"ตัวอย่างโทนภาพ ภาพจริงสร้างใหม่ด้วย AI หลังชำระเงิน":"ตัวอย่างภาพ เปิดภาพคมชัดพร้อมเลขครบหลังชำระเงิน"}</p>`:""}
@@ -8893,10 +8893,10 @@ function renderWall(inp,ch,ds,who){
     try{const b64=await slipToBase64(f);const j=await wpApi({action:"wpslip",base64:b64.replace(/^data:image\/\w+;base64,/,""),site:"num"});
       if(j.ok){cntHit("slip-ok");cntHit("pay-wall");st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ";showGen(j.ticket,j.left);if(WP_AI)$("wgo").click();}
       else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";b.disabled=false;}}
-    catch(e){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";b.disabled=false;}};
+    catch(e){st.style.color="var(--bad)";st.textContent="ตอนนี้ตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";b.disabled=false;}};
   $("wtickgo").onclick=async()=>{const t=normDigits($("wtick").value);if(t.length!==8){$("wtickerr").textContent="ใส่รหัส 8 หลัก";$("wtickerr").hidden=false;return;}
     try{const j=await wpApi({action:"wpinfo",ticket:t});if(j.ok&&j.left>=0){$("wtickerr").hidden=true;showGen(t,j.left);}else{$("wtickerr").textContent="ไม่พบรหัสนี้ ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ";$("wtickerr").hidden=false;}}
-    catch(e){$("wtickerr").textContent="เชื่อมต่อระบบไม่ได้ ลองใหม่อีกครั้ง";$("wtickerr").hidden=false;}};
+    catch(e){$("wtickerr").textContent="เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง";$("wtickerr").hidden=false;}};
   const addOut=(bgImg,label)=>{const box=document.createElement("div");box.className="card";box.style.margin="0";
     const lock=wpCompose(bgImg,D,"lock"),home=wpCompose(bgImg,D,"home");
     box.innerHTML=`<h3 class="sub" style="margin:0 0 8px">${label}</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
@@ -8908,8 +8908,8 @@ function renderWall(inp,ch,ds,who){
     try{const j=await wpApi({action:"wpgen",ticket:t,el:WP_ELK[D.el],col:WP_COLK[D.si]});
       if(j.ok&&j.img){const im=new Image();im.onload=()=>{addOut(im,"ภาพที่ "+(3-j.left));st.textContent="";$("wleft").textContent=j.left;b.disabled=j.left<=0;b.textContent=j.left>0?"สร้างภาพใหม่ (เหลือ "+j.left+")":"ใช้สิทธิ์ครบแล้ว";cntHit("wall-gen");};im.src="data:"+(j.mime||"image/png")+";base64,"+j.img;}
       else{st.style.color="var(--bad)";st.textContent=(j.msg||"สร้างภาพไม่สำเร็จ")+" ";b.disabled=!(j.left>0);if(j.left===undefined||j.left>0)fb();}}
-    catch(e){st.style.color="var(--bad)";st.textContent="ระบบสร้างภาพไม่ว่าง ลองกดใหม่อีกครั้ง (ไม่เสียสิทธิ์) ";b.disabled=false;fb();}};
-  const fb=()=>{if($("wfb"))return;const a=document.createElement("button");a.type="button";a.className="ghost";a.id="wfb";a.textContent="ใช้ภาพที่ระบบวาดแทนไปก่อน";a.onclick=()=>{const im=new Image();im.onload=()=>addOut(im,"ภาพที่ระบบวาด");im.src=wpScene(inp,"lock").url;a.remove();};$("wgst").after(a);};
+    catch(e){st.style.color="var(--bad)";st.textContent="ตอนนี้สร้างภาพไม่ว่าง ลองกดใหม่อีกครั้ง (ไม่เสียสิทธิ์) ";b.disabled=false;fb();}};
+  const fb=()=>{if($("wfb"))return;const a=document.createElement("button");a.type="button";a.className="ghost";a.id="wfb";a.textContent="ใช้ภาพที่วาดไว้แทนไปก่อน";a.onclick=()=>{const im=new Image();im.onload=()=>addOut(im,"ภาพที่วาดไว้");im.src=wpScene(inp,"lock").url;a.remove();};$("wgst").after(a);};
   const old=wpTicket(); if(old){wpApi({action:"wpinfo",ticket:old}).then(j=>{if(j.ok&&(j.left>0||(!WP_AI&&j.left>=0)))showGen(old,j.left);}).catch(()=>{});}
 }
 
@@ -9043,7 +9043,7 @@ function loveRender(A,B,cta){
   const free=`<section class="card"><h2>ดวงคู่ ${w1} กับ ${w2}</h2>
     <div class="verdict"><div class="score">${L.score} <small>/ 100</small></div><div><span class="pill ${L.band[0]}">${L.band[1]}</span></div></div>
     ${top?`<p class="para"><b>จุดแข็ง</b> ${top[2]}</p>`:""}${warn?`<p class="para"><b>จุดที่ต้องระวัง</b> ${warn[2]}</p>`:""}
-    ${(!L.useL)?`<p class="note">มีคนที่ไม่ทราบเวลาเกิด ระบบจึงใช้ราศีจันทร์แทนลัคนา ผลจะละเอียดน้อยลง</p>`:""}</section>`;
+    ${(!L.useL)?`<p class="note">มีคนที่ไม่ทราบเวลาเกิด ผมจึงใช้ราศีจันทร์แทนลัคนา ผลจะละเอียดน้อยลง</p>`:""}</section>`;
   const ptsH=L.pts.map(p=>`<li style="display:block"><span class="pill ${p[0]}">${p[1]}</span><p style="margin:6px 0 0">${p[2]}</p></li>`).join("");
   const love=[L.att>=2?"แรงดึงดูดระหว่างกันดี ความรักไม่จืดง่าย":L.att<0?"ความหวานจะจางเร็วถ้าปล่อยไว้ ต้องหาเวลาทำอะไรด้วยกันสม่ำเสมอ":"ความรักไปได้เรื่อย ๆ ไม่หวือหวา",
     L.lr===7?"เป็นคู่ที่ดึงดูดกันแรงแต่เถียงกันบ่อย ทะเลาะเสร็จก็ดีกันเร็ว":[6,8].includes(L.lr)?"เรื่องเล็กมักกลายเป็นเรื่องใหญ่ ต้องตกลงกันว่าเวลาโกรธจะไม่พูดทันที":"",
@@ -9322,7 +9322,7 @@ function renderBankId(inp,ch,ds,who,cta){
     <div class="lucky"><span class="lbl">เลขพลังดีที่ควรมี</span><div class="chs">${good.map(d=>`<b class="ch g">${d}</b>`).join("")||"<span class='note'>ไม่มี</span>"}</div></div>
     <div class="lucky"><span class="lbl">เลขพลังอ่อน ควรร้อยเรียงอย่างระวัง</span><div class="chs">${bad.map(d=>`<b class="ch b">${d}</b>`).join("")||"<span class='note'>ไม่มี</span>"}</div></div>
     ${hsCompHtml(F)}</div></section>
-  <section class="card"><h2>หลักการอ่าน${nm}</h2><p class="para">${KIND[MODE].lead} จากนั้นแยกผลเป็น 5 เรื่อง${bank?"ของการเงิน":"ของพื้นชีวิต"} และให้คะแนนเต็ม 1000 ตามหมวด</p><p class="note">ระบบคำนวณในเครื่องของคุณเท่านั้น ไม่ได้ส่งหรือเก็บเลข${bank?"บัญชี":"บัตร"}ไว้ที่ไหน</p></section>
+  <section class="card"><h2>หลักการอ่าน${nm}</h2><p class="para">${KIND[MODE].lead} จากนั้นแยกผลเป็น 5 เรื่อง${bank?"ของการเงิน":"ของพื้นชีวิต"} และให้คะแนนเต็ม 1000 ตามหมวด</p><p class="note">ทุกอย่างคำนวณในเครื่องของคุณเท่านั้น ไม่ได้ส่งหรือเก็บเลข${bank?"บัญชี":"บัตร"}ไว้ที่ไหน</p></section>
   <section class="card"><h2>ผลรวม ${H.sum}</h2><p class="para">${D.join(" + ")} = <b>${H.sum}</b></p>
     <p><span class="pill ${H.si[0]}">${HS_GL[H.si[0]]}</span> <b>${H.si[1]}</b> ${H.si[2]}${H.si[3]?" "+H.si[3]:""}${H.sum>=10?wkNote(H.sum,H.si[0],ds.cls,H.si[3]):""}</p></section>
   <section class="card"><h2>อ่านทีละคู่</h2><p class="note" style="margin:0 0 8px">เรียงจากคู่ท้ายซึ่งส่งผลแรงที่สุด</p><ul class="pairs">${top.map(pairLi).join("")}</ul>
@@ -9367,7 +9367,7 @@ function numDeepHtml(mode,inp,ds,who,C){const K=NUMK[mode];
   ${(mode==="house"||mode==="shop")?dirPlanHtml(inp,ds,who,mode==="shop"):""}
   ${rk}`;}
 function numCmpHtml(mode,who){const K=NUMK[mode];
-  return `<section class="card" id="ncmpbox"><h2>เทียบหลาย${K.n}</h2><p class="para">กำลังเลือกระหว่างหลายเลข ใส่บรรทัดละ 1 เลข สูงสุด 5 เลข ระบบเรียงให้ว่าเลขไหนเข้ากับดวง${who}ที่สุด</p>
+  return `<section class="card" id="ncmpbox"><h2>เทียบหลาย${K.n}</h2><p class="para">กำลังเลือกระหว่างหลายเลข ใส่บรรทัดละ 1 เลข สูงสุด 5 เลข ผมเรียงให้ว่าเลขไหนเข้ากับดวง${who}ที่สุด</p>
    <textarea id="ncmpin" rows="4" placeholder="${K.ex}" style="width:100%;box-sizing:border-box;font:inherit;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)"></textarea>
    <div class="btns" style="margin-top:8px"><button type="button" class="primary" id="ncmpgo">เทียบคะแนน</button></div><div id="ncmpout" aria-live="polite"></div></section>`;}
 function numExtras(mode,inp,ds,who,C){
@@ -9379,7 +9379,7 @@ function numExtras(mode,inp,ds,who,C){
     const rows=L.map(v=>({v,c:numCalcFor(mode,v,inp,ds)})).filter(x=>x.c).sort((a,b)=>b.c.score-a.c.score);
     if(!rows.length){$("ncmpout").innerHTML=`<p class="err">ยังอ่านเลขไม่ได้ ลองใส่ใหม่ ${K.ex}</p>`;return;}
     $("ncmpout").innerHTML=`<ul class="hsres" style="margin-top:10px">${rows.map((x,i)=>{const b=hsBand(x.c.score,""),s=x.c.areas.slice().sort((a,c)=>c.pct-a.pct);return `<li><b>${i+1}. <span style="font-family:var(--f-mono)">${esc(x.v)}</span></b><span class="pill ${b[0]}">${x.c.score} / 1000</span><p class="note" style="margin:4px 0 0">เด่นเรื่อง${s[0].n} ${s[0].pct}% อ่อนเรื่อง${s[s.length-1].n} ${s[s.length-1].pct}%</p></li>`;}).join("")}</ul>
-      <p class="note">${rows.length>1?"เลขที่ "+esc(rows[0].v)+" เข้ากับดวงที่สุด":""}${rows.length<L.length?" มีบางเลขที่อ่านไม่ได้ ระบบข้ามไป":""}</p>`;cntHit("an-cmp-"+mode);};
+      <p class="note">${rows.length>1?"เลขที่ "+esc(rows[0].v)+" เข้ากับดวงที่สุด":""}${rows.length<L.length?" มีบางเลขที่อ่านไม่ได้ ข้ามไป":""}</p>`;cntHit("an-cmp-"+mode);};
   const open=sc=>{const el=$("kdeepgen");if(!el.dataset.done){el.innerHTML=numDeepHtml(mode,inp,ds,who,C);el.dataset.done="1";}$("kdeep").hidden=false;if(sc)$("kdeep").scrollIntoView({behavior:"smooth",block:"start"});};
   bindPayKit("k",KEY,open,"โอนค่าวิเคราะห์ตัวเลขแบบละเอียด "+PAY.amount+" บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อก วันเกิด "+pad(inp.d)+"/"+pad(inp.m)+"/"+(inp.y+543)+" ("+K.n+" "+(C.t||"")+") (แนบสลิป)");
   if(wasUnlocked(KEY)) open(false);
@@ -9433,7 +9433,7 @@ function renderBaby(inp,ch,ds,who,cta){
   ${S.length?`<section class="card"><h2>ตัวอย่างชื่อที่ผ่านเกณฑ์</h2><p class="note" style="margin:0 0 8px">อักษรนำดี ไม่มีกาลกิณี ผลรวมชื่อเป็นเลขดี${inp.lname?" และรวมกับนามสกุล "+esc(inp.lname)+" แล้วยังดี":""} ตอนนี้มีชื่อที่ผ่านทั้งหมด <b>${Math.min(S.length,120)}</b> ชื่อ</p><ul class="sgl">${S.slice(0,6).map(item).join("")}</ul></section>`:`<section class="card"><h2>ชื่อที่แนะนำ</h2><p class="para">ยังหาชื่อในรายชื่อที่ผ่านเกณฑ์ครบไม่ได้ ดวงแบบนี้ต้องคิดชื่อเฉพาะตัว ทักไลน์มาให้ผมช่วยได้ครับ</p></section>`}`;
   const deep=()=>{const R=S.slice(0,120).map(x=>{let sc=0;try{const a=analyzeName({...inp,fname:x.n},{ds});sc=a?a.score:0;}catch(e){}return {...x,sc};}).sort((a,b)=>b.sc-a.sc);
     const li=x=>`<li class="sgn"><b>${esc(x.n)}</b> <span class="pill ${x.sc>=800?"g":x.sc>=600?"m":"b"}">${x.sc} / 1000</span><span class="note">${esc(x.title)}${x.tot?` · รวมนามสกุลได้ ${x.tot.sum} ${GL[x.tot.g]}`:""}</span></li>`;
-    return `<section class="card"><h2>รายชื่อมงคลทั้งหมด เรียงจากเหมาะที่สุด</h2><p class="note" style="margin:0 0 8px">คะแนนคิดจากอักษรนำ ผลรวมเลขศาสตร์ พลังเงา และดวงกำเนิดของ${sx} แบบเดียวกับระบบวิเคราะห์ชื่อ</p><ul class="sgl">${R.map(li).join("")}</ul></section>
+    return `<section class="card"><h2>รายชื่อมงคลทั้งหมด เรียงจากเหมาะที่สุด</h2><p class="note" style="margin:0 0 8px">คะแนนคิดจากอักษรนำ ผลรวมเลขศาสตร์ พลังเงา และดวงกำเนิดของ${sx} แบบเดียวกับที่ผมใช้วิเคราะห์ชื่อ</p><ul class="sgl">${R.map(li).join("")}</ul></section>
     <section class="card"><h2>อักษรนำทุกกลุ่ม</h2><ul class="pairs">${ok.concat(so).map(grp).join("")}</ul><p class="note">อักษรที่ไม่อยู่ในรายการนี้ ตำราไม่แนะนำให้ใช้เป็นตัวแรกของชื่อสำหรับดวงนี้</p></section>`;};
   $("result").innerHTML=free+payKitHtml("z")+`<div id="zdeep" hidden><p class="unlocked">${isOwner()?"โหมดเจ้าของ รายชื่อฉบับเต็ม":"ขอบคุณที่ใช้บริการครับ ด้านล่างคือรายชื่อทั้งหมดสำหรับ"+sx}</p><div id="zdeepgen"></div><div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="baby">บันทึกรายชื่อเป็น PDF</button></div></div>
   <section class="card"><h2>อยากได้ชื่อที่คิดเฉพาะ${sx}</h2><p class="para">ผมคิดชื่อให้เฉพาะดวง ทั้งความหมาย เสียงอ่าน อักษรนำ ผลรวม และเข้ากับนามสกุล ทักไลน์มาคุยกันได้เลยครับ</p><div class="btns"><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener" class="primary">ทักไลน์ปรึกษาตั้งชื่อ</a></div></section>
@@ -9486,7 +9486,7 @@ function dirPlanHtml(inp,ds,who,shop){const D=dirInfo(inp,ds),U=dirUses(D);
    <p class="note">ถ้าวางตรงทิศไม่ได้ทั้งหมด ให้เลือกทำ 3 อย่างแรกก่อน เพราะส่งผลมากที่สุด</p></section>`;}
 function renderDir(inp,ch,ds,who,cta){
   $("result").innerHTML=dirCardHtml(inp,ds,who,true)+fsKuaHtml(inp,ds,who)+fsColorHtml(inp,ds,who)+fsYearLinkHtml()+`<section class="card"><h2>หลักการ</h2><p class="para">ดาวแต่ละดวงในทักษามีทิศประจำ อาทิตย์อยู่ทิศอีสาน จันทร์ตะวันออก อังคารอาคเนย์ พุธใต้ เสาร์หรดี พฤหัสตะวันตก ราหูพายัพ ศุกร์เหนือ เมื่อตั้งวันเกิดเป็นบริวารแล้วไล่ไป จะได้ว่าทิศไหนเป็นศรี เดช มนตรี หรือกาลกิณีของคุณ จากนั้นผมดูต่อว่าดาวของทิศนั้นมีพลังดีในดวงจริงหรือไม่ ไม่ได้ตัดสินจากตำราอย่างเดียว</p>
-   <p class="para">อยากรู้ว่าบ้านหรือร้านที่อยู่ตอนนี้หันถูกทิศไหม ไปที่วิเคราะห์บ้านเลขที่ หรือเลขที่ร้าน แล้วเลือกทิศหน้าบ้าน ระบบรวมเป็นคะแนนให้ด้วย</p><div class="btns"><a href="#" data-go="house" class="primary">วิเคราะห์บ้านเลขที่</a> <a href="#" data-go="shop" class="ghost">วิเคราะห์เลขที่ร้าน</a></div></section>${cta}`;
+   <p class="para">อยากรู้ว่าบ้านหรือร้านที่อยู่ตอนนี้หันถูกทิศไหม ไปที่วิเคราะห์บ้านเลขที่ หรือเลขที่ร้าน แล้วเลือกทิศหน้าบ้าน ผมรวมเป็นคะแนนให้ด้วย</p><div class="btns"><a href="#" data-go="house" class="primary">วิเคราะห์บ้านเลขที่</a> <a href="#" data-go="shop" class="ghost">วิเคราะห์เลขที่ร้าน</a></div></section>${cta}`;
   const U=dirUses(dirInfo(inp,ds));
   addShare({kind:"ทิศมงคลตามวันเกิด",main:"เกิดวัน"+dayName(inp),verdict:"ประตูทิศ"+U[0][1].dir+" เก็บเงินทิศ"+U[3][1].dir,vc:"g",lines:U.slice(0,4).map(([n,x])=>n+" ทิศ"+x.dir)});
 }
@@ -9543,7 +9543,7 @@ function bundleInject(){try{if(isOwner())return;document.querySelectorAll("#resu
     try{const j=await thunderCheck(await slipToBase64(f.files[0]),k,BUNDLE_PRICE);
       if(j.ok&&j.code===unlockCode(k)){markUnlocked(k);cntHit("slip-ok");cntHit("pay-bundle");st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว รหัสแพ็กรวมของคุณคือ "+j.code+" เก็บไว้ใช้เปิดทุกบริการของวันเกิดนี้";setTimeout(()=>$("gobtn").click(),900);}
       else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";go.disabled=false;}}
-    catch(e){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";go.disabled=false;}};});}catch(e){}}
+    catch(e){st.style.color="var(--bad)";st.textContent="ตอนนี้ตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";go.disabled=false;}};});}catch(e){}}
 function bundleCode(){return false;} // รหัสแพ็กรวมตรวจที่หลังบ้านพร้อมรหัสของบริการ
 
 // ===== ชวนต่อแพ็กเกจหลังผลละเอียด =====
@@ -9608,8 +9608,8 @@ async function askAi(){const inp=$("askin"),go=$("askgo");const q=(inp.value||""
   go.disabled=true;go.textContent="กำลังคิด...";
   try{const res=await fetch(CONFIG.slipApi,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"ai",q,ctx:askCtx(),dev:askDev()})});const j=await res.json();
     if(j.ok&&j.answer){askUse();askShow(q,String(j.answer).replace(/\*\*|__|^#+\s*/gm,"").replace(/^\s*[-•]\s*/gm,""),"");inp.value="";try{cntHit("ai-ask");}catch(e){}}
-    else askShow(q,j.msg||"ตอนนี้ระบบตอบคำถามไม่ว่าง ลองใหม่อีกครั้ง หรือทักไลน์ @367xgtjh ได้เลยครับ","");}
-  catch(e){askShow(q,"เชื่อมต่อระบบไม่ได้ ลองใหม่อีกครั้ง หรือทักไลน์ @367xgtjh ได้เลยครับ","");}
+    else askShow(q,j.msg||"ตอนนี้ตอบคำถามไม่ว่าง ลองใหม่อีกครั้ง หรือทักไลน์ @367xgtjh ได้เลยครับ","");}
+  catch(e){askShow(q,"เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง หรือทักไลน์ @367xgtjh ได้เลยครับ","");}
   go.disabled=false;go.textContent="ถาม";}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-askq]");if(b){e.preventDefault();askShow(b.textContent,askLocal(b.dataset.askq),"");return;}
   if(e.target&&e.target.id==="askgo"){e.preventDefault();askAi();}});

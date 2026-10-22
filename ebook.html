@@ -566,7 +566,7 @@ async function verifySlipOld(dataUrl,amount){
   const raw=dataUrl.replace(/^data:image\/\w+;base64,/,"");let res=await call(raw);
   if(!res.success&&res.error&&/base64|image|format/i.test(String(res.error.message||res.error.code)))res=await call(dataUrl);
   if(!res.success){const m=String((res.error&&(res.error.message||res.error.code))||"");let msg="ตรวจสลิปไม่ผ่าน ลองใช้ไฟล์สลิปจากแอปธนาคารโดยตรง";
-    if(/duplicate/i.test(m))msg="สลิปนี้เคยใช้แล้ว";else if(/account/i.test(m))msg="บัญชีผู้รับในสลิปไม่ใช่บัญชีของร้าน";else if(/amount/i.test(m))msg="ยอดเงินในสลิปไม่ตรงกับ "+amount+" บาท";else if(/qr|not found|invalid/i.test(m))msg="อ่าน QR บนสลิปไม่ได้ ใช้ไฟล์สลิปจากแอปธนาคารโดยตรง";else if(/quota|limit|credit|unauthor|401|403/i.test(m))msg="ระบบตรวจสลิปขัดข้องชั่วคราว";return {ok:false,msg};}
+    if(/duplicate/i.test(m))msg="สลิปนี้เคยใช้แล้ว";else if(/account/i.test(m))msg="บัญชีผู้รับในสลิปไม่ใช่บัญชีของร้าน";else if(/amount/i.test(m))msg="ยอดเงินในสลิปไม่ตรงกับ "+amount+" บาท";else if(/qr|not found|invalid/i.test(m))msg="อ่าน QR บนสลิปไม่ได้ ใช้ไฟล์สลิปจากแอปธนาคารโดยตรง";else if(/quota|limit|credit|unauthor|401|403/i.test(m))msg="ตรวจสลิปขัดข้องชั่วคราว";return {ok:false,msg};}
   const d=res.data||{},rs=d.rawSlip||{},amt=Number(rs.amount&&rs.amount.amount)||0;if(d.isDuplicate)return {ok:false,msg:"สลิปนี้เคยใช้แล้ว"};if(amt&&amt<amount)return {ok:false,msg:"ยอดเงินในสลิป "+amt+" บาท ยังไม่ครบ "+amount+" บาท"};return {ok:true};}
 document.addEventListener("click",e=>{if(e.target&&e.target.id==="ebownoff"){PLKPAY.ownerView(false);location.reload();}});
 async function open(scroll){const m=$("ebmore");if(!m.dataset.done){if(!PLKPAY.ebookKey()&&isOwner()){try{await PLKPAY.ebkOwner();}catch(e){}}
@@ -576,7 +576,7 @@ async function open(scroll){const m=$("ebmore");if(!m.dataset.done){if(!PLKPAY.e
   if(scroll)$("eblocked").scrollIntoView({behavior:"smooth",block:"start"});}
 function payBox(){const slip=!!(CONFIG.slipApi||CONFIG.thunderKey);
  $("ebpaywrap").innerHTML=`<section class="card pay" id="ebpay"><h2>ปลดล็อกอีบุ๊กทั้งเล่ม 399 บาท</h2>
-  <ul class="plain"><li>ครบ 17 บท ตั้งแต่ความหมายเลข 0 ถึง 9 ไปจนถึงสารานุกรมคู่เลข 00 ถึง 99</li><li>วิธีอ่านตำแหน่ง 012-ABCDEFG ผลรวม พีระมิด และการร้อยเรียง</li><li>เบอร์ตามเพศ อายุ อาชีพ และวิธีดูพื้นดวงแบบเข้าใจง่าย</li><li>กรณีศึกษาจริง แบบฝึกหัด และแบบฟอร์มวิเคราะห์เบอร์</li><li>อ่านบนเว็บได้ทันที บันทึกเป็น PDF ได้</li></ul>
+  <ul class="plain"><li>ครบ 19 บท ตั้งแต่ความหมายเลข 0 ถึง 9 ไปจนถึงสารานุกรมคู่เลข 00 ถึง 99</li><li>วิธีอ่านตำแหน่ง 012-ABCDEFG ผลรวม พีระมิด และการร้อยเรียง</li><li>เบอร์ตามเพศ อายุ อาชีพ และวิธีดูพื้นดวงแบบเข้าใจง่าย</li><li>กรณีศึกษาจริง แบบฝึกหัด และแบบฟอร์มวิเคราะห์เบอร์</li><li>อ่านบนเว็บได้ทันที บันทึกเป็น PDF ได้</li></ul>
   <div class="paybox"><img src="${PAY.qr}" alt="คิวอาร์พร้อมเพย์ 399 บาท" width="200" height="200"><div class="payinfo"><p><span class="note">สแกนจ่าย</span><br><b>399 บาท</b> (ยอดขึ้นอัตโนมัติ)</p><p><span class="note">หรือโอนเข้า</span><br>${PAY.bank}<br><b class="acc">${PAY.acc}</b><br>${PAY.name}</p></div></div>
   <label for="ebph">เบอร์มือถือของคุณ (ใช้เป็นรหัสผู้ซื้อ เปิดอ่านเครื่องอื่นได้)<input id="ebph" inputmode="numeric" maxlength="12" placeholder="0812345678"></label>
   ${slip?`<label class="slipup" for="ebslip"><input type="file" id="ebslip" accept="image/*"><span id="ebslipn">แตะเพื่อเลือกรูปสลิป</span></label><button type="button" class="primary" id="ebgo" disabled>ตรวจสลิปและเปิดอ่าน</button><p class="note" id="ebst" aria-live="polite"></p>`:""}
@@ -589,7 +589,7 @@ function payBox(){const slip=!!(CONFIG.slipApi||CONFIG.thunderKey);
   $("ebgo").onclick=async()=>{const st=$("ebst"),b=$("ebgo"),p=ph();b.disabled=true;st.style.color="";st.textContent="กำลังตรวจสลิป รอสักครู่...";
    try{const d=await slipToBase64($("ebslip").files[0]);const r=await PLKPAY.slip(ebKey(p),d.replace(/^data:image\/\w+;base64,/,""),{site:"ebook"});
     if(r.ok){save(p);cnt("slip-ok");cnt("pay-ebook");open(true);const c=ebCode(p);setTimeout(()=>{const u=document.querySelector("#ebpaywrap .unlocked");if(u)u.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสอีบุ๊กของคุณคือ "+c+" ใช้คู่กับเบอร์ "+p+" เปิดอ่านเครื่องอื่นได้ เก็บไว้นะครับ";},50);}
-    else{st.style.color="var(--bad)";st.textContent=(r.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";b.disabled=false;}}catch(e){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";b.disabled=false;}};}
+    else{st.style.color="var(--bad)";st.textContent=(r.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";b.disabled=false;}}catch(e){st.style.color="var(--bad)";st.textContent="ตอนนี้ตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";b.disabled=false;}};}
  $("ebun").onclick=()=>{const c=nd($("ebcode").value),p=ph(),b=$("ebun");if(b.disabled)return;
    if(c.length<6||(c.length===6&&!/^0\d{9}$/.test(p))){$("eberr").textContent="ใส่เบอร์มือถือที่ใช้ตอนซื้อ และรหัส 6 หลักก่อนครับ";$("eberr").hidden=false;return;}
    b.disabled=true;$("eberr").hidden=true;
