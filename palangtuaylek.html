@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="474fab9e3a7d130808b1dd59b325fbd3093bade9">
+<meta name="plk-base" content="a16f2f09fac1c4f7ffaf41595359a4c53a4c704f">
 <script>
 /* โหมดแอป Play Store: เปิดจากแอป (TWA) จะซ่อนส่วนที่เป็นการจ่ายเงินดิจิทัล บนเว็บปกติทุกอย่างเหมือนเดิม */
 (function(){var a=false;try{a=/[?&]app=1/.test(location.search)||document.referrer.indexOf("android-app://")===0||sessionStorage.getItem("plk_app")==="1";if(a)sessionStorage.setItem("plk_app","1");}catch(e){}
@@ -4415,7 +4415,21 @@ function cpLoad(){try{return JSON.parse(localStorage.getItem(CP_KEY)||"{}")||{};
 function cpSave(o){try{localStorage.setItem(CP_KEY,JSON.stringify(o));}catch(e){}}
 function chartPass(inp){const o=cpLoad(),p=o[chartKey(inp)]; if(!p) return null; const left=p.t+CP_DAYS*864e5-Date.now(); if(left<=0) return null; return {...p,left};}
 function chartGrant(inp,ph){const o=cpLoad(),k=chartKey(inp); let p=o[k]; if(!p||p.t+CP_DAYS*864e5<Date.now()) p={t:Date.now(),ph:[]}; if(!p.ph.includes(ph)&&p.ph.length<CP_N) p.ph.push(ph); o[k]=p; cpSave(o);}
-function phoneUnlocked(inp){if(wasUnlocked(inp.phone))return true; const p=chartPass(inp); if(!p) return false; if(p.ph.includes(inp.phone)) return true; if(p.ph.length<CP_N){chartGrant(inp,inp.phone);return true;} return false;}
+// เบอร์ที่จ่ายแล้วผูกกับดวงที่ใช้ตอนจ่าย เปลี่ยนวันเกิดเป็นคนอื่นจะไม่เปิดผล (ดวงคนอื่นต้องซื้อแยก)
+const UB_KEY="plk_unlbind";
+function ubGet(ph){try{return (JSON.parse(localStorage.getItem(UB_KEY)||"{}")||{})[ph]||null;}catch(e){return null;}}
+function ubAdd(ph,ck){try{const o=JSON.parse(localStorage.getItem(UB_KEY)||"{}")||{};const a=o[ph]||[];if(!a.includes(ck))a.push(ck);o[ph]=a;localStorage.setItem(UB_KEY,JSON.stringify(o));}catch(e){}}
+function paidList(){try{return JSON.parse(localStorage.getItem(UNL_KEY)||"[]");}catch(e){return [];}}
+function phoneUnlocked(inp){
+  if(isOwner()) return true;
+  const ph=inp.phone, ck=chartKey(inp);
+  {const bk=typeof bundleKey==="function"?bundleKey():""; if(bk&&paidList().includes(bk)) return true;}
+  if(paidList().includes(ph)){const b=ubGet(ph);
+    if(!b){ubAdd(ph,ck);chartGrant(inp,ph);return true;} // ปลดล็อกไว้ก่อนมีการผูกดวง: ผูกกับดวงที่เปิดครั้งแรก และได้สิทธิ์ 5 เบอร์ครั้งเดียว
+    if(b.includes(ck)) return true;}
+  const p=chartPass(inp); if(!p) return false; if(p.ph.includes(ph)) return true; if(p.ph.length<CP_N){chartGrant(inp,ph);return true;} return false;}
+function phoneCodeNote(inp){if(isOwner()||!paidList().includes(inp.phone)&&!(chartPass(inp)&&chartPass(inp).ph.includes(inp.phone))) return "";
+  return `<p class="note codekeep" style="margin:6px 0 0">รหัสปลดล็อกเบอร์ ${inp.phone} คือ <b style="letter-spacing:2px">${unlockCode(inp.phone)}</b> แคปหน้าจอหรือจดเก็บไว้ ใช้เปิดผลเบอร์นี้อีกครั้งได้ แม้เปลี่ยนมือถือ โดยใส่วันเกิดและเวลาเกิดเดิม</p>`;}
 function chartPassNote(inp){const p=chartPass(inp); if(!p||isOwner()) return ""; const d=new Date(p.t+CP_DAYS*864e5); return `<p class="note" style="margin:6px 0 0">ดวงนี้ตรวจไปแล้ว ${p.ph.length} จาก ${CP_N} เบอร์ เหลืออีก ${Math.max(0,CP_N-p.ph.length)} เบอร์ ใช้ได้ถึงวันที่ ${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()+543} ใส่วันเกิดและเวลาเกิดเดิมในเครื่องนี้ แล้ววิเคราะห์เบอร์ใหม่ได้เลย</p>`;}
 function normDigits(s){return String(s||"").replace(/[๐-๙]/g,c=>String("๐๑๒๓๔๕๖๗๘๙".indexOf(c))).replace(/\D/g,"");}
 function adminRender(){
@@ -4479,7 +4493,7 @@ function adminRender(){
   $("admlv1").oninput=lvA;$("admlv2").oninput=lvA;
   $("admph").oninput=()=>{const v=$("admph").value.replace(/\D/g,"");
     if(v.length!==10){$("admout").innerHTML="";return;}
-    const c=unlockCode(v), msg="ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกผลวิเคราะห์เจาะลึกของเบอร์ "+v+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ";
+    const c=unlockCode(v), msg="ได้รับยอดโอนเรียบร้อยครับ รหัสปลดล็อกผลวิเคราะห์เจาะลึกของเบอร์ "+v+" คือ "+c+" ใส่ในช่องรหัสใต้ปุ่มชำระเงินได้เลยครับ ใส่วันเกิดและเวลาเกิดของคุณให้ตรงก่อนใส่รหัส รบกวนเก็บรหัสนี้ไว้ ใช้เปิดผลเบอร์นี้อีกครั้งได้ แม้เปลี่ยนมือถือครับ";
     $("admout").innerHTML=`<p class="admcode">${c}</p><p class="para">${msg}</p><button type="button" class="primary" id="admcopy">คัดลอกข้อความส่งลูกค้า</button> <span class="note" id="admok" hidden>คัดลอกแล้ว</span>`;
     $("admcopy").onclick=()=>{const done=()=>{$("admok").hidden=false;};try{navigator.clipboard.writeText(msg).then(done,()=>fallback(msg,done));}catch(e){fallback(msg,done);}};};
 }
@@ -4582,7 +4596,7 @@ function payHtml(inp,r){
     <label for="ucode">รหัสปลดล็อก 6 หลัก</label>
     <div class="codebox"><input id="ucode" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="000000"><button type="button" class="primary" id="unlock">ดูผลวิเคราะห์เจาะลึก</button></div>
     <p class="err" id="unlockerr" hidden>รหัสไม่ถูกต้อง ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ</p>
-    <p class="note">รหัสใช้ได้กับเบอร์ที่วิเคราะห์อยู่นี้เท่านั้น</p>${(CONFIG.slipApi||CONFIG.thunderKey)?"</details>":""}
+    <p class="note">รหัสใช้ได้กับเบอร์ที่วิเคราะห์อยู่นี้ และวันเกิดที่ใช้ตอนซื้อ ได้รหัสแล้วเก็บไว้ ใช้เปิดผลอีกครั้งได้ แม้เปลี่ยนมือถือ</p>${(CONFIG.slipApi||CONFIG.thunderKey)?"</details>":""}
   </section>`;
 }
 
@@ -4739,7 +4753,7 @@ function render(inp,r,isSample){
   ${isSample?"":readMoreHtml(inp,r)}
   <div class="expert" id="deep" hidden>
   <p class="unlocked">${isOwner()?"โหมดเจ้าของ ผลวิเคราะห์เจาะลึกของ"+who:"ขอบคุณที่ใช้บริการครับ ด้านล่างคือผลวิเคราะห์เจาะลึกของ"+who}</p>
-  ${isSample?"":chartPassNote(inp)}
+  ${isSample||!phoneUnlocked(inp)?"":phoneCodeNote(inp)+chartPassNote(inp)}
   <div id="deepgen"></div>
   <div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="phone">บันทึกผลวิเคราะห์เป็น PDF</button><p class="note" style="margin:6px 0 0">กดแล้วเลือก บันทึกเป็น PDF เก็บไว้อ่านทีหลังได้</p></div>
   ${paidLineHtml("phone")}
@@ -4750,14 +4764,17 @@ function render(inp,r,isSample){
   if(!isSample) payTeaserWatch();
   const openDeep=scroll=>{
     if(!$("deepgen").dataset.done){$("deepgen").innerHTML=deepFull(inp,r,NM)+deepHtml(inp,r);$("deepgen").dataset.done="1";if(r.stg==="child")kidSweep($("deepgen")); else if(r.age>=65)kidSweep($("deepgen"),"senior");}
-    $("deep").hidden=false; document.querySelectorAll("#result .dprev").forEach(x=>x.remove()); if(scroll) $("deep").scrollIntoView({behavior:"smooth",block:"start"});
+    $("deep").hidden=false; document.querySelectorAll("#result .dprev").forEach(x=>x.remove());
+    {const u=document.querySelector("#deep p.unlocked"); if(u&&!document.querySelector("#deep .codekeep")&&!isSample) u.insertAdjacentHTML("afterend",phoneCodeNote(inp)+chartPassNote(inp));} if(scroll) $("deep").scrollIntoView({behavior:"smooth",block:"start"});
   };
   const PKG=PAY.amount;
   $("unlock").onclick=()=>{
     const c=normDigits($("ucode").value);
     if(pinOk(c)){$("unlockerr").hidden=true;setOwner(true);openDeep(true);return;}
-    if(!bundleCode(c)&&c!==unlockCode(inp.phone)){$("unlockerr").hidden=false;return;}
-    $("unlockerr").hidden=true; markUnlocked(inp.phone); chartGrant(inp,inp.phone); openDeep(true);
+    if(bundleCode(c)){$("unlockerr").hidden=true;openDeep(true);return;}
+    if(c!==unlockCode(inp.phone)){$("unlockerr").textContent="รหัสไม่ถูกต้อง ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ";$("unlockerr").hidden=false;return;}
+    {const b=ubGet(inp.phone); if(b&&!b.includes(chartKey(inp))){const er=$("unlockerr");er.textContent="รหัสนี้ใช้กับวันเกิดที่ปลดล็อกเบอร์นี้ไว้แล้ว ถ้าเป็นดวงของคนอื่น ต้องซื้อแยกครับ ถ้าใส่วันเกิดผิด แก้ให้ตรงกับตอนซื้อแล้วกดใหม่ได้เลย";er.hidden=false;return;}}
+    $("unlockerr").hidden=true; markUnlocked(inp.phone); ubAdd(inp.phone,chartKey(inp)); chartGrant(inp,inp.phone); openDeep(true);
   };
   $("ucode").onkeydown=e=>{if(e.key==="Enter")$("unlock").click();};
   if(CONFIG.slipApi||CONFIG.thunderKey){
@@ -4768,8 +4785,8 @@ function render(inp,r,isSample){
         const b64=await slipToBase64(f);
         let j;
         j=await thunderCheck(b64,inp.phone,PKG);
-        if(j.ok&&j.code===unlockCode(inp.phone)){st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ "+j.code+" (เก็บไว้ใช้เปิดดูอีกครั้งได้)";
-          $("ucode").value=j.code; markUnlocked(inp.phone); chartGrant(inp,inp.phone); cntHit("slip-ok"); cntHit("pay-phone"); openDeep(true);}
+        if(j.ok&&j.code===unlockCode(inp.phone)){st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ "+j.code+" แคปหน้าจอหรือจดเก็บไว้ ใช้เปิดผลเบอร์นี้อีกครั้งได้ แม้เปลี่ยนมือถือ";
+          $("ucode").value=j.code; markUnlocked(inp.phone); ubAdd(inp.phone,chartKey(inp)); chartGrant(inp,inp.phone); cntHit("slip-ok"); cntHit("pay-phone"); openDeep(true);}
         else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
       }catch(err){st.style.color="var(--bad)";st.textContent="เชื่อมต่อระบบตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";btn.disabled=false;}
     };
