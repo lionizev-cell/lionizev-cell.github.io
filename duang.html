@@ -242,8 +242,9 @@ var PLKPAY=(function(){
   function add(p,s){return vf(p,s).then(function(ok){if(ok){OK[p]=1;var o=ld(RC);o[p]=s;sv(RC,o)}return ok})}
   var ready=(function(){var o=ld(RC),ks=Object.keys(o);if(!ks.length||!sub()){rdy=true;return Promise.resolve()}
     return Promise.all(ks.map(function(p){return vf(p,o[p]).then(function(ok){if(ok)OK[p]=1})})).then(function(){rdy=true},function(){rdy=true})})();
-  function call(b){return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(b)})
-    .then(function(r){return r.json()}).then(function(j){
+  function call(b){var ac=window.AbortController?new AbortController():null,tm=ac?setTimeout(function(){ac.abort()},30000):0;
+    return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(b),signal:ac?ac.signal:undefined})
+    .then(function(r){clearTimeout(tm);return r.json()},function(e){clearTimeout(tm);return {ok:false,msg:"หลังบ้านตอบช้า ลองกดใหม่อีกครั้ง ถ้ายังไม่ได้ ลองเปิดเว็บใน Chrome หรือ Safari แทนแอป Facebook ครับ"}}).then(function(j){
       if(j&&j.ok===undefined&&!j.msg)return {ok:false,msg:"หลังบ้านยังไม่ได้อัปเดต ส่งสลิปทางไลน์ได้เลยครับ",old:1};return j});}
   function absorb(j){if(!j||!j.ok)return Promise.resolve(j||{ok:false});
     if(j.key&&j.code){var c=ld(CD);c[j.key]=j.code;sv(CD,c)}
