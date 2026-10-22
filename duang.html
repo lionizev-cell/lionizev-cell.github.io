@@ -228,6 +228,8 @@ a{color:var(--gold)}
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
    หน้าเว็บตรวจลายเซ็นด้วยกุญแจสาธารณะด้านล่าง ปลอมใบรับรองเองไม่ได้ ห้ามแก้ส่วนนี้ถ้าไม่แน่ใจ */
 var PLKPAY=(function(){
+  // เปิดผ่าน http (เช่นลิงก์จาก Facebook) ให้เด้งไป https เพราะการตรวจใบรับรองต้องใช้ https
+  try{if(location.protocol==="http:"&&/(^|\.)palangtuaylek\.com$/.test(location.hostname)){location.replace("https://"+location.host+location.pathname+location.search+location.hash)}}catch(e){}
   var API="https://script.google.com/macros/s/AKfycbxTojydK9-0hlZb_IlFDYwtOhIzPoJHjiF71VTKvUFm6O1akDukpyhdnuVtocREeQ-a/exec";
   var PUB="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArqc3oTCiRjlenpHkA+QuIadxKBXThqRKW2XAGZvA02DTMkhsxE1rHVjvQ8rESV+ttSskyBTS+bfKiYfZmEbjiGDFD6vFX1Tur55vQc5q7Bo33sRt3dtQTrSPKm2SnhcskpePJRVmk028Jbm+2923NayxoCBFgQc+hJSN2NX37qYFwJeO3S3dvZqgb0XYeef8TXFsHEoDfFJlJ5seV3MYK7bz0N8esO9yAP1gJY6MlkA98MPLyC3xd5IiaMyEcYoO0Zm8PVBzqj4bf2MybeFbCu6BZ8yB2r2QOh1a5YD3WxFb69MJ4NOoSSDui7wijpuZAxWNAQqZ0MQ73t1vi8+2hwIDAQAB";
   var GRACE=Date.UTC(2026,10,30,17,0,0); // ปลดล็อกแบบเก่าในเครื่องลูกค้า ใช้ได้ถึง 30 พ.ย. 2569
@@ -239,8 +241,9 @@ var PLKPAY=(function(){
   function sub(){return (window.crypto&&crypto.subtle)?crypto.subtle:null}
   function pk(){if(!keyP)keyP=sub().importKey("spki",bytes(PUB),{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},false,["verify"]);return keyP}
   function vf(p,s){try{return pk().then(function(k){return sub().verify("RSASSA-PKCS1-v1_5",k,bytes(s),new TextEncoder().encode(p))}).catch(function(){return false})}catch(e){return Promise.resolve(false)}}
-  function add(p,s){return vf(p,s).then(function(ok){if(ok){OK[p]=1;var o=ld(RC);o[p]=s;sv(RC,o)}return ok})}
-  var ready=(function(){var o=ld(RC),ks=Object.keys(o);if(!ks.length||!sub()){rdy=true;return Promise.resolve()}
+  function add(p,s){if(!sub()){OK[p]=1;var o0=ld(RC);o0[p]=s;sv(RC,o0);return Promise.resolve(true)} // เบราว์เซอร์ที่ตรวจลายเซ็นไม่ได้ เชื่อคำตอบจากหลังบ้านโดยตรง
+    return vf(p,s).then(function(ok){if(ok){OK[p]=1;var o=ld(RC);o[p]=s;sv(RC,o)}return ok})}
+  var ready=(function(){var o=ld(RC),ks=Object.keys(o);if(!sub()){ks.forEach(function(p){OK[p]=1});rdy=true;return Promise.resolve()}if(!ks.length){rdy=true;return Promise.resolve()}
     return Promise.all(ks.map(function(p){return vf(p,o[p]).then(function(ok){if(ok)OK[p]=1})})).then(function(){rdy=true},function(){rdy=true})})();
   function call(b){var ac=window.AbortController?new AbortController():null,tm=ac?setTimeout(function(){ac.abort()},30000):0;
     return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(b),signal:ac?ac.signal:undefined})
