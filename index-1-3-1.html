@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
+<meta name="plk-base" content="8a85556cc0dffacf6f0e87e6d107a753c2f9526c">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="วิเคราะห์เบอร์มือถือ ชื่อ ทะเบียนรถ บ้านเลขที่ และชื่อร้าน เทียบกับพื้นดวง ฟรี โดย ความลับพลังตัวเลข">
 <style>*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
@@ -2069,6 +2070,9 @@ function pairInfoG(v,sex){
   const base=pairInfo(v), k=String(v).padStart(2,"0"), G=GSEX[sex];
   const cx=ctxPair(+v,base); if(cx) return cx;
   const o=G.pairs[k]||G.pairs[G.same[k]];
+  // ผู้หญิง 02 20 06 60 เป็นคู่ดีได้เฉพาะเมื่อเลข 2 หรือ 6 ไม่ใช่พลังอ่อนในดวง ถ้าอ่อน เลข 0 จะขยายด้านลบออกมาแทน
+  if(sex==="f"&&["02","20","06","60"].includes(k)&&_PCTX&&_PCTX.cls){const d=+(k[0]==="0"?k[1]:k[0]);
+    if(_PCTX.cls[d]==="b") return ["b",base[1],base[2],"ผู้หญิงใช้คู่นี้ปกติจะมีคนซัพพอร์ตเรื่องเงิน แต่ในดวงคุณเลข "+d+" เป็นพลังอ่อน เลข 0 จึงขยายด้านลบแทน "+(d===6?"เงินรั่ว ใช้จ่ายตามอารมณ์ ความรักมาเร็วไปเร็ว เสี่ยงมือที่สาม":"อารมณ์แปรปรวน ใจไม่นิ่ง ความสัมพันธ์มาแล้วหาย เสี่ยงมือที่สาม"),base[0]];}
   if(!o) return [base[0],base[1],base[2],"",base[0]];
   return [o[0],base[1],base[2],o[1],base[0]];
 }
