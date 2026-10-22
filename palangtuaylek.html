@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="a16f2f09fac1c4f7ffaf41595359a4c53a4c704f">
+<meta name="plk-base" content="a3f0b6d4bb7fef97174ca080de1184aed3131423">
 <script>
 /* โหมดแอป Play Store: เปิดจากแอป (TWA) จะซ่อนส่วนที่เป็นการจ่ายเงินดิจิทัล บนเว็บปกติทุกอย่างเหมือนเดิม */
 (function(){var a=false;try{a=/[?&]app=1/.test(location.search)||document.referrer.indexOf("android-app://")===0||sessionStorage.getItem("plk_app")==="1";if(a)sessionStorage.setItem("plk_app","1");}catch(e){}
@@ -2632,7 +2632,7 @@ function analyze(inp){
   if(male&&ga.info[0]==="b"&&gaD.some(d=>d===2||d===6)){gnotes.push(["b","ตำแหน่งคู่ครองเป็น "+ga.s+" ผู้ชายเจอคู่นี้ ความรักมักมีเรื่องผิดใจ เปลี่ยนคนบ่อย"]);gS-=0.03;}
   const seven7=[];for(let i=3;i<9;i++)seven7.push(n[i]*10+n[i+1]);
   const has=list=>[...new Set(seven7.filter(v=>list.includes(v)))].map(v=>String(v).padStart(2,"0"));
-  if(AG.k==="young"){const h=has([88,38,83,18,81,66,68,86,36,63]);if(h.length){gnotes.push(["b","อายุยังน้อย แต่เบอร์มีคู่ "+h.join(" ")+" ซึ่งพาใจร้อน ใช้เงินเร็ว หรือหลงสิ่งยั่วยุ ช่วงวัยนี้เสียง่ายกว่าคนโต"]);gS-=0.04;}
+  if(AG.k==="young"){const h=has([88,38,83,18,81,68,86,36,63]);if(h.length){gnotes.push(["b","อายุยังน้อย แต่เบอร์มีคู่ "+h.join(" ")+" ซึ่งพาใจร้อน ใช้เงินเร็ว หรือหลงสิ่งยั่วยุ ช่วงวัยนี้เสียง่ายกว่าคนโต"]);gS-=0.04;}
     const st=has([45,54,15,51,59,95,14,41]);if(st.length){gnotes.push(["g","มีคู่ "+st.join(" ")+" หนุนการเรียนและผู้ใหญ่เอ็นดู เหมาะกับวัยนี้"]);gS+=0.03;}}
   if(AG.k==="work"||AG.k==="mid"){const bad=AG.focus.map(k=>pos.find(p=>p.k===k)).filter(p=>posGrade(p,{n,ds,pos,age,AG},inp).g==="b");
     if(bad.length) {gnotes.push(["b","วัยนี้ต้องดูเรื่อง"+AG.txt+"เป็นหลัก แต่ตำแหน่ง"+bad.map(p=>p.n+" ("+p.s+")").join(" และ ")+" เสีย ตรงนี้กระทบหนักกว่าวัยอื่น"]);gS-=0.03;}
@@ -2777,7 +2777,8 @@ const TAIL_R={
  "12":["warn","วางท้ายแล้วอารมณ์ขึ้นลงรุนแรงแบบสุดขั้ว",-0.3],"21":["warn","วางท้ายแล้วอารมณ์ขึ้นลงรุนแรงแบบสุดขั้ว",-0.3],
  "24":["plus","วางท้ายได้ดี เหมาะสายค้าขายและงานเจรจา",0.2]
 };
-function tailRule(inp,v){const k=String(v).padStart(2,"0"),R=TAIL_R[k];if(!R)return null;const jobs=inp?(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(x=>x>=0):[];
+function stuInp(inp){if(!inp||!inp.y)return false;const now=new Date();let a=now.getFullYear()-inp.y;if(now.getMonth()+1<inp.m||(now.getMonth()+1===inp.m&&now.getDate()<inp.d))a--;const wk=inp.job>=0&&inp.job!==12&&inp.job!==13;return a<15||(a<25&&!(a>=18&&wk))||(inp.job===12&&a<30);}
+function tailRule(inp,v){const k=String(v).padStart(2,"0");if(k==="66"&&stuInp(inp))return {lv:"no",sc:-0.6,t:"ท้ายเบอร์ 66 วัยเรียนไม่ควรปิดท้ายด้วยคู่นี้ ท้ายเบอร์คือตัวตน 66 ตรงนี้พารักสบาย ใช้เงินเก่ง หลงง่าย ไม่โฟกัสการเรียน"};const R=TAIL_R[k];if(!R)return null;const jobs=inp?(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(x=>x>=0):[];
  if(R[0]==="biz"||R[0]==="job"){const hit=jobs.some(j=>R[2].includes(j));return hit?{lv:"ok",sc:0.2,t:"ท้ายเบอร์ "+k+" "+R[1]+" ตรงกับงานของคุณ"}:{lv:"no",sc:-0.6,t:"ท้ายเบอร์ "+k+" "+R[1]+" งานของคุณไม่ใช่แนวนี้ จึงไม่ควรปิดท้ายด้วยคู่นี้"};}
  if(R[0]==="no") return {lv:"no",sc:-0.6,t:"ท้ายเบอร์ "+k+" "+R[1]};
  if(R[0]==="care") return {lv:"care",sc:-0.4,t:"ท้ายเบอร์ "+k+" "+R[1]};
@@ -2832,7 +2833,7 @@ function tailFit(inp,r){
   return {sc:Math.max(-1,Math.min(1.2,sc)),t,kind,hot,gk};
 }
 // คู่นี้ขัดกับอาชีพไหนของลูกค้าบ้าง (ใช้กรองทุกคำแนะนำ ให้สอดคล้องกันทั้งเว็บ)
-function jobConflict(inp,v){const ks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0);return ks.filter(k=>{const g=(JOB_GRP[k]||[])[0];return JGRP[g]&&JGRP[g].x&&JGRP[g].x[v];});}
+function jobConflict(inp,v){const ks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0);return ks.filter(k=>{if(k===12&&v===66)return false;const g=(JOB_GRP[k]||[])[0];return JGRP[g]&&JGRP[g].x&&JGRP[g].x[v];});}
 function tailRec(inp,r){
   const tf=tailFit(inp,r), hot=tf.hot&&tf.hot.length, soft=(softLv(inp,r)||{}).lv==="hard", gk=tf.gk;
   const pool=gk==="charm"||gk==="home"?CHARM_TAIL.flatMap((v,i)=>[v,WIS_TAIL[i]]).filter(v=>v!==undefined):gk==="wisdom"||gk==="power"||gk==="broker"||gk==="money"?WIS_TAIL:[...WIS_TAIL,...CHARM_TAIL];
@@ -3011,7 +3012,7 @@ function pairContext(p,r,inp){
   // วัย
   const AG=r.AG; let at=[];
   if(AG.focus.includes(p.k)) at.push("ช่วง"+AG.name+" ตำแหน่งนี้สำคัญเป็นพิเศษ "+(g==="g"?"คู่ดีตรงนี้ช่วยได้มาก":g==="b"?"คู่เสียตรงนี้กระทบแรงกว่าวัยอื่น":"ต้องประคองให้ดี"));
-  if(AG.k==="young"&&[88,38,83,18,81,66,68,86,36,63].includes(v)) at.push("อายุยังน้อย พลังคู่นี้พาใจร้อน ใช้เงินเร็ว หลงง่าย");
+  if(AG.k==="young"&&[88,38,83,18,81,68,86,36,63].includes(v)) at.push("อายุยังน้อย พลังคู่นี้พาใจร้อน ใช้เงินเร็ว หลงง่าย");
   if(AG.k==="young"&&[45,54,15,51,59,95,14,41].includes(v)) at.push("วัยนี้ได้คู่หนุนการเรียน ผู้ใหญ่เอ็นดู");
   if(AG.k==="work"&&g==="g"&&d.includes(8)&&WORKPOS.includes(p.k)) at.push("วัยทำงานได้พลังหาเงินจากคู่นี้เต็ม ๆ");
   if(AG.k==="mid"&&g==="g"&&(d.includes(5)||d.includes(7))) at.push("วัยนี้ได้พลังความมั่นคง คนนับถือ");
@@ -3427,6 +3428,7 @@ function dblFit(inp,r){
     const bad=nb.filter(x=>pairInfoG(x,inp.sex)[0]==="b");
     if(bad.length){sc-=1;why.unshift("-ร้อยเรียงไม่ดี คู่ที่ต่อกัน ("+bad.map(x=>String(x).padStart(2,"0")).join(" ")+") เป็นคู่เสีย");}
     else if(nb.length){sc+=0.4;why.unshift("+ร้อยเรียงดี คู่ที่ต่อกัน ("+nb.map(x=>String(x).padStart(2,"0")).join(" ")+") ไม่เสีย");}
+    if(v===66&&i===8&&stuInp(inp)){sc-=1.2;why.unshift("-วัยเรียนไม่ควรปิดท้ายเบอร์ด้วย 66 พารักสบาย ใช้เงินเก่ง หลงง่าย ไม่โฟกัสการเรียน");}
     if(i>=7) sc*=1.2;
     if(v===77) why.unshift("-เลข 7 ซ้อนกันเป็นคู่ควรระวังในตัวเอง แบกภาระหนักสองเท่า"); if(v===0) why.unshift("-เลข 0 ซ้อนกันเป็นคู่ควรระวังในตัวเอง เรื่องต่าง ๆ ไม่แน่นอน");
     const g=v===77||v===0?"b":sc>=0.8&&!(r.ds&&r.ds.cls[n[i]]==="b")?"g":sc<=-0.3?"b":"m";
