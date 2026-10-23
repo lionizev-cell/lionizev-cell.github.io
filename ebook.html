@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="th"><head><meta charset="utf-8">
+<meta name="plk-base" content="4c7120e6eb0c9c122d12011d471dd51289764dc0">
 <!--plk-target:ebook.html--><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>อีบุ๊ก ความลับพลังตัวเลข อ่านเบอร์มือถือให้เป็นด้วยตัวเอง | ความลับพลังตัวเลข</title>
 <meta name="description" content="อีบุ๊กสอนอ่านเบอร์มือถือด้วยตัวเอง ความหมายเลข 0 ถึง 9 คู่เลข 00 ถึง 99 ตำแหน่ง 012-ABCDEFG ผลรวม พีระมิด การร้อยเรียง และการดูพื้นดวง อ่านบนเว็บได้ทันทีหลังโอน 399 บาท">
@@ -578,7 +579,7 @@ function payBox(){const slip=!!(CONFIG.slipApi||CONFIG.thunderKey);
  $("ebpaywrap").innerHTML=`<section class="card pay" id="ebpay"><h2>ปลดล็อกอีบุ๊กทั้งเล่ม 399 บาท</h2>
   <ul class="plain"><li>ครบ 19 บท ตั้งแต่ความหมายเลข 0 ถึง 9 ไปจนถึงสารานุกรมคู่เลข 00 ถึง 99</li><li>วิธีอ่านตำแหน่ง 012-ABCDEFG ผลรวม พีระมิด และการร้อยเรียง</li><li>เบอร์ตามเพศ อายุ อาชีพ และวิธีดูพื้นดวงแบบเข้าใจง่าย</li><li>กรณีศึกษาจริง แบบฝึกหัด และแบบฟอร์มวิเคราะห์เบอร์</li><li>อ่านบนเว็บได้ทันที บันทึกเป็น PDF ได้</li></ul>
   <div class="paybox"><img src="${PAY.qr}" alt="คิวอาร์พร้อมเพย์ 399 บาท" width="200" height="200"><div class="payinfo"><p><span class="note">สแกนจ่าย</span><br><b>399 บาท</b> (ยอดขึ้นอัตโนมัติ)</p><p><span class="note">หรือโอนเข้า</span><br>${PAY.bank}<br><b class="acc">${PAY.acc}</b><br>${PAY.name}</p></div></div>
-  <label for="ebph">เบอร์มือถือของคุณ (ใช้เป็นรหัสผู้ซื้อ เปิดอ่านเครื่องอื่นได้)<input id="ebph" inputmode="numeric" maxlength="12" placeholder="0812345678"></label>
+  <label for="ebph">เบอร์มือถือของคุณ (ใช้เป็นรหัสผู้ซื้อ เปิดอ่านเครื่องอื่นได้)<input id="ebph" inputmode="numeric" maxlength="16" placeholder="0812345678"></label>
   ${slip?`<label class="slipup" for="ebslip"><input type="file" id="ebslip" accept="image/*"><span id="ebslipn">แตะเพื่อเลือกรูปสลิป</span></label><button type="button" class="primary" id="ebgo" disabled>ตรวจสลิปและเปิดอ่าน</button><p class="note" id="ebst" aria-live="polite"></p>`:""}
   <details class="libd"><summary>มีรหัสแล้ว หรือส่งสลิปทางไลน์แทน</summary><div class="btns"><button type="button" class="ghost" id="ebline">คัดลอกข้อความ แล้วส่งสลิปทางไลน์</button></div><p class="note" id="eblineok" hidden>คัดลอกแล้ว วางในไลน์พร้อมสลิปได้เลย</p>
   <label for="ebcode">รหัสปลดล็อก 6 หลัก</label><div class="codebox"><input id="ebcode" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="000000"><button type="button" class="primary" id="ebun">เปิดอ่าน</button></div><p class="err" id="eberr" hidden>รหัสไม่ตรงกับเบอร์นี้ ตรวจสอบอีกครั้ง หรือทักไลน์มาได้เลยครับ</p><p class="note">รหัสผูกกับเบอร์มือถือที่ใส่ด้านบน ใช้เปิดอ่านได้ทุกเครื่อง</p></details></section>`;
@@ -627,4 +628,7 @@ document.body.classList.remove("pm");}
 function ebUnsec(){document.querySelectorAll("article.eb").forEach(a=>{if(!a.dataset.sec)return;delete a.dataset.sec;a.querySelectorAll(".fit").forEach(e=>e.classList.remove("fit"));a.querySelectorAll(".zm").forEach(e=>{e.style.zoom="";});
 ["hd","sec .sec","sec"].forEach(c=>a.querySelectorAll("."+c).forEach(d=>d.replaceWith(...d.childNodes)));});}
 window.addEventListener("beforeprint",ebSec);window.addEventListener("afterprint",ebUnsec);
-</script></body></html>
+</script><script>/* วางเบอร์แบบ +66 หรือมีขีด ช่องว่าง ให้แปลงเป็น 0xxxxxxxxx อัตโนมัติ */
+document.addEventListener("input",function(e){var t=e.target;if(!t||!t.matches||!t.matches('#phone,#phone2,.nextphin,#ebph,#pnum,[data-f="ct"]'))return;
+var d=String(t.value).replace(/[๐-๙]/g,function(c){return "๐๑๒๓๔๕๖๗๘๙".indexOf(c)}).replace(/\D/g,"");if(/^66\d{9}$/.test(d))d="0"+d.slice(2);if(d.length>10&&d[0]==="0")d=d.slice(0,10);if(d!==t.value)t.value=d;});</script>
+</body></html>

@@ -3,6 +3,7 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
+<meta name="plk-base" content="6f2697a2a2c145f25d9e5e195c842837bd3fd431">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="canonical" href="https://www.palangtuaylek.com/duang.html">
 <meta name="description" content="ผูกดวงราศีจักรฟรี ดูลัคนา ดาว 9 ดวง ดวงแต่ละด้าน ไพ่ยิปซี และสมพงษ์คู่ จากเพจความลับพลังตัวเลข">
@@ -2756,7 +2757,7 @@ var NUMSITE='palangtuaylek.html',LASTQ=null;
 function numHref(ph,hash){var c=LASTQ&&LASTQ.c;if(!c)return NUMSITE+(hash||'');var b=c.birth,p2=function(v){return String(v).padStart(2,'0')};
   var q='d='+b.getFullYear()+'-'+p2(b.getMonth()+1)+'-'+p2(b.getDate());if(!c.noTime&&c.tv)q+='&t='+c.tv;if(c.prov)q+='&p='+encodeURIComponent(c.prov);
   var nm=document.getElementById('name').value.trim();if(nm)q+='&n='+encodeURIComponent(nm);if(ph)q+='&ph='+ph+'&go=1';return NUMSITE+'?'+q+(hash||'')}
-function phoneBlock(c,QQ){return sec('s-phone','เช็กเบอร์ที่ใช้อยู่กับดวง')+'<p class="note">ใส่เบอร์แล้วกดปุ่ม เว็บจะพาไปหน้าวิเคราะห์เบอร์พร้อมวันเวลาเกิดชุดนี้ อ่านครบทุกตำแหน่ง ผลรวม และคะแนนเต็ม 1000 ด้วยพื้นดวงเดียวกับหน้านี้</p><div class="unlock"><label for="pnum">เบอร์โทรศัพท์ 10 หลัก</label><input id="pnum" inputmode="numeric" maxlength="12" placeholder="08xxxxxxxx" style="max-width:220px;letter-spacing:1px"><button type="button" id="pbtn">วิเคราะห์เบอร์นี้</button></div><div id="pres" aria-live="polite"></div>'}
+function phoneBlock(c,QQ){return sec('s-phone','เช็กเบอร์ที่ใช้อยู่กับดวง')+'<p class="note">ใส่เบอร์แล้วกดปุ่ม เว็บจะพาไปหน้าวิเคราะห์เบอร์พร้อมวันเวลาเกิดชุดนี้ อ่านครบทุกตำแหน่ง ผลรวม และคะแนนเต็ม 1000 ด้วยพื้นดวงเดียวกับหน้านี้</p><div class="unlock"><label for="pnum">เบอร์โทรศัพท์ 10 หลัก</label><input id="pnum" inputmode="numeric" maxlength="16" placeholder="08xxxxxxxx" style="max-width:220px;letter-spacing:1px"><button type="button" id="pbtn">วิเคราะห์เบอร์นี้</button></div><div id="pres" aria-live="polite"></div>'}
 function stockBlock(QQ){return sec('s-stock','เบอร์ในสต็อกที่เข้ากับดวงคุณ')+'<div class="handoff"><p>ผมคัดเบอร์ในสต็อกจากพื้นดวงชุดนี้รวมกับอาชีพของคุณ ใส่เบอร์ที่ใช้อยู่ในส่วนด้านบน แล้วดูรายการเบอร์แนะนำท้ายผลวิเคราะห์ หรือเปิดสต็อกทั้งหมดดูเอง</p><p><a class="btn" href="'+NUMSITE+'#stock">ดูสต็อกเบอร์ทั้งหมด</a> <a class="btn ghostlink" href="'+PAY.line+'" target="_blank" rel="noopener">ทักไลน์ให้ช่วยเลือก</a></p></div>'}
 function bindPhone(){var b=document.getElementById('pbtn');if(!b)return;b.addEventListener('click',function(){var v=(document.getElementById('pnum').value||'').replace(/[๐-๙]/g,function(c){return '๐๑๒๓๔๕๖๗๘๙'.indexOf(c)}).replace(/\D/g,''),o=document.getElementById('pres');
   if(v.length===11&&v.indexOf('66')===0)v='0'+v.slice(2);
@@ -3005,4 +3006,7 @@ if(p){var sl=g('prov');for(var i=0;i<sl.options.length;i++){if(sl.options[i].tex
 if(!t){g('time').focus();return}
 setTimeout(function(){var f=g('f');if(f.requestSubmit)f.requestSubmit();else f.dispatchEvent(new Event('submit',{cancelable:true}))},50)}catch(e){}})();
 </script>
+<script>/* วางเบอร์แบบ +66 หรือมีขีด ช่องว่าง ให้แปลงเป็น 0xxxxxxxxx อัตโนมัติ */
+document.addEventListener("input",function(e){var t=e.target;if(!t||!t.matches||!t.matches('#phone,#phone2,.nextphin,#ebph,#pnum,[data-f="ct"]'))return;
+var d=String(t.value).replace(/[๐-๙]/g,function(c){return "๐๑๒๓๔๕๖๗๘๙".indexOf(c)}).replace(/\D/g,"");if(/^66\d{9}$/.test(d))d="0"+d.slice(2);if(d.length>10&&d[0]==="0")d=d.slice(0,10);if(d!==t.value)t.value=d;});</script>
 </body>
