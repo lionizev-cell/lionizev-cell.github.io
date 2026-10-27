@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="6d856aac337c6ceae19ff6885f42218cf9fc64e0">
+<meta name="plk-base" content="099fdd847da5300f7496ba20b7648b902395495c">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -15,7 +15,7 @@ var PLKPAY=(function(){
   try{if(location.protocol==="http:"&&/(^|\.)palangtuaylek\.com$/.test(location.hostname)){location.replace("https://"+location.host+location.pathname+location.search+location.hash)}}catch(e){}
   var API="https://script.google.com/macros/s/AKfycbxTojydK9-0hlZb_IlFDYwtOhIzPoJHjiF71VTKvUFm6O1akDukpyhdnuVtocREeQ-a/exec";
   var PUB="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArqc3oTCiRjlenpHkA+QuIadxKBXThqRKW2XAGZvA02DTMkhsxE1rHVjvQ8rESV+ttSskyBTS+bfKiYfZmEbjiGDFD6vFX1Tur55vQc5q7Bo33sRt3dtQTrSPKm2SnhcskpePJRVmk028Jbm+2923NayxoCBFgQc+hJSN2NX37qYFwJeO3S3dvZqgb0XYeef8TXFsHEoDfFJlJ5seV3MYK7bz0N8esO9yAP1gJY6MlkA98MPLyC3xd5IiaMyEcYoO0Zm8PVBzqj4bf2MybeFbCu6BZ8yB2r2QOh1a5YD3WxFb69MJ4NOoSSDui7wijpuZAxWNAQqZ0MQ73t1vi8+2hwIDAQAB";
-  var GRACE=Date.UTC(2026,10,30,17,0,0); // ปลดล็อกแบบเก่าในเครื่องลูกค้า ใช้ได้ถึง 30 พ.ย. 2569
+  var GRACE=Date.UTC(2026,11,31,17,0,0); // ปลดล็อกแบบเก่าในเครื่องลูกค้า ใช้ได้ถึง 31 ธ.ค. 2569 (ยืดจาก 30 พ.ย.)
   var RC="plk_rc",CD="plk_codes",PS="plk_pass",EB="plk_ebk",OFF="plk_ownoff";
   var OK={},rdy=false,keyP=null,MC={},MEB=""; // MC MEB สำรองไว้ในหน่วยความจำ เผื่อเบราว์เซอร์บันทึกลงเครื่องไม่ได้
   function ld(k){try{return JSON.parse(localStorage.getItem(k)||"{}")||{}}catch(e){return {}}}
@@ -6296,7 +6296,7 @@ function cntHit(key){
     [key,key+"-"+day].forEach(k=>fetch(`${CNT.base}/hit/${CNT.ns}/${k}`,{mode:"cors"}).catch(()=>{}));
   }catch(e){}
 }
-(function(){try{if(!sessionStorage.getItem("plk_v")){sessionStorage.setItem("plk_v","1");cntHit("visit");}}catch(e){cntHit("visit");}})();
+cntHit("visit"); // นับทุกครั้งที่เปิดหน้า ไม่จำกัดครั้ง
 // ขั้นการขายในหน้าผลเบอร์: เห็นกล่อง 399 > กดไปกล่อง 399 > คัดลอกเลขบัญชี > เลือกรูปสลิป > กดตรวจสลิป > (slip-ok เดิม)
 function funnelHooks(){
   try{
@@ -8892,6 +8892,7 @@ function wpScene(inp,variant,elOverride){
 
 // ===== แท็บวอลเปเปอร์: สร้างภาพสดด้วย AI หลังตรวจสลิป แล้ววางเลขร้อยเรียงเฉพาะคน =====
 const WP_AI=false; // เปิดเป็น true เมื่อเติมเครดิต Gemini แล้ว จะสร้างภาพสดด้วย AI
+const WP_LINE=true; // true = จ่ายแล้วให้ลูกค้ากดรับภาพทาง LINE อาจารย์ทำภาพเองแล้วส่งให้ (false = เปิดภาพที่วาดไว้บนเว็บทันที)
 const WP_PRICE=99, WP_ELK={"ไฟ":"fire","ดิน":"earth","ลม":"air","น้ำ":"water"}, WP_COLK={1:"red",2:"yellow",3:"pink",4:"green",5:"orange",6:"blue",7:"purple",8:"grey"};
 async function wpApi(o){const r=await fetch(CONFIG.slipApi,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(o)});return await r.json();}
 function wpTicket(v){try{if(v!==undefined){localStorage.setItem("plk_wpt",v);return v;}return localStorage.getItem("plk_wpt")||"";}catch(e){return v||"";}}
@@ -8929,25 +8930,33 @@ function renderWall(inp,ch,ds,who){
    <p class="para">${WP_AI?"เว็บสร้างภาพใหม่ให้เฉพาะคุณด้วย AI ภาพไม่ซ้ำใคร":"ภาพธรรมชาติมงคล"} ตามธาตุของราศีลัคนาในดวง แล้ววางชุดเลขร้อยเรียงที่หนุนดวง งาน${inp.jobText?esc(inp.jobText):""} และการเงินของคุณลงบนภาพ</p>
    <ul class="plain"><li>ลัคนาราศี${SIGNS[D.lag]} ธาตุ${D.el} ภาพ${sc.name}</li><li>${sc.mean}</li><li>สีหลักในภาพคือสี${TK_COL[D.si][0]} สีมงคลตามทักษาของคนเกิดวัน${esc(D.day)} ที่ดาวไม่อ่อนในดวงคุณ</li>
    <li>ชุดเลขร้อยเรียง ${D.chain.slice(0,2).join(" ")} ● ● ● ● เปิดครบหลังชำระเงิน</li></ul>
-   ${prev?`<div style="display:grid;place-items:center;margin-top:10px"><img src="${prev}" alt="ตัวอย่างโทนภาพ" style="width:58%;max-width:240px;border-radius:14px;filter:blur(7px);opacity:.85"></div><p class="note" style="text-align:center">${WP_AI?"ตัวอย่างโทนภาพ ภาพจริงสร้างใหม่ด้วย AI หลังชำระเงิน":"ตัวอย่างภาพ เปิดภาพคมชัดพร้อมเลขครบหลังชำระเงิน"}</p>`:""}
+   ${prev?`<div style="display:grid;place-items:center;margin-top:10px"><img src="${prev}" alt="ตัวอย่างโทนภาพ" style="width:58%;max-width:240px;border-radius:14px;filter:blur(7px);opacity:.85"></div><p class="note" style="text-align:center">${WP_LINE?"ตัวอย่างโทนภาพ ภาพจริงทำใหม่เฉพาะคุณ คมชัดพร้อมเลขครบ ส่งให้ทาง LINE หลังชำระเงิน":WP_AI?"ตัวอย่างโทนภาพ ภาพจริงสร้างใหม่ด้วย AI หลังชำระเงิน":"ตัวอย่างภาพ เปิดภาพคมชัดพร้อมเลขครบหลังชำระเงิน"}</p>`:""}
   </section>`;
   const QR=`<div style="width:200px;height:200px;background:#fff;border-radius:8px;padding:6px;box-sizing:border-box">${qrSvg(ppPayload(WP_PRICE),188)}</div>`;
   const pay=`<section class="card pay" id="wpay"><h2>วอลเปเปอร์เสริมดวงเฉพาะคุณ ${WP_PRICE} บาท</h2>
-   <ul class="plain">${WP_AI?"<li>ภาพสร้างใหม่ด้วย AI ได้ 3 ภาพ เลือกเก็บภาพที่ชอบ</li>":"<li>ภาพธรรมชาติมงคลตามธาตุลัคนาและสีมงคลของคุณ</li>"}<li>วางชุดเลขร้อยเรียงเฉพาะดวงและอาชีพของคุณ พร้อมความหมายบนภาพ</li><li>ได้ทั้งแบบล็อกหน้าจอและแบบหน้าโฮม บันทึกลงมือถือได้ทันที</li></ul>
+   <ul class="plain">${WP_AI?"<li>ภาพสร้างใหม่ด้วย AI ได้ 3 ภาพ เลือกเก็บภาพที่ชอบ</li>":"<li>ภาพธรรมชาติมงคลตามธาตุลัคนาและสีมงคลของคุณ</li>"}<li>วางชุดเลขร้อยเรียงเฉพาะดวงและอาชีพของคุณ พร้อมความหมายบนภาพ</li><li>${WP_LINE?"ได้ทั้งแบบล็อกหน้าจอและแบบหน้าโฮม ส่งให้ทาง LINE หลังชำระเงิน":"ได้ทั้งแบบล็อกหน้าจอและแบบหน้าโฮม บันทึกลงมือถือได้ทันที"}</li></ul>
    <div class="paybox">${QR}<div class="payinfo"><p><span class="note">สแกนจ่าย</span><br><b>${WP_PRICE} บาท</b> (ยอดขึ้นอัตโนมัติ)</p><p><span class="note">หรือโอนเข้า</span><br>${PAY.bank}<br><b class="acc">${PAY.acc}</b><br>${PAY.name}</p><button type="button" class="ghost" id="wcopyacc">คัดลอกเลขบัญชี</button></div></div>
    <h3 class="sub">โอนแล้ว แนบสลิปตรงนี้ได้เลย</h3>
    <label class="slipup" for="wslipfile"><input type="file" id="wslipfile" accept="image/*"><span id="wslipname">แตะเพื่อเลือกรูปสลิป</span></label>
-   <button type="button" class="primary" id="wslipgo" disabled>ตรวจสลิปและเปิดภาพ</button><p class="note" id="wslipst" aria-live="polite"></p>
+   <button type="button" class="primary" id="wslipgo" disabled>${WP_LINE?"ตรวจสลิป":"ตรวจสลิปและเปิดภาพ"}</button><p class="note" id="wslipst" aria-live="polite"></p>
    <details class="libd"><summary>มีรหัสวอลเปเปอร์ 8 หลักแล้ว</summary><div class="codebox"><input id="wtick" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="00000000"><button type="button" class="primary" id="wtickgo">ใช้รหัสนี้</button></div><p class="err" id="wtickerr" hidden></p></details></section>`;
-  $("result").innerHTML=free+pay+`<section class="card" id="wgen" hidden><h2>สร้างวอลเปเปอร์ของคุณ</h2><p class="para" id="wginfo"></p>
+  $("result").innerHTML=free+pay+`<section class="card" id="wgen" hidden><h2>${WP_LINE?"รับวอลเปเปอร์ของคุณทาง LINE":"สร้างวอลเปเปอร์ของคุณ"}</h2><p class="para" id="wginfo"></p>
    <div class="btns"><button type="button" class="primary" id="wgo">สร้างภาพ</button></div><p class="note" id="wgst" aria-live="polite"></p>
    <div id="wgout" style="display:grid;gap:12px"></div></section>`;
   const ca=$("wcopyacc");ca.onclick=()=>{const t=PAY.acc.replace(/-/g,"");const d=()=>{ca.textContent="คัดลอกแล้ว";};try{navigator.clipboard.writeText(t).then(d,()=>fallback(t,d));}catch(e){fallback(t,d);}};
-  const showGen=(t,left)=>{wpTicket(t);$("wpay").hidden=true;$("wgen").hidden=false;$("wginfo").innerHTML=WP_AI?`รหัสวอลเปเปอร์ของคุณคือ <b>${t}</b> เก็บไว้ใช้สร้างภาพต่อในเครื่องอื่นได้ เหลือสิทธิ์สร้างภาพ <b id="wleft">${left}</b> ภาพ`:`รหัสวอลเปเปอร์ของคุณคือ <b>${t}</b> เก็บไว้เปิดดูอีกครั้งในเครื่องอื่นได้`;$("wgo").disabled=WP_AI&&left<=0;if(!WP_AI)$("wgo").click();};
+  const wpLineMsg=t=>{const nm=(D.prs||[]).map(p=>p.s+" "+String(p.g&&p.g[1]||"").replace(/^คู่/,"")).join(", ");
+    return ["ชำระค่าวอลเปเปอร์มงคล "+WP_PRICE+" บาทแล้ว ขอรับภาพครับ/ค่ะ","รหัสวอลเปเปอร์ "+t,(D.nick?"ชื่อบนภาพ คุณ"+D.nick:""),"เกิดวัน"+D.day+" "+pad(inp.d)+"/"+pad(inp.m)+"/"+(inp.y<2400?inp.y+543:inp.y),
+      "ลัคนาราศี"+SIGNS[D.lag]+" ธาตุ"+D.el+" ภาพ"+sc.name,"สีมงคล "+TK_COL[D.si][0],"ชุดเลขร้อยเรียง "+D.chain.join(" "),(nm?"ความหมาย "+nm:""),(D.jobText||inp.jobText?"อาชีพ "+(D.jobText||inp.jobText):"")].filter(Boolean).join("\n");};
+  const showLine=t=>{wpTicket(t);$("wpay").hidden=true;$("wgen").hidden=false;
+    $("wginfo").innerHTML=`ชำระเงินเรียบร้อยแล้ว รหัสวอลเปเปอร์ของคุณคือ <b>${t}</b> กดปุ่มด้านล่าง ข้อความรายละเอียดดวงของคุณจะถูกคัดลอกให้ แล้วไปวางในแชท LINE ผมจะทำภาพเฉพาะคุณ ทั้งแบบล็อกหน้าจอและหน้าโฮม ส่งให้ทาง LINE ครับ`;
+    const b=$("wgo");b.textContent="กดรับภาพที่ LINE";b.hidden=false;b.disabled=false;
+    b.onclick=()=>{const m=wpLineMsg(t);const done=()=>{$("wgst").style.color="var(--good)";$("wgst").textContent="คัดลอกข้อความแล้ว กำลังเปิด LINE วางข้อความในแชทแล้วกดส่งได้เลยครับ";cntHit("wall-line");setTimeout(()=>{location.href=CONFIG.chatUrl;},900);};
+      try{navigator.clipboard.writeText(m).then(done,()=>fallback(m,done));}catch(e){fallback(m,done);}};};
+  const showGen=(t,left)=>{if(WP_LINE)return showLine(t);wpTicket(t);$("wpay").hidden=true;$("wgen").hidden=false;$("wginfo").innerHTML=WP_AI?`รหัสวอลเปเปอร์ของคุณคือ <b>${t}</b> เก็บไว้ใช้สร้างภาพต่อในเครื่องอื่นได้ เหลือสิทธิ์สร้างภาพ <b id="wleft">${left}</b> ภาพ`:`รหัสวอลเปเปอร์ของคุณคือ <b>${t}</b> เก็บไว้เปิดดูอีกครั้งในเครื่องอื่นได้`;$("wgo").disabled=WP_AI&&left<=0;if(!WP_AI)$("wgo").click();};
   $("wslipfile").onchange=()=>{const f=$("wslipfile").files[0];$("wslipname").textContent=f?f.name:"แตะเพื่อเลือกรูปสลิป";$("wslipgo").disabled=!f;$("wslipst").textContent="";};
   $("wslipgo").onclick=async()=>{const f=$("wslipfile").files[0];if(!f)return;const st=$("wslipst"),b=$("wslipgo");b.disabled=true;st.style.color="";st.textContent="กำลังตรวจสลิป รอสักครู่...";
     try{const b64=await slipToBase64(f);const j=await wpApi({action:"wpslip",base64:b64.replace(/^data:image\/\w+;base64,/,""),site:"num"});
-      if(j.ok){cntHit("slip-ok");cntHit("pay-wall");st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ";showGen(j.ticket,j.left);if(WP_AI)$("wgo").click();}
+      if(j.ok){cntHit("slip-ok");cntHit("pay-wall");st.style.color="var(--good)";st.textContent="ตรวจสลิปผ่านแล้ว ขอบคุณครับ";showGen(j.ticket,j.left);if(WP_AI&&!WP_LINE)$("wgo").click();}
       else{st.style.color="var(--bad)";st.textContent=(j.msg||"ตรวจสลิปไม่ผ่าน")+" ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ";b.disabled=false;}}
     catch(e){st.style.color="var(--bad)";st.textContent="ตอนนี้ตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ";b.disabled=false;}};
   $("wtickgo").onclick=async()=>{const t=normDigits($("wtick").value);if(t.length!==8){$("wtickerr").textContent="ใส่รหัส 8 หลัก";$("wtickerr").hidden=false;return;}
@@ -8959,7 +8968,7 @@ function renderWall(inp,ch,ds,who){
       ${[["lock",lock,"ล็อกหน้าจอ"],["home",home,"หน้าโฮม"]].map(([k,u,t])=>`<figure style="margin:0"><img src="${u}" alt="วอลเปเปอร์${t}" style="width:100%;border-radius:12px"><figcaption class="note" style="text-align:center">${t}</figcaption><a class="ghost" href="${u}" download="wallpaper-${k}.jpg" style="display:block;text-align:center;margin-top:6px">บันทึกรูป</a></figure>`).join("")}</div>
       <p class="note" style="margin-top:8px">ถ้ากดบันทึกไม่ได้ ให้แตะค้างที่รูป แล้วเลือกบันทึกรูปภาพ</p>`;
     $("wgout").prepend(box);};
-  $("wgo").onclick=async()=>{const t=wpTicket(),st=$("wgst"),b=$("wgo");if(!t)return;
+  if(!WP_LINE)$("wgo").onclick=async()=>{const t=wpTicket(),st=$("wgst"),b=$("wgo");if(!t)return;
     if(!WP_AI){if(!$("wgout").children.length){const L=new Image(),Hm=new Image();L.onload=()=>{const box=document.createElement("div");box.className="card";box.style.margin="0";const u1=L.src,u2=Hm.src;box.innerHTML=`<h3 class="sub" style="margin:0 0 8px">วอลเปเปอร์ของคุณ</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">${[["lock",u1,"ล็อกหน้าจอ"],["home",u2,"หน้าโฮม"]].map(([k,u,tt])=>`<figure style="margin:0"><img src="${u}" alt="วอลเปเปอร์${tt}" style="width:100%;border-radius:12px"><figcaption class="note" style="text-align:center">${tt}</figcaption><a class="ghost" href="${u}" download="wallpaper-${k}.png" style="display:block;text-align:center;margin-top:6px">บันทึกรูป</a></figure>`).join("")}</div><p class="note" style="margin-top:8px">ถ้ากดบันทึกไม่ได้ ให้แตะค้างที่รูป แล้วเลือกบันทึกรูปภาพ</p>`;$("wgout").appendChild(box);};Hm.src=wpScene(inp,"home").url;L.src=wpScene(inp,"lock").url;}b.hidden=true;return;}b.disabled=true;st.style.color="";st.textContent="กำลังสร้างภาพด้วย AI ใช้เวลาประมาณ 10 วินาทีถึง 1 นาที อย่าเพิ่งปิดหน้านี้...";
     try{const j=await wpApi({action:"wpgen",ticket:t,el:WP_ELK[D.el],col:WP_COLK[D.si]});
       if(j.ok&&j.img){const im=new Image();im.onload=()=>{addOut(im,"ภาพที่ "+(3-j.left));st.textContent="";$("wleft").textContent=j.left;b.disabled=j.left<=0;b.textContent=j.left>0?"สร้างภาพใหม่ (เหลือ "+j.left+")":"ใช้สิทธิ์ครบแล้ว";cntHit("wall-gen");};im.src="data:"+(j.mime||"image/png")+";base64,"+j.img;}

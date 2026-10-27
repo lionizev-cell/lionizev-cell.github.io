@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="th"><head><meta charset="utf-8">
-<meta name="plk-base" content="8a7d7ad7e84a378b581c0d85d80bcf43dcc53eff">
+<meta name="plk-base" content="8f839b886b7ba4c3231a2dd6bfffc77080f8cbf5">
 <!--plk-target:ebook.html--><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>อีบุ๊ก ความลับพลังตัวเลข อ่านเบอร์มือถือให้เป็นด้วยตัวเอง | ความลับพลังตัวเลข</title>
 <meta name="description" content="อีบุ๊กสอนอ่านเบอร์มือถือด้วยตัวเอง ความหมายเลข 0 ถึง 9 คู่เลข 00 ถึง 99 ตำแหน่ง 012-ABCDEFG ผลรวม พีระมิด การร้อยเรียง และการดูพื้นดวง อ่านบนเว็บได้ทันทีหลังโอน 399 บาท">
@@ -482,7 +482,7 @@ var PLKPAY=(function(){
   try{if(location.protocol==="http:"&&/(^|\.)palangtuaylek\.com$/.test(location.hostname)){location.replace("https://"+location.host+location.pathname+location.search+location.hash)}}catch(e){}
   var API="https://script.google.com/macros/s/AKfycbxTojydK9-0hlZb_IlFDYwtOhIzPoJHjiF71VTKvUFm6O1akDukpyhdnuVtocREeQ-a/exec";
   var PUB="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArqc3oTCiRjlenpHkA+QuIadxKBXThqRKW2XAGZvA02DTMkhsxE1rHVjvQ8rESV+ttSskyBTS+bfKiYfZmEbjiGDFD6vFX1Tur55vQc5q7Bo33sRt3dtQTrSPKm2SnhcskpePJRVmk028Jbm+2923NayxoCBFgQc+hJSN2NX37qYFwJeO3S3dvZqgb0XYeef8TXFsHEoDfFJlJ5seV3MYK7bz0N8esO9yAP1gJY6MlkA98MPLyC3xd5IiaMyEcYoO0Zm8PVBzqj4bf2MybeFbCu6BZ8yB2r2QOh1a5YD3WxFb69MJ4NOoSSDui7wijpuZAxWNAQqZ0MQ73t1vi8+2hwIDAQAB";
-  var GRACE=Date.UTC(2026,10,30,17,0,0); // ปลดล็อกแบบเก่าในเครื่องลูกค้า ใช้ได้ถึง 30 พ.ย. 2569
+  var GRACE=Date.UTC(2026,11,31,17,0,0); // ปลดล็อกแบบเก่าในเครื่องลูกค้า ใช้ได้ถึง 31 ธ.ค. 2569 (ยืดจาก 30 พ.ย.)
   var RC="plk_rc",CD="plk_codes",PS="plk_pass",EB="plk_ebk",OFF="plk_ownoff";
   var OK={},rdy=false,keyP=null,MC={},MEB=""; // MC MEB สำรองไว้ในหน่วยความจำ เผื่อเบราว์เซอร์บันทึกลงเครื่องไม่ได้
   function ld(k){try{return JSON.parse(localStorage.getItem(k)||"{}")||{}}catch(e){return {}}}
@@ -632,4 +632,5 @@ window.addEventListener("beforeprint",ebSec);window.addEventListener("afterprint
 </script><script>/* วางเบอร์แบบ +66 หรือมีขีด ช่องว่าง ให้แปลงเป็น 0xxxxxxxxx อัตโนมัติ */
 document.addEventListener("input",function(e){var t=e.target;if(!t||!t.matches||!t.matches('#phone,#phone2,.nextphin,#ebph,#pnum,[data-f="ct"]'))return;
 var d=String(t.value).replace(/[๐-๙]/g,function(c){return "๐๑๒๓๔๕๖๗๘๙".indexOf(c)}).replace(/\D/g,"");if(/^66\d{9}$/.test(d))d="0"+d.slice(2);if(d.length>10&&d[0]==="0")d=d.slice(0,10);if(d!==t.value)t.value=d;});</script>
+<script>/* นับการเข้าเว็บทุกครั้งที่เปิดหน้า (ไม่นับเครื่องเจ้าของ) */(function(){try{if(!/github\.io$|palangtuaylek\.com$/.test(location.hostname))return;try{var o=JSON.parse(localStorage.getItem("plk_rc")||"{}");if(Object.keys(o).some(function(p){return p.indexOf("o|")===0})&&localStorage.getItem("plk_ownoff")!=="1")return;}catch(e){}var d=new Date(),day=d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);["visit","visit-"+day].forEach(function(k){fetch("https://abacus.jasoncameron.dev/hit/palangtuaylek-lionizev/"+k,{mode:"cors"}).catch(function(){})});}catch(e){}})();</script>
 </body></html>
