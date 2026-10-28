@@ -6,7 +6,7 @@
 <link rel="canonical" href="https://www.palangtuaylek.com/palangtuaylek.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="e9dbb25c9241944b45ce47431c3580897bcf648e">
+<meta name="plk-base" content="868dd21b378667ae9df822d347b40cfe0ee9b81c">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -2633,6 +2633,8 @@ function s1000(inp,r){
   if(r.strong){total=Math.min(total,400);caps.push("มีจุดที่ทำให้ไม่ผ่าน คะแนนรวมจึงไม่เกิน 400");}
   else if(r.trips.some(t=>t.to>=7&&t.pt!=="414")){total=Math.min(total,700);caps.push("มีชุดเลขที่ไม่เหมาะกับเพศอยู่ท้ายเบอร์ คะแนนรวมจึงไม่เกิน 700");}
   else if(r.trips.length){total=Math.min(total,800);caps.push("มีชุดเลขที่ไม่เหมาะกับเพศ คะแนนรวมจึงไม่เกิน 800");}
+  r.abCap=!r.strong&&abBanJobs(inp,n[3]*10+n[4]).length>0;
+  if(r.abCap&&total>700){total=700;const k=abBanJobs(inp,n[3]*10+n[4])[0];caps.push("ตรงทางเข้าของเงินเป็นคู่ "+n[3]+n[4]+" ซึ่งไม่ใช่คู่เสน่ห์สำหรับงาน"+(jobPieceFor(inp.jobText,k)||JOBS[k][0].split(" /")[0])+" คะแนนรวมจึงไม่เกิน 700");}
   return {total:Math.max(20,Math.min(985,total)),P,why,caps};
 }
 function s1000Band(t){return t>=850?["g","เบอร์ดีมาก เข้ากับคุณ"]:t>=750?["g","เบอร์ดี ใช้ได้เลย"]:t>=600?["g","ใช้ได้ มีจุดต้องระวัง"]:t>=450?["m","กลาง ๆ ยังไม่ใช่เบอร์ที่ใช่"]:["b","ไม่แนะนำให้ใช้"];}
@@ -2643,7 +2645,7 @@ function s1000Html(r){
    ${(()=>{const R=S1K.map(([key,lab,max])=>({lab,pc:k.P[key]/max})).sort((a,b)=>b.pc-a.pc);const hi=R[0],lo=R[R.length-1];return `<div class="hl" style="margin-bottom:10px"><div class="hlb g"><b>หมวดที่ได้คะแนนดีที่สุด</b><span>${hi.lab} ${Math.round(hi.pc*100)}%</span></div><div class="hlb ${lo.pc<0.55?"b":"m"}"><b>หมวดที่ฉุดคะแนน</b><span>${lo.lab} ${Math.round(lo.pc*100)}%</span></div></div>`;})()}
    <div class="k1k">${S1K.map(([key,lab,max])=>{const v=k.P[key],pc=Math.round(v/max*100),c=pc>=75?"g":pc>=55?"m":"b";
      return `<details class="k1row"><summary><span class="k1l">${lab}</span><span class="k1v"><b>${v}</b> / ${max}</span><span class="k1bar"><i class="${c}" style="width:${pc}%"></i></span></summary><ul class="plain">${k.why[key].map(t=>`<li>${t}</li>`).join("")}</ul></details>`;}).join("")}</div>
-   ${k.caps.length?`<p class="note" style="margin-top:8px">${k.caps.join(" ")}</p>`:""}${(()=>{const sm=S1K.reduce((a,[key])=>a+k.P[key],0);return r.s1000<sm-5?`<p class="note" style="margin-top:8px">คะแนนรวมหมวดได้ ${sm} แต่ผมปรับคะแนนรวมลงเหลือ ${r.s1000} เพราะเมื่ออ่านรวมทุกด้านของชีวิตแล้ว มีหลายเรื่องที่เบอร์นี้ยังไม่หนุน</p>`:r.s1000>sm+5?`<p class="note" style="margin-top:8px">คะแนนรวมหมวดได้ ${sm} แต่ผมปรับขึ้นเป็น ${r.s1000} เพราะเมื่ออ่านรวมทุกด้านของชีวิตแล้ว เบอร์นี้หนุนหลายเรื่อง</p>`:"";})()}
+   ${k.caps.length?`<p class="note" style="margin-top:8px">${k.caps.join(" ")}</p>`:""}${(()=>{const sm=S1K.reduce((a,[key])=>a+k.P[key],0);return r.s1000<sm-5&&!(k.caps.length&&r.s1000>=Math.min(...[400,700,800].filter(c=>k.caps.some(x=>x.includes("ไม่เกิน "+c))))-1)?`<p class="note" style="margin-top:8px">คะแนนรวมหมวดได้ ${sm} แต่ผมปรับคะแนนรวมลงเหลือ ${r.s1000} เพราะเมื่ออ่านรวมทุกด้านของชีวิตแล้ว มีหลายเรื่องที่เบอร์นี้ยังไม่หนุน</p>`:r.s1000>sm+5?`<p class="note" style="margin-top:8px">คะแนนรวมหมวดได้ ${sm} แต่ผมปรับขึ้นเป็น ${r.s1000} เพราะเมื่ออ่านรวมทุกด้านของชีวิตแล้ว เบอร์นี้หนุนหลายเรื่อง</p>`:"";})()}
    <p class="note" style="margin-top:8px">กดที่แต่ละหมวดเพื่อดูว่าได้หรือเสียคะแนนเพราะอะไร</p></section>`;
 }
 
@@ -4424,7 +4426,7 @@ function scoreRuleHtml(){
    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">${R.map(x=>`<tr style="border-top:1px solid var(--line)"><td style="padding:4px">${x[0]}</td><td style="padding:4px;white-space:nowrap">${x[1]}</td></tr>`).join("")}</table></div>
    <h3 class="sub" style="margin-top:14px">2. คะแนนเบอร์เต็ม 1000 เรียงตามความสำคัญ</h3>
    <ul class="plain">${C.map(x=>`<li><b>${x[0]} ${x[1]} คะแนน</b> ${x[2]}</li>`).join("")}</ul>
-   <p class="note">ถ้าเบอร์มีจุดที่ไม่ผ่าน คะแนนรวมไม่เกิน 400 ถ้ามีชุดเลขที่ไม่เหมาะกับเพศอยู่ท้ายเบอร์ ไม่เกิน 700 อยู่ตำแหน่งอื่น ไม่เกิน 800 เบอร์ที่ดีมากสำหรับคนคนหนึ่งมักได้ราว 800 ถึง 900 ไม่มีเบอร์ไหนได้เต็ม</p></section>`;}
+   <p class="note">ถ้าเบอร์มีจุดที่ไม่ผ่าน คะแนนรวมไม่เกิน 400 ถ้ามีชุดเลขที่ไม่เหมาะกับเพศอยู่ท้ายเบอร์ ไม่เกิน 700 อยู่ตำแหน่งอื่น ไม่เกิน 800 งานที่ใช้เสน่ห์ ถ้าตรงทางเข้าของเงินไม่ใช่คู่เสน่ห์ ไม่เกิน 700 เบอร์ที่ดีมากสำหรับคนคนหนึ่งมักได้ราว 800 ถึง 900 ไม่มีเบอร์ไหนได้เต็ม</p></section>`;}
 function deepFull(inp,r,NM){
   const ds=r.ds, lag=ds.lag, who=inp.nick?"คุณ"+esc(inp.nick):"คุณ", f=inp.sex==="f";
   const lords=LORD[lag];
@@ -4821,7 +4823,8 @@ function finalScore(inp,r){
   const nG=r.rows.filter(x=>x.g==="g").length, nB=r.rows.filter(x=>x.g==="b").length;
   r.level=r.strong?"fail":(r.score>=75&&nG>=3&&nB===0)?"good":(r.score>=60&&nB<=1)||nG>=3?"ok":(nB>=3||r.score<45)?"bad":"mid";
   const cap={fail:40,bad:44,mid:59,ok:74,good:98}[r.level], flo={fail:0,bad:0,mid:45,ok:60,good:75}[r.level];
-  r.s1000=Math.max(flo*10,Math.min(cap===98?985:cap*10+9,r.s1000)); r.score=Math.round(r.s1000/10);
+  if(r.abCap&&r.level==="good") r.level="ok";
+  r.s1000=Math.max(flo*10,Math.min(cap===98?985:cap*10+9,r.s1000)); if(r.abCap) r.s1000=Math.min(700,r.s1000); r.score=Math.round(r.s1000/10);
   return r.s1000;
 }
 // เทียบกับเบอร์ทั่วไป: สุ่มเบอร์มือถือ 400 เบอร์ (คงที่ต่อดวง) แล้วดูว่าเบอร์นี้ดีกว่ากี่เปอร์เซ็นต์ เมื่อเทียบกับดวงเดียวกัน
