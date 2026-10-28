@@ -6,7 +6,7 @@
 <link rel="canonical" href="https://www.palangtuaylek.com/palangtuaylek.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="868dd21b378667ae9df822d347b40cfe0ee9b81c">
+<meta name="plk-base" content="98f4a39219fd90125ccfecf8840fa59e5e008577">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -2413,12 +2413,12 @@ var QDAO=(function(){
       if(g.length){s+=Math.min(3,g.length*2);i.plus.push('เป็น'+g.join('และ'))}
       if(st.indexOf('นิจ')>=0){s-=2;i.minus.push('เป็นนิจ')}
       if(st.indexOf('ประ')>=0){s-=1;i.minus.push('เป็นประ')}
-      if(BADH.indexOf(i.house)>=0){s-=2;i.minus.push('ตกภพ'+HN[i.house-1])}
-      else if(GOODPLACE.indexOf(i.house)>=0){s+=1;i.plus.push('อยู่ภพ'+HN[i.house-1])}
+      if(BADH.indexOf(i.house)>=0){s-=2;i.minus.push('ตกเรือน'+HN[i.house-1])}
+      else if(GOODPLACE.indexOf(i.house)>=0){s+=1;i.plus.push('อยู่เรือน'+HN[i.house-1])}
       var rv={'ศรี':2,'มนตรี':1,'เดช':1,'มูลละ':1,'กาลี':-2}[i.role]||0;
       if(rv>0)i.plus.push('เป็น'+i.role+'วันเกิด');if(rv<0)i.minus.push('เป็นกาลีวันเกิด');s+=rv;
-      i.rules.forEach(function(r){if(BADH.indexOf(r)>=0){s-=1;i.minus.push('เป็นเจ้าภพ'+HN[r-1])}
-        else if(GOODLORD.indexOf(r)>=0){s+=1;i.plus.push('เป็นเจ้าภพ'+HN[r-1])}});
+      i.rules.forEach(function(r){if(BADH.indexOf(r)>=0){s-=1;i.minus.push('เป็นเจ้าเรือน'+HN[r-1])}
+        else if(GOODLORD.indexOf(r)>=0){s+=1;i.plus.push('เป็นเจ้าเรือน'+HN[r-1])}});
       if([7,8,0].indexOf(p)>=0&&i.house===7){s-=2;i.minus.push('เล็งลัคนา')}
       if(GHAT[ty]===p){s-=2;i.minus.push('เป็นดาวฆาตของลัคนาราศี'+ty)}
       if(ong.indexOf(p)>=0){s+=2;i.plus.push('ได้องค์เกณฑ์')}
@@ -2631,7 +2631,7 @@ function s1000(inp,r){
   let total=S1K.reduce((a,[k])=>a+P[k],0);
   const caps=[];
   if(r.strong){total=Math.min(total,400);caps.push("มีจุดที่ทำให้ไม่ผ่าน คะแนนรวมจึงไม่เกิน 400");}
-  else if(r.trips.some(t=>t.to>=7&&t.pt!=="414")){total=Math.min(total,700);caps.push("มีชุดเลขที่ไม่เหมาะกับเพศอยู่ท้ายเบอร์ คะแนนรวมจึงไม่เกิน 700");}
+  else if(r.trips.some(t=>t.to>=7&&t.pt!=="414")){total=Math.min(total,700);caps.push("มีชุดเลขที่ไม่เหมาะกับเพศอยู่ช่วงท้ายเบอร์ คะแนนรวมจึงไม่เกิน 700");}
   else if(r.trips.length){total=Math.min(total,800);caps.push("มีชุดเลขที่ไม่เหมาะกับเพศ คะแนนรวมจึงไม่เกิน 800");}
   r.abCap=!r.strong&&abBanJobs(inp,n[3]*10+n[4]).length>0;
   if(r.abCap&&total>700){total=700;const k=abBanJobs(inp,n[3]*10+n[4])[0];caps.push("ตรงทางเข้าของเงินเป็นคู่ "+n[3]+n[4]+" ซึ่งไม่ใช่คู่เสน่ห์สำหรับงาน"+(jobPieceFor(inp.jobText,k)||JOBS[k][0].split(" /")[0])+" คะแนนรวมจึงไม่เกิน 700");}
@@ -2754,12 +2754,12 @@ const HOUSE_MEAN={1:"ตัวตน",2:"การเงิน",3:"พี่น�
 const hn=h=>"เรือน"+HOUSE[h]+" ("+HOUSE_MEAN[h]+")";
 function digitRow(d,ds){const f=ds.info[d],c=ds.cls[d];
   const st=f.dg||"ปกติ";
-  const lords=f.lords.length?f.lords.map(hn).join(" และ "):"ไม่ได้เป็นเจ้าภพใด";
+  const lords=f.lords.length?f.lords.map(hn).join(" และ "):"ไม่ได้เป็นเจ้าเรือนใด";
   const pros=f.plus.length?"จุดส่งคือ "+f.plus.join(" "):"", cons=f.minus.length?"จุดถ่วงคือ "+f.minus.join(" "):"";
   const extra=f.house===1?" ดาวนี้กุมลัคนา มีอิทธิพลกับตัวตนคุณมาก":f.house===7?" ดาวนี้เล็งลัคนา ส่งผลกับคู่ครองและคนที่เข้ามาในชีวิต":"";
   const tail=c==="g"?"เรื่อง"+DIGIT_MEAN[d]+"เป็นจุดแข็งของคุณ เลข "+d+" ใส่ในเบอร์ได้เต็มที่ ยิ่งอยู่ท้ายเบอร์ยิ่งดี":c==="b"?"เรื่อง"+DIGIT_MEAN[d]+"เป็นจุดอ่อน เลข "+d+" ไม่ควรวางลอย ๆ ถ้าจะใช้ต้องประกบกับเลขพลังดีในคู่ดีและอยู่ในตำแหน่งดี":(f.plus.length&&f.minus.length?"มีทั้งส่งและถ่วงหักกันไป ":"")+"เลข "+d+" ใช้ได้ตามคู่ที่ประกบ เจอเลขเด่นจะดีขึ้น เจอเลขด้อยจะแย่ลง";
   return `<li><div class="pv ${c}">${d}</div><div><h3>ดาว${PL[d]} <span class="pill ${c}">${DL[c]}</span></h3>
-  <dl class="kv sm"><dt>อยู่ราศี</dt><dd>${SIGNS[f.sign]}</dd><dt>สถิตภพ</dt><dd>${hn(f.house).replace("เรือน","")}</dd><dt>กำลัง</dt><dd>${st}</dd><dt>เจ้าภพ</dt><dd>${lords.replace(/เรือน/g,"")}</dd></dl>
+  <dl class="kv sm"><dt>อยู่ราศี</dt><dd>${SIGNS[f.sign]}</dd><dt>สถิตเรือน</dt><dd>${hn(f.house).replace("เรือน","")}</dd><dt>กำลัง</dt><dd>${st}</dd><dt>เจ้าเรือน</dt><dd>${lords.replace(/เรือน/g,"")}</dd></dl>
   <p>${[pros,cons].filter(Boolean).join(" ")}${extra}</p><p><b>สรุป</b> ${f.steps.join(" ")}</p><p class="note" style="margin-top:2px">${tail}</p></div></li>`;}
 const CTX={
 GF:{g:"ตัวตนออกมาในทางบวก คนจำคุณได้ในแง่ดี",m:"นิสัยออกมาทั้งด้านดีและด้านลบ ต้องคุมตัวเองให้ได้",b:"นิสัยด้านลบจะออกมาให้คนเห็นชัด ทำให้เสียโอกาส"},
@@ -2968,7 +2968,7 @@ function jobFitPos(inp,r){
     else if(JV.f>=0.55){f=0.55;tag="เสริม";t="เป็น "+p.s+" "+gi[1]+" อยู่ใน"+G2.name+" ไม่ใช่พลังหลักของงาน"+jn+" แต่ช่วยเสริมได้";}
     else if(JV.f>0){f=0.3;tag="เสริม";t="เป็น "+p.s+" "+gi[1]+" ไม่ใช่พลังหลักของงาน"+jn+" แต่มี"+JV.why+"ที่งานนี้ใช้ ช่วยได้ทางอ้อม";}
     else {f=JV.f;tag="ไม่ตรงงาน";t="เป็น "+p.s+" "+gi[1]+" ไม่ใช่คู่เสีย แต่ไม่ใช่พลังที่งาน"+jn+"ใช้หาเงิน";}}
-    if(k==="AB"&&abBanG((JOB_GRP[inp.job]||[])[0],v)&&f>-1){f=-1;tag="ขัดกับงาน";t="เป็น "+p.s+" "+gi[1]+" "+AB_BAN_WHY+" งาน"+jn+"จึงไม่ควรมีคู่นี้ตรงตำแหน่งดูดทรัพย์";}
+    {const bj=k==="AB"?abBanJobs(inp,v):[]; if(bj.length&&f>-1){const jb=bj.includes(inp.job)?jn:(jobPieceFor(inp.jobText,bj[0])||JOBS[bj[0]][0].split(" /")[0]);f=-1;tag="ขัดกับงาน";t="เป็น "+p.s+" "+gi[1]+" "+AB_BAN_WHY+" งาน"+jb+"จึงไม่ควรมีคู่นี้ตรงตำแหน่งดูดทรัพย์";}}
     {const oc=jobConflict(inp,v).filter(q=>q!==inp.job); if(f>0&&oc.length){const g2=(JOB_GRP[oc[0]]||[])[0]; f=Math.min(f,-0.3); tag="ขัดกับงานอื่น"; t+=" แต่คู่นี้ขัดกับงาน"+(jobPieceFor(inp.jobText,oc[0])||JOBS[oc[0]][0].split(" /")[0])+" ที่คุณทำอยู่ด้วย เพราะ"+JGRP[g2].x[v];}}
     if(k!=="GF"&&f>0&&gi[0]==="b"){f=Math.min(f,0.2);t+=" แต่คู่นี้ให้ผลเสียกับ"+(inp.sex==="f"?"ผู้หญิง":"ผู้ชาย")+" จึงช่วยได้น้อย";}
     if(k!=="GF"&&f>0&&ps<=-0.1){f*=0.5;t+=" แต่เลขในคู่นี้เป็นพลังอ่อนในดวงคุณ ผลจึงไม่เต็ม";}
@@ -2987,7 +2987,7 @@ function jobFitPos(inp,r){
   const g=gk==="money"&&!h28?(sc>=0.12?"m":"b"):ab&&(ab.f>=0.9&&sc>=0.45||ab.f>0.2&&sc>=0.6)?"g":sc>=0.12&&!(ab&&ab.f<0&&sc<0.3)?"m":"b";
   const pct=Math.round(Math.max(5,Math.min(96,50+45*sc)));
   // คู่ที่ควรวางตำแหน่งดูดทรัพย์ สำหรับดวงนี้
-  const rec=[];G1.p.forEach(v=>{if(rec.length>=6)return;if(jobConflict(inp,v).length)return;if(hotChart(r).length&&String(v).includes("3"))return;const a=Math.floor(v/10),b=v%10;if(r.ds.cls[a]==="b"||r.ds.cls[b]==="b")return;if(pairInfoG(v,inp.sex)[0]==="b")return;rec.push(String(v).padStart(2,"0"));});
+  const rec=[];G1.p.forEach(v=>{if(rec.length>=6)return;if(jobConflict(inp,v).length||abBanJobs(inp,v).length)return;if(hotChart(r).length&&String(v).includes("3"))return;const a=Math.floor(v/10),b=v%10;if(r.ds.cls[a]==="b"||r.ds.cls[b]==="b")return;if(pairInfoG(v,inp.sex)[0]==="b")return;rec.push(String(v).padStart(2,"0"));});
   if(gk==="money") rec.sort((a,b)=>(["28","82","88"].includes(b)?1:0)-(["28","82","88"].includes(a)?1:0));
   return {g,sc,pct,rows,G1,G2,jn,rec,ab,fe,any:[...any],gk,h28,ok88:gk==="money"&&!jobConflict(inp,88).length};
 }
@@ -3263,7 +3263,7 @@ function moneyX(inp,r){
     const JL=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]); const loanJob=JL.includes(15)&&!JL.some(k=>["wisdom","power"].includes((JOB_GRP[k]||[])[0]));
     const isO=(v in M_OUT&&!(loanJob&&v===88))||((p.s[0]==="0"||p.s[1]==="0")&&gi[0]!=="g");
     if(loanJob&&v===88){let w=MW.in[p.k]||0.1; inS+=w; IN.push({k:p.k,s:p.s,w});}
-    const jc=jobConflict(inp,v).length, pgB=posGrade(p,r,inp).g==="b", _pg=posGrade(p,r,inp).g, spOut=!isO&&((p.k==="FG"&&_pg!=="g")||(p.k==="DC"&&_pg==="b"));
+    const jc=jobConflict(inp,v).length||(p.k==="AB"&&abBanJobs(inp,v).length), pgB=posGrade(p,r,inp).g==="b", _pg=posGrade(p,r,inp).g, spOut=!isO&&((p.k==="FG"&&_pg!=="g")||(p.k==="DC"&&_pg==="b"));
     if(p.k==="DC"&&_pg==="g"&&!isO&&!jc&&!M_KEEP.includes(v)){const w=MW.keep.DC||0.5; keS+=w; KE.push({k:p.k,s:p.s,w});}
     else if(M_IN.includes(v)&&!isO&&!jc&&!spOut&&!pgB&&p.k!=="BC"){let w=MW.in[p.k]||0.1; if(weak)w*=0.7; inS+=w; IN.push({k:p.k,s:p.s,w});}
     if(M_KEEP.includes(v)&&!isO&&!jc&&!spOut&&!pgB&&MW.keep[p.k]){let w=MW.keep[p.k]; if(weak)w*=0.7; keS+=w; KE.push({k:p.k,s:p.s,w});}
@@ -3271,6 +3271,7 @@ function moneyX(inp,r){
     else if(spOut){const w=p.k==="FG"?0.3:0.35; ouS+=w; OU.push({k:p.k,s:p.s,w,t:p.k==="FG"?"ใช้เงินตามอารมณ์":"เก็บเงินไม่ค่อยอยู่"});}});
   if(n[9]===5){const fgp=r.pos.find(p=>p.k==="FG"); if(fgp&&fgp.info[0]==="b") why.push("ลงท้ายด้วยเลข 5 ช่วยให้เงินรั่วน้อยลงบ้าง แต่คู่ใช้จ่าย "+fgp.s+" ยังทำให้เงินออกง่าย"); else {keS+=0.2;why.push("ลงท้ายด้วยเลข 5 เงินไม่ค่อยรั่ว");}}
   if(n[9]===0||n[8]===0){ouS+=0.2;}
+  {const abp=r.pos.find(p=>p.k==="AB"), bj=abp?abBanJobs(inp,+abp.s):[]; if(bj.length&&M_IN.includes(+abp.s)) why.push("คู่ "+abp.s+" ตรงทางเข้าของเงินปกติเป็นคู่ดึงเงิน แต่สำหรับงาน"+(jobPieceFor(inp.jobText,bj[0])||JOBS[bj[0]][0].split(" /")[0])+" ผมไม่นับเป็นเลขดูดเงิน เพราะตรงนี้ต้องเป็นคู่เสน่ห์ที่ดึงลูกค้า");}
   const has=v=>{for(let i=3;i<9;i++){const a=n[i]*10+n[i+1];if(a===v)return true;}return false;};
   if(has(28)||has(82)) why.push(inp.job===15?"มีคู่หมุนเงิน เงินหมุนเข้าออกเร็ว ตรงกับงานของคุณ แต่ต้องมีเลขเก็บเงินคุมไว้":"มีคู่หมุนเงิน เงินเข้าเร็วแต่ก็ออกเร็ว ต้องมีเลขเก็บเงินคุม");
   // ดูคู่กัน: ทางเข้าของเงินดี แต่คู่ถัดไปเป็นเลขใช้จ่าย
@@ -3685,7 +3686,8 @@ function simpleSummary(inp,r,nm){
   const T3=(r.tri3||phoneTriples(r,inp))[0];
   {const tk=String(r.n[8])+r.n[9], TT=TAIL_R[tk]?TAIL_R[tk][0]:"", body=TRs&&TRs.lv!=="ok"?(TT==="biz"||TT==="job"?"":TAIL_R[tk][1].replace(/^ไม่ควรวางท้าย /,"").replace(/^ทำให้/,"").replace(/^วางท้ายแล้ว/,"").replace(/^วางท้ายต้องดูอาชีพ /,"").replace(/ ถ้าเป็นเบอร์กิจการให้ใช้ \d\d ปิดท้ายแทน/,"").replace(/ แต่น้อยกว่า \d\d/," แต่ไม่มาก").replace(/^กลายเป็นกลางค่อนระวัง /,"").replace(/^ระวังปัญหา(.*)$/,"มีปัญหา$1เข้ามาง่าย").replace(/^ระวัง/,"ต้องระวัง").replace(/^แล้ว/,"")):"";
    const tb=TRs&&TRs.lv!=="ok"?(r.age<15?" ปิดด้วยพลังที่ไม่ค่อยเหมาะกับวัยเด็ก":TT==="biz"||TT==="job"?" ปิดด้วยพลังที่เหมาะกับบางอาชีพเท่านั้น ซึ่งไม่ตรงกับคุณ จึงไม่ควรอยู่ท้ายเบอร์":TRs.lv==="warn"?" ปิดด้วยพลังที่ต้องระวัง ทำให้"+body:" ปิดด้วยพลังที่ไม่ควรอยู่ท้ายเบอร์ ทำให้"+body):"";
-   P2.push([tb?"ช่วงท้ายของเบอร์ซึ่งส่งผลแรงที่สุดกับชีวิตประจำวัน"+tb:"ช่วงท้ายของเบอร์ซึ่งส่งผลแรงที่สุดกับชีวิตประจำวัน"+(tg2==="g"?"ออกมาดี คนรอบตัวมองคุณในแง่ดี":tg2==="b"?"ออกมาไม่ดี ทำให้ชีวิตประจำวันเหนื่อยกว่าที่ควร":"ให้ผลกลาง ๆ นิสัยออกมาทั้งด้านดีและด้านที่ต้องคุม"),PV[tg2]]);}
+   const trT=!tb&&tg2==="g"&&(r.trips||[]).find(x=>x.to>=7&&x.pt!=="414"); if(trT) tg2="m";
+   P2.push([trT?"ช่วงท้ายของเบอร์ซึ่งส่งผลแรงที่สุดกับชีวิตประจำวัน คู่ท้ายออกมาดี แต่ช่วงท้ายมีชุดเลข "+trT.pt+" ซึ่งไม่เหมาะกับ"+(inp.sex==="f"?"ผู้หญิง":"ผู้ชาย")+" ทำให้ผลของช่วงท้ายลดลง":tb?"ช่วงท้ายของเบอร์ซึ่งส่งผลแรงที่สุดกับชีวิตประจำวัน"+tb:"ช่วงท้ายของเบอร์ซึ่งส่งผลแรงที่สุดกับชีวิตประจำวัน"+(tg2==="g"?"ออกมาดี คนรอบตัวมองคุณในแง่ดี":tg2==="b"?"ออกมาไม่ดี ทำให้ชีวิตประจำวันเหนื่อยกว่าที่ควร":"ให้ผลกลาง ๆ นิสัยออกมาทั้งด้านดีและด้านที่ต้องคุม"),PV[tg2]]);}
   P2.push([(T3.v==="g"?"พลังช่วงท้ายส่งต่อกันราบรื่น เรื่องที่เริ่มดีมักไปจบดี":T3.v==="b"?"พลังช่วงท้ายส่งต่อกันสะดุด ส่งผลกับชีวิตประจำวันโดยตรง":"พลังช่วงท้ายส่งต่อกันกลาง ๆ มีทั้งช่วงลื่นและช่วงสะดุด"),PV[T3.v]]);
   {const N9=nineFit(inp,r); if(N9){const c9=r.ds.cls[9]; let t9="";
     if(N9.c===0) t9=c9==="b"?"":"เบอร์นี้ยังขาดพลังสัญชาตญาณและจังหวะ ซึ่งยุคออนไลน์ควรมี";
@@ -4016,9 +4018,10 @@ function genEx(inp,r,lv){
     if(HOTC.length&&lv<4&&[x.n[3],x.n[4],x.n[7],x.n[8]].includes(3)&&(x.n[3]===3||x.n[4]===3||x.n[7]===3||x.n[8]===3)) continue;
     if(SOFTC&&[x.n[8],x.n[9]].some(d=>SOFT_D.includes(d))) continue;
     const hf=houseFit(x,HN); if(lv<3&&hf.hurt.some(([h])=>HN[h-1].g==="b")) continue;
+    finalScore({...inp,phone:ph},x);
     {const AD=ageDrive(inp,x); const JF=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0).map(k=>jobFitPos({...inp,job:k},x)).filter(Boolean); const jsc=JF.length?JF.reduce((a,q)=>a+q.sc,0)/JF.length:0; res.push({ph,sc:x.score,rk:Math.round(jsc*15)+Math.round(typeScore(inp,x).sc*12)+x.score+hf.sc*2+(x.tri3[0].v==="g"?3:0)+Math.round(tailFit(inp,x).sc*5)+(AD?Math.round(AD.sc*4):0),x,hf});}
   }
-  res.sort((a,b)=>b.rk-a.rk);
+  res.sort((a,b)=>(b.x.level==="good")-(a.x.level==="good")||b.rk-a.rk);
   const pick=[];for(const c of res){if(pick.every(p=>p.ph.slice(-4)!==c.ph.slice(-4))) pick.push(c); if(pick.length===5) break;}
   return pick;
 }
@@ -4129,9 +4132,9 @@ function rerkCalc(inp,r){
     const am=slots.find(x=>x.hh===9)||slots[Math.floor(slots.length/3)], av=[];
     if(am.role==="กาลี") av.push("เป็นวัน"+RK_DAY[am.dp]+" ซึ่งเป็นกาลีของคนเกิดวัน"+RK_DAY[nday]+(cls[am.dp]==="b"?" และดาว "+am.dp+" อ่อนในดวงคุณ":""));
     else if(cls[am.dp]==="b") av.push("ดาวประจำวัน"+RK_DAY[am.dp]+" (ดาว "+am.dp+") เป็นพลังอ่อนในดวงคุณ");
-    if(!okS.length) av.push("จันทร์จรอยู่ภพเสียจาก"+baseTxt+"ทั้งวัน");
-    else if(am.hm===8&&best.hm===8) av.push("จันทร์จรอยู่ภพมรณะจาก"+baseTxt);
-    else if((am.hm===6||am.hm===12)&&am.hm===best.hm) av.push("จันทร์จรอยู่ภพ"+(am.hm===6?"อริ":"วินาศ")+"จาก"+baseTxt);
+    if(!okS.length) av.push("จันทร์จรอยู่เรือนเสียจาก"+baseTxt+"ทั้งวัน");
+    else if(am.hm===8&&best.hm===8) av.push("จันทร์จรอยู่เรือนมรณะจาก"+baseTxt);
+    else if((am.hm===6||am.hm===12)&&am.hm===best.hm) av.push("จันทร์จรอยู่เรือน"+(am.hm===6?"อริ":"วินาศ")+"จาก"+baseTxt);
     if(am.el<12||am.el>348) av.push("ตรงกับช่วงเดือนดับ");
     day.avoid=av; day.score=best.s; days.push(day);
   }
@@ -4147,8 +4150,8 @@ function rerkHtml(inp,r){
   const cls=R.cls, qt=q=>q==="g"?"พลังดี":q==="b"?"พลังอ่อน":"พลังปานกลาง";
   const why=d=>{const b=d.best,o=[];
     o.push("วัน"+RK_DAY[b.dp]+"เป็น"+b.role+"ของคนเกิดวัน"+RK_DAY[R.nday]+" และดาว "+b.dp+" เป็น"+qt(b.q)+"ในดวงคุณ");
-    o.push("จันทร์จรอยู่ภพ"+["ตนุ","กดุมภะ","สหัชชะ","พันธุ","ปุตตะ","อริ","ปัตนิ","มรณะ","ศุภะ","กัมมะ","ลาภะ","วินาศ"][b.hm-1]+"จาก"+R.baseTxt+(b.el<180?" ช่วงข้างขึ้น":""));
-    if(!R.noT) o.push("ลัคนาฤกษ์ราศี"+RK_SIGN[b.ls]+" ตกภพ"+["ตนุ","กดุมภะ","สหัชชะ","พันธุ","ปุตตะ","อริ","ปัตนิ","มรณะ","ศุภะ","กัมมะ","ลาภะ","วินาศ"][b.hl-1]+"ของดวงคุณ เจ้าราศีคือดาว "+b.lord+" ซึ่งเป็น"+qt(cls[b.lord]));
+    o.push("จันทร์จรอยู่เรือน"+["ตนุ","กดุมภะ","สหัชชะ","พันธุ","ปุตตะ","อริ","ปัตนิ","มรณะ","ศุภะ","กัมมะ","ลาภะ","วินาศ"][b.hm-1]+"จาก"+R.baseTxt+(b.el<180?" ช่วงข้างขึ้น":""));
+    if(!R.noT) o.push("ลัคนาฤกษ์ราศี"+RK_SIGN[b.ls]+" ตกเรือน"+["ตนุ","กดุมภะ","สหัชชะ","พันธุ","ปุตตะ","อริ","ปัตนิ","มรณะ","ศุภะ","กัมมะ","ลาภะ","วินาศ"][b.hl-1]+"ของดวงคุณ เจ้าราศีคือดาว "+b.lord+" ซึ่งเป็น"+qt(cls[b.lord]));
     return o;};
   const top=R.good.map((d,i)=>`<li style="display:block"><div><b style="font-size:1.1em">${i+1}. วัน${RK_DAY[d.best.dp]} ${rkDate(d)}</b>${i===0?' <span class="pill g">ดีที่สุด</span>':""}</div>
     <p style="margin:4px 0 0"><b>เวลา ${rkTime(d.from)} ถึง ${rkTime(d.to)} น.</b>${R.noT?" (ไม่ทราบเวลาเกิด ใช้ช่วงเวลานี้เป็นแนวทาง)":""}</p>
@@ -4156,7 +4159,7 @@ function rerkHtml(inp,r){
   const bad=R.bad.slice(0,8).map(d=>`<li>วัน${RK_DAY[(d.slots.find(x=>x.hh===9)||d.slots[0]).dp]} ${rkDate(d)}: ${d.avoid.join(" และ")}</li>`).join("");
   const kali=[1,2,3,4,7,5,8,6].find(p=>QDAO.role(p,R.nday)==="กาลี");
   return `<section class="card" aria-labelledby="hrerk"><h2 id="hrerk">ฤกษ์เปิดเบอร์ เฉพาะพื้นดวงของคุณ <span class="pill g">แถมฟรี</span></h2>
-   <p class="note" style="margin:0 0 10px">ผมคำนวณจากพื้นดวงคุณทีละวันใน 30 วันข้างหน้า เน้นวันที่ดาวประจำวันเป็นศรี มนตรี เดช หรือมูลละของคุณ ส่วนวันบริวารหรืออายุเป็นวันกลาง ๆ ใช้ได้เมื่อจันทร์จรและลัคนาวันนั้นดีกว่า และเป็นดาวที่ไม่อ่อนในดวง ดูจันทร์จรว่าไม่ตกภพร้าย${R.noT?"":" และหาช่วงเวลาที่ลัคนาฤกษ์ตกภพดีของดวงคุณ เจ้าราศีมีกำลัง"} เรียงจากดีที่สุดลงมา</p>
+   <p class="note" style="margin:0 0 10px">ผมคำนวณจากพื้นดวงคุณทีละวันใน 30 วันข้างหน้า เน้นวันที่ดาวประจำวันเป็นศรี มนตรี เดช หรือมูลละของคุณ ส่วนวันบริวารหรืออายุเป็นวันกลาง ๆ ใช้ได้เมื่อจันทร์จรและลัคนาวันนั้นดีกว่า และเป็นดาวที่ไม่อ่อนในดวง ดูจันทร์จรว่าไม่ตกเรือนร้าย${R.noT?"":" และหาช่วงเวลาที่ลัคนาฤกษ์ตกเรือนดีของดวงคุณ เจ้าราศีมีกำลัง"} เรียงจากดีที่สุดลงมา</p>
    <h3 class="sub">ฤกษ์ที่ดีที่สุด เรียงตามลำดับ</h3>
    <ul class="pairs">${top}</ul>
    <h3 class="sub">วิธีเปิดเบอร์ให้ได้ฤกษ์</h3>
@@ -4169,7 +4172,7 @@ function rerkHtml(inp,r){
     <li>ถ้าพลาดฤกษ์แรก ใช้ฤกษ์ลำดับถัดไปได้เลย ไม่ต้องกังวล</li>
    </ol>
    <h3 class="sub">วันที่ควรเลี่ยง</h3>
-   <p class="note" style="margin:0 0 6px">หลักคือเลี่ยงวัน${RK_DAY[kali]}ซึ่งเป็นกาลีของคนเกิดวัน${RK_DAY[R.nday]}${cls[kali]==="b"?" และดาว "+kali+" ก็อ่อนในดวงคุณด้วย":" (ดาว "+kali+" ในดวงคุณไม่เสีย แต่วันเปิดเบอร์ควรเลือกวันที่ดีที่สุดไว้ก่อน)"} เลี่ยงวันที่ดาวประจำวันเป็นพลังอ่อนในดวงคุณ วันที่จันทร์จรตกภพร้าย และช่วงเดือนดับ</p>
+   <p class="note" style="margin:0 0 6px">หลักคือเลี่ยงวัน${RK_DAY[kali]}ซึ่งเป็นกาลีของคนเกิดวัน${RK_DAY[R.nday]}${cls[kali]==="b"?" และดาว "+kali+" ก็อ่อนในดวงคุณด้วย":" (ดาว "+kali+" ในดวงคุณไม่เสีย แต่วันเปิดเบอร์ควรเลือกวันที่ดีที่สุดไว้ก่อน)"} เลี่ยงวันที่ดาวประจำวันเป็นพลังอ่อนในดวงคุณ วันที่จันทร์จรตกเรือนร้าย และช่วงเดือนดับ</p>
    ${bad?`<ul class="plain">${bad}</ul>`:""}
   </section>`;
 }
@@ -4405,7 +4408,7 @@ function dqPt(s){const m=s.match(/^เป็น(.+)$/);
   if(/^เป็น(เกษตร|อุจจ์|มหาจักร|ราชาโชค|วรโคตร)/.test(s)){const k=s.replace(/^เป็น/,"").split("และ").length;return Math.min(3,k*2);}
   if(s==="เป็นนิจ")return -2; if(s==="เป็นประ")return -1; if(/^ตก/.test(s))return -2; if(/^อยู่/.test(s))return 1;
   if(s==="เป็นศรีวันเกิด")return 2; if(/^เป็น(มนตรี|เดช|มูลละ)วันเกิด/.test(s))return 1; if(s==="เป็นกาลีวันเกิด")return -2;
-  if(/^เป็นเจ้าภพ(อริ|มรณะ|วินาศ)/.test(s))return -1; if(/^เป็นเจ้าภพ/.test(s))return 1;
+  if(/^เป็นเจ้าเรือน(อริ|มรณะ|วินาศ)/.test(s))return -1; if(/^เป็นเจ้าเรือน/.test(s))return 1;
   if(s==="เล็งลัคนา"||/^เป็นดาวฆาต/.test(s)||/^ทำคู่เสีย/.test(s))return -2; if(s==="ได้องค์เกณฑ์")return 2; if(s==="กุมลัคนา")return 1; if(/^(กุม|เล็ง)ดาว/.test(s))return 1; return null;}
 const dqSign=v=>v>0?"+"+v:String(v);
 function dqTable(ds){const order=[1,2,3,4,5,6,7,8,9,0];
@@ -4426,7 +4429,7 @@ function scoreRuleHtml(){
    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">${R.map(x=>`<tr style="border-top:1px solid var(--line)"><td style="padding:4px">${x[0]}</td><td style="padding:4px;white-space:nowrap">${x[1]}</td></tr>`).join("")}</table></div>
    <h3 class="sub" style="margin-top:14px">2. คะแนนเบอร์เต็ม 1000 เรียงตามความสำคัญ</h3>
    <ul class="plain">${C.map(x=>`<li><b>${x[0]} ${x[1]} คะแนน</b> ${x[2]}</li>`).join("")}</ul>
-   <p class="note">ถ้าเบอร์มีจุดที่ไม่ผ่าน คะแนนรวมไม่เกิน 400 ถ้ามีชุดเลขที่ไม่เหมาะกับเพศอยู่ท้ายเบอร์ ไม่เกิน 700 อยู่ตำแหน่งอื่น ไม่เกิน 800 งานที่ใช้เสน่ห์ ถ้าตรงทางเข้าของเงินไม่ใช่คู่เสน่ห์ ไม่เกิน 700 เบอร์ที่ดีมากสำหรับคนคนหนึ่งมักได้ราว 800 ถึง 900 ไม่มีเบอร์ไหนได้เต็ม</p></section>`;}
+   <p class="note">ถ้าเบอร์มีจุดที่ไม่ผ่าน คะแนนรวมไม่เกิน 400 ถ้ามีชุดเลขที่ไม่เหมาะกับเพศอยู่ช่วงท้ายเบอร์ ไม่เกิน 700 อยู่ตำแหน่งอื่น ไม่เกิน 800 งานที่ใช้เสน่ห์ ถ้าตรงทางเข้าของเงินไม่ใช่คู่เสน่ห์ ไม่เกิน 700 เบอร์ที่ดีมากสำหรับคนคนหนึ่งมักได้ราว 800 ถึง 900 ไม่มีเบอร์ไหนได้เต็ม</p></section>`;}
 function deepFull(inp,r,NM){
   const ds=r.ds, lag=ds.lag, who=inp.nick?"คุณ"+esc(inp.nick):"คุณ", f=inp.sex==="f";
   const lords=LORD[lag];
@@ -4464,7 +4467,7 @@ function deepFull(inp,r,NM){
     <p class="note" style="margin:0 0 10px">ไล่จากท้ายเบอร์ซึ่งส่งผลแรงที่สุด ไปหาหัวเบอร์ แต่ละจุดบอกว่าส่งผลเรื่องอะไร ดีหรือไม่ และเข้ากับดวง งาน วัย เพศ ของคุณแค่ไหน</p>
     <ul class="pairs">${ORDER.map(k=>pairCard(r.pos.find(p=>p.k===k),r,inp)).join("")}</ul></section>`;
   // 5 ผลรวม ร้อยเรียง พีระมิด
-  const DBb=dblFit(inp,r).filter(x=>x.g==="b").map(x=>x.v);const chain=[];for(let i=1;i<9;i++){const v=r.n[i]*10+r.n[i+1],gi=pairInfoG(v,inp.sex),s2=String(v).padStart(2,"0");chain.push({v:s2,g:DBb.includes(s2)?"b":gi[0]});}
+  const DBb=dblFit(inp,r).filter(x=>x.g==="b").map(x=>x.v);const chain=[];for(let i=1;i<9;i++){const v=r.n[i]*10+r.n[i+1],gi=pairInfoG(v,inp.sex),s2=String(v).padStart(2,"0");const PP=r.pos.find(q=>q.i[0]===i&&q.i[1]===i+1);chain.push({v:s2,g:DBb.includes(s2)?"b":PP&&PP.s===s2?posGrade(PP,r,inp).g:gi[0]});}
   const badC=chain.filter(x=>x.g==="b").map(x=>x.v);
   const rows=pyr(inp.phone), L=[];
   const PYR_CTX={1:{g:"ลึก ๆ แล้วคุณมีพลังบวก เป็นแก่นที่ดี",m:"แก่นของคุณมีทั้งด้านดีและด้านที่ต้องคุม",b:"ลึก ๆ คุณแบกพลังที่ถ่วงตัวเอง ต้องระวังใจตัวเอง"},
@@ -4509,7 +4512,7 @@ function deepFull(inp,r,NM){
   const PYR_DONE=1;
   const sec5=`<section class="card"><h2>ภาพรวมทั้งเบอร์</h2>
     <p class="para"><b>ผลรวม ${r.sum}</b> <span class="pill ${r.sumInfo[0]}">${({g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"})[r.sumInfo[0]]}</span> ผลรวมส่งผลกับชีวิตระยะยาว 4 ถึง 5 ปีขึ้นไป เบอร์นี้ส่งผลไปทาง${r.sumInfo[2]}${r.sumInfo[3]?" สำหรับ"+(f?"ผู้หญิง":"ผู้ชาย")+" "+r.sumInfo[3]:""}</p>
-    <p class="para"><b>การร้อยเรียง</b> คือการดูว่าเลขแต่ละคู่ที่ติดกันต่อกันได้ราบรื่นไหม ${badC.length?"เบอร์นี้มีคู่ที่สะดุดคือ "+badC.join(" ")+" ทำให้พลังของเบอร์ไหลไม่ต่อเนื่อง":"เบอร์นี้ร้อยเรียงได้ราบรื่น ไม่มีคู่เสียคั่นกลาง"}</p>
+    <p class="para"><b>การร้อยเรียง</b> คือการดูว่าเลขแต่ละคู่ที่ติดกันต่อกันได้ราบรื่นไหม ${badC.length?"เบอร์นี้มีคู่ที่สะดุดคือ "+badC.join(" ")+" ทำให้พลังของเบอร์ไหลไม่ต่อเนื่อง":(()=>{const rv=[...new Set(r.pos.filter(p=>p.k!=="GA"&&posGrade(p,r,inp).g==="b").map(p=>p.s))];return rv.length?"เลขที่ติดกันอ่านตามลำดับต่อกันได้ราบรื่น แต่เมื่ออ่านย้อนกลับยังมีคู่ที่ต้องระวังคือ "+rv.join(" "):"เบอร์นี้ร้อยเรียงได้ราบรื่น ไม่มีคู่เสียคั่นกลาง";})()}</p>
     ${r.rescued.length?`<p class="para">${r.rescued.map(esc).join(" ")}</p>`:""}
     <h3 class="sub">พีระมิดตัวเลข</h3>
     <p class="note" style="margin:0 0 6px">ใส่เบอร์แบบ 66 แทนเลข 0 ตัวหน้า แล้วเอาเลขที่อยู่ติดกันมาบวกกันทีละชั้นจนเหลือเลขเดียว อ่านจากยอดลงมา 3 ชั้นแรกคือตัวคุณ อีก 3 ชั้นคือคนรอบตัว แต่ละชั้นจับเลขที่ติดกันเป็นคู่ แล้วอ่านตามความหมายของคู่เลข</p>
@@ -4868,9 +4871,10 @@ function pctHtmlNow(inp,r){let P;try{P=pctRank(inp,r.s1000);}catch(e){return "";
   return `<div class="pctbox"><p class="pctl">ดีกว่าเบอร์ทั่วไป <b class="pc${c}">${p}%</b></p>
     <div class="pctbar" role="img" aria-label="ดีกว่าเบอร์ทั่วไป ${p} เปอร์เซ็นต์"><span class="pmed" style="left:50%"></span><i class="${c}" style="left:${p}%"></i></div>
     <p class="note" style="margin:8px 0 0">${t} เทียบกับเบอร์สุ่ม 400 เบอร์ที่วิเคราะห์กับดวงของคุณแบบเดียวกัน เบอร์ทั่วไปได้ราว ${P.med} คะแนน ท็อป 10% ได้ ${P.top10} ขึ้นไป</p></div>`;}
+function bandOfLevel(r){return ({fail:["b","ไม่แนะนำให้ใช้"],bad:["b","ไม่แนะนำให้ใช้"],mid:["m","กลาง ๆ ยังไม่ใช่เบอร์ที่ใช่"],ok:["g","ใช้ได้ มีจุดต้องระวัง"],good:r.s1000>=850?["g","เบอร์ดีมาก เข้ากับคุณ"]:["g","เบอร์ดี ใช้ได้เลย"]}[r.level]);}
 function render(inp,r,isSample){
   finalScore(inp,r);
-  r.band=({fail:["b","ไม่แนะนำให้ใช้"],bad:["b","ไม่แนะนำให้ใช้"],mid:["m","กลาง ๆ ยังไม่ใช่เบอร์ที่ใช่"],ok:["g","ใช้ได้ มีจุดต้องระวัง"],good:r.s1000>=850?["g","เบอร์ดีมาก เข้ากับคุณ"]:["g","เบอร์ดี ใช้ได้เลย"]}[r.level]);
+  r.band=bandOfLevel(r);
   const lag=r.ds.lag, lords=LORD[lag];
   const lordTxt=lords.map(p=>{const f=r.ds.info[p];return "ดาว"+PL[p]+" ("+p+") อยู่ราศี"+SIGNS[f.sign]+" สถิต"+hn(f.house)+(f.dg?" เป็น"+f.dg:"");}).join(" และ ");
   const good=[],bad=[];for(let d=0;d<10;d++){if(r.ds.cls[d]==="g")good.push(d);if(r.ds.cls[d]==="b")bad.push(d);}
@@ -5381,7 +5385,7 @@ function nbStar(ds,p){
   return {p,house:i.house,lords:(i.lords||[]).slice().sort((a,b)=>a-b),strong,weak,maha:(i.dl||[]).includes("มหาจักร")};
 }
 function nbLordOf(ds,h){const l=LORD[(ds.lag+h-1)%12];return l?l[0]:0;}
-function nbHouseTxt(h){return "ภพ"+HOUSE[h]+" (เรื่อง"+NB_HOUSE[h]+")";}
+function nbHouseTxt(h){return "เรือน"+HOUSE[h]+" (เรื่อง"+NB_HOUSE[h]+")";}
 function nbLordTxt(ls){return ls.map(h=>HOUSE[h]).join(" และ ");}
 // ประเมินดาวที่จะใช้เป็นนามของชื่อ
 function nbEval(N,base,ds){
@@ -5397,7 +5401,7 @@ function nbEval(N,base,ds){
   if(st.weak.length){sc-=2;flaw++;bad.push("ดาวนี้อ่อนกำลัง เป็น"+st.weak.join(" และ "));}
   const bl=st.lords.filter(h=>NB_BADH.includes(h));
   if(bl.length){sc-=2;flaw++;bad.push("เป็นเจ้าเรือน"+nbLordTxt(bl)+" ซึ่งเป็นเรือนเสีย");}
-  if(NB_BADH.includes(st.house)){sc-=2;flaw++;bad.push("ไปอยู่"+nbHouseTxt(st.house)+" ซึ่งเป็นภพเสีย");}
+  if(NB_BADH.includes(st.house)){sc-=2;flaw++;bad.push("ไปอยู่"+nbHouseTxt(st.house)+" ซึ่งเป็นเรือนเสีย");}
   else if([1,2,5,9,10,11].includes(st.house)){sc+=1;good.push("อยู่"+nbHouseTxt(st.house));}
   const gl=st.lords.filter(h=>[1,2,9,10,11].includes(h));
   if(gl.length&&!bl.length){sc+=1;good.push("เป็นเจ้าเรือน"+nbLordTxt(gl));}
@@ -5405,12 +5409,12 @@ function nbEval(N,base,ds){
   const K=nbAt(N,7), sk=nbStar(ds,K), S=nbAt(N,3), ss=nbStar(ds,S);
   let kTxt="กาลกิณีของชื่อคือ"+nbName(K)+" อยู่"+nbHouseTxt(sk.house);
   if(sk.maha){kTxt+=" แต่ดาวนี้เป็นมหาจักร ตำราถือว่าไม่เสีย";}
-  else if(NB_BADH.includes(sk.house)){sc+=1;kTxt+=" ตำราถือว่าดี เหมือนเอาของเสียไปทิ้งถูกที่";good.push("กาลกิณีของชื่อไปตกภพเสีย ("+HOUSE[sk.house]+")");}
-  else if([1,2,10].includes(sk.house)){sc-=2;kTxt+=" ซึ่งเป็นเรื่องสำคัญของชีวิต จะเดือดร้อนเรื่องนี้";bad.push("กาลกิณีของชื่อไปอยู่ภพ"+HOUSE[sk.house]+" กระทบเรื่อง"+NB_HOUSE[sk.house]);}
+  else if(NB_BADH.includes(sk.house)){sc+=1;kTxt+=" ตำราถือว่าดี เหมือนเอาของเสียไปทิ้งถูกที่";good.push("กาลกิณีของชื่อไปตกเรือนเสีย ("+HOUSE[sk.house]+")");}
+  else if([1,2,10].includes(sk.house)){sc-=2;kTxt+=" ซึ่งเป็นเรื่องสำคัญของชีวิต จะเดือดร้อนเรื่องนี้";bad.push("กาลกิณีของชื่อไปอยู่เรือน"+HOUSE[sk.house]+" กระทบเรื่อง"+NB_HOUSE[sk.house]);}
   else kTxt+=" ระวังเรื่องนี้จะติดขัดบ้าง";
   if(sk.lords.length) kTxt+=" ดาวนี้ดูแลเรื่อง"+sk.lords.map(h=>NB_HOUSE[h]).join(" และ ")+" เรื่องเหล่านี้จะรับเคราะห์แทน";
   let sTxt="ศรีของชื่อคือ"+nbName(S)+" อยู่"+nbHouseTxt(ss.house);
-  if([1,2,10,11].includes(ss.house)){sc+=1;sTxt+=" ดีมาก ชื่อจะหนุนเรื่องนี้ชัดเจน";good.push("ศรีของชื่อไปอยู่ภพ"+HOUSE[ss.house]);}
+  if([1,2,10,11].includes(ss.house)){sc+=1;sTxt+=" ดีมาก ชื่อจะหนุนเรื่องนี้ชัดเจน";good.push("ศรีของชื่อไปอยู่เรือน"+HOUSE[ss.house]);}
   // กาลกิณีวันเกิด และดาวอายุ กลายเป็นศรีหรือมนตรีของชื่อ
   const Kb=nbAt(base,7), rk=nbRole(Kb,N), Ab=nbAt(base,1), ra=nbRole(Ab,N), skb=nbStar(ds,Kb);
   if(rk===3||rk===6){sc+=skb.house===1?2:1;good.push("ดาวกาลกิณีวันเกิด ("+nbName(Kb)+") กลายเป็น"+NB_ROLE[rk]+"ของชื่อ ช่วยแก้จุดเสีย");}
@@ -5428,7 +5432,7 @@ function nbProblems(base,ds){
     if(NB_BADH.includes(st.house))why.push("อยู่"+nbHouseTxt(st.house));
     if(nbRole(t,base)===7)why.push("เป็นกาลกิณีของวันเกิด");
     if(st.weak.length)why.push("เป็น"+st.weak.join(" และ "));
-    if(topic==="ความรักและคู่ครอง"){[7,8,0].forEach(x=>{if(ds.info[x]&&ds.info[x].house===7)why.push(PL[x]+"อยู่ภพคู่ครอง (เล็งลัคนา)");});}
+    if(topic==="ความรักและคู่ครอง"){[7,8,0].forEach(x=>{if(ds.info[x]&&ds.info[x].house===7)why.push(PL[x]+"อยู่เรือนคู่ครอง (เล็งลัคนา)");});}
     if(!why.length)return;
     const opts=[3,6].map(k=>{const N=NB_WHEEL[(NB_WHEEL.indexOf(t)-k+8)%8];return {k,N,ev:nbEval(N,base,ds)};});
     out.push({topic,t,lab,why,opts});});
@@ -5561,7 +5565,7 @@ function nameDetailHtml(inp,nm,ds,opt){
   const best=bk.all.filter(e=>e.lv==="great"||e.lv==="ok");
   out.push(`<details class="libd"><summary>ดาวที่ใช้ตั้งชื่อได้สำหรับดวงคุณ</summary>
    <p class="para">${best.length?"ดาวที่เหมาะที่สุดคือ "+best.slice(0,2).map(e=>nbName(e.N)+" ใช้อักษร "+NB_LET[e.N]).join(" รองลงมาคือ "):"ดวงนี้ไม่มีดาวที่ผ่านเกณฑ์ครบ ตำราให้เลือกดาวที่เสียน้อยที่สุด ดาวที่เสียน้อยที่สุดคือ "+nbName(bk.all[0].N)+" ใช้อักษร "+NB_LET[bk.all[0].N]}</p>
-   <p class="note">หลักของตำรา ห้ามใช้นามกาลกิณีและนามเดชของวันเกิด ไม่ใช้ดาวที่เป็นเจ้าเรือนหรืออยู่ในภพอริ มรณะ วินาศ ไม่ใช้ดาวนิจหรือประ ถ้ามีดาวอยู่กับลัคนา ชื่อต้องไม่ทำให้ดาวนั้นเป็นกาลกิณีของชื่อ แล้วเลือกดาวที่มีกำลังมากที่สุด</p>
+   <p class="note">หลักของตำรา ห้ามใช้นามกาลกิณีและนามเดชของวันเกิด ไม่ใช้ดาวที่เป็นเจ้าเรือนหรืออยู่ในเรือนอริ มรณะ วินาศ ไม่ใช้ดาวนิจหรือประ ถ้ามีดาวอยู่กับลัคนา ชื่อต้องไม่ทำให้ดาวนั้นเป็นกาลกิณีของชื่อ แล้วเลือกดาวที่มีกำลังมากที่สุด</p>
    <p><b>ผลของดาวทั้ง 8 ดวง</b></p>${rows}</details>`);
   // 3 ตั้งชื่อแก้เรื่องที่ดวงเสีย
   const probs=opt.biz?bk.probs.filter(p=>p.topic==="เงิน"||p.topic==="งาน"):bk.probs;
@@ -6105,7 +6109,7 @@ function renderBiz(inp,ch,ds,cta){
   const shop=inp.fname, nm=analyzeName({...inp,lname:"",sex:""},{ds});
   const fix=h=>h.replace(/คนเกิดวัน/g,"ร้านที่เปิดวัน").replace(/วันเกิด/g,"วันเปิดร้าน").replace(/ชื่อจริง/g,"ชื่อร้าน").replace(/ดวงชะตาของคุณ/g,"ดวงของร้าน").replace(/ดวงคุณ/g,"ดวงร้าน");
   const e=nm.bk.ev, ss=e?nbStar(ds,e.S):null;
-  const sriNote=e?("ตำราตั้งชื่อกิจการแนะนำให้ศรีของชื่ออยู่ภพการเงิน ลาภะ หรือการงาน ชื่อนี้ศรีของชื่อคือ"+nbName(e.S)+" อยู่"+nbHouseTxt(ss.house)+([2,10,11].includes(ss.house)?" ตรงตามตำรา ดีมาก":" ยังไม่ตรงจุดที่ดีที่สุด")):"";
+  const sriNote=e?("ตำราตั้งชื่อกิจการแนะนำให้ศรีของชื่ออยู่เรือนการเงิน ลาภะ หรือการงาน ชื่อนี้ศรีของชื่อคือ"+nbName(e.S)+" อยู่"+nbHouseTxt(ss.house)+([2,10,11].includes(ss.house)?" ตรงตามตำรา ดีมาก":" ยังไม่ตรงจุดที่ดีที่สุด")):"";
   const unk=nameCalc(shop).unk.filter(c=>/[a-zA-Z0-9]/.test(c));
   $("result").innerHTML=fix(`<section class="card"><h2>ผลวิเคราะห์ชื่อร้าน</h2>
     <div class="num" style="font-size:26px;text-align:center;font-family:var(--f-display)">${esc(shop)}</div>
@@ -6129,7 +6133,7 @@ function cmpCard(inp,r,lab){
    <button type="button" class="cmpgo" data-ph="${p}">ดูผลเต็ม</button></div>`;
 }
 function renderCmp(inp,cta){
-  const a={...inp,phone:inp.p1}, b={...inp,phone:inp.p2}, ra=analyze(a), rb=analyze(b);
+  const a={...inp,phone:inp.p1}, b={...inp,phone:inp.p2}, ra=analyze(a), rb=analyze(b); [[a,ra],[b,rb]].forEach(([q,x])=>{finalScore(q,x);x.band=bandOfLevel(x);});
   const d=ra.s1000-rb.s1000;
   const win=Math.abs(d)<25?"สองเบอร์คะแนนใกล้กันมาก ให้ดูว่าเบอร์ไหนท้ายเบอร์และชุดท้ายดีกว่า และเหมาะกับงานของคุณมากกว่า":"เบอร์ "+(d>0?a.phone:b.phone).replace(/^(\d{3})(\d{3})(\d{4})$/,"$1-$2-$3")+" เข้ากับดวงคุณมากกว่า ("+Math.max(ra.s1000,rb.s1000)+" ต่อ "+Math.min(ra.s1000,rb.s1000)+" คะแนน)";
   $("result").innerHTML=`<section class="card"><h2>เทียบเบอร์กับดวงคุณ</h2><p class="para"><b>${win}</b></p>
@@ -8531,7 +8535,7 @@ function stockRecList(inp,r){const ck=[inp.d,inp.m,inp.y,inp.h,inp.mi,inp.sex,in
   const cand=STOCK.filter(x=>!x[4]&&stockState(x)==="ok").map(x=>({ph:String(x[0]).replace(/\D/g,""),price:+x[1]||0,net:x[2]||""})).filter(x=>/^0\d{9}$/.test(x.ph)&&x.ph!==inp.phone);
   if(!cand.length) return [];
   const HN=houseNeeds(inp,r);
-  const res=cand.map(c=>{const x=analyze({...inp,phone:c.ph}); x.score=capScore(inp,x);
+  const res=cand.map(c=>{const i2={...inp,phone:c.ph},x=analyze(i2); finalScore(i2,x);
     const tail=[...new Set(x.n.slice(6))], tg=tail.filter(d=>x.ds.cls[d]==="g"), tb=tail.filter(d=>x.ds.cls[d]==="b");
     let sc=x.score+(x.jobNote[0]==="g"?6:x.jobNote[0]==="b"?-6:0)+tg.length*2-tb.length*4+(x.sumInfo[0]==="g"?3:x.sumInfo[0]==="b"?-5:0);
     if(x.strong) sc-=40; sc+=Math.round(typeScore(inp,x).sc*12);
@@ -8551,14 +8555,14 @@ function stockRecList(inp,r){const ck=[inp.d,inp.m,inp.y,inp.h,inp.mi,inp.sex,in
     {const tl=c.ph.slice(3),fx=hf.fix.map(([h,s,g])=>{const rv=s[1]+s[0];return [h,tl.includes(s)?s:tl.includes(rv)?rv:"",g];}).filter(q=>q[1]).slice(0,2); if(fx.length) why.push(fx.map(([h,s,g])=>FXV(h,g)+LIFE[h]+" ด้วยคู่ "+s).join(" และ"));}
     const ab=x.pos.find(p=>p.k==="AB"); if(ab.info[0]==="g") why.push("ช่องทางเงินเข้าดี");
     const t2=+c.ph.slice(-2), wk7=c.ph.slice(3).split("").filter(d=>x.ds.cls[+d]==="b").length; if((tailRule(inp,t2)||{}).lv==="warn") sc-=6;
-    return {...c,x,sc,why:why.slice(0,4),bad:hotBad||tailBad(inp,t2)||(tailRule(inp,t2)||{}).lv==="warn"||(()=>{for(let i=3;i<9;i++){const a=+c.ph[i],b=+c.ph[i+1];if(pairInfoG(a*10+b,inp.sex)[0]==="b"||pairInfoG(b*10+a,inp.sex)[0]==="b")return true;}return false;})()||TRI_FRAUD.some(t=>c.ph.slice(3).includes(t))||wk7>1||x.pos.some(q=>(["AB","FE","DE","GF","FG"].includes(q.k)&&(q.info[0]==="b"||jobConflict(inp,q.v).length))||(q.k==="AB"&&abBanJobs(inp,q.v).length))};}).filter(o=>!o.bad&&!o.x.strong&&o.x.score>=60&&o.x.pos.find(p=>p.k==="GF").info[0]!=="b").sort((a,b)=>b.sc-a.sc).slice(0,3);
+    return {...c,x,sc,why:why.slice(0,4),bad:hotBad||tailBad(inp,t2)||(tailRule(inp,t2)||{}).lv==="warn"||(()=>{for(let i=3;i<9;i++){const a=+c.ph[i],b=+c.ph[i+1];if(pairInfoG(a*10+b,inp.sex)[0]==="b"||pairInfoG(b*10+a,inp.sex)[0]==="b")return true;}return false;})()||TRI_FRAUD.some(t=>c.ph.slice(3).includes(t))||wk7>1||x.pos.some(q=>(["AB","FE","DE","GF","FG"].includes(q.k)&&(q.info[0]==="b"||jobConflict(inp,q.v).length))||(q.k==="AB"&&abBanJobs(inp,q.v).length))};}).filter(o=>!o.bad&&!o.x.strong&&o.x.score>=60&&o.x.s1000>(r.s1000||0)&&o.x.pos.find(p=>p.k==="GF").info[0]!=="b"&&!o.x.pos.some(q=>posGrade(q,o.x,{...inp,phone:o.ph}).g==="b")).sort((a,b)=>b.sc-a.sc).slice(0,3);
   analyze(inp); _SRC={k:ck,v:res}; return res;}
 function stockTeaserHtml(inp,r,place){
-  let res=[];try{res=stockRecList(inp,r).filter(o=>o.x.score*10>=r.s1000+50).slice(0,2);}catch(e){}
+  let res=[];try{res=stockRecList(inp,r).filter(o=>o.x.s1000>=r.s1000+50).slice(0,2);}catch(e){}
   if(!res.length) return "";
   const fmt=p=>p.slice(0,3)+"-"+p.slice(3,6)+"-"+p.slice(6);
   return `<section class="card stktz" style="border-color:var(--accent)"><h2>${place==="after"?"เบอร์ในสต็อกที่เข้ากับดวงคุณมากกว่า":"เบอร์นี้ได้ "+r.s1000+" คะแนน ผมมีเบอร์ที่เข้ากับดวงคุณมากกว่า"}</h2>
-   <ul class="plain" style="margin:6px 0;padding:0;list-style:none">${res.map(o=>`<li style="display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-top:1px solid var(--line)"><b class="exn" style="font-family:var(--f-mono)">${fmt(o.ph)}</b><span>${o.price?o.price.toLocaleString("th-TH")+" บาท":"สอบถามราคา"}</span><span class="note" style="margin:0">คะแนนกับดวงคุณ <span class="pill g">${o.x.score*10} / 1000</span></span><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener" style="justify-self:end;color:var(--accent);font-weight:600">สนใจเบอร์นี้</a></li>`).join("")}</ul>
+   <ul class="plain" style="margin:6px 0;padding:0;list-style:none">${res.map(o=>`<li style="display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-top:1px solid var(--line)"><b class="exn" style="font-family:var(--f-mono)">${fmt(o.ph)}</b><span>${o.price?o.price.toLocaleString("th-TH")+" บาท":"สอบถามราคา"}</span><span class="note" style="margin:0">คะแนนกับดวงคุณ <span class="pill g">${o.x.s1000} / 1000</span></span><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener" style="justify-self:end;color:var(--accent);font-weight:600">สนใจเบอร์นี้</a></li>`).join("")}</ul>
    <p class="note" style="margin:6px 0 0">เทียบกับดวง อาชีพ เพศ และวัยของคุณแล้ว <a href="#" class="dgo" data-j2="hsr">ดูเหตุผลและเบอร์อื่น</a></p></section>`;}
 function stockRecHtml(inp,r){
   const res=stockRecList(inp,r); if(!res.length&&!STOCK.length) return "";
@@ -8567,7 +8571,7 @@ function stockRecHtml(inp,r){
   return `<section class="card" id="stockrec" aria-labelledby="hsr"><h2 id="hsr">เบอร์ในสต็อกที่เข้ากับดวง${who}</h2>
    ${res.length?`<p class="note" style="margin:0 0 10px">ผมเทียบทุกเบอร์ที่ลงขายกับพื้นดวง อาชีพ เพศ และวัยของคุณ แล้วคัดเบอร์ที่เข้ากันที่สุดมาให้</p>
    <ul class="stk">${res.map(o=>`<li><div class="stn"><b class="exn">${fmt(o.ph)}</b><span class="stp">${o.price?o.price.toLocaleString("th-TH")+" บาท":"สอบถามราคา"}</span></div>
-     <div class="note">${o.net?esc(o.net)+" · ":""}คะแนนกับดวงคุณ <span class="pill ${o.x.score>=75?"g":"m"}">${o.x.score*10} / 1000</span></div>
+     <div class="note">${o.net?esc(o.net)+" · ":""}คะแนนกับดวงคุณ <span class="pill ${o.x.s1000>=750?"g":"m"}">${o.x.s1000} / 1000</span></div>
      <p style="margin:2px 0 0">${o.why.join(" ")||"ไม่มีคู่เสียในตำแหน่งสำคัญ"}</p>
      <details class="libd stkd"><summary>ดูความหมายเบอร์</summary>${recMeaning(o.x)}</details>
      <div class="stkact"><a class="stkbuy" href="${CONFIG.chatUrl}" target="_blank" rel="noopener">สนใจเบอร์นี้</a><button type="button" class="stklink" data-ph="${o.ph}">ดูผลเบอร์นี้กับดวงคุณ</button></div></li>`).join("")}</ul>
@@ -9053,9 +9057,9 @@ function rkActCalc(inp,ds,act,ms){
     const am=slots.find(x=>x.hh===9)||slots[Math.floor(slots.length/3)], av=[];
     if(am.role==="กาลี") av.push("เป็นวัน"+RK_DAY[am.dp]+" ซึ่งเป็นกาลีของคนเกิดวัน"+RK_DAY[nday]);
     else if(cls[am.dp]==="b") av.push("ดาวประจำวัน"+RK_DAY[am.dp]+" (ดาว "+am.dp+") อ่อนในดวงคุณ");
-    if(!okS.length) av.push("จันทร์จรอยู่ภพเสียจาก"+baseTxt+"ทั้งวัน");
-    else if(am.hm===8&&best.hm===8) av.push("จันทร์จรอยู่ภพมรณะจาก"+baseTxt);
-    else if((am.hm===6||am.hm===12)&&am.hm===best.hm) av.push("จันทร์จรอยู่ภพ"+(am.hm===6?"อริ":"วินาศ")+"จาก"+baseTxt);
+    if(!okS.length) av.push("จันทร์จรอยู่เรือนเสียจาก"+baseTxt+"ทั้งวัน");
+    else if(am.hm===8&&best.hm===8) av.push("จันทร์จรอยู่เรือนมรณะจาก"+baseTxt);
+    else if((am.hm===6||am.hm===12)&&am.hm===best.hm) av.push("จันทร์จรอยู่เรือน"+(am.hm===6?"อริ":"วินาศ")+"จาก"+baseTxt);
     if(am.el<12||am.el>348) av.push("ตรงกับช่วงเดือนดับ");
     if(A.taboo&&A.taboo[am.civ]) av.push(A.taboo[am.civ]);
     day.avoid=av; day.score=best.s; days.push(day);
@@ -9066,8 +9070,8 @@ function rkActCalc(inp,ds,act,ms){
 }
 function rkWhy(R,d){const b=d.best,o=[],qt=q=>q==="g"?"พลังดี":q==="b"?"พลังอ่อน":"พลังปานกลาง";
   o.push("วัน"+RK_DAY[b.dp]+"เป็น"+b.role+"ของคนเกิดวัน"+RK_DAY[R.nday]+" ดาว "+b.dp+" เป็น"+qt(b.q)+"ในดวงคุณ");
-  o.push("จันทร์จรอยู่ภพ"+HOUSE[b.hm]+"จาก"+R.baseTxt+(b.el<180?" ช่วงข้างขึ้น":""));
-  if(!R.noT) o.push("ลัคนาฤกษ์ราศี"+RK_SIGN[b.ls]+" ตกภพ"+HOUSE[b.hl]+"ของคุณ"+(R.A.fav[b.hl]>=2?" ตรงกับเรื่องที่จะทำ":""));
+  o.push("จันทร์จรอยู่เรือน"+HOUSE[b.hm]+"จาก"+R.baseTxt+(b.el<180?" ช่วงข้างขึ้น":""));
+  if(!R.noT) o.push("ลัคนาฤกษ์ราศี"+RK_SIGN[b.ls]+" ตกเรือน"+HOUSE[b.hl]+"ของคุณ"+(R.A.fav[b.hl]>=2?" ตรงกับเรื่องที่จะทำ":""));
   return o;}
 function rkDayLi(R,d,i,top){return `<li style="display:block"><div><b style="font-size:1.1em">${i+1}. วัน${RK_DAY[d.best.dp]} ${rkDate(d)}</b>${top&&i===0?' <span class="pill g">ดีที่สุด</span>':""}</div>
   <p style="margin:4px 0 0"><b>เวลา ${rkTime(d.from)} ถึง ${rkTime(d.to)} น.</b>${R.noT?" (ไม่ทราบเวลาเกิด ใช้ช่วงเวลานี้เป็นแนวทาง)":""}</p>
@@ -9078,7 +9082,7 @@ function rkRender(inp,ds,who,cta){
   const rng=inp.ms?"เดือน"+MONTHS[+String(inp.ms).slice(4)-1]+" "+(+String(inp.ms).slice(0,4)+543):" 30 วันข้างหน้า";
   const g=R.good, bd=R.bad;
   const free=`<section class="card"><h2>ฤกษ์${esc(A.n)}ของ${who}</h2>
-    <p class="note" style="margin:0 0 10px">ช่วง${rng} คำนวณจากพื้นดวง${who}ทีละวัน ทีละ 20 นาที ดูวันที่ดาวประจำวันเป็นศรี มนตรี หรือเดชของวันเกิด ดาวนั้นดีในดวง จันทร์จรไม่ตกภพเสีย${R.noT?"":" และลัคนาของเวลาฤกษ์ตกภพที่หนุนเรื่องที่จะทำ"}</p>
+    <p class="note" style="margin:0 0 10px">ช่วง${rng} คำนวณจากพื้นดวง${who}ทีละวัน ทีละ 20 นาที ดูวันที่ดาวประจำวันเป็นศรี มนตรี หรือเดชของวันเกิด ดาวนั้นดีในดวง จันทร์จรไม่ตกเรือนเสีย${R.noT?"":" และลัคนาของเวลาฤกษ์ตกเรือนที่หนุนเรื่องที่จะทำ"}</p>
     ${g.length?`<h3 class="sub">ฤกษ์ที่ดีที่สุดในช่วงนี้</h3><ul class="pairs">${rkDayLi(R,g[0],0,true)}</ul>
     <p class="para">ในช่วงนี้มีวันที่ผ่านเกณฑ์ทั้งหมด <b>${g.length}</b> วัน และวันที่ควรเลี่ยง <b>${bd.length}</b> วัน</p>`:`<p class="para">ช่วงนี้ไม่มีวันที่ผ่านเกณฑ์ครบสำหรับ${esc(A.n)} ลองเลือกเดือนถัดไป</p>`}
     ${bd.length?`<h3 class="sub">ตัวอย่างวันที่ควรเลี่ยง</h3><ul class="plain">${bd.slice(0,3).map(d=>`<li>วัน${RK_DAY[(d.slots.find(x=>x.hh===9)||d.slots[0]).dp]} ${rkDate(d)}: ${d.avoid.join(" และ")}</li>`).join("")}</ul>`:""}</section>`;
@@ -9096,7 +9100,7 @@ function rkRender(inp,ds,who,cta){
 }
 
 // ===== ดวงคู่ =====
-const LV_REL={1:[7,"ราศีเดียวกัน คิดคล้ายกัน เข้าใจกันง่าย แต่ข้อเสียก็เหมือนกัน"],5:[10,"อยู่ตรีโกณกัน (ภพที่ 5) เข้ากันดีมาก รักกันแบบเพื่อนใจ ส่งเสริมกัน"],9:[10,"อยู่ตรีโกณกัน (ภพที่ 9) เข้ากันดีมาก อีกฝ่ายเป็นเหมือนคนนำโชค"],3:[5,"อยู่ภพที่ 3 กัน คุยกันสนุก เป็นทั้งคู่ชีวิตและเพื่อน"],11:[6,"อยู่ภพที่ 11 กัน อีกฝ่ายนำโชคและรายได้มาให้"],7:[3,"อยู่ตรงข้ามกัน (เล็งกัน) ดึงดูดกันแรง แต่ความคิดสวนกันบ่อย ต้องยอมกันคนละครึ่ง"],4:[1,"ทำมุมฉากกัน (ภพที่ 4) ต้องปรับตัวเรื่องการใช้ชีวิตในบ้าน"],10:[1,"ทำมุมฉากกัน (ภพที่ 10) อีกฝ่ายผลักดันเรื่องงาน แต่ชอบคุมกัน"],2:[-2,"อยู่ภพที่ 2 และ 12 กัน เรื่องเงินและการใช้จ่ายมองไม่ตรงกัน"],12:[-2,"อยู่ภพที่ 12 และ 2 กัน คนหนึ่งเสียสละมากกว่าอีกคน"],6:[-5,"อยู่ภพที่ 6 และ 8 กัน (ฉัฏฐะอัฏฐะ) มีเรื่องขัดใจกันบ่อย ต้องระวังคำพูด"],8:[-5,"อยู่ภพที่ 8 และ 6 กัน (ฉัฏฐะอัฏฐะ) มีเรื่องขัดใจกันบ่อย ต้องระวังคำพูด"]};
+const LV_REL={1:[7,"ราศีเดียวกัน คิดคล้ายกัน เข้าใจกันง่าย แต่ข้อเสียก็เหมือนกัน"],5:[10,"อยู่ตรีโกณกัน (เรือนที่ 5) เข้ากันดีมาก รักกันแบบเพื่อนใจ ส่งเสริมกัน"],9:[10,"อยู่ตรีโกณกัน (เรือนที่ 9) เข้ากันดีมาก อีกฝ่ายเป็นเหมือนคนนำโชค"],3:[5,"อยู่เรือนที่ 3 กัน คุยกันสนุก เป็นทั้งคู่ชีวิตและเพื่อน"],11:[6,"อยู่เรือนที่ 11 กัน อีกฝ่ายนำโชคและรายได้มาให้"],7:[3,"อยู่ตรงข้ามกัน (เล็งกัน) ดึงดูดกันแรง แต่ความคิดสวนกันบ่อย ต้องยอมกันคนละครึ่ง"],4:[1,"ทำมุมฉากกัน (เรือนที่ 4) ต้องปรับตัวเรื่องการใช้ชีวิตในบ้าน"],10:[1,"ทำมุมฉากกัน (เรือนที่ 10) อีกฝ่ายผลักดันเรื่องงาน แต่ชอบคุมกัน"],2:[-2,"อยู่เรือนที่ 2 และ 12 กัน เรื่องเงินและการใช้จ่ายมองไม่ตรงกัน"],12:[-2,"อยู่เรือนที่ 12 และ 2 กัน คนหนึ่งเสียสละมากกว่าอีกคน"],6:[-5,"อยู่เรือนที่ 6 และ 8 กัน (ฉัฏฐะอัฏฐะ) มีเรื่องขัดใจกันบ่อย ต้องระวังคำพูด"],8:[-5,"อยู่เรือนที่ 8 และ 6 กัน (ฉัฏฐะอัฏฐะ) มีเรื่องขัดใจกันบ่อย ต้องระวังคำพูด"]};
 const LV_ROLE={"ศรี":4,"มนตรี":4,"เดช":3,"มูลละ":2,"บริวาร":2,"อายุ":1,"อุตสาหะ":0,"กาลี":-6};
 function lvKey(a,b){const f=x=>pad(x.d)+pad(x.m)+(x.y<2400?x.y+543:x.y);const s=[f(a),f(b)].sort();return "4"+s[0]+s[1];}
 function lvChart(x){const c=chartSY(x.y,x.m,x.d,x.h,x.mi,x.lat,x.lon);return {c,ds:digitScores(c)};}
@@ -9147,9 +9151,9 @@ function loveRender(A,B,cta){
   const love=[L.att>=2?"แรงดึงดูดระหว่างกันดี ความรักไม่จืดง่าย":L.att<0?"ความหวานจะจางเร็วถ้าปล่อยไว้ ต้องหาเวลาทำอะไรด้วยกันสม่ำเสมอ":"ความรักไปได้เรื่อย ๆ ไม่หวือหวา",
     L.lr===7?"เป็นคู่ที่ดึงดูดกันแรงแต่เถียงกันบ่อย ทะเลาะเสร็จก็ดีกันเร็ว":[6,8].includes(L.lr)?"เรื่องเล็กมักกลายเป็นเรื่องใหญ่ ต้องตกลงกันว่าเวลาโกรธจะไม่พูดทันที":"",
     L.jpb?"ดาวพฤหัส (ความเมตตา) ของคนหนึ่งหนุนอีกคน มีผู้ใหญ่และครอบครัวช่วยประคอง":""].filter(Boolean).join(" ");
-  const money=L.mon?"ลัคนาของคนหนึ่งตกภพการเงินหรือภพลาภของอีกคน อยู่ด้วยกันแล้วเงินเข้าง่ายขึ้น เหมาะทำธุรกิจด้วยกัน":"เรื่องเงินไม่ได้หนุนกันเป็นพิเศษ แนะนำให้แยกเงินส่วนตัวกับเงินกองกลางให้ชัด แล้วตกลงกันว่าใครดูแลเรื่องไหน";
+  const money=L.mon?"ลัคนาของคนหนึ่งตกเรือนการเงินหรือเรือนลาภของอีกคน อยู่ด้วยกันแล้วเงินเข้าง่ายขึ้น เหมาะทำธุรกิจด้วยกัน":"เรื่องเงินไม่ได้หนุนกันเป็นพิเศษ แนะนำให้แยกเงินส่วนตัวกับเงินกองกลางให้ชัด แล้วตกลงกันว่าใครดูแลเรื่องไหน";
   const work=L.wrk?"คนหนึ่งช่วยผลักดันงานของอีกคน ทำงานด้วยกันได้ แต่ต้องแบ่งหน้าที่ให้ชัด เพราะจะเผลอสั่งกัน":"ถ้าทำงานด้วยกัน ให้แต่ละคนดูแลคนละส่วน ไม่ก้าวก่ายกัน จะไปได้ดีกว่า";
-  const clash=[L.ml?"มีดาวแรง (อังคาร เสาร์ หรือราหู) ของคนหนึ่งไปทับภพคู่ครองของอีกคน ระวังการใช้คำพูดแรงและการตัดสินใจแทนกัน":"",L.hotA&&L.hotB?"พื้นดวงของทั้งสองคนใจร้อนทั้งคู่ เวลามีปัญหาให้แยกกันไปสงบใจก่อนค่อยคุย":"",(L.ab==="กาลี"||L.ba==="กาลี")?"วันเกิดเป็นกาลีกัน ตำราแก้ด้วยการไม่ทำเรื่องสำคัญในวันกาลีของกันและกัน และให้ทำบุญร่วมกันบ่อย ๆ":""].filter(Boolean);
+  const clash=[L.ml?"มีดาวแรง (อังคาร เสาร์ หรือราหู) ของคนหนึ่งไปทับเรือนคู่ครองของอีกคน ระวังการใช้คำพูดแรงและการตัดสินใจแทนกัน":"",L.hotA&&L.hotB?"พื้นดวงของทั้งสองคนใจร้อนทั้งคู่ เวลามีปัญหาให้แยกกันไปสงบใจก่อนค่อยคุย":"",(L.ab==="กาลี"||L.ba==="กาลี")?"วันเกิดเป็นกาลีกัน ตำราแก้ด้วยการไม่ทำเรื่องสำคัญในวันกาลีของกันและกัน และให้ทำบุญร่วมกันบ่อย ๆ":""].filter(Boolean);
   const gd=lvGoodDays(L.a,L.b);
   const deep=`<section class="card"><h2>ผลดวงคู่ทีละข้อ</h2><ul class="pairs">${ptsH}</ul></section>
    <section class="card"><h2>ความรัก</h2><p class="para">${love}</p><h3 class="sub">การเงิน</h3><p class="para">${money}</p><h3 class="sub">การงาน</h3><p class="para">${work}</p></section>
@@ -9673,6 +9677,8 @@ function askLocal(k){const A=_ASK;if(!A)return "";const {inp,r}=A, N=askNames(r)
   const t=r.pos.find(p=>p.k==="GF"), T3=(r.tri3||[])[0];
   if(k==="keep"){
     const base="เบอร์นี้ได้ "+r.s1000+" คะแนนจาก 1000 ผลคือ"+r.band[1]+" ";
+    const cp=(r.k1000&&r.k1000.caps||[]).filter(c=>r.s1000<=+((c.match(/ไม่เกิน (\d+)/)||[0,0])[1])+9);
+    if(r.band[0]==="g"&&cp.length) return base+"จุดที่ต้องรู้คือ"+cp.join(" ")+(N.g.length?" ส่วนเรื่องที่เบอร์ช่วยได้ชัดคือ"+N.g.join(" "):"");
     if(r.band[0]==="g") return base+(N.b.length?"แต่ต้องรู้ว่าเรื่อง"+N.b.join(" ")+"เป็นจุดที่เบอร์ไม่หนุน เรื่องนี้ต้องคุมเอง":"ไม่มีเรื่องไหนที่เบอร์ดึงลง")+(N.g.length?" ส่วนเรื่องที่เบอร์ช่วยได้ชัดคือ"+N.g.join(" "):"");
     if(r.band[0]==="m") return base+"ยังใช้ได้ แต่ยังไม่ใช่เบอร์ที่ใช่ "+(N.b.length?"จุดที่ดึงคะแนนลงคือเรื่อง"+N.b.join(" ")+" ":"")+"ถ้าเรื่องนั้นเป็นเรื่องที่คุณให้ความสำคัญ ผมแนะนำให้หาเบอร์ใหม่ที่ร้อยเรียงตามดวง";
     return base+"ผมไม่แนะนำให้ใช้ต่อ "+(N.b.length?"เพราะเบอร์ดึงเรื่อง"+N.b.join(" ")+"ลงชัดเจน ":"")+"ควรเปลี่ยนเป็นเบอร์ที่เลขเข้ากับดวงคุณ ในแบบเจาะลึกผมบอกไว้ว่าเลขไหนควรมีและควรวางตรงไหน";}
@@ -9685,7 +9691,7 @@ function askCtx(){const {inp,r}=_ASK, GT={g:"ดี",m:"กลาง",b:"คว�
   L.push("คะแนน "+r.s1000+"/1000 ระดับ "+r.band[1]);
   L.push("ผลรวม "+r.sum+" "+(r.sumInfo[1]||"")+" ผล"+({g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"})[r.sumInfo[0]]+" "+(r.sumInfo[2]||"")+(r.sumInfo[3]?" "+r.sumInfo[3]:""));
   r.rows.forEach(x=>L.push("ด้าน "+x.name+": "+GT[x.g]));
-  r.pos.forEach(p=>{const g=DG[p.s]||gradeOf(pairScore(p,r));L.push("คู่ "+p.s+" ตำแหน่ง"+p.n+": "+GT[g]+" "+p.info[1]+" "+p.info[2]+(p.info[3]?" ("+p.info[3]+")":""));});
+  r.pos.forEach(p=>{const PG=posGrade(p,r,inp);L.push("คู่ "+p.s+" ตำแหน่ง"+p.n+": "+PG.lab+" "+p.info[1]+" "+p.info[2]+(p.info[3]?" ("+p.info[3]+")":""));});
   (r.tri3||[]).slice(0,3).forEach(t=>L.push("ชุด "+t.t+": "+GT[t.v]+" "+t.name+" "+String(t.short||"")));
   const cls=(r.ds&&r.ds.cls)||{};L.push("พลังเลขในดวง: "+[0,1,2,3,4,5,6,7,8,9].map(d=>d+"="+(({g:"ดี",m:"กลาง",b:"อ่อน"})[cls[d]]||"-")).join(" "));
   return L.join("\n");}
