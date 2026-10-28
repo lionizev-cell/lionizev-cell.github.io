@@ -6,7 +6,7 @@
 <link rel="canonical" href="https://www.palangtuaylek.com/palangtuaylek.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="98f4a39219fd90125ccfecf8840fa59e5e008577">
+<meta name="plk-base" content="2709a6f27abefe5dca8731c3ed2fadd91758859f">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -2239,13 +2239,20 @@ const GSEX={
 };
 // บริบทของคนที่กำลังวิเคราะห์ (อาชีพ พื้นดวง) ตั้งค่าใน analyze
 let _PCTX=null;
+// งานกลางคืน ร้านคาราโอเกะ: ตำแหน่งดูดทรัพย์ต้องเป็นเลขเสน่ห์ และไม่ควรมี 59 หรือ 95 ในเบอร์
+const NIGHT_RE=/คาราโอเกะ|ผับ|บาร์(?!เบอร์|บีคิว|บี)|เธค|ร้านเหล้า|งานกลางคืน|โฮสต์/;
+function isNight(inp){return NIGHT_RE.test((inp&&inp.jobText)||"");}
+const NIGHT_WHY="งานกลางคืนและร้านคาราโอเกะไม่ควรมี 59 หรือ 95 ในเบอร์ เพราะเป็นพลังศักดิ์สิทธิ์และปัญญา ไม่ใช่พลังที่งานกลางคืนใช้หาเงิน";
+function jx(g,v){const X=JGRP[g]&&JGRP[g].x;return (X&&X[v])||(_PCTX&&_PCTX.night&&g==="charm"&&(+v===59||+v===95)?NIGHT_WHY:undefined);}
+// งานแก้ปัญหา ทนาย ที่ปรึกษา ช่างซ่อม ผู้ไกล่เกลี่ย: 58 85 เข้ากับงานที่สุด เมื่อเงื่อนไขครบ
+const PROB_RE=/ทนาย|นักกฎหมาย|ไกล่เกลี่ย|ที่ปรึกษา|ช่างซ่อม/;
 const HARDWORK_JOBS=[14,6,10,11];
 // คู่พลังผู้ใหญ่ เงิน การค้า ความทะเยอทะยาน เรื่องรักใคร่ แรงเกินไปสำหรับเด็กและนักเรียน
 const ADULT_P=[28,82,89,98,88,78,87,68,86,38,83,18,81,48,84,58,85,36,63,13,31,33];
 function youngCtx(v,base){
   if(!_PCTX||_PCTX.age==null) return null;
-  const a=_PCTX.age, stu=_PCTX.job===12;
-  if(!(a<22||stu)||!ADULT_P.includes(v)) return null;
+  const a=_PCTX.age, stu=_PCTX.job===12, wk=_PCTX.job>=0&&_PCTX.job!==12&&_PCTX.job!==13;
+  if(!((a<22&&!(a>=18&&wk))||stu)||!ADULT_P.includes(v)) return null;
   if(a<15) return ["b",base[1],base[2],"ยังเป็นเด็ก อายุ "+a+" ปี พลังคู่นี้เป็นพลังของผู้ใหญ่ เรื่องเงิน การแข่งขัน หรือเรื่องรักใคร่ แรงเกินวัย ทำให้ใจร้อน อยากได้เร็ว หรือโตเกินวัย","b","young"];
   return [base[0]==="b"?"b":"m",base[1],base[2],"อยู่ในวัยเรียน พลังคู่นี้เป็นพลังเงิน การค้า หรือความทะเยอทะยานที่แรงเกินวัย อาจทำให้ไม่โฟกัสการเรียน ใจร้อน หรือใช้เงินเร็ว","m","young"];
 }
@@ -2266,9 +2273,9 @@ function ctx58(v,base){
   const c=_PCTX.cls, w5=c[5]==="b", w8=c[8]==="b";
   if(w5||w8) return ["b",base[1],base[2],"ในดวงคุณเลข "+(w5&&w8?"5 และ 8":w5?"5":"8")+" เป็นพลังอ่อน คู่นี้จึงออกด้านลบ หัวหมอ ชอบหาทางลัด เสี่ยงผิดระเบียบ","b"];
   const ks=(_PCTX.jobs&&_PCTX.jobs.length?_PCTX.jobs:[_PCTX.job]).filter(k=>k>=0), gks=ks.flatMap(k=>JOB_GRP[k]||[]);
-  const cf=ks.find(k=>{const g=(JOB_GRP[k]||[])[0];return JGRP[g]&&JGRP[g].x&&JGRP[g].x[v];});
+  const cf=ks.find(k=>{const g=(JOB_GRP[k]||[])[0];return JGRP[g]&&JGRP[g].x&&jx(g,v);});
   if(cf!==undefined) return ["m",base[1],base[2],"หัวไวแก้ปัญหาได้ แต่ขัดกับงาน"+JOBS[cf][0]+" ที่ต้องเคร่งกฎระเบียบ ผลจึงไม่เต็ม","m"];
-  const fit=gks.some(g=>JGRP[g]&&JGRP[g].p.includes(v))||gks.includes("money")||gks.includes("broker");
+  const fit=gks.some(g=>JGRP[g]&&JGRP[g].p.includes(v))||gks.includes("money")||gks.includes("broker")||PROB_RE.test(_PCTX.jt||"");
   let over=false, hold=true;
   if(_PCTX.ph&&_PCTX.ph.length>=10){const t=_PCTX.ph.slice(3).split("").map(Number);
     over=t.filter(d=>d===8).length>=3||[[0,8],[4,8],[3,8]].some(([a,b])=>t.some((d,i)=>i<6&&(d===a&&t[i+1]===b||d===b&&t[i+1]===a)));
@@ -2319,12 +2326,12 @@ const JOB_KEYS=[
  ["ขายหวย","หวย","ลอตเตอรี่","สลาก","ขาย","ค้า","ร้าน","แม่ค้า","พ่อค้า","ออนไลน์","ไลฟ์","นายหน้า","ตัวแทน","เซลล์","ตลาด","พนักงานขาย","ตัวแทนจำหน่าย","ดรอปชิป","แอฟฟิลิเอต","นายหน้าขาย","ขายประกัน","ตัวแทนประกัน"],
  ["ข้าราชการ","ราชการ","รัฐ","ทหาร","ตำรวจ","อบต","เทศบาล","ปลัด","รัฐวิสาหกิจ"],
  ["พนักงาน","บริษัท","ออฟฟิศ","ลูกจ้าง","แอดมิน","ธุรการ"],
- ["เถ้าแก่","ผู้ประกอบการ","เจ้าของ","ผู้บริหาร","ผู้จัดการ","กิจการ","ธุรกิจ","ผู้ประกอบการ","หัวหน้า","ผอ"],
- ["ช่างแต่งหน้า","ช่างภาพ","กราฟิก","บริการ","ความงาม","เสริมสวย","ทำผม","ทำเล็บ","สปา","นวด","ศิลป","ดีไซน์","ออกแบบ","นักร้อง","ดนตรี","แต่งหน้า","ถ่ายภาพ","โรงแรม"],
+ ["รับเหมา","ผู้รับเหมา","เถ้าแก่","ผู้ประกอบการ","เจ้าของ","ผู้บริหาร","ผู้จัดการ","กิจการ","ธุรกิจ","ผู้ประกอบการ","หัวหน้า","ผอ"],
+ ["คาราโอเกะ","ผับ","บาร์","เธค","ร้านเหล้า","งานกลางคืน","โฮสต์","ช่างแต่งหน้า","ช่างภาพ","กราฟิก","บริการ","ความงาม","เสริมสวย","ทำผม","ทำเล็บ","สปา","นวด","ศิลป","ดีไซน์","ออกแบบ","นักร้อง","ดนตรี","แต่งหน้า","ถ่ายภาพ","โรงแรม"],
  ["การเงิน","บัญชี","ประกัน","ธนาคาร","สินเชื่อ","ลงทุน","หุ้น"],
  ["ช่างซ่อม","ช่างยนต์","วิศวกร","โปรแกรมเมอร์","ช่าง","วิศว","ไอที","โปรแกรม","คอม","เทคนิค","ก่อสร้าง","ซ่อม","ไฟฟ้า"],
  ["แพทย์","หมอ","พยาบาล","สุขภาพ","เภสัช","ทันต","คลินิก","โรงพยาบาล"],
- ["ทนาย","นักกฎหมาย","นักจิตวิทยา","ครู","อาจารย์","ที่ปรึกษา","โค้ช","วิทยากร","หมอดู","โหร","พระ","สอน"],
+ ["ผู้ไกล่เกลี่ย","ไกล่เกลี่ย","ทนาย","นักกฎหมาย","นักจิตวิทยา","ครู","อาจารย์","ที่ปรึกษา","โค้ช","วิทยากร","หมอดู","โหร","พระ","สอน"],
  ["ยูทูบเบอร์","ติ๊กต็อก","สตรีมเมอร์","อินฟลู","ครีเอเตอร์","ฟรีแลนซ์","อิสระ","ยูทูบ","คอนเทนต์","รับงาน","นักเขียน"],
  ["เกษตร","ทำนา","ทำสวน","ทำไร่","เลี้ยง","รับจ้าง","กรรมกร"],
  ["แกร็บ","ไลน์แมน","ส่งอาหาร","ขนส่ง","ขับ","ไรเดอร์","ส่งของ","แท็กซี่","วินมอเตอร์","รถ"],
@@ -2652,7 +2659,7 @@ function s1000Html(r){
 function analyze(inp){
   const ck=[inp.y,inp.m,inp.d,inp.h,inp.mi,inp.lat,inp.lon].join(",");
   if(!_CC[ck]){const c0=chartSY(inp.y,inp.m,inp.d,inp.h,inp.mi,inp.lat,inp.lon);c0.calcLagna=c0.lagna;_CC[ck]={c:c0,ds:digitScores(c0)};}
-  const c=_CC[ck].c, ds=_CC[ck].ds; const _n0=new Date(); let _age=_n0.getFullYear()-inp.y; if(_n0.getMonth()+1<inp.m||(_n0.getMonth()+1===inp.m&&_n0.getDate()<inp.d)) _age--; _PCTX={job:inp.job,jobs:inp.jobs,cls:ds.cls,age:_age,ph:inp.phone,hot:(hotChart({ds})[0]||"")};
+  const c=_CC[ck].c, ds=_CC[ck].ds; const _n0=new Date(); let _age=_n0.getFullYear()-inp.y; if(_n0.getMonth()+1<inp.m||(_n0.getMonth()+1===inp.m&&_n0.getDate()<inp.d)) _age--; _PCTX={job:inp.job,jobs:inp.jobs,cls:ds.cls,age:_age,ph:inp.phone,hot:(hotChart({ds})[0]||""),jt:inp.jobText||"",night:isNight(inp)};
   const n=inp.phone.split("").map(Number);
   const pos=POS.map(p=>{const v=n[p.i[0]]*10+n[p.i[1]];const info=pairInfoG(v,inp.sex);return {...p,v,s:String(v).padStart(2,"0"),info};});
   const gv={g:1,m:0.2,b:-1};
@@ -2884,7 +2891,7 @@ function tailFit(inp,r){
   let sc=0; const t=[]; const kind=wis?"wis":charm?"charm":"";
   const tps=String(tp).padStart(2,"0");
   if(n[8]===n[9]){const dF=dblFit(inp,r).find(x=>x.v===tps); if(dF&&dF.g==="b"){sc-=0.6; t.push("ท้ายเบอร์ปิดด้วยเลขเบิ้ล "+tps+" ซึ่งไม่เหมาะกับคุณ เพราะ"+dF.why.slice(0,1).join(" ")); return {sc:Math.max(-1,sc),t,kind,hot:hotChart(r),gk};}}
-  const jcT=jobConflict(inp,tp); if(jcT.length){const k=jcT[0],g=(JOB_GRP[k]||[])[0]; sc-=0.6; t.push("ท้ายเบอร์ปิดด้วย "+tps+" ซึ่งขัดกับงาน"+(jobPieceFor(inp.jobText,k)||JOBS[k][0])+" เพราะ"+JGRP[g].x[tp]); return {sc:Math.max(-1,sc),t,kind,hot:hotChart(r),gk};}
+  const jcT=jobConflict(inp,tp); if(jcT.length){const k=jcT[0],g=(JOB_GRP[k]||[])[0]; sc-=0.6; t.push("ท้ายเบอร์ปิดด้วย "+tps+" ซึ่งขัดกับงาน"+(jobPieceFor(inp.jobText,k)||JOBS[k][0])+" เพราะ"+jx(g,tp)); return {sc:Math.max(-1,sc),t,kind,hot:hotChart(r),gk};}
   // ดูบริบททั้งเบอร์: ช่วงหน้า (ดูดทรัพย์ รายได้ งาน ลูกค้า) มีกลุ่มไหนอยู่แล้ว
   const fr=["AB","FE","DE","ED"].map(k=>r.pos.find(p=>p.k===k)).filter(Boolean).map(p=>+p.s);
   const frC=fr.filter(v=>CHARM_TAIL.includes(v)).length, frW=fr.filter(v=>WIS_TAIL.includes(v)).length;
@@ -2929,7 +2936,7 @@ const AB_BAN_WHY="ตรงทางเข้าของเงิน งาน�
 function abBanG(g,v){return g==="charm"&&CHARM_AB_BAN.includes(+v);}
 function abBanJobs(inp,v){if(!CHARM_AB_BAN.includes(+v))return [];const ks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0);return ks.filter(k=>(JOB_GRP[k]||[])[0]==="charm");}
 // คู่นี้ขัดกับอาชีพไหนของลูกค้าบ้าง (ใช้กรองทุกคำแนะนำ ให้สอดคล้องกันทั้งเว็บ)
-function jobConflict(inp,v){const ks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0);return ks.filter(k=>{if(k===12&&v===66)return false;const g=(JOB_GRP[k]||[])[0];return JGRP[g]&&JGRP[g].x&&JGRP[g].x[v];});}
+function jobConflict(inp,v){const ks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0),nt=isNight(inp);return ks.filter(k=>{if(k===12&&v===66)return false;const g=(JOB_GRP[k]||[])[0];return JGRP[g]&&JGRP[g].x&&(jx(g,v)||(nt&&g==="charm"&&(+v===59||+v===95)));});}
 function tailRec(inp,r){
   const tf=tailFit(inp,r), hot=tf.hot&&tf.hot.length, soft=(softLv(inp,r)||{}).lv==="hard", gk=tf.gk;
   const pool=gk==="charm"||gk==="home"?CHARM_TAIL.flatMap((v,i)=>[v,WIS_TAIL[i]]).filter(v=>v!==undefined):gk==="wisdom"||gk==="power"||gk==="broker"||gk==="money"?WIS_TAIL:[...WIS_TAIL,...CHARM_TAIL];
@@ -2941,7 +2948,8 @@ function tailRec(inp,r){
 function jobNeedD(k){const g=(JOB_GRP[k]||[])[0];return [...new Set([...(JOB_NEED[k]||[]),...((typeof DRIVE_JOB!=="undefined"&&DRIVE_JOB[g])||[])])];}
 function jobPairV(inp,k,v,r,jtx){
   const [gk,sk]=JOB_GRP[k]||["charm"], G1=JGRP[gk], G2=sk?JGRP[sk]:null, s=String(v).padStart(2,"0"), jt=jtx!==undefined?jtx:(inp.jobText||"");
-  if(G1.x[v]) return {f:-1,tag:"ขัดกับงาน",why:G1.x[v]};
+  if(jx(gk,v)) return {f:-1,tag:"ขัดกับงาน",why:jx(gk,v)};
+  if((v===58||v===85)&&PROB_RE.test(jt)&&_PCTX){const c=ctx58(v,pairInfo(v)); if(c[0]==="g") return {f:1,tag:"ตรงกลุ่ม",why:"คู่พลิกแพลง แก้ปัญหาเฉพาะหน้าเก่ง ตรงกับงานแก้ปัญหา"};}
   if(v%11===0&&DBL_JOB[v]){const J=DBL_JOB[v]; if(J.b.includes(gk)) return {f:-1,tag:"ขัดกับงาน",why:J.bt}; if(J.g.includes(gk)) return {f:0.85,tag:"ตรงกลุ่ม",why:J.gt};}
   if(G1.p.includes(v)) return {f:1,tag:"ตรงกลุ่ม",why:G1.name};
   if(JOBS[k]&&JOBS[k][1].includes(v)) return {f:0.85,tag:"ตรงกลุ่ม",why:"พลังของคู่นี้"};
@@ -2969,7 +2977,7 @@ function jobFitPos(inp,r){
     else if(JV.f>0){f=0.3;tag="เสริม";t="เป็น "+p.s+" "+gi[1]+" ไม่ใช่พลังหลักของงาน"+jn+" แต่มี"+JV.why+"ที่งานนี้ใช้ ช่วยได้ทางอ้อม";}
     else {f=JV.f;tag="ไม่ตรงงาน";t="เป็น "+p.s+" "+gi[1]+" ไม่ใช่คู่เสีย แต่ไม่ใช่พลังที่งาน"+jn+"ใช้หาเงิน";}}
     {const bj=k==="AB"?abBanJobs(inp,v):[]; if(bj.length&&f>-1){const jb=bj.includes(inp.job)?jn:(jobPieceFor(inp.jobText,bj[0])||JOBS[bj[0]][0].split(" /")[0]);f=-1;tag="ขัดกับงาน";t="เป็น "+p.s+" "+gi[1]+" "+AB_BAN_WHY+" งาน"+jb+"จึงไม่ควรมีคู่นี้ตรงตำแหน่งดูดทรัพย์";}}
-    {const oc=jobConflict(inp,v).filter(q=>q!==inp.job); if(f>0&&oc.length){const g2=(JOB_GRP[oc[0]]||[])[0]; f=Math.min(f,-0.3); tag="ขัดกับงานอื่น"; t+=" แต่คู่นี้ขัดกับงาน"+(jobPieceFor(inp.jobText,oc[0])||JOBS[oc[0]][0].split(" /")[0])+" ที่คุณทำอยู่ด้วย เพราะ"+JGRP[g2].x[v];}}
+    {const oc=jobConflict(inp,v).filter(q=>q!==inp.job); if(f>0&&oc.length){const g2=(JOB_GRP[oc[0]]||[])[0]; f=Math.min(f,-0.3); tag="ขัดกับงานอื่น"; t+=" แต่คู่นี้ขัดกับงาน"+(jobPieceFor(inp.jobText,oc[0])||JOBS[oc[0]][0].split(" /")[0])+" ที่คุณทำอยู่ด้วย เพราะ"+jx(g2,v);}}
     if(k!=="GF"&&f>0&&gi[0]==="b"){f=Math.min(f,0.2);t+=" แต่คู่นี้ให้ผลเสียกับ"+(inp.sex==="f"?"ผู้หญิง":"ผู้ชาย")+" จึงช่วยได้น้อย";}
     if(k!=="GF"&&f>0&&ps<=-0.1){f*=0.5;t+=" แต่เลขในคู่นี้เป็นพลังอ่อนในดวงคุณ ผลจึงไม่เต็ม";}
     else if(k!=="GF"&&f>0&&ps>=0.5){f=Math.min(1.1,f*1.1);t+=" และเลขคู่นี้ถูกกับดวงคุณด้วย";}
@@ -3102,7 +3110,7 @@ function pairContext(p,r,inp){
     else if(!head&&jfv===1&&g==="b") t+=" ถึงอาชีพ"+jt+"จะเข้ากับพลังคู่นี้ แต่คู่นี้เป็นคู่เสีย ด้านลบจึงออกมากกว่า";
     else if(!head&&jfv===-1&&!fav) t=(g==="b"?t+" และ":"")+"ตามความหมายคู่เลข อาชีพ"+jt+"ไม่ค่อยเหมาะกับพลังคู่นี้ ต้องระวังด้านลบของคู่นี้ในงาน";
     if(!head&&v%11===0&&DBL_JOB[v]){const w=dblCtx(v,inp,r).why[0]; if(w) t=w.slice(1);}
-    else if(!head){const jc=jobConflict(inp,v); if(jc.length){const k=jc[0],gg=(JOB_GRP[k]||[])[0]; t="คู่นี้ขัดกับงาน"+(jobPieceFor(inp.jobText,k)||JOBS[k][0].split(" /")[0])+" เพราะ"+JGRP[gg].x[v];}}
+    else if(!head){const jc=jobConflict(inp,v); if(jc.length){const k=jc[0],gg=(JOB_GRP[k]||[])[0]; t="คู่นี้ขัดกับงาน"+(jobPieceFor(inp.jobText,k)||JOBS[k][0].split(" /")[0])+" เพราะ"+jx(gg,v);}}
     if(!head&&p.k==="AB"){const bj=abBanJobs(inp,v); if(bj.length) t="คู่นี้ไม่เหมาะกับงาน"+(jobPieceFor(inp.jobText,bj[0])||JOBS[bj[0]][0].split(" /")[0])+" "+AB_BAN_WHY;}
     out.push(["งาน",t]);
   } else if(inp.jobText&&jobFitV(p.s,inp.jobText)&&!(p.i[0]<3||p.i[1]<3)) out.push(["งาน",jobFit(p.s,inp.jobText)]);
@@ -3139,6 +3147,7 @@ function pairContext(p,r,inp){
 function posGrade(p,r,inp){
   const dg=dblFit(inp,r).find(x=>x.v===p.s); let g=dg?dg.g:p.info[0], lab=gLab(p.s,g,p.info);
   if(!dg&&g==="g"&&enemyOf(+p.s)&&!enemyOk(+p.s,inp,r).ok){g="m";lab=gLab(p.s,"m",[ "m",0,0,0,"g"]);}
+  if(g!=="b"&&(p.s==="59"||p.s==="95")&&isNight(inp)&&!(r.n&&p.i&&p.i.some(x=>x<3))){g="m";lab="กลางค่อนระวัง";}
   if((p.k==="GF"||p.k==="FG")&&r.n&&g!=="b"){const TR=tailRule(inp,r.n[8]*10+r.n[9]); if(TR&&(TR.lv==="no"||TR.lv==="care"||TR.lv==="warn")){g="m";lab="กลางค่อนระวัง";}}
   if(!dg&&g==="g"&&p.i[0]>=3&&p.i[1]>=3&&((["AB","FE","DE","EF","ED","DC"].includes(p.k)&&jobConflict(inp,+p.s).length)||(p.k==="AB"&&abBanJobs(inp,+p.s).length))){g="m";lab="กลางค่อนระวัง";}
   return {g,lab};
@@ -3502,7 +3511,7 @@ function dblCtx(v,inp,r){
   const d=v%10, J=DBL_JOB[v]; if(!J) return {sc:-1,why:["-เลขเบิ้ลคู่นี้ให้ผลเสีย"]};
   const gks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0).map(k=>(JOB_GRP[k]||[])[0]);
   const gk=gks.find(x=>J.b.includes(x))||gks.find(x=>J.g.includes(x))||gks[0]||"", jn=gks.length>1?(gks.find(x=>J.b.includes(x))?jobPieceFor(inp.jobText,(inp.jobs||[]).find(k=>J.b.includes((JOB_GRP[k]||[])[0])))||"ของคุณ":"ของคุณ"):inp.jobText||""; let sc=0; const why=[];
-  const jcD=jobConflict(inp,v); if(jcD.length){const k=jcD[0],g=(JOB_GRP[k]||[])[0]; sc-=1.2; why.push("-ขัดกับงาน"+(jobPieceFor(inp.jobText,k)||JOBS[k][0].split(" /")[0])+" คือ"+JGRP[g].x[v]);}
+  const jcD=jobConflict(inp,v); if(jcD.length){const k=jcD[0],g=(JOB_GRP[k]||[])[0]; sc-=1.2; why.push("-ขัดกับงาน"+(jobPieceFor(inp.jobText,k)||JOBS[k][0].split(" /")[0])+" คือ"+jx(g,v));}
   else if(gk&&J.g.includes(gk)){sc+=1;why.push("+"+"ได้พลัง"+J.gt+" ตรงกับงาน"+jn);}
   else if(gk&&J.b.includes(gk)){sc-=1;why.push("-"+"งาน"+jn+"ไม่ต้องการพลังนี้ ด้านลบคือ"+J.bt);}
   else why.push("~ให้พลัง"+J.gt+" แต่ต้องระวัง"+J.bt);
@@ -3910,7 +3919,7 @@ function recPlan(inp,r){
     if(hot&&(v===33||v===38||v===83||v===88)) return false;
     const dbl=a===b; if(dbl) return !!(DBL_JOB[v]&&dblCtx(v,inp,r).sc>=0.8);
     const gi=pairInfoG(v,sex), gr=pairInfoG(b*10+a,sex); if(gi[0]!=="g"||gr[0]==="b") return false; if(jobs.some(j=>JGRP[j.g]&&JGRP[j.g].p.includes(v))) return true; return enemyOk(v,inp,r).ok;};
-  const conf=v=>jobs.filter(j=>JGRP[j.g]&&JGRP[j.g].x&&JGRP[j.g].x[v]);
+  const conf=v=>jobs.filter(j=>JGRP[j.g]&&JGRP[j.g].x&&jx(j.g,v));
   const all=[]; for(let v=11;v<=99;v++){ if(v%10===0||!okP(v)) continue; if(r.stg==="child"&&(ADULT_P.includes(v)||ADULT_P.includes((v%10)*10+Math.floor(v/10))||MONEY_P.includes(v))) continue; if(conf(v).length) continue; const serves=jobs.filter(j=>j.pool.has(v));
     const cg=[Math.floor(v/10),v%10].filter(d=>ds.cls[d]==="g").length;
     const govLoan=jobs.some(j=>j.g==="money")&&jobs.some(j=>j.wis);
@@ -4009,6 +4018,7 @@ function genEx(inp,r,lv){
     if(dblFit(inp,x).some(q=>q.g!=="g")) continue;
     if(x.pos.some(q=>(["AB","FE","DE","GF","FG","DC","CD","EF","ED"].includes(q.k)&&jobConflict(inp,q.v).length)||(q.k==="AB"&&abBanJobs(inp,q.v).length))) continue;
     if(repSets(inp,x).length) continue;
+    if(isNight(inp)&&/59|95/.test(ph.slice(3))) continue;
     if(energyBalance(inp,x).some(q=>q.sc<0&&(lv<3||q.k==="rep"||q.k==="drv"||(lv<4&&["think","calm","dream","lux","gf"].includes(q.k))))) continue;
     {const N9=nineFit(inp,x); if(N9&&(N9.c>2||(N9.c===0&&r.ds.cls[9]!=="b"))) continue;}
     if(tailBad(inp,+ph.slice(-2))||(lv<4&&(tailRule(inp,+ph.slice(-2))||{}).lv==="warn")||TRI_FRAUD.some(t=>ph.slice(3).includes(t))) continue;
@@ -5652,7 +5662,7 @@ function chartOnly(inp){
   const ck=[inp.y,inp.m,inp.d,inp.h,inp.mi,inp.lat,inp.lon].join(",");
   if(!_CC[ck]){const c0=chartSY(inp.y,inp.m,inp.d,inp.h,inp.mi,inp.lat,inp.lon);c0.calcLagna=c0.lagna;_CC[ck]={c:c0,ds:digitScores(c0)};}
   const n0=new Date(); let age=n0.getFullYear()-inp.y; if(n0.getMonth()+1<inp.m||(n0.getMonth()+1===inp.m&&n0.getDate()<inp.d)) age--;
-  _PCTX={job:inp.job,jobs:inp.jobs,cls:_CC[ck].ds.cls,age,ph:inp.phone,hot:(hotChart({ds:_CC[ck].ds})[0]||"")};
+  _PCTX={job:inp.job,jobs:inp.jobs,cls:_CC[ck].ds.cls,age,ph:inp.phone,hot:(hotChart({ds:_CC[ck].ds})[0]||""),jt:inp.jobText||"",night:isNight(inp)};
   return {c:_CC[ck].c,ds:_CC[ck].ds,age};
 }
 // อ่านชุดตัวเลขเป็นคู่ต่อกัน ตัวท้ายส่งผลแรงที่สุด
@@ -8555,7 +8565,7 @@ function stockRecList(inp,r){const ck=[inp.d,inp.m,inp.y,inp.h,inp.mi,inp.sex,in
     {const tl=c.ph.slice(3),fx=hf.fix.map(([h,s,g])=>{const rv=s[1]+s[0];return [h,tl.includes(s)?s:tl.includes(rv)?rv:"",g];}).filter(q=>q[1]).slice(0,2); if(fx.length) why.push(fx.map(([h,s,g])=>FXV(h,g)+LIFE[h]+" ด้วยคู่ "+s).join(" และ"));}
     const ab=x.pos.find(p=>p.k==="AB"); if(ab.info[0]==="g") why.push("ช่องทางเงินเข้าดี");
     const t2=+c.ph.slice(-2), wk7=c.ph.slice(3).split("").filter(d=>x.ds.cls[+d]==="b").length; if((tailRule(inp,t2)||{}).lv==="warn") sc-=6;
-    return {...c,x,sc,why:why.slice(0,4),bad:hotBad||tailBad(inp,t2)||(tailRule(inp,t2)||{}).lv==="warn"||(()=>{for(let i=3;i<9;i++){const a=+c.ph[i],b=+c.ph[i+1];if(pairInfoG(a*10+b,inp.sex)[0]==="b"||pairInfoG(b*10+a,inp.sex)[0]==="b")return true;}return false;})()||TRI_FRAUD.some(t=>c.ph.slice(3).includes(t))||wk7>1||x.pos.some(q=>(["AB","FE","DE","GF","FG"].includes(q.k)&&(q.info[0]==="b"||jobConflict(inp,q.v).length))||(q.k==="AB"&&abBanJobs(inp,q.v).length))};}).filter(o=>!o.bad&&!o.x.strong&&o.x.score>=60&&o.x.s1000>(r.s1000||0)&&o.x.pos.find(p=>p.k==="GF").info[0]!=="b"&&!o.x.pos.some(q=>posGrade(q,o.x,{...inp,phone:o.ph}).g==="b")).sort((a,b)=>b.sc-a.sc).slice(0,3);
+    return {...c,x,sc,why:why.slice(0,4),bad:hotBad||tailBad(inp,t2)||(tailRule(inp,t2)||{}).lv==="warn"||(()=>{for(let i=3;i<9;i++){const a=+c.ph[i],b=+c.ph[i+1];if(pairInfoG(a*10+b,inp.sex)[0]==="b"||pairInfoG(b*10+a,inp.sex)[0]==="b")return true;}return false;})()||TRI_FRAUD.some(t=>c.ph.slice(3).includes(t))||(isNight(inp)&&/59|95/.test(c.ph.slice(3)))||wk7>1||x.pos.some(q=>(["AB","FE","DE","GF","FG"].includes(q.k)&&(q.info[0]==="b"||jobConflict(inp,q.v).length))||(q.k==="AB"&&abBanJobs(inp,q.v).length))};}).filter(o=>!o.bad&&!o.x.strong&&o.x.score>=60&&o.x.s1000>(r.s1000||0)&&o.x.pos.find(p=>p.k==="GF").info[0]!=="b"&&!o.x.pos.some(q=>posGrade(q,o.x,{...inp,phone:o.ph}).g==="b")).sort((a,b)=>b.sc-a.sc).slice(0,3);
   analyze(inp); _SRC={k:ck,v:res}; return res;}
 function stockTeaserHtml(inp,r,place){
   let res=[];try{res=stockRecList(inp,r).filter(o=>o.x.s1000>=r.s1000+50).slice(0,2);}catch(e){}
