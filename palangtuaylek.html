@@ -6,7 +6,7 @@
 <link rel="canonical" href="https://www.palangtuaylek.com/palangtuaylek.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="c5f83ff3aaa8ff2b4dba778bdb04c002ddb81e2d">
+<meta name="plk-base" content="e9dbb25c9241944b45ce47431c3580897bcf648e">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -2921,6 +2921,11 @@ function tailFit(inp,r){
   {const TR=tailRule(inp,tp); if(TR){ if(TR.lv==="no"||TR.lv==="care"){sc=Math.min(sc,0)+TR.sc;for(let i=t.length-1;i>=0;i--) if(/ปิดท้ายได้ดี|ตรงกับงาน|ช่วยเพิ่มสติ|ช่วยให้ทำงานรอบคอบ|คนรอบตัวเอ็นดู|คนเจอแล้วชอบ|จึงวางท้ายได้|ยังพอวางท้ายได้|ใจเย็นลง/.test(t[i])) t.splice(i,1);} else {sc+=TR.sc; if(/ตรงกับงานของคุณ/.test(TR.t)){for(let i=t.length-1;i>=0;i--) if(/^ท้ายเบอร์ยังไม่ใช่ทั้ง|^ท้ายเบอร์ยังไม่ใช่กลุ่ม/.test(t[i])) t.splice(i,1); sc=Math.max(sc,0.6);}} t.push(TR.t);}}
   return {sc:Math.max(-1,Math.min(1.2,sc)),t,kind,hot,gk};
 }
+// งานที่ใช้เสน่ห์ (กลุ่มหลักเป็น charm) ตำแหน่งดูดทรัพย์ AB ห้ามเป็นคู่เหล่านี้ ต้องเป็นคู่เสน่ห์ให้ลูกค้ารัก
+const CHARM_AB_BAN=[55,59,95,15,51,35,53,97,99,98,89,45,54,41,14,47,74,78,87,17,71,39,93];
+const AB_BAN_WHY="ตรงทางเข้าของเงิน งานที่ใช้เสน่ห์ต้องเป็นคู่เสน่ห์ให้ลูกค้ารักแล้วซื้อ คู่นี้ไม่ใช่พลังเสน่ห์ที่ดึงลูกค้า";
+function abBanG(g,v){return g==="charm"&&CHARM_AB_BAN.includes(+v);}
+function abBanJobs(inp,v){if(!CHARM_AB_BAN.includes(+v))return [];const ks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0);return ks.filter(k=>(JOB_GRP[k]||[])[0]==="charm");}
 // คู่นี้ขัดกับอาชีพไหนของลูกค้าบ้าง (ใช้กรองทุกคำแนะนำ ให้สอดคล้องกันทั้งเว็บ)
 function jobConflict(inp,v){const ks=(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0);return ks.filter(k=>{if(k===12&&v===66)return false;const g=(JOB_GRP[k]||[])[0];return JGRP[g]&&JGRP[g].x&&JGRP[g].x[v];});}
 function tailRec(inp,r){
@@ -2961,6 +2966,7 @@ function jobFitPos(inp,r){
     else if(JV.f>=0.55){f=0.55;tag="เสริม";t="เป็น "+p.s+" "+gi[1]+" อยู่ใน"+G2.name+" ไม่ใช่พลังหลักของงาน"+jn+" แต่ช่วยเสริมได้";}
     else if(JV.f>0){f=0.3;tag="เสริม";t="เป็น "+p.s+" "+gi[1]+" ไม่ใช่พลังหลักของงาน"+jn+" แต่มี"+JV.why+"ที่งานนี้ใช้ ช่วยได้ทางอ้อม";}
     else {f=JV.f;tag="ไม่ตรงงาน";t="เป็น "+p.s+" "+gi[1]+" ไม่ใช่คู่เสีย แต่ไม่ใช่พลังที่งาน"+jn+"ใช้หาเงิน";}}
+    if(k==="AB"&&abBanG((JOB_GRP[inp.job]||[])[0],v)&&f>-1){f=-1;tag="ขัดกับงาน";t="เป็น "+p.s+" "+gi[1]+" "+AB_BAN_WHY+" งาน"+jn+"จึงไม่ควรมีคู่นี้ตรงตำแหน่งดูดทรัพย์";}
     {const oc=jobConflict(inp,v).filter(q=>q!==inp.job); if(f>0&&oc.length){const g2=(JOB_GRP[oc[0]]||[])[0]; f=Math.min(f,-0.3); tag="ขัดกับงานอื่น"; t+=" แต่คู่นี้ขัดกับงาน"+(jobPieceFor(inp.jobText,oc[0])||JOBS[oc[0]][0].split(" /")[0])+" ที่คุณทำอยู่ด้วย เพราะ"+JGRP[g2].x[v];}}
     if(k!=="GF"&&f>0&&gi[0]==="b"){f=Math.min(f,0.2);t+=" แต่คู่นี้ให้ผลเสียกับ"+(inp.sex==="f"?"ผู้หญิง":"ผู้ชาย")+" จึงช่วยได้น้อย";}
     if(k!=="GF"&&f>0&&ps<=-0.1){f*=0.5;t+=" แต่เลขในคู่นี้เป็นพลังอ่อนในดวงคุณ ผลจึงไม่เต็ม";}
@@ -3095,6 +3101,7 @@ function pairContext(p,r,inp){
     else if(!head&&jfv===-1&&!fav) t=(g==="b"?t+" และ":"")+"ตามความหมายคู่เลข อาชีพ"+jt+"ไม่ค่อยเหมาะกับพลังคู่นี้ ต้องระวังด้านลบของคู่นี้ในงาน";
     if(!head&&v%11===0&&DBL_JOB[v]){const w=dblCtx(v,inp,r).why[0]; if(w) t=w.slice(1);}
     else if(!head){const jc=jobConflict(inp,v); if(jc.length){const k=jc[0],gg=(JOB_GRP[k]||[])[0]; t="คู่นี้ขัดกับงาน"+(jobPieceFor(inp.jobText,k)||JOBS[k][0].split(" /")[0])+" เพราะ"+JGRP[gg].x[v];}}
+    if(!head&&p.k==="AB"){const bj=abBanJobs(inp,v); if(bj.length) t="คู่นี้ไม่เหมาะกับงาน"+(jobPieceFor(inp.jobText,bj[0])||JOBS[bj[0]][0].split(" /")[0])+" "+AB_BAN_WHY;}
     out.push(["งาน",t]);
   } else if(inp.jobText&&jobFitV(p.s,inp.jobText)&&!(p.i[0]<3||p.i[1]<3)) out.push(["งาน",jobFit(p.s,inp.jobText)]);
   else out.push(["งาน",inp.jobText?"อาชีพ"+jt+" ผมยังไม่ได้จัดกลุ่มไว้ในเว็บ ทักไลน์มา ผมดูให้ว่าคู่นี้หนุนงานไหม":"ไม่ได้ใส่อาชีพ"]);
@@ -3131,7 +3138,7 @@ function posGrade(p,r,inp){
   const dg=dblFit(inp,r).find(x=>x.v===p.s); let g=dg?dg.g:p.info[0], lab=gLab(p.s,g,p.info);
   if(!dg&&g==="g"&&enemyOf(+p.s)&&!enemyOk(+p.s,inp,r).ok){g="m";lab=gLab(p.s,"m",[ "m",0,0,0,"g"]);}
   if((p.k==="GF"||p.k==="FG")&&r.n&&g!=="b"){const TR=tailRule(inp,r.n[8]*10+r.n[9]); if(TR&&(TR.lv==="no"||TR.lv==="care"||TR.lv==="warn")){g="m";lab="กลางค่อนระวัง";}}
-  if(!dg&&g==="g"&&p.i[0]>=3&&p.i[1]>=3&&["AB","FE","DE","EF","ED","DC"].includes(p.k)&&jobConflict(inp,+p.s).length){g="m";lab="กลางค่อนระวัง";}
+  if(!dg&&g==="g"&&p.i[0]>=3&&p.i[1]>=3&&((["AB","FE","DE","EF","ED","DC"].includes(p.k)&&jobConflict(inp,+p.s).length)||(p.k==="AB"&&abBanJobs(inp,+p.s).length))){g="m";lab="กลางค่อนระวัง";}
   return {g,lab};
 }
 function pairCard(p,r,inp){
@@ -3925,7 +3932,7 @@ function recPlan(inp,r){
   tri.sort((a,b)=>b.sc-a.sc); const triPick=[]; tri.forEach(z=>{if(triPick.length<6&&triPick.filter(q=>q.t.slice(0,2)===z.t.slice(0,2)).length<2)triPick.push(z);});
   // แนวร้อยเรียง: หัวเบอร์ดูดทรัพย์ + ท้ายเบอร์ตามอาชีพ
   const jr=((r.jfs||[]).find(x=>x.gk==="money")||r.jf||{rec:[]}).rec||[]; const abJ=jr.map(v=>pick.find(x=>x.v===v)).find(Boolean);
-  const _abOk=x=>!(hot&&x.v.includes("3"));
+  const _abOk=x=>!(hot&&x.v.includes("3"))&&!abBanJobs(inp,+x.v).length;
   const ab=(jobs.some(j=>j.g==="money")&&pick.filter(_abOk).find(x=>x.v==="28"||x.v==="82"||(x.v==="88"&&!jobConflict(inp,88).length)))||(abJ&&_abOk(abJ)?abJ:null)||pick.filter(_abOk).find(x=>x.serves.some(j=>j.money&&(JGRP[j.g]||{p:[]}).p.includes(+x.v)))||pick.find(_abOk)||pick[0];
   const _dup=v=>ab&&(v===ab.v||v===ab.v[1]+ab.v[0]);
   const TR=tailRec(inp,r), tail=(TR.pairs||[]).find(v=>okSet.has(v)&&!_dup(v))||(pick.find(x=>WIS_TAIL.includes(+x.v)&&!_dup(x.v))||{}).v||(TR.pairs||[]).find(v=>!_dup(v))||"";
@@ -3996,7 +4003,7 @@ function genEx(inp,r,lv){
     if(/(\d)\1\1/.test(ph)||ph.includes("949")) continue;
     const x=analyze({...inp,phone:ph}); if(x.strong||x.trips.length) continue;
     if(dblFit(inp,x).some(q=>q.g!=="g")) continue;
-    if(x.pos.some(q=>["AB","FE","DE","GF","FG","DC","CD","EF","ED"].includes(q.k)&&jobConflict(inp,q.v).length)) continue;
+    if(x.pos.some(q=>(["AB","FE","DE","GF","FG","DC","CD","EF","ED"].includes(q.k)&&jobConflict(inp,q.v).length)||(q.k==="AB"&&abBanJobs(inp,q.v).length))) continue;
     if(repSets(inp,x).length) continue;
     if(energyBalance(inp,x).some(q=>q.sc<0&&(lv<3||q.k==="rep"||q.k==="drv"||(lv<4&&["think","calm","dream","lux","gf"].includes(q.k))))) continue;
     {const N9=nineFit(inp,x); if(N9&&(N9.c>2||(N9.c===0&&r.ds.cls[9]!=="b"))) continue;}
@@ -4308,7 +4315,7 @@ function bigMoneyHtml(inp,r){
    ${B.lv!=="b"&&B.weak.length?`<p class="para">จุดที่ต้องระวัง ${B.weak.slice(0,2).join(" ")}</p>`:""}
    ${cur?`<p class="adv"><b>งานที่ทำอยู่ไม่ได้ปิดโอกาส</b> ${cur}${inCar?" และงานของคุณอยู่ในสายที่ดวงหนุนเงินก้อนอยู่แล้ว":""}</p>`:""}
    ${B.car.length?`<h3 class="sub">สายงานที่ดวงหนุนให้ได้เงินก้อน</h3><ul class="pairs">${B.car.map(x=>`<li style="display:block"><div><h3>${x.t.n}${jobs.some(k=>x.t.j.includes(k))?' <span class="pill g">ตรงกับงานที่ทำอยู่</span>':""}</h3><p>${BIG_T[x.i]}</p><p class="note" style="margin-top:2px">${x.t.p.filter(d=>r.ds.cls[d]!=="b").slice(0,2).some(d=>r.ds.cls[d]==="g"||plRole(d,r.ds).length)?"ดวงหนุนเพราะ":"ดวงหนุนได้พอประมาณ จาก"}${x.t.p.filter(d=>r.ds.cls[d]!=="b").slice(0,2).map(d=>{const ro=plRole(d,r.ds);return PLANET_PLAIN[d]+" (เลข "+d+")"+(ro.length?" "+ro[0]:" มีพลัง"+({g:"ดี",m:"ปานกลาง",b:"อ่อน"}[r.ds.cls[d]]||"ปานกลาง"));}).join(" และ")}</p></div></li>`).join("")}</ul>`:""}
-   ${B.pr.length?`<h3 class="sub">คู่เลขเงินก้อนที่ใช้กับดวงคุณได้</h3><p class="para">${B.pr.map(v=>`<b class="ch g chw">${v}</b>`).join(" ")}</p><p class="note">วางที่ช่วงหัวเบอร์หลักที่ 4 ถึง 5 ซึ่งเป็นตำแหน่งดูดทรัพย์ หรือหลักที่ 8 ถึง 9 ซึ่งเป็นตำแหน่งรายได้ จะเห็นผลเรื่องเงินก้อนชัดที่สุด ทุกคู่ผ่านการเช็กแล้วว่าไม่มีเลขพลังอ่อนในดวงคุณ${B.hot?" และไม่ใส่เลข 3 ในคู่เงินก้อน เพราะพื้นดวงใจร้อนอยู่แล้ว ถ้าเติมเลข 3 ตรงตำแหน่งเงินจะใจร้อนเรื่องเงิน เลข 3 ยังใช้ได้ในตำแหน่งอื่น":""}</p>`:`<p class="para">ดวงคุณมีเลขพลังอ่อนหลายตัว คู่เลขเงินก้อนแบบสำเร็จรูปใช้ไม่ได้ ต้องร้อยเรียงเฉพาะตัว ทักไลน์มาให้ผมดูให้</p>`}
+   ${B.pr.length?`<h3 class="sub">คู่เลขเงินก้อนที่ใช้กับดวงคุณได้</h3><p class="para">${B.pr.map(v=>`<b class="ch g chw">${v}</b>`).join(" ")}</p><p class="note">วางที่ช่วงหัวเบอร์หลักที่ 4 ถึง 5 ซึ่งเป็นตำแหน่งดูดทรัพย์ หรือหลักที่ 8 ถึง 9 ซึ่งเป็นตำแหน่งรายได้ จะเห็นผลเรื่องเงินก้อนชัดที่สุด${(()=>{const bn=B.pr.filter(v=>abBanJobs(inp,+v).length);if(!bn.length)return "";const k=abBanJobs(inp,+bn[0])[0];return " สำหรับงาน"+(jobPieceFor(inp.jobText,k)||JOBS[k][0].split(" /")[0])+" คู่ "+bn.join(" ")+" ให้วางตำแหน่งรายได้ ไม่วางตรงตำแหน่งดูดทรัพย์ เพราะตรงนั้นต้องเป็นคู่เสน่ห์";})()} ทุกคู่ผ่านการเช็กแล้วว่าไม่มีเลขพลังอ่อนในดวงคุณ${B.hot?" และไม่ใส่เลข 3 ในคู่เงินก้อน เพราะพื้นดวงใจร้อนอยู่แล้ว ถ้าเติมเลข 3 ตรงตำแหน่งเงินจะใจร้อนเรื่องเงิน เลข 3 ยังใช้ได้ในตำแหน่งอื่น":""}</p>`:`<p class="para">ดวงคุณมีเลขพลังอ่อนหลายตัว คู่เลขเงินก้อนแบบสำเร็จรูปใช้ไม่ได้ ต้องร้อยเรียงเฉพาะตัว ทักไลน์มาให้ผมดูให้</p>`}
    ${B.tri.length?`<h3 class="sub">ชุดเลข 3 ตัวเงินก้อน</h3><p class="para">${B.tri.map(v=>`<b class="ch g chw">${v}</b>`).join(" ")}</p><p class="note">ชุด 3 ตัวที่ทั้งสองคู่ในชุดเป็นคู่ดี ใช้วางต่อกันช่วงตำแหน่งดูดทรัพย์หรือรายได้</p>`:""}
   </section>`;
 }
@@ -4336,7 +4343,7 @@ function talentHtml(inp,r){
       <p class="para"><b>ทำไมเหมาะกับคุณ</b> ในดวงคุณ${why} พลังเหล่านี้คือพลังของงานสายนี้โดยตรง${weak.length?" แต่"+weak.map(d=>PLANET_PLAIN[d]+" (เลข "+d+")").join(" และ")+" เป็นเลขพลังอ่อน ถ้าทำงานสายนี้ต้องเสริมด้วยเบอร์ให้ดี":""}</p>
       <p class="para"><b>งานที่เข้าข่าย</b> ${t.ex}</p>
       <p class="para" style="margin-top:6px"><b>คู่เลขที่ควรเสริมสำหรับงานนี้</b></p>
-      ${prs.length?`<ul class="pp">${(()=>{const av=[...PL_AT];return prs.map(p=>{const tOk=!tailRule(inp,p.v)||tailRule(inp,p.v).lv==="ok";let ix=p.s===2&&tOk&&av[0]==="ท้ายเบอร์"?0:av.findIndex(x=>x!=="ท้ายเบอร์");const at=ix>=0?av.splice(ix,1)[0]:"ช่วงกลางเบอร์";const wk=String(p.v).split("").some(c=>ds.cls[+c]==="b");return `<li><span class="pv sm g">${String(p.v).padStart(2,"0")}</span><span>${p.gi[1]} ${p.gi[2]}${p.gi[3]?" "+p.gi[3]:""} ควรวาง${at}${wk?" (มีเลขพลังอ่อนของคุณอยู่ในคู่ ต้องมีเลขพลังดีประกบ)":""}</span></li>`;}).join("");})()}</ul>`:'<p class="note">คู่เลขสายนี้ยังชนกับเลขพลังอ่อนในดวงคุณ ทักไลน์ให้ผมร้อยเรียงให้เฉพาะ</p>'}</li>`;});
+      ${prs.length?`<ul class="pp">${(()=>{const av=[...PL_AT];return prs.map(p=>{const tOk=!tailRule(inp,p.v)||tailRule(inp,p.v).lv==="ok";let ix=p.s===2&&tOk&&av[0]==="ท้ายเบอร์"?0:av.findIndex(x=>x!=="ท้ายเบอร์"&&!(x==="ตรงทางเข้าของทรัพย์"&&abBanG((JOB_GRP[t.j[0]]||[])[0],p.v)));const at=ix>=0?av.splice(ix,1)[0]:"ช่วงกลางเบอร์";const wk=String(p.v).split("").some(c=>ds.cls[+c]==="b");return `<li><span class="pv sm g">${String(p.v).padStart(2,"0")}</span><span>${p.gi[1]} ${p.gi[2]}${p.gi[3]?" "+p.gi[3]:""} ควรวาง${at}${wk?" (มีเลขพลังอ่อนของคุณอยู่ในคู่ ต้องมีเลขพลังดีประกบ)":""}</span></li>`;}).join("");})()}</ul>`:'<p class="note">คู่เลขสายนี้ยังชนกับเลขพลังอ่อนในดวงคุณ ทักไลน์ให้ผมร้อยเรียงให้เฉพาะ</p>'}</li>`;});
   const jobNote=inp.jobText?(pick.some(x=>inp.job>=0&&x.t.j.includes(inp.job))?`งาน${esc(inp.jobText)}ที่คุณทำอยู่ตรงกับพรสวรรค์ในดวง เดินทางนี้ต่อได้เลย แล้วเสริมด้วยคู่เลขของสายงานนี้`:`งาน${esc(inp.jobText)}ที่คุณทำอยู่ยังไม่ใช่สายที่ดวงหนุนเด่นที่สุด ไม่จำเป็นต้องเปลี่ยนงาน แต่ถ้าดึงพรสวรรค์ข้างบนมาใช้ในงานเดิม หรือทำเป็นงานเสริม จะไปได้ไวขึ้น`):"";
   return `<section class="card"><h2>พรสวรรค์ในดวงและอาชีพที่ทำแล้วรุ่ง</h2>${r.age>=60?`<p class="note" style="margin:0 0 8px">ตอนนี้อายุ ${r.age} ปี ส่วนนี้ให้มองเป็นงานเสริม รายได้หลังเกษียณ หรือสิ่งที่ส่งต่อให้ลูกหลานได้ ไม่จำเป็นต้องเริ่มงานใหม่</p>`:""}
     <p class="para">${intro}</p>${jobNote?`<p class="adv" style="margin-top:10px">${jobNote}</p>`:""}
@@ -8541,7 +8548,7 @@ function stockRecList(inp,r){const ck=[inp.d,inp.m,inp.y,inp.h,inp.mi,inp.sex,in
     {const tl=c.ph.slice(3),fx=hf.fix.map(([h,s,g])=>{const rv=s[1]+s[0];return [h,tl.includes(s)?s:tl.includes(rv)?rv:"",g];}).filter(q=>q[1]).slice(0,2); if(fx.length) why.push(fx.map(([h,s,g])=>FXV(h,g)+LIFE[h]+" ด้วยคู่ "+s).join(" และ"));}
     const ab=x.pos.find(p=>p.k==="AB"); if(ab.info[0]==="g") why.push("ช่องทางเงินเข้าดี");
     const t2=+c.ph.slice(-2), wk7=c.ph.slice(3).split("").filter(d=>x.ds.cls[+d]==="b").length; if((tailRule(inp,t2)||{}).lv==="warn") sc-=6;
-    return {...c,x,sc,why:why.slice(0,4),bad:hotBad||tailBad(inp,t2)||(tailRule(inp,t2)||{}).lv==="warn"||(()=>{for(let i=3;i<9;i++){const a=+c.ph[i],b=+c.ph[i+1];if(pairInfoG(a*10+b,inp.sex)[0]==="b"||pairInfoG(b*10+a,inp.sex)[0]==="b")return true;}return false;})()||TRI_FRAUD.some(t=>c.ph.slice(3).includes(t))||wk7>1||x.pos.some(q=>["AB","FE","DE","GF","FG"].includes(q.k)&&(q.info[0]==="b"||jobConflict(inp,q.v).length))};}).filter(o=>!o.bad&&!o.x.strong&&o.x.score>=60&&o.x.pos.find(p=>p.k==="GF").info[0]!=="b").sort((a,b)=>b.sc-a.sc).slice(0,3);
+    return {...c,x,sc,why:why.slice(0,4),bad:hotBad||tailBad(inp,t2)||(tailRule(inp,t2)||{}).lv==="warn"||(()=>{for(let i=3;i<9;i++){const a=+c.ph[i],b=+c.ph[i+1];if(pairInfoG(a*10+b,inp.sex)[0]==="b"||pairInfoG(b*10+a,inp.sex)[0]==="b")return true;}return false;})()||TRI_FRAUD.some(t=>c.ph.slice(3).includes(t))||wk7>1||x.pos.some(q=>(["AB","FE","DE","GF","FG"].includes(q.k)&&(q.info[0]==="b"||jobConflict(inp,q.v).length))||(q.k==="AB"&&abBanJobs(inp,q.v).length))};}).filter(o=>!o.bad&&!o.x.strong&&o.x.score>=60&&o.x.pos.find(p=>p.k==="GF").info[0]!=="b").sort((a,b)=>b.sc-a.sc).slice(0,3);
   analyze(inp); _SRC={k:ck,v:res}; return res;}
 function stockTeaserHtml(inp,r,place){
   let res=[];try{res=stockRecList(inp,r).filter(o=>o.x.score*10>=r.s1000+50).slice(0,2);}catch(e){}
