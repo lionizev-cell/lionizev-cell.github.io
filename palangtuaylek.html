@@ -6,7 +6,7 @@
 <link rel="canonical" href="https://www.palangtuaylek.com/palangtuaylek.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="d8bf149e97f05ceea7429cde19e1b39044332f52">
+<meta name="plk-base" content="bf22315a9ecb88ab079a7f84a7f9b9c633149356">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -4920,10 +4920,11 @@ function render(inp,r,isSample){
     ${pctHtml(inp,r,isSample)}
     <p class="sumline">ผลรวม <b>${r.sum}</b> <span class="pill ${r.sumInfo[0]}">${({g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"})[r.sumInfo[0]]}</span> <span>${esc(r.sumInfo[1]||"")}</span></p>
     ${isSample||phoneUnlocked(inp)?"":topDeepCtaHtml(inp,r)}
+    ${isSample?"":`<div class="lntop" style="margin:10px 0 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg)"><p style="margin:0 0 8px"><b>อยากให้ผมดูเบอร์นี้ให้</b> ส่งผลเบอร์นี้มาทาง LINE ได้เลย ผมเตรียมข้อมูลเบอร์ คะแนน และวันเกิดของคุณไว้ให้แล้ว ไม่ต้องพิมพ์ใหม่</p><button type="button" class="ghost" data-lntop="1" style="width:100%">ส่งผลเบอร์นี้ให้อาจารย์ทาง LINE</button></div>`}
     ${sumWhyHtml(inp,r)}
     ${simpleSummary(inp,r,NM)}
   </section>
-  ${isSample||!(r.s1000<700||r.band[0]==="b")?"":stockTeaserHtml(inp,r,"before")}
+  ${isSample||!(r.s1000<800||r.band[0]==="b")?"":stockTeaserHtml(inp,r,"before")}
   ${s1000Html(r)}
   ${freePairsHtml(inp,r)}
   ${pyrTeaserHtml(inp,r,isSample)}
@@ -6367,7 +6368,7 @@ function funnelHooks(){
     const sg=$("slipgo"); if(sg) sg.addEventListener("click",()=>cntHit("f-slip-send"));
   }catch(e){}
 }
-const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["an-shop","เลขที่ร้าน"],["an-today","สีมงคลวันนี้"],["an-baby","ตั้งชื่อลูก"],["an-dir","ทิศมงคล"],["an-chong","ปีชง"],["horo-visit","เข้าหน้าดูดวง"],["horo-read","ดูดวง (ผูกดวงแล้ว)"],["f-pay-view","ขั้นขาย: เห็นกล่อง 399"],["f-pay-jump","ขั้นขาย: กดไปกล่อง 399"],["f-top-cta","ขั้นขาย: กดปุ่มเจาะลึกใต้คะแนน"],["f-copyacc","ขั้นขาย: คัดลอกเลขบัญชี"],["f-slip-pick","ขั้นขาย: เลือกรูปสลิป"],["f-slip-send","ขั้นขาย: กดตรวจสลิป"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-num","จ่ายตัวเลขละเอียด 399"],["pay-bundle","จ่ายแพ็กรวม 999"],["pay-baby","จ่ายตั้งชื่อลูก 399"],["pay-pin","จ่ายรหัสมงคล 99"],["an-pin","ดูรหัสมงคล"],["pay-wall","จ่ายวอลเปเปอร์ 99"],["card-line","นามบัตร กดส่ง LINE"],["logo-line","โลโก้ กดส่ง LINE"],["spack-line","แพ็กเปิดร้าน กดส่ง LINE"],["xsell","กดบริการแนะนำ"],["an-wall","ดูวอลเปเปอร์"],["wall-gen","สร้างภาพวอลเปเปอร์"],["pay-horo","จ่ายดูดวงละเอียด 399"],["pay-y2570","จ่ายดวงปี 2570 299"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-horo","บันทึก PDF ดูดวง"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["ask-phone","ทักถามก่อนซื้อ เบอร์"],["ask-name","ทักถามก่อนซื้อ ชื่อ"],["ask-rk","ทักถามก่อนซื้อ ฤกษ์"],["ask-love","ทักถามก่อนซื้อ ดวงคู่"],["ask-num","ทักถามก่อนซื้อ ตัวเลขละเอียด"],["ask-baby","ทักถามก่อนซื้อ ตั้งชื่อลูก"],["ai-ask","ถามเบอร์ผ่าน AI"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
+const CNT_KEYS=[["visit","คนเข้าเว็บ"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["an-shop","เลขที่ร้าน"],["an-today","สีมงคลวันนี้"],["an-baby","ตั้งชื่อลูก"],["an-dir","ทิศมงคล"],["an-chong","ปีชง"],["horo-visit","เข้าหน้าดูดวง"],["horo-read","ดูดวง (ผูกดวงแล้ว)"],["f-pay-view","ขั้นขาย: เห็นกล่อง 399"],["f-pay-jump","ขั้นขาย: กดไปกล่อง 399"],["f-top-cta","ขั้นขาย: กดปุ่มเจาะลึกใต้คะแนน"],["f-copyacc","ขั้นขาย: คัดลอกเลขบัญชี"],["f-slip-pick","ขั้นขาย: เลือกรูปสลิป"],["f-slip-send","ขั้นขาย: กดตรวจสลิป"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-num","จ่ายตัวเลขละเอียด 399"],["pay-bundle","จ่ายแพ็กรวม 999"],["pay-baby","จ่ายตั้งชื่อลูก 399"],["pay-pin","จ่ายรหัสมงคล 99"],["an-pin","ดูรหัสมงคล"],["pay-wall","จ่ายวอลเปเปอร์ 99"],["card-line","นามบัตร กดส่ง LINE"],["logo-line","โลโก้ กดส่ง LINE"],["spack-line","แพ็กเปิดร้าน กดส่ง LINE"],["xsell","กดบริการแนะนำ"],["line-top","ส่งผลเบอร์ทาง LINE (ปุ่มใต้คะแนน)"],["stk-interest","กดสนใจเบอร์ในสต็อก"],["an-wall","ดูวอลเปเปอร์"],["wall-gen","สร้างภาพวอลเปเปอร์"],["pay-horo","จ่ายดูดวงละเอียด 399"],["pay-y2570","จ่ายดวงปี 2570 299"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-horo","บันทึก PDF ดูดวง"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["ask-phone","ทักถามก่อนซื้อ เบอร์"],["ask-name","ทักถามก่อนซื้อ ชื่อ"],["ask-rk","ทักถามก่อนซื้อ ฤกษ์"],["ask-love","ทักถามก่อนซื้อ ดวงคู่"],["ask-num","ทักถามก่อนซื้อ ตัวเลขละเอียด"],["ask-baby","ทักถามก่อนซื้อ ตั้งชื่อลูก"],["ai-ask","ถามเบอร์ผ่าน AI"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
 let _CQ=Promise.resolve(),_CN=0;
 async function cntGet(k){for(let t=0;t<6;t++){try{const r=await fetch(`${CNT.base}/get/${CNT.ns}/${k}`,{cache:"no-store"});if(r.status===404)return 0;if(r.ok){const j=await r.json();return +j.value||0;}if(r.status===429||r.status>=500){await new Promise(s=>setTimeout(s,700*(t+1)));continue;}return null;}catch(e){await new Promise(s=>setTimeout(s,500));}}return null;}
 async function admStatsUI(){
@@ -8601,7 +8602,7 @@ function stockTeaserHtml(inp,r,place){
   if(!res.length) return "";
   const fmt=p=>p.slice(0,3)+"-"+p.slice(3,6)+"-"+p.slice(6);
   return `<section class="card stktz" style="border-color:var(--accent)"><h2>${place==="after"?"เบอร์ในสต็อกที่เข้ากับดวงคุณมากกว่า":"เบอร์นี้ได้ "+r.s1000+" คะแนน ผมมีเบอร์ที่เข้ากับดวงคุณมากกว่า"}</h2>
-   <ul class="plain" style="margin:6px 0;padding:0;list-style:none">${res.map(o=>`<li style="display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-top:1px solid var(--line)"><b class="exn" style="font-family:var(--f-mono)">${fmt(o.ph)}</b><span>${o.price?o.price.toLocaleString("th-TH")+" บาท":"สอบถามราคา"}</span><span class="note" style="margin:0">คะแนนกับดวงคุณ <span class="pill g">${o.x.s1000} / 1000</span></span><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener" style="justify-self:end;color:var(--accent);font-weight:600">สนใจเบอร์นี้</a></li>`).join("")}</ul>
+   <ul class="plain" style="margin:6px 0;padding:0;list-style:none">${res.map(o=>`<li style="display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-top:1px solid var(--line)"><b class="exn" style="font-family:var(--f-mono)">${fmt(o.ph)}</b><span>${o.price?o.price.toLocaleString("th-TH")+" บาท":"สอบถามราคา"}</span><span class="note" style="margin:0">คะแนนกับดวงคุณ <span class="pill g">${o.x.s1000} / 1000</span></span><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener" data-stkint="${o.ph}" data-stksc="${o.x.s1000}" data-stkpr="${o.price||""}" data-cur="${inp.phone}" data-cursc="${r.s1000}" style="justify-self:end;color:var(--accent);font-weight:600">สนใจเบอร์นี้</a></li>`).join("")}</ul>
    <p class="note" style="margin:6px 0 0">เทียบกับดวง อาชีพ เพศ และวัยของคุณแล้ว <a href="#" class="dgo" data-j2="hsr">ดูเหตุผลและเบอร์อื่น</a></p></section>`;}
 function stockRecHtml(inp,r){
   const res=stockRecList(inp,r); if(!res.length&&!STOCK.length) return "";
@@ -8613,11 +8614,22 @@ function stockRecHtml(inp,r){
      <div class="note">${o.net?esc(o.net)+" · ":""}คะแนนกับดวงคุณ <span class="pill ${o.x.s1000>=750?"g":"m"}">${o.x.s1000} / 1000</span></div>
      <p style="margin:2px 0 0">${o.why.join(" ")||"ไม่มีคู่เสียในตำแหน่งสำคัญ"}</p>
      <details class="libd stkd"><summary>ดูความหมายเบอร์</summary>${recMeaning(o.x)}</details>
-     <div class="stkact"><a class="stkbuy" href="${CONFIG.chatUrl}" target="_blank" rel="noopener">สนใจเบอร์นี้</a><button type="button" class="stklink" data-ph="${o.ph}">ดูผลเบอร์นี้กับดวงคุณ</button></div></li>`).join("")}</ul>
+     <div class="stkact"><a class="stkbuy" href="${CONFIG.chatUrl}" target="_blank" rel="noopener" data-stkint="${o.ph}" data-stksc="${o.x.s1000}" data-stkpr="${o.price||""}" data-cur="${inp.phone||""}" data-cursc="${r.s1000||""}">สนใจเบอร์นี้</a><button type="button" class="stklink" data-ph="${o.ph}">ดูผลเบอร์นี้กับดวงคุณ</button></div></li>`).join("")}</ul>
    <p class="note"><a href="#stock" class="flink">ดูสต็อกเบอร์ทั้งหมด</a></p>`
    :`<p class="para">ตอนนี้ยังไม่มีเบอร์ในสต็อกที่เข้ากับดวงและงานของคุณพอที่ผมจะแนะนำ ทักไลน์มาได้ครับ ผมหาและร้อยเรียงเบอร์ให้เฉพาะคุณได้</p><div class="btns" style="margin-top:8px"><a class="ghost" href="${CONFIG.chatUrl}" target="_blank" rel="noopener">ทักไลน์ให้ผมหาเบอร์</a></div>`}
   </section>`;
 }
+
+// ปุ่มส่งผลเบอร์ทาง LINE ใต้คะแนน ใช้ข้อความชุดเดียวกับปุ่มท้ายผล
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-lntop]");if(!b)return;e.preventDefault();try{cntHit("line-top");}catch(x){}const c=$("copy");if(c)c.click();else location.href=CONFIG.chatUrl;});
+// กด "สนใจเบอร์นี้" ในสต็อก: คัดลอกเบอร์ที่สนใจพร้อมวันเกิด แล้วเปิด LINE
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("[data-stkint]");if(!a)return;e.preventDefault();
+  const fmt=p=>String(p).replace(/^(\d{3})(\d{3})(\d{4})$/,"$1-$2-$3");let L=["สนใจเบอร์ "+fmt(a.dataset.stkint)+(a.dataset.stkpr?" ราคา "+(+a.dataset.stkpr).toLocaleString("th-TH")+" บาท":"")+" ครับ/ค่ะ","เว็บเทียบกับดวงแล้วได้ "+a.dataset.stksc+" คะแนน"];
+  try{const i=readFormLoose();if(i.d&&i.m&&i.y)L.push("เกิด "+pad(i.d)+"/"+pad(i.m)+"/"+(i.y+543)+($("notime")&&$("notime").checked?" ไม่ทราบเวลาเกิด":" เวลา "+pad(+$("hh").value)+":"+pad(+$("mi").value)));const j=($("job").value||"").trim();if(j)L.push("อาชีพ "+j);}catch(x){}
+  if(a.dataset.cur)L.push("เบอร์ที่ใช้อยู่ "+fmt(a.dataset.cur)+(a.dataset.cursc?" ได้ "+a.dataset.cursc+" คะแนน":""));
+  const m=L.join("\n");try{cntHit("stk-interest");}catch(x){}
+  const go=()=>{const w=window.open(CONFIG.chatUrl,"_blank");if(w){try{w.opener=null;}catch(x){}}else location.href=CONFIG.chatUrl;};
+  try{navigator.clipboard.writeText(m).then(()=>{a.textContent="คัดลอกแล้ว กำลังเปิด LINE";setTimeout(go,600);},()=>fallback(m,go));}catch(x){fallback(m,go);}},true);
 
 // ===== ใช้ความหมายคู่เลข 00-99 ประกอบการวิเคราะห์ตามตำแหน่ง =====
 // ความหมายเชิงลึกของคู่เลข เฉพาะเรื่องของแต่ละตำแหน่ง
