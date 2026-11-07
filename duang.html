@@ -3,7 +3,7 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="plk-base" content="62146db8bfde927ccb4189704ef015cc5541c362">
+<meta name="plk-base" content="68d16ca2d657f88a8d55903ef22f75b94b265a80">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="canonical" href="https://www.palangtuaylek.com/duang.html">
 <meta name="description" content="ผูกดวงราศีจักรฟรี ดูลัคนา ดาว 9 ดวง ดวงแต่ละด้าน ไพ่ยิปซี และสมพงษ์คู่ จากเพจความลับพลังตัวเลข">
@@ -1996,7 +1996,7 @@ function yearBlock(c,A,age,start,end,transit){
 }
 
 /* ===== ตั้งค่าการชำระเงิน (แก้ตรงนี้) ===== */
-var PAY={price:399,yPrice:299,pairPrice:299,promptpay:'0997891585',accountName:'ธนวัตน์ จิระเมธาทรัพย์',bankName:'ธนาคารไทยพาณิชย์ (SCB)',bankNo:'648-284-4987',line:'https://lin.ee/TJ05Mnd'};
+var PAY={price:399,yPrice:299,pairPrice:299,jobPrice:199,promptpay:'0997891585',accountName:'ธนวัตน์ จิระเมธาทรัพย์',bankName:'ธนาคารไทยพาณิชย์ (SCB)',bankNo:'648-284-4987',line:'https://lin.ee/TJ05Mnd'};
 function crc16(s){var c=0xFFFF;for(var i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(var j=0;j<8;j++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return ('0000'+c.toString(16).toUpperCase()).slice(-4)}
 function tlv(id,v){return id+('0'+v.length).slice(-2)+v}
 function promptpayPayload(target,amount){var t=String(target).replace(/\D/g,''),sub;
@@ -2066,7 +2066,7 @@ function bindPay(id,price,key,lineMsg,onOK){
   f.addEventListener('change',function(){var x=f.files[0];g('slipn').textContent=x?x.name:'แตะเพื่อเลือกรูปสลิป';go.disabled=!x;st.textContent=''});
   go.addEventListener('click',function(){var x=f.files[0];if(!x)return;go.disabled=true;st.style.color='';st.textContent='กำลังตรวจสลิป รอสักครู่...';
     hSlipB64(x).then(function(b){return hThunder(b,key)}).then(function(j){
-      if(j.ok){var code=j.code;hHit('slip-ok');hHit(/\|y2570$/.test(key)?'pay-y2570':'pay-horo');st.style.color='var(--good)';st.textContent='ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ '+code+' เก็บไว้ใช้เปิดดูอีกครั้งได้';setTimeout(onOK,1200)}
+      if(j.ok){var code=j.code;hHit('slip-ok');hHit(/\|y2570$/.test(key)?'pay-y2570':/\|job$/.test(key)?'pay-job':'pay-horo');st.style.color='var(--good)';st.textContent='ตรวจสลิปผ่านแล้ว ขอบคุณครับ รหัสปลดล็อกของคุณคือ '+code+' เก็บไว้ใช้เปิดดูอีกครั้งได้';setTimeout(onOK,1200)}
       else if(j.code){st.style.color='var(--good)';st.textContent='ตรวจสลิปผ่านแล้ว รหัสปลดล็อกของคุณคือ '+j.code+' จดเก็บไว้ ถ้าหน้านี้ยังไม่เปิดผล ให้ใส่รหัสนี้ในช่องรหัส หรือเปิดเว็บใน Chrome หรือ Safari แล้วใส่รหัสนี้ได้เลยครับ';var uc=g('ucode');if(uc)uc.value=j.code}
       else{st.style.color='var(--bad)';st.textContent=j.msg+' ถ้าโอนแล้วจริง ส่งสลิปทางไลน์ได้เลยครับ';go.disabled=false}
     }).catch(function(){st.style.color='var(--bad)';st.textContent='ตอนนี้ตรวจสลิปไม่ได้ ส่งสลิปทางไลน์ได้เลยครับ';go.disabled=false})});
@@ -2116,7 +2116,7 @@ function render(){
   r+='<h2 id="s-top">'+(nm?esc(nm)+' ':'')+'ลัคนา'+SIGN[L]+' เกิดวัน'+DAYNAME[c.day]+'</h2>';
   r+='<p class="note">เกิด '+esc(c.label)+' · ลัคนา '+SIGN[L]+' '+(c.lagDeg!=null?c.lagDeg.toFixed(1)+'°':'(ปรับเอง)')+(c.meth==='st'?' แบบเวลานักษัตร':' แบบอันโตนาทีสามัญ')+' · ราศีประเภท'+A.type+'</p>';
   if(c.lagDeg!=null&&(c.lagDeg<4||c.lagDeg>26))r+='<div class="warn">ลัคนาอยู่ใกล้ขอบราศี โปรแกรมโหรแต่ละตัวอาจได้ลัคนาต่างกัน ควรเทียบกับโปรแกรมที่ใช้ประจำ และปรับลัคนาได้ในส่วนปรับตำแหน่งดาว</div>';
-  r+='<nav class="toc" aria-label="สารบัญ">'+[['s-sum','สรุป'],['s-chart','ผังดวง'],['s-nisai','นิสัย'],['s-topics','ดวงรายด้าน'],['s-phone','เช็กเบอร์'],['s-stock','สต็อกเบอร์'],['tarot','ไพ่ยิปซี'],['pair','สมพงษ์คู่']].concat(isUnlocked(c.key)?[['p-sum','สรุปฉบับละเอียด'],['p-month','12 เดือน'],['p-year','10 ปี'],['s-dao','คุณภาพดาว'],['s-num','เลขในเบอร์'],['s-year','ทักษาจร']]:[['paywall','ฉบับละเอียด']]).map(function(x){return '<a href="#'+x[0]+'">'+x[1]+'</a>'}).join('')+'</nav>';
+  r+='<nav class="toc" aria-label="สารบัญ">'+[['s-sum','สรุป'],['s-chart','ผังดวง'],['s-nisai','นิสัย'],['s-topics','ดวงรายด้าน']].concat(isUnlocked(c.key)&&!isOwnerH()?[]:[['s-jobq','อาชีพที่ใช่']]).concat([['s-phone','เช็กเบอร์'],['s-stock','สต็อกเบอร์'],['tarot','ไพ่ยิปซี'],['pair','สมพงษ์คู่']]).concat(isUnlocked(c.key)?[['p-sum','สรุปฉบับละเอียด'],['p-month','12 เดือน'],['p-year','10 ปี'],['s-dao','คุณภาพดาว'],['s-num','เลขในเบอร์'],['s-year','ทักษาจร']]:[['paywall','ฉบับละเอียด']]).map(function(x){return '<a href="#'+x[0]+'">'+x[1]+'</a>'}).join('')+'</nav>';
 
   // summary
   var good=TD.filter(function(t){return t.v>=2}).map(function(t){return t.title}),weak=TD.filter(function(t){return t.v<=-2}).map(function(t){return t.title});
@@ -2223,12 +2223,12 @@ function render(){
 
   if(window.__U){var __u=window.__U;window.__U=null;if(!isUnlocked(c.key)){var __bk=bundleKeyH();PLKPAY.check(String(c.key),__u,{alt:__bk?[__bk]:[]}).then(function(j){if(j&&j.ok){var f=document.getElementById('f');if(f.requestSubmit)f.requestSubmit();else f.dispatchEvent(new Event('submit',{cancelable:true}))}}).catch(function(){})}}var M4=r.length,UL=isUnlocked(c.key);
   var shortT=sec('s-topics','ดวงแต่ละด้าน (ย่อ)')+TD.map(function(t){return t.short}).join('')+(UL?'':'<p class="note">ฉบับละเอียดอ่านแต่ละด้านแบบ 2 จังหวะครบ พร้อมดาวที่เกี่ยวข้อง</p>');
-  var free=r.slice(0,M0)+r.slice(M1,M2)+shortT+timeFree(c,A,QQ,UL)+y2570Html(c,A,QQ)+phoneBlock(c,QQ)+stockBlock(QQ);
+  var free=r.slice(0,M0)+r.slice(M1,M2)+shortT+jobHtml(c,A,QQ,UL)+timeFree(c,A,QQ,UL)+y2570Html(c,A,QQ)+phoneBlock(c,QQ)+stockBlock(QQ);
   var paidX=r.slice(M0,M1)+r.slice(M2,M3).replace('id="s-topics">ดวงแต่ละด้าน','id="p-topics">ดวงแต่ละด้าน (เต็ม)')+r.slice(M3,M4);
   r=free+(UL?renderPaid(c,A,QQ,paidX):paywall(c.key));
   LASTQ={QQ:QQ,c:c,share:SHARE};
   var box=document.getElementById('result');box.innerHTML=r;box.style.display='block';box.classList.remove('show');void box.offsetWidth;box.classList.add('show');
-  bindOverride();bindPaywall(c.key);if(document.getElementById('slipy'))bindPay('y',PAY.yPrice,c.key+'|y2570','โอนค่ารายงานดวงปี 2570 '+PAY.yPrice+' บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อก (แนบสลิป)\nเกิด '+(c?c.label:''),function(){render();var t=document.getElementById('s-y2570');if(t&&t.scrollIntoView)t.scrollIntoView()});bindPhone();bindShare();var pb=document.getElementById('pdfbtn');if(pb){pb.addEventListener('click',function(){hHit('pdf-horo');pdfSave(c.key)});if(window.__PDF){window.__PDF=0;setTimeout(function(){pb.scrollIntoView({block:'center'});pb.classList.add('primary')},400)}}
+  bindOverride();bindPaywall(c.key);if(document.getElementById('slipj'))bindPay('j',PAY.jobPrice,c.key+'|job','โอนค่าดูอาชีพที่ถูกโฉลกกับดวง '+PAY.jobPrice+' บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อก (แนบสลิป)\nเกิด '+(c?c.label:''),function(){render();var t=document.getElementById('s-jobq');if(t&&t.scrollIntoView)t.scrollIntoView()});if(document.getElementById('slipy'))bindPay('y',PAY.yPrice,c.key+'|y2570','โอนค่ารายงานดวงปี 2570 '+PAY.yPrice+' บาทแล้วครับ/ค่ะ ขอรหัสปลดล็อก (แนบสลิป)\nเกิด '+(c?c.label:''),function(){render();var t=document.getElementById('s-y2570');if(t&&t.scrollIntoView)t.scrollIntoView()});bindPhone();bindShare();var pb=document.getElementById('pdfbtn');if(pb){pb.addEventListener('click',function(){hHit('pdf-horo');pdfSave(c.key)});if(window.__PDF){window.__PDF=0;setTimeout(function(){pb.scrollIntoView({block:'center'});pb.classList.add('primary')},400)}}
 }
 
 function tsign(TRp,k){return Math.floor(TRp.points[k].longitudeArcMinutes/1800)}
@@ -2520,6 +2520,25 @@ function plkCodeOld(key){var s=String(key).replace(/\D/g,'')+'|',h=2166136261>>>
 function bundleKeyH(){var d=(document.getElementById('date')||{}).value||'';var m=d.match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?'1'+m[3]+m[2]+(+m[1]+543):''}
 function bundleOnH(){var k=bundleKeyH();if(!k)return false;return PLKPAY.unlocked(k)||PLKPAY.legacy(k)}
 function bundleSaveH(){}
+
+/* ===== อาชีพที่ถูกโฉลกกับดวง 199 (key ดวง + |job) ===== */
+function jobCand(A,QQ){var k10=A.lordOf(10);return [1,2,3,4,5,6,7,8,9,0].filter(function(p){return QQ.cls[p]!=='b'&&QQ.info[p]}).map(function(p){var w=QQ.sc[p];if(p===k10)w+=3;if(QQ.info[p].house===10)w+=2;if(QQ.info[p].rules.indexOf(11)>=0||QQ.info[p].rules.indexOf(2)>=0)w+=1;return [p,w]}).sort(function(a,b){return b[1]-a[1]}).slice(0,3)}
+function jobHtml(c,A,QQ,UL){
+  if(UL&&!isOwnerH())return '';
+  var key=c.key+'|job',on=UL||isUnlocked(key),cand=jobCand(A,QQ),o=sec('s-jobq','อาชีพที่ถูกโฉลกกับดวงคุณ');
+  if(!cand.length)return '';
+  var top=cand[0][0];
+  if(!on){
+    o+='<p>อาจารย์ดูจากเจ้าเรือนการงาน ดาวที่อยู่ภพกัมมะ และคุณภาพดาวทั้ง 10 ดวงของคุณ ดวงคุณหนุนงาน <strong>'+cand.length+' สาย</strong> เรียงจากเหมาะที่สุด</p>';
+    o+='<ol><li><strong>'+esc(pl(top))+'</strong>: '+esc(CAREER[top])+'</li>'+cand.slice(1).map(function(){return '<li class="note">เปิดดูได้ในรายงานอาชีพ</li>'}).join('')+'</ol>';
+    var it='<ul><li><strong>สายงานที่ดวงหนุนครบทุกสาย</strong> เรียงจากเหมาะที่สุด พร้อมเหตุผลจากดวง</li><li><strong>ทำงานประจำ หรือทำกิจการของตัวเอง</strong> แบบไหนได้ดีกว่า</li><li><strong>หุ้นส่วน:</strong> ดวงคุณเข้าเกณฑ์ห้ามมีหุ้นส่วนหรือไม่</li><li><strong>ลักษณะการทำงานที่ใช่</strong> และงานสายที่ทำแล้วจะเหนื่อยกว่าคนอื่น</li></ul><p class="note">ซื้อฉบับละเอียด '+PAY.price+' บาท จะได้หัวข้ออาชีพนี้รวมอยู่ด้วยพร้อมดวงทุกเรื่อง</p>';
+    return o+payBox('j',PAY.jobPrice,'ดูอาชีพที่ถูกโฉลกกับดวง',it).replace('เปิดฉบับละเอียดทันที','เปิดรายงานอาชีพทันที').replace('ตรวจสลิปและเปิดฉบับละเอียด','ตรวจสลิปและเปิดรายงานอาชีพ')}
+  var d=deepReading(c,A,QQ),a=d.indexOf('<h2 id="d-work">'),b=d.indexOf('<h2 id="d-love">');
+  var w=a>=0&&b>a?d.slice(a,b).replace(/<h2 id="d-work">[^<]*<\/h2>/,''):'';
+  var nd=(w.match(/<div\b/g)||[]).length-(w.match(/<\/div>/g)||[]).length;while(nd-->0)w+='</div>';
+  o+=ownerBox(key,'รายงานอาชีพ')+w;
+  if(!UL)o+='<p class="note">อยากรู้ดวงเรื่องเงิน ความรัก ช่วงชีวิต และ 12 เดือนข้างหน้าด้วย ดูฉบับละเอียดได้ด้านล่าง</p>';
+  return o}
 
 /* ===== รายงานดวงปี 2570 ===== */
 function y2570Html(c,A,QQ){
