@@ -3,7 +3,7 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="plk-base" content="643eb2809442d4b7c5b53c5fc2476efc12c48ec5">
+<meta name="plk-base" content="cdec4e3cfa1b718b0bf9b6a19f4a34d6048fbe44">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="canonical" href="https://www.palangtuaylek.com/duang.html">
 <meta name="description" content="ผูกดวงราศีจักรฟรี ดูลัคนา ดาว 9 ดวง ดวงแต่ละด้าน ไพ่ยิปซี และสมพงษ์คู่ จากเพจความลับพลังตัวเลข">
@@ -1934,7 +1934,7 @@ function esc(t){return String(t).replace(/[&<>]/g,function(c){return {'&':'&amp;
 function hn(h){return 'เรือน'+HOUSE[h-1]}
 function verdict(v){return v>=2?'<span class="tag t-good">เด่น</span>':v<=-2?'<span class="tag t-bad">ต้องระวัง</span>':'<span class="tag t-mid">ปานกลาง</span>'}
 
-function topic(A,h,title){
+function topic(A,h,title,QQ){
   var c=chart,lord=A.lordOf(h),i=A.info[lord],at=i.house,v=0,out=[];
   var st=i.std.filter(function(x){return x!=='วรโคตร'});
   var s1='ดาว '+lord+' ('+PN[lord]+') เจ้าเรือน'+HOUSE[h-1]+' อยู่'+hn(at);
@@ -1953,7 +1953,8 @@ function topic(A,h,title){
   v+={'ศรี':2,'มนตรี':1,'เดช':1,'กาลี':-2}[i.role]||0;
   var fl=A.planets.filter(function(p){return A.info[p].house===h&&p!==lord});
   if(fl.length)out.push('ดาวที่อยู่ในเรือนนี้: '+fl.map(function(p){return 'ดาว '+p+' ('+PN[p]+')'}).join(', ')+' ใช้เป็นความหมายเสริม');
-  return {v:v,title:title,html:'<div class="topic"><h3>'+title+verdict(v)+'</h3><p>'+out.map(esc).join(' ')+'</p></div>',short:'<div class="topic"><h3>'+title+verdict(v)+'</h3><p>'+esc(out[1]||out[0])+'</p></div>'};
+  var vt=verdict(v);if(QQ){var dl=deepHouse(c,A,QQ,h,title,null).lv,dus=[6,8,12].indexOf(h)>=0;v=dl==='g'?2:dl==='b'?-2:0;vt=dl==='g'?'<span class="tag t-good">'+(dus?'คุมได้':'เด่น')+'</span>':verdict(v);}
+  return {v:v,title:title,html:'<div class="topic"><h3>'+title+vt+'</h3><p>'+out.map(esc).join(' ')+'</p></div>',short:'<div class="topic"><h3>'+title+vt+'</h3><p>'+esc(out[1]||out[0])+'</p></div>'};
 }
 
 function wheelSVG(c,A){
@@ -2106,7 +2107,7 @@ function render(){
   var cls=function(p){var v=QQ.cls[p];return v==null?'mid':v==='g'?'good':v==='b'?'bad':'mid'};
   var nm=document.getElementById('name').value.trim();
   var TOPICS=[[1,'ตัวตนและชีวิต'],[2,'การเงิน'],[10,'การงาน'],[7,'ความรักและคู่'],[4,'บ้านและครอบครัว'],[5,'ลูกและบริวาร'],[11,'โชคลาภ'],[3,'เพื่อนและพี่น้อง'],[9,'ผู้ใหญ่และความสำเร็จ'],[6,'ปัญหา หนี้ และคู่แข่ง']];
-  var TD=TOPICS.map(function(t){return topic(A,t[0],t[1])});
+  var TD=TOPICS.map(function(t){return topic(A,t[0],t[1],QQ)});
   var now=new Date(),b=c.birth,last=new Date(now.getFullYear(),b.getMonth(),b.getDate());if(last>now)last.setFullYear(last.getFullYear()-1);
   var age=last.getFullYear()-b.getFullYear()+1;
   var TR=ThaiAstro.calculateThaiHoroscope({date:{year:now.getFullYear(),era:"CE",month:now.getMonth()+1,day:now.getDate()},time:{hour:now.getHours(),minute:now.getMinutes()}}),trs={},TK={1:'sun',2:'moon',3:'mars',4:'mercury',5:'jupiter',6:'venus',7:'saturn',8:'rahu',9:'ketu',0:'uranus'};
@@ -2119,7 +2120,7 @@ function render(){
   r+='<nav class="toc" aria-label="สารบัญ">'+[['s-sum','สรุป'],['s-chart','ผังดวง'],['s-nisai','นิสัย'],['s-topics','ดวงรายด้าน']].concat(isUnlocked(c.key)&&!isOwnerH()?[]:[['s-jobq','อาชีพที่ใช่']]).concat([['s-phone','เช็กเบอร์'],['s-stock','สต็อกเบอร์'],['tarot','ไพ่ยิปซี'],['pair','สมพงษ์คู่']]).concat(isUnlocked(c.key)?[['p-sum','สรุปฉบับละเอียด'],['p-month','12 เดือน'],['p-year','10 ปี'],['s-dao','คุณภาพดาว'],['s-num','เลขในเบอร์'],['s-year','ทักษาจร']]:[['paywall','ฉบับละเอียด']]).map(function(x){return '<a href="#'+x[0]+'">'+x[1]+'</a>'}).join('')+'</nav>';
 
   // summary
-  var good=TD.filter(function(t){return t.v>=2}).map(function(t){return t.title}),weak=TD.filter(function(t){return t.v<=-2}).map(function(t){return t.title});
+  var good=TD.filter(function(t){return t.v>=2}).map(function(t){return t.title==='ปัญหา หนี้ และคู่แข่ง'?'รับมือปัญหาและคู่แข่งได้ดี':t.title}),weak=TD.filter(function(t){return t.v<=-2}).map(function(t){return t.title});
   var gd=[1,2,3,4,5,6,7,8,9,0].filter(function(p){return cls(p)==='good'}),bd=[1,2,3,4,5,6,7,8,9,0].filter(function(p){return cls(p)==='bad'});
   r+=sec('s-sum','สรุปภาพรวม')+'<div class="sum">';
   r+='<p><strong class="t-good">จุดแข็ง:</strong> '+(good.length?good.join(' · '):'ไม่มีด้านที่เด่นชัดเป็นพิเศษ')+'</p>';
@@ -2315,7 +2316,7 @@ function deepHouse(c,A,QQ,h,title,sty){
   if(as.length){var good=as.filter(function(x){return BENEF.indexOf(x.p)>=0}),bad=as.filter(function(x){return MALEF.indexOf(x.p)>=0});
     var t4=[];if(good.length){t4.push(good.map(function(x){return pl(x.p)+' '+x.how}).join(' และ')+'เรือนนี้ เป็นแรงหนุนจากข้างนอก');v+=good.length>1?1:0.5}
     if(bad.length){t4.push(bad.map(function(x){return pl(x.p)+' '+x.how}).join(' และ')+'เรือนนี้ เป็นแรงกดดันที่ต้องรับมือ');v-=bad.length>1?1:0.5}
-    if(t4.length)ps.push('ที่ผมสะดุดอีกจุดคือมุมดาวที่มองเข้ามา '+t4.join(' ส่วน'))}
+    if(t4.length)ps.push('อีกจุดที่ต้องดูคือมุมดาวที่มองเข้ามา '+t4.join(' ส่วน'))}
   if(c.deg[lord]!=null){var nv=navamsa(c.sign[lord]*30+c.deg[lord]),s2=stds(lord,nv.sign),gd=s2.some(function(x){return ['เกษตร','อุจจ์','มหาจักร','ราชาโชค'].indexOf(x)>=0}),bd=s2.some(function(x){return x==='นิจ'||x==='ประ'});
     if(nv.sign===c.sign[lord])ps.push('ในนวางค์ดาว '+lord+' เป็นวรโคตร เนื้อในแข็งแรง เรื่องนี้ยิ่งอยู่นานยิ่งดี');
     else if(gd&&!ds.g.length)ps.push('ข้างนอกดาวนี้ดูธรรมดา แต่ในนวางค์ดาวนี้มีกำลัง เรื่องนี้จะดีขึ้นเรื่อย ๆ เมื่ออายุมากขึ้น');
@@ -2495,7 +2496,7 @@ function timeFree(c,A,QQ,UL){var TC=timeCalc(c,A),o='';
   o+=sec('s-now','ดวงเดือนนี้และปีนี้')+'<p class="note">อ่านจากดาวจรเทียบกับดวงกำเนิดของคุณ และทักษาจรตามอายุ</p>'+TC.mh[0]+TC.yh[0];
   if(!UL)o+='<p class="note">ฉบับละเอียดมีพยากรณ์ครบ 12 เดือนและ 10 ปีข้างหน้า แยกทุกเรื่อง</p>';
   var cls=function(p){return QQ.cls[p]};
-  var mW=topic(A,2,'การเงิน').v<=-2,wW=topic(A,10,'การงาน').v<=-2;
+  var _QQ=QDAO.quality(c.lagna,c.sign,c.deg,c.day),mW=topic(A,2,'การเงิน',_QQ).v<=-2,wW=topic(A,10,'การงาน',_QQ).v<=-2;
   var rows=TC.Y.map(function(y){var e=y.ev2,res=e.res,t=1.5,mo=lvl(res.money,t),wk=lvl(res.work,t),bad=y.pc2.lv==='ต้องระวัง',heavy=y.s2<=-2;
     var inv=(mo==='g'&&!heavy)?['g','เหมาะลงทุน']:(mo==='b'||heavy)?['b','เลี่ยงลงทุนใหญ่']:['m','ลงทุนเล็กได้'];
     var job=(wk==='g'&&!heavy)?['g','เหมาะเปลี่ยนงาน ขยับตำแหน่ง']:(wk==='b'||heavy)?['b','อยู่ที่เดิมก่อน']:['m','ทำงานเดิมให้มั่นคง'];
@@ -2553,7 +2554,7 @@ function y2570Html(c,A,QQ){
   var pick=function(f){var x=rows.filter(f).map(function(r){return r.nm.split(' ')[0]});return x.length?x.join(' · '):'ไม่มีเดือนที่เด่นชัด'};
   o+='<div class="sum"><p><strong class="t-good">เดือนที่ดี:</strong> '+(TC.mGood.join(' · ')||'ไม่มีเดือนที่เด่นชัด')+'</p><p><strong class="t-bad">เดือนที่ต้องระวัง:</strong> '+(TC.mBad.join(' · ')||'ไม่มีเดือนที่เสียชัด')+'</p>';
   o+='<p><strong>เดือนที่เหมาะลงทุน เรื่องเงิน:</strong> '+pick(function(r){return r.mo==='g'&&r.lv!=='ต้องระวัง'})+'</p><p><strong>เดือนที่เหมาะเปลี่ยนงาน เริ่มงานใหม่:</strong> '+pick(function(r){return r.wk==='g'&&r.lv!=='ต้องระวัง'})+'</p>';
-  o+='<p><strong>เดือนที่เหมาะเปลี่ยนเบอร์:</strong> '+pick(function(r){return r.lv==='ดี'&&QQ.cls[r.sri]!=='b'})+'</p></div>';
+  o+='<p><strong>เดือนที่เหมาะเปลี่ยนเบอร์:</strong> '+pick(function(r){return r.lv!=='ต้องระวัง'&&QQ.cls[r.sri]!=='b'})+'</p></div>';
   o=o+ownerBox(key,'รายงานดวงปี 2570');o+='<h3>ภาพรวมปีโหรที่คาบเกี่ยวปี 2570</h3>'+TC.yh.slice(0,2).join('');
   o+='<h3>ดวงทีละเดือน มกราคม ถึง ธันวาคม 2570</h3>'+TC.mh.join('');
   o+='<p class="note">ปีชง: '+R[2]+' ถ้าเดือนที่ต้องระวังด้านบนตรงกับเรื่องใหญ่ที่วางแผนไว้ ให้เลื่อนไปเดือนที่ดี หรือหาฤกษ์เฉพาะดวงก่อนทำ</p>';
@@ -2582,7 +2583,7 @@ function renderPaid(c,A,QQ,paidX){
   r+=paidX||'';
   r+=luckHtml(c,A,QQ);
   r+=sec('p-house','เรือนทั้ง 12 อ่านครบทุกเรือน')+'<p class="note">อ่านเจ้าเรือนของทุกเรือนแบบ 2 จังหวะ บอกว่าเรื่องนั้นในชีวิตผูกกับอะไร และผลสุดท้ายไปออกที่ไหน</p>';
-  for(var hh=1;hh<=12;hh++)r+=topic(A,hh,'เรือน'+HOUSE[hh-1]+' ('+GIST[hh-1]+')').html;
+  for(var hh=1;hh<=12;hh++)r+=topic(A,hh,'เรือน'+HOUSE[hh-1]+' ('+GIST[hh-1]+')',QQ).html;
   r+=closingHtml(c,A,QQ);
   r+='<p class="note">คำพยากรณ์เป็นแนวโน้มตามหลักโหราศาสตร์ไทย ใช้ประกอบการตัดสินใจ</p>';
   return r;
