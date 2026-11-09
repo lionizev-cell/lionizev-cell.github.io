@@ -6,7 +6,7 @@
 <link rel="canonical" href="https://www.palangtuaylek.com/palangtuaylek.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="6496bc06b060793961638f96bd6f123966751cb5">
+<meta name="plk-base" content="9795cad66b6325738989aa426744d0740370ade9">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -2285,6 +2285,16 @@ function ctx58(v,base){
   if(!hold) return ["m",base[1],base[2],"เข้ากับงานของคุณ แก้ปัญหาแล้วได้เงิน แต่เบอร์ยังไม่มีคู่ปัญญามาคุม ความหัวไวอาจกลายเป็นทางลัด","m"];
   return ["g",base[1],base[2],"เข้ากับงานของคุณ แก้ปัญหาแล้วได้เงิน และมีคู่ปัญญาในเบอร์คอยคุม เลข 5 กับ 8 ก็ไม่อ่อนในดวง","g"];
 }
+// ตำแหน่งคู่ครอง (GA) อ่านตามความหมายคู่เลขอย่างเดียว ไม่แยกเพศ (ตรงกับบทความ bt-ga)
+function pairInfoGA(v){
+  const base=pairInfo(v), k=String(v).padStart(2,"0");
+  if(k==="33"||k==="83"){
+    if(_PCTX&&_PCTX.hot) return ["b",base[1],base[2],"พื้นดวงของคุณใจร้อนอยู่แล้ว ("+_PCTX.hot+") คู่นี้จะเติมไฟให้แรงเกิน ไม่ควรใช้","m"];
+    const cx=ctxPair(+v,base); if(cx) return cx;
+    return ["m",base[1],base[2],"คู่นี้ให้ความกล้า ลุย กล้าตัดสินใจ แต่ถ้าพื้นดวงใจร้อนอยู่แล้วไม่ควรใช้","m"];}
+  const cx=ctxPair(+v,base); if(cx) return cx;
+  return [base[0],base[1],base[2],"",base[0]];
+}
 function pairInfoG(v,sex){
   const base=pairInfo(v), k=String(v).padStart(2,"0"), G=GSEX[sex];
   if(k==="33"||k==="83"){ // คู่กลาง ขึ้นกับอาชีพและพื้นดวง ดวงใจร้อนอยู่แล้วไม่ควรใช้
@@ -2594,7 +2604,7 @@ function s1000(inp,r){
   P.job=Math.round(cl(jb,0,140)*0.97);
   // 5 เพศ
   let sx=62; const male=inp.sex==="m";
-  r.gnotes.forEach(([g,t])=>{if(/คู่ครอง/.test(t)){if(g==="g"){sx+=10;why.sex.push("ตำแหน่งคู่ครองมีเลขเพศตรงข้ามหนุน");}else{sx-=22;why.sex.push(t.split(" ").slice(0,6).join(" "));}}});
+  r.gnotes.forEach(([g,t])=>{if(/คู่ครอง/.test(t)){if(g==="g"){sx+=10;why.sex.push("ตำแหน่งคู่ครองเป็นคู่ดี คนข้างกายหนุน");}else{sx-=22;why.sex.push(t.split(" ").slice(0,6).join(" "));}}});
   {r._sex=inp.sex; const lx=loveExtra(r,inp); if(lx.sc){sx+=Math.round(lx.sc*14);} if(lx.bad.length)why.sex.push("มีคู่เลขที่กระทบความรัก "+lx.bad.length+" จุด"); if(lx.notes.length)why.sex.push(lx.notes[0][1]);}
   if(r.strong&&!male&&inp.phone.includes("414")){sx=0;why.sex.push("ผู้หญิงมี 414 ในเบอร์");}
   r.trips.forEach(t=>{if(t.pt!=="414"){sx-=22;why.sex.push("ชุดเลข "+t.pt+" ไม่เหมาะกับ"+(male?"ผู้ชาย":"ผู้หญิง"));}});
@@ -2662,7 +2672,7 @@ function analyze(inp){
   if(!_CC[ck]){const c0=chartSY(inp.y,inp.m,inp.d,inp.h,inp.mi,inp.lat,inp.lon);c0.calcLagna=c0.lagna;_CC[ck]={c:c0,ds:digitScores(c0)};}
   const c=_CC[ck].c, ds=_CC[ck].ds; const _n0=new Date(); let _age=_n0.getFullYear()-inp.y; if(_n0.getMonth()+1<inp.m||(_n0.getMonth()+1===inp.m&&_n0.getDate()<inp.d)) _age--; _PCTX={job:inp.job,jobs:inp.jobs,cls:ds.cls,age:_age,ph:inp.phone,hot:(hotChart({ds})[0]||""),jt:inp.jobText||"",night:isNight(inp)};
   const n=inp.phone.split("").map(Number);
-  const pos=POS.map(p=>{const v=n[p.i[0]]*10+n[p.i[1]];const info=pairInfoG(v,inp.sex);return {...p,v,s:String(v).padStart(2,"0"),info};});
+  const pos=POS.map(p=>{const v=n[p.i[0]]*10+n[p.i[1]];const info=p.k==="GA"?pairInfoGA(v):pairInfoG(v,inp.sex);return {...p,v,s:String(v).padStart(2,"0"),info};});
   const gv={g:1,m:0.2,b:-1};
   const now=new Date(); let age=now.getFullYear()-inp.y; if(now.getMonth()+1<inp.m||(now.getMonth()+1===inp.m&&now.getDate()<inp.d)) age--;
   const AG=age<15?{k:"young",name:"วัยเด็ก",focus:["GF","ED","EF"],txt:"นิสัย ครอบครัว และผู้ใหญ่ที่คอยดูแล"}:(age<25&&!(age>=18&&inp.job>=0&&inp.job!==12&&inp.job!==13))?{k:"young",name:"วัยเรียนและเริ่มต้นชีวิต",focus:["GF","ED","EF"],txt:"ตัวตน เพื่อน และผู้ใหญ่ที่คอยหนุน"}:age<45?{k:"work",name:"วัยทำงานสร้างตัว",focus:["FE","DE","AB"],txt:"รายได้ การงาน และทางเข้าของทรัพย์"}:age<60?{k:"mid",name:"วัยสร้างฐานะมั่นคง",focus:["DC","EF","FG"],txt:"การเก็บทรัพย์ ผู้ใหญ่ และการใช้ชีวิต"}:{k:"senior",name:"วัยพักและดูแลสุขภาพ",focus:["FG","BC","GA"],txt:"ความเป็นอยู่ เคราะห์อุบัติเหตุ และคนข้างกาย"};
@@ -2725,10 +2735,8 @@ function analyze(inp){
   // เพศและวัย
   const ga=pos.find(p=>p.k==="GA"), gaD=ga.s.split("").map(Number), male=inp.sex==="m";
   const gnotes=[]; let gS=0;
-  const opp=male?[2,6]:[1,5];
-  if(gaD.some(d=>opp.includes(d))&&ga.info[0]!=="b"){gnotes.push(["g","ตำแหน่งคู่ครองเป็น "+ga.s+" มีเลข"+(male?"ดาวผู้หญิง (2 หรือ 6)":"ดาวผู้ชาย (1 หรือ 5)")+" เพศตรงข้ามหนุน ได้แรงช่วยจากคนรักหรือคู่ครอง"]);gS+=0.03;}
-  if(!male&&ga.info[0]==="b"&&gaD.some(d=>d===3||d===7)){gnotes.push(["b","ตำแหน่งคู่ครองเป็น "+ga.s+" สำหรับผู้หญิง ระวังคู่ครองใจร้อนหรือสร้างภาระให้"]);gS-=0.03;}
-  if(male&&ga.info[0]==="b"&&gaD.some(d=>d===2||d===6)){gnotes.push(["b","ตำแหน่งคู่ครองเป็น "+ga.s+" ผู้ชายเจอคู่นี้ ความรักมักมีเรื่องผิดใจ เปลี่ยนคนบ่อย"]);gS-=0.03;}
+  if(ga.info[0]==="g"){gnotes.push(["g","ตำแหน่งคู่ครองเป็น "+ga.s+" "+ga.info[1]+" คนข้างกายเป็นแรงหนุน"]);gS+=0.03;}
+  if(ga.info[0]==="b"){gnotes.push(["b","ตำแหน่งคู่ครองเป็น "+ga.s+" "+ga.info[1]+" ความสัมพันธ์มีเรื่องต้องประคอง"]);gS-=0.03;}
   const seven7=[];for(let i=3;i<9;i++)seven7.push(n[i]*10+n[i+1]);
   const has=list=>[...new Set(seven7.filter(v=>list.includes(v)))].map(v=>String(v).padStart(2,"0"));
   if(AG.k==="young"){const h=has([88,38,83,18,81,68,86,36,63]);if(h.length){gnotes.push(["b","อายุยังน้อย แต่เบอร์มีคู่ "+h.join(" ")+" ซึ่งพาใจร้อน ใช้เงินเร็ว หรือหลงสิ่งยั่วยุ ช่วงวัยนี้เสียง่ายกว่าคนโต"]);gS-=0.04;}
@@ -3034,7 +3042,7 @@ function jobFitHtml1(inp,r){
    <p class="para"><b>คู่เลขในตำแหน่งหลักตรงกับงานของคุณ ${jf.pct}%</b> <span class="pill ${jf.g}">${jf.g==="g"?"หนุนงานตรงจุด":jf.g==="m"?"หนุนได้บางส่วน":"ยังไม่หนุนงานนี้"}</span></p>
    <span class="apb" style="display:block;margin:6px 0 12px"><i class="${jf.g}" style="width:${jf.pct}%"></i></span>
    <ul class="pairs">${jf.rows.sort((a,b)=>b.w-a.w).map(x=>`<li><div class="pv ${tg[x.tag]}">${x.s}</div><div><h3>${x.n} <span class="pill ${tg[x.tag]}">${x.tag}</span></h3><p>${x.t}</p></div></li>`).join("")}</ul>
-   ${jf.rec.length?`<p class="adv" style="margin-top:10px"><b>ถ้าจะร้อยเรียงเบอร์ใหม่</b> ตำแหน่งดูดทรัพย์ควรเป็นคู่ ${jf.rec.join(" ")} ซึ่งเป็น${jf.G1.name}และไม่มีเลขพลังอ่อนในดวงคุณ${jf.ab.f>=0.9?" ตอนนี้เบอร์คุณวางตำแหน่งนี้ถูกแล้ว":""}</p>`:""}
+   ${jf.rec.length?`<p class="adv" style="margin-top:10px"><b>ถ้าจะร้อยเรียงเบอร์ใหม่</b> ตำแหน่งดูดทรัพย์ควรเป็นคู่ ${jf.rec.join(" ")} ซึ่งเป็น${jf.G1.name}และไม่มีเลขพลังอ่อนในดวงคุณ${jf.ab&&jf.ab.f>=0.9?(jf.rec.includes(jf.ab.s)?" ตอนนี้เบอร์คุณวางตำแหน่งนี้ถูกแล้ว":" ตอนนี้เบอร์คุณเป็น "+jf.ab.s+" ตรงกลุ่มงานแล้ว แต่มีเลขพลังอ่อนในดวง ผลจึงยังไม่เต็ม"):""}</p>`:""}
    ${(()=>{const R=tailRec(inp,r), gk=R.tf.gk; if(!R.pairs.length) return "";
      const why=gk==="charm"||gk==="home"?"งาน"+esc(jf.jn)+"ปิดท้ายได้ทั้งเลขเสน่ห์และกลุ่มสติปัญญา ดูจากทั้งเบอร์ ถ้าช่วงหน้ามีเลขเสน่ห์ดึงลูกค้าแล้ว ปิดท้ายด้วยสติปัญญาจะสมดุลที่สุด":gk==="wisdom"||gk==="power"||gk==="broker"||gk==="money"?"งาน"+esc(jf.jn)+"ควรปิดท้ายด้วยกลุ่มสติปัญญา เพื่อความรอบคอบและความน่าเชื่อถือ":"งาน"+esc(jf.jn)+"ไม่จำเป็นต้องปิดท้ายด้วยกลุ่มสติปัญญาเสมอ แต่ถ้าใช้จะช่วยให้รอบคอบขึ้น";
      return `<p class="adv" style="margin-top:8px"><b>ท้ายเบอร์</b> ${why}${R.tf.hot&&R.tf.hot.length?" และพื้นดวงคุณเป็นคนใจร้อนอยู่แล้ว ("+R.tf.hot.join(" ")+") จึงไม่ควรปิดท้ายด้วยเลขแรงอย่าง 3 8 0":""} คู่ปิดท้ายที่เข้ากับดวงคุณคือ ${R.pairs.join(" ")}${R.tri.length?" ถ้าจะวางสามตัวท้ายเป็นชุดสติปัญญา ใช้ "+R.tri.join(" ")+" ได้":""}</p>`;})()}
@@ -3078,7 +3086,7 @@ function ctrlLean(p,r){
 }
 function ctrlHtml(p,r,sex,pg){
   const c0=CTRL[p.s]; if(!c0) return "";
-  const sx=t=>!sex?t:t.split(" ").filter(w=>!(sex==="f"?/^ผู้ชาย/:/^ผู้หญิง/).test(w)).join(" ").replace(/ ผู้ชายมัก[^ ]* [^ ]*$| ผู้หญิงมัก[^ ]* [^ ]*$/,"");
+  const sx=t=>!sex?t:sex==="n"?t.split(" ").filter(w=>!/ผู้ชาย|ผู้หญิง/.test(w)).join(" "):t.split(" ").filter(w=>!(sex==="f"?/^ผู้ชาย/:/^ผู้หญิง/).test(w)).join(" ").replace(/ ผู้ชายมัก[^ ]* [^ ]*$| ผู้หญิงมัก[^ ]* [^ ]*$/,"");
   const c=[sx(c0[0]),sx(c0[1])];
   const L=ctrlLean(p,r);
   if(pg==="g"&&L.k==="b"){L.k="m";L.t="ในดวงคุณ ตรงตำแหน่งนี้คู่นี้ยังออกด้านดีได้ แต่"+L.t.replace(/^.*?เพราะ/,"").replace(/ ต้องตั้งสติ.*$/,"")+" จึงต้องตั้งสติไว้";}
@@ -3131,17 +3139,15 @@ function pairContext(p,r,inp){
   let ctxT=""; if(p.info[3]){ if(/ผู้หญิง|ผู้ชาย|เพศ/.test(p.info[3])) gt.push((p.info[4]!==p.info[0]&&!p.info[3].startsWith("ตำรา")?"ตำราทั่วไปให้"+gLab(p.s,p.info[4])+" แต่สำหรับ"+(f?"ผู้หญิง":"ผู้ชาย")+"อ่านเป็น"+gLab(p.s,p.info[0],p.info)+" ":"")+p.info[3]); else ctxT=p.info[3]; }
   if(ctxT) out.push(["บริบท",ctxT]);
   r.trips.filter(t=>p.i[0]>=t.from&&p.i[0]<=t.to&&p.i[1]>=t.from&&p.i[1]<=t.to).forEach(t=>gt.push("คู่นี้อยู่ในชุดเลข "+t.pt+" "+t.txt));
-  if(p.k==="GA"){const opp=f?[1,5]:[2,6]; if(d.some(x=>opp.includes(x))&&g!=="b") gt.push("มีเลขดาว"+(f?"ผู้ชาย":"ผู้หญิง")+"ที่ตำแหน่งคู่ครอง เพศตรงข้ามหนุน");}
-  if(p.k==="GA"&&p.s==="52"&&!f) gt.push("ผู้ชายมี 52 ตรงนี้ถือว่าดี เพศตรงข้ามหนุน");
   if(p.k==="A2"&&p.s==="25"&&f) gt.push("ผู้หญิงมี 25 ตรงนี้ มักมีเรื่องไม่ลงรอยกับพ่อ");
   if(v%11===0&&DBL_JOB[v]){const sw=dblCtx(v,inp,r).why.filter(w=>/ผู้หญิงใช้|ผู้ชายใช้/.test(w)).map(w=>w.slice(1)); sw.forEach(w=>gt.push(w));}
   if(gt.length&&g!==p.info[0]&&/อ่านเป็น/.test(gt[0])) gt.push("แต่ตรงตำแหน่งนี้ผลรวมเป็น"+PGc.lab+" ตามเหตุผลในข้อดวง");
-  out.push(["เพศ",gt.length?gt.join(" "):(f?"ผู้หญิง":"ผู้ชาย")+"ใช้คู่นี้ได้ตามความหมายปกติ"]);
+  out.push(["เพศ",p.k==="GA"?"ตำแหน่งคู่ครองอ่านตามความหมายคู่เลข ผู้ชายหรือผู้หญิงได้คู่เดียวกันก็อ่านเหมือนกัน"+(gt.length?" "+gt.join(" "):""):gt.length?gt.join(" "):(f?"ผู้หญิง":"ผู้ชาย")+"ใช้คู่นี้ได้ตามความหมายปกติ"]);
   if(p.k==="GF"&&r.n){const TR=tailRule(inp,r.n[8]*10+r.n[9]); if(TR) out.push(["ท้ายเบอร์",TR.t.replace(/^ท้ายเบอร์ \d\d /,"เลข "+r.n[8]+r.n[9]+" ปิดท้าย ")]);}
   if(FRIEND[p.s]||PTYPE[p.s]){const it=p.i[0]>=3&&p.i[1]>=3?(r._ts||typeScore(inp,r)).items.find(x=>x.k===p.k):null;
-    const base=FRIEND[p.s]?friendCtx(p.s,inp,r):ptypeCtx(p.s,inp,r);
-    out.push([(FRIEND[p.s]||PTYPE[p.s]).nm,base+(it?" <b>"+(it.sc>0.02?(g==="b"?"ประเภทคู่ช่วยประคองได้บ้าง แต่รวมแล้วตรงตำแหน่งนี้ยังต้องระวัง":"ประเภทคู่นี้ช่วยเสริมตำแหน่งนี้ให้ดีขึ้น"):it.sc<-0.02?(g==="g"?"ผลเสียแฝงนี้ต้องระวังบ้าง แต่รวมแล้วตรงตำแหน่งนี้ยังออกด้านดี":g==="m"?"ผลเสียแฝงของประเภทคู่ทำให้ตำแหน่งนี้ได้ผลกลาง ๆ":"ผลเสียแฝงของประเภทคู่ซ้ำเติมตำแหน่งนี้ ต้องระวังมากขึ้น"):"ประเภทคู่ไม่ได้เปลี่ยนผลตรงตำแหน่งนี้")+"</b>":"")]);}
-  const ch=ctrlHtml(p,r,inp.sex,g); if(ch) out.push(["สองด้าน",ch]);
+    const base0=FRIEND[p.s]?friendCtx(p.s,inp,r):ptypeCtx(p.s,p.k==="GA"?{...inp,_ga:1}:inp,r), base=p.k==="GA"?base0.split(" ").filter(w=>!/ผู้ชาย|ผู้หญิง/.test(w)).join(" "):base0;
+    out.push([(FRIEND[p.s]||PTYPE[p.s]).nm,base+(it?" <b>"+(it.sc>0.02?(g==="b"?"ประเภทคู่ช่วยประคองได้บ้าง แต่รวมแล้วตรงตำแหน่งนี้ยังต้องระวัง":FRIEND[p.s]?"ประเภทคู่นี้ช่วยเสริมตำแหน่งนี้ให้ดีขึ้น":"เลขทั้งสองตัวไม่อ่อนในดวงคุณ ด้านที่ขัดกันของคู่นี้จึงไม่ฉุดตำแหน่งนี้"):it.sc<-0.02?(g==="g"?"ผลเสียแฝงนี้ต้องระวังบ้าง แต่รวมแล้วตรงตำแหน่งนี้ยังออกด้านดี":g==="m"?"ผลเสียแฝงของประเภทคู่ทำให้ตำแหน่งนี้ได้ผลกลาง ๆ":"ผลเสียแฝงของประเภทคู่ซ้ำเติมตำแหน่งนี้ ต้องระวังมากขึ้น"):"ประเภทคู่ไม่ได้เปลี่ยนผลตรงตำแหน่งนี้")+"</b>":"")]);}
+  const ch=ctrlHtml(p,r,p.k==="GA"?"n":inp.sex,g); if(ch) out.push(["สองด้าน",ch]);
   return out;
 }
 // เกรดของคู่ตามตำแหน่ง: เกรดคู่เลข + เลขเบิ้ล + กฎท้ายเบอร์ (ใช้ที่เดียวกันทุกหัวข้อ)
@@ -3661,8 +3667,8 @@ function areaPara(a,r,inp){
     if(LX.bad.length) out.push("ในเบอร์ยังมีคู่เลขที่ทำให้"+joinTh(LX.bad.slice(0,2)));
     else if(LX.good>=2) out.push("ในเบอร์มีคู่เลขที่หนุนความรักอยู่หลายจุด");
     LX.notes.slice(0,1).forEach(x=>out.push(x[1]));}
-  if(key==="love"&&!r.stg){const ga=r.pos.find(p=>p.k==="GA"),gs0=gradeOf(pairScore(ga,r)),dg=ga.s.split("").map(Number),opp=f?[1,5]:[2,6];
-    if(dg.some(x=>opp.includes(x))&&gs0!=="b") out.push((g==="b"?"แต่ยังดีที่":"")+(f?"ผู้ชาย":"ผู้หญิง")+"มักเข้ามาช่วยเหลือคุณ");}
+  if(key==="love"&&!r.stg){const ga=r.pos.find(p=>p.k==="GA"),gs0=gradeOf(pairScore(ga,r));
+    if(gs0==="g") out.push((g==="b"?"แต่ยังดีที่":"")+"คนข้างกายมักเข้ามาช่วยเหลือคุณ");}
   out.push(g==="g"?"โดยรวมเรื่องนี้ถือว่าดี":g==="m"?"โดยรวมอยู่ในระดับพอใช้ ยังมีจุดที่ต้องประคอง":"โดยรวมเรื่องนี้ต้องระวัง");
   // เปอร์เซ็นต์ของเรื่องนี้: จากคู่เลขที่เกี่ยวข้อง (60%) กับผลย่อยของเรื่อง (40%) แล้วให้อยู่ในช่วงของระดับที่สรุป
   {const pgs=ps.map(p=>posGrade(p,r,inp).g); if(g==="g"&&(pgs[0]!=="g"||pgs.includes("b"))) g="m";}
@@ -3712,13 +3718,13 @@ function simpleSummary(inp,r,nm){
   {const idx={work:[0,1],mid:[0],senior:[4],young:[3]}[r.AG.k]||[]; const rk={b:0,m:1,g:2}; idx.forEach(i=>{const x=rows[i]; if(x&&rk[x.g]<rk[fg]) fg=x.g;});}
   {const AD0=ageDrive(inp,r); if(AD0&&AD0.sc<=-0.4&&fg==="g") fg="m";}
   {const nb=rows.filter(x=>x.g==="b").length; if(fg==="g"&&nb) fg="m"; else if(fg==="m"&&nb>=2) fg="b";}
-  P3.push(["ตอนนี้"+who+"อายุ "+r.age+" ปี อยู่ใน"+r.AG.name+" เรื่องที่สำคัญที่สุดของวัยนี้คือ"+r.AG.txt+" "+(fg==="g"?"ซึ่งเบอร์นี้หนุนได้ดี":fg==="m"?"ซึ่งเบอร์นี้ช่วยได้ปานกลาง":r.AG.focus.some(k=>{const q=r.pos.find(x=>x.k===k);return q&&posGrade(q,r,inp).g==="b";})?"ซึ่งเบอร์นี้ยังไม่ช่วยเรื่องนี้":"ซึ่งเบอร์นี้ยังหนุนได้ไม่มาก"),PV[fg]]);
+  P3.push(["ตอนนี้"+who+"อายุ "+r.age+" ปี อยู่ใน"+r.AG.name+" เรื่องที่สำคัญที่สุดของวัยนี้คือ"+r.AG.txt+" "+((badF)=>fg==="g"?"ซึ่งเบอร์นี้หนุนได้ดี":fg==="m"?(badF?"ซึ่งเบอร์นี้ช่วยได้ปานกลาง":"ตำแหน่งที่ดูแลเรื่องนี้ไม่มีคู่ควรระวัง แต่แรงหนุนโดยรวมยังกลาง ๆ"):badF?"ซึ่งเบอร์นี้ยังไม่ช่วยเรื่องนี้":"ตำแหน่งที่ดูแลเรื่องนี้ไม่มีคู่ควรระวัง แต่แรงหนุนโดยรวมยังไม่มาก")(r.AG.focus.some(k=>{const q=r.pos.find(x=>x.k===k);return q&&posGrade(q,r,inp).g==="b";})),PV[fg]]);
   {const AD=ageDrive(inp,r), jt=inp.jobText?"งาน"+esc(inp.jobText):"งานของคุณ";
    if(AD&&r.AG.k==="work"){
      if(AD.sc>=0.4) P3.push(["เบอร์นี้มีแรงขยันที่ช่วยผลักให้ลุยงาน"+(inp.jobText?" เข้ากับ"+jt:""),1]);
      else if(AD.sc<=-0.4) P3.push(["เบอร์นี้ยังขาดแรงผลักให้ลุยงาน ความขยันที่มีออกมาเป็นความเหนื่อยมากกว่าผลงาน",-1]);
      else P3.push(["แรงผลักเรื่องงานในเบอร์ยังกลาง ๆ",0]);
-     const ms=AD.t.find(x=>/ควรเสริม/.test(x)); if(ms){const ds=[...new Set((ms.match(/เลข (\d)/g)||[]).map(x=>+x.slice(4)))].slice(0,2); if(ds.length) P3.push([jt+"ควรมีพลัง"+ds.map(d=>ENERGY[d]).join(" หรือพลัง")+"เพิ่มขึ้น",0,null,"และ"]);}
+     const ms=AD.t.find(x=>/ควรเสริม/.test(x)); if(ms){const ds=[...new Set((ms.match(/เลข (\d)/g)||[]).map(x=>+x.slice(4)))].slice(0,2); if(ds.length) P3.push([AD.sc>=0.4?"ถ้าเสริมพลัง"+ds.map(d=>ENERGY[d]).join(" หรือพลัง")+"ได้อีก "+jt+"จะยิ่งไปได้ไว":jt+"ควรมีพลัง"+ds.map(d=>ENERGY[d]).join(" หรือพลัง")+"เพิ่มขึ้น",0,null,AD.sc>=0.4?"":"และ"]);}
      if((AD.RS||[]).some(x=>x.g!=="g")) P3.push(["เบอร์มีชุดเลขวนซ้ำ พลังวนอยู่กับที่ ทำให้ก้าวหน้าช้า",-1]);}}
   dblFit(inp,r).forEach(x=>{const d=+x.v[0], E=ENERGY[d], wk=r.ds.cls[d]==="b", jc=x.why.some(w=>/ขัดกับงาน|ไม่ต้องการพลังนี้/.test(w)), yg=x.why.some(w=>/แรงเกินวัย/.test(w)), run=x.why.some(w=>/ติดกัน \d ตัว/.test(w));
     const why=run?"ซ้ำกันหลายตัวจนแรงเกินไป":wk?"ไม่ถูกกับดวงคุณ":jc?"ซ้ำกันจนแรงเกินสำหรับงานที่ทำ":yg?"แรงเกินวัย":"";
@@ -3891,7 +3897,7 @@ const PTYPE={};
 function ptypeCtx(s,inp,r){const T=PTYPE[s]; if(!T) return ""; const t=[T.t];
   const d=[...new Set(s.split("").map(Number))], cls=r&&r.ds?r.ds.cls:null, age=r&&r.age!==undefined?r.age:30, f=inp&&inp.sex==="f";
   const gks=inp?(inp.jobs&&inp.jobs.length?inp.jobs:[inp.job]).filter(k=>k>=0).map(k=>(JOB_GRP[k]||[])[0]):[];
-  if((s==="25"||s==="52")) t.push(f?"คุณเป็นผู้หญิง ด้านเสียของคู่นี้จึงออกชัดกว่า":"ผู้ชายใช้ผลเสียเบากว่าผู้หญิง");
+  if((s==="25"||s==="52")&&!(inp&&inp._ga)) t.push(f?"คุณเป็นผู้หญิง ด้านเสียของคู่นี้จึงออกชัดกว่า":"ผู้ชายใช้ผลเสียเบากว่าผู้หญิง");
   if((s==="28"||s==="82")&&gks.length) t.push(gks.includes("money")||gks.includes("broker")?"งานของคุณใช้การหมุนเงิน คู่นี้จึงเข้ากับงาน แต่ต้องคุมหนี้ให้ดี":"งานของคุณไม่ได้ใช้การหมุนเงินโดยตรง ต้องระวังเงินเข้าเร็วออกเร็วจนเป็นหนี้");
   if((s==="37"||s==="73"||s==="33")&&age>=60) t.push("วัยนี้ยิ่งต้องระวังอุบัติเหตุและการหกล้ม");
   if(["67","76","13","31"].includes(s)&&cls&&d.every(x=>cls[x]!=="b")) t.push("ในดวงคุณเลขทั้งสองตัวไม่อ่อน ความรุนแรงจึงเบาลงบ้าง");
@@ -4364,7 +4370,7 @@ function talentHtml(inp,r){
       <p class="para"><b>งานที่เข้าข่าย</b> ${t.ex}</p>
       <p class="para" style="margin-top:6px"><b>คู่เลขที่ควรเสริมสำหรับงานนี้</b></p>
       ${prs.length?`<ul class="pp">${(()=>{const av=[...PL_AT];return prs.map(p=>{const tOk=!tailRule(inp,p.v)||tailRule(inp,p.v).lv==="ok";let ix=p.s===2&&tOk&&av[0]==="ท้ายเบอร์"?0:av.findIndex(x=>x!=="ท้ายเบอร์"&&!(x==="ตรงทางเข้าของทรัพย์"&&abBanG((JOB_GRP[t.j[0]]||[])[0],p.v)));const at=ix>=0?av.splice(ix,1)[0]:"ช่วงกลางเบอร์";const wk=String(p.v).split("").some(c=>ds.cls[+c]==="b");return `<li><span class="pv sm g">${String(p.v).padStart(2,"0")}</span><span>${p.gi[1]} ${p.gi[2]}${p.gi[3]?" "+p.gi[3]:""} ควรวาง${at}${wk?" (มีเลขพลังอ่อนของคุณอยู่ในคู่ ต้องมีเลขพลังดีประกบ)":""}</span></li>`;}).join("");})()}</ul>`:'<p class="note">คู่เลขสายนี้ยังชนกับเลขพลังอ่อนในดวงคุณ ทักไลน์ให้ผมร้อยเรียงให้เฉพาะ</p>'}</li>`;});
-  const jobNote=inp.jobText?(pick.some(x=>inp.job>=0&&x.t.j.includes(inp.job))?`งาน${esc(inp.jobText)}ที่คุณทำอยู่ตรงกับพรสวรรค์ในดวง เดินทางนี้ต่อได้เลย แล้วเสริมด้วยคู่เลขของสายงานนี้`:`งาน${esc(inp.jobText)}ที่คุณทำอยู่ยังไม่ใช่สายที่ดวงหนุนเด่นที่สุด ไม่จำเป็นต้องเปลี่ยนงาน แต่ถ้าดึงพรสวรรค์ข้างบนมาใช้ในงานเดิม หรือทำเป็นงานเสริม จะไปได้ไวขึ้น`):"";
+  const jobNote=inp.jobText?(pick.some(x=>inp.job>=0&&x.t.j.includes(inp.job))?`งาน${esc(inp.jobText)}ที่คุณทำอยู่ตรงกับพรสวรรค์ในดวง เดินทางนี้ต่อได้เลย แล้วเสริมด้วยคู่เลขของสายงานนี้`:(()=>{const cur=sc.find(x=>inp.job>=0&&x.t.j.includes(inp.job));return cur&&cur.s>=top*0.6;})()?`งาน${esc(inp.jobText)}ที่คุณทำอยู่ ดวงก็หนุนได้ดี แต่สายในรายการข้างบนดวงหนุนเด่นกว่า ไม่จำเป็นต้องเปลี่ยนงาน ถ้าดึงพรสวรรค์ข้างบนมาใช้ในงานเดิม หรือทำเป็นงานเสริม จะไปได้ไวขึ้น`:`งาน${esc(inp.jobText)}ที่คุณทำอยู่ยังไม่ใช่สายที่ดวงหนุนเด่นที่สุด ไม่จำเป็นต้องเปลี่ยนงาน แต่ถ้าดึงพรสวรรค์ข้างบนมาใช้ในงานเดิม หรือทำเป็นงานเสริม จะไปได้ไวขึ้น`):"";
   return `<section class="card"><h2>พรสวรรค์ในดวงและอาชีพที่ทำแล้วรุ่ง</h2>${r.age>=60?`<p class="note" style="margin:0 0 8px">ตอนนี้อายุ ${r.age} ปี ส่วนนี้ให้มองเป็นงานเสริม รายได้หลังเกษียณ หรือสิ่งที่ส่งต่อให้ลูกหลานได้ ไม่จำเป็นต้องเริ่มงานใหม่</p>`:""}
     <p class="para">${intro}</p>${jobNote?`<p class="adv" style="margin-top:10px">${jobNote}</p>`:""}
     ${inp.notime?'<p class="note">ไม่ทราบเวลาเกิด ส่วนนี้เป็นค่าโดยประมาณ</p>':""}
@@ -5482,7 +5488,7 @@ function analyzeName(inp,r){
     notes.push([sh.ay[0]==="b"||sh.info[0]==="b"?"b":sh.ay[0]==="g"&&sh.info[0]==="g"?"g":"m","พลังเงาของชื่อได้ "+sh.sum+" "+(sh.info[0]==="g"?"เป็นเลขดี":sh.info[0]==="m"?"ให้ผลกลาง ๆ":"ไม่ค่อยส่งเสริม")+" อายตนะ 6 ได้เลข "+sh.ayat+" "+(sh.ay[0]==="g"?"ให้คุณ":"ให้โทษ")]);}
   if(bk.kbLag) notes.push(["b","ดาวกาลกิณีวันเกิด ("+nbName(bk.Kb)+") อยู่กับลัคนา ตำราให้แก้ด้วยการตั้งชื่อ ให้ดาวนี้กลายเป็นศรีหรือมนตรีของชื่อ"]);
   const kOther=bk.lead?kf.filter(ch=>ch!==bk.lead.ch):kf;
-  if(kOther.length) notes.push(["b","ชื่อมีอักษรกาลกิณีของคนเกิดวัน"+day+" คือ "+kOther.join(" ")+" ตำราถือว่าดึงดวง ทำให้ผลดีของชื่อลดลง แต่ไม่ถึงขั้นต้องเปลี่ยนชื่อ ถ้าจะตั้งชื่อใหม่ควรเลี่ยงอักษรนี้"]);
+  if(kOther.length) notes.push(["b","ชื่อมีอักษรกาลกิณีของคนเกิดวัน"+day+" คือ "+kOther.join(" ")+" ตำราถือว่าดึงดวง ทำให้ผลดีของชื่อลดลง"+(bk.ev&&bk.ev.lv==="ban"?" ถ้าตั้งชื่อใหม่ตามคำแนะนำ ควรเลี่ยงอักษรนี้ด้วย":" แต่ไม่ถึงขั้นต้องเปลี่ยนชื่อ ถ้าจะตั้งชื่อใหม่ควรเลี่ยงอักษรนี้")]);
   const VL=[["g","ชื่อเข้ากับดวง ทั้งนามดาวและเลขศาสตร์"],["g","ใช้ได้ เข้ากับดวงพอสมควร"],["m","กลาง ๆ ยังไม่หนุนดวงเต็มที่"],["b","ไม่ค่อยเข้ากับดวง"]];
   let vi=sc>=2.5?0:sc>=1?1:sc>=-0.5?2:3; if(kOther.length) vi=Math.min(3,vi+1); if(vi===0&&!(bk.ev&&(bk.ev.lv==="great"||bk.ev.lv==="ok"))) vi=1;
   const verdict=bk.ev&&bk.ev.lv==="ban"?["b","นามดาวของชื่อขัดกับดวง ควรแก้"]:VL[vi];
@@ -5532,7 +5538,7 @@ function namePlain(inp,nm){
   if(inp.fname||inp.lname){const kk=nm.kOther.concat(nm.kl);
     C.push({k:"kk",t:"อักษรกาลกิณี (อักษรต้องห้าม)",g:kk.length?"b":"g",short:"ไม่มีอักษรต้องห้าม",
       what:`อักษรกาลกิณีคืออักษรที่ถือว่าไม่เป็นมงคลสำหรับคนเกิดวัน${day} ได้แก่ ${LETW(nbAt(bk.base,7))} ไม่ควรมีอยู่ในชื่อ`,
-      res:kk.length?`ชื่อมีอักษร <b>${esc([...new Set(kk)].join(" "))}</b> ${nm.kl.length&&!nm.kOther.length?"อยู่ในนามสกุล ส่งผลน้อยกว่าในชื่อจริง แต่":""}ทำให้ผลดีของชื่อลดลง ไม่ถึงขั้นต้องเปลี่ยนชื่อเพราะข้อนี้ข้อเดียว`:"ชื่อของคุณไม่มีอักษรกาลกิณี ดีครับ"});}
+      res:(()=>{const ld=nm.bk&&nm.bk.lead?nm.bk.lead.ch:"", lk=ld&&kalakiniIn(ld,day).length, ban=nm.bk&&nm.bk.ev&&nm.bk.ev.lv==="ban";return (kk.length||lk)?`ชื่อมีอักษร <b>${esc([...new Set((lk?[ld]:[]).concat(kk))].join(" "))}</b> ${lk?"โดย "+esc(ld)+" เป็นอักษรตัวแรก ซึ่งหนักที่สุด (ดูข้อ 1) ":""}${nm.kl.length&&!nm.kOther.length&&!lk?"อยู่ในนามสกุล ส่งผลน้อยกว่าในชื่อจริง แต่":""}ทำให้ผลดีของชื่อลดลง${ban?" ข้อนี้รวมกับข้อ 1 จึงแนะนำให้เปลี่ยนชื่อ":" ไม่ถึงขั้นต้องเปลี่ยนชื่อเพราะข้อนี้ข้อเดียว"}`:"ชื่อของคุณไม่มีอักษรกาลกิณี ดีครับ";})()});}
   return C;
 }
 function nameAdvice(nm){const s=nm.score;
@@ -9328,7 +9334,8 @@ function lvGoodDays(a,b){const out=[],now=new Date();
   for(let k=1;k<=30&&out.length<4;k++){const dt=new Date(now.getFullYear(),now.getMonth(),now.getDate()+k),Y=dt.getFullYear(),M=dt.getMonth()+1,D=dt.getDate();
     const c=chartSY(Y,M,D,10,0,13.75,100.5), dp=c.day, el=((c.p[2]-c.p[1])%360+360)%360;
     const r1=QDAO.role(dp,a.c.day), r2=QDAO.role(dp,b.c.day);
-    if(r1==="กาลี"||r2==="กาลี"||el>=180||el<12)continue;
+    const c6=chartSY(Y,M,D,6,0,13.75,100.5), el6=((c6.p[2]-c6.p[1])%360+360)%360;
+    if(r1==="กาลี"||r2==="กาลี"||el>=180||el<12||el6<12)continue;
     if(a.ds.cls[dp]==="b"||b.ds.cls[dp]==="b")continue;
     if((RK_ROLE[r1]||0)+(RK_ROLE[r2]||0)<3)continue;
     out.push({dt,Y,M,D,dp,r1,r2});}
@@ -9848,7 +9855,7 @@ function bundleCode(){return false;} // รหัสแพ็กรวมตร�
 function upsellInject(){try{["deep","kdeep"].forEach(id=>{const el=$(id);if(!el||el.hidden||el.querySelector(".upsell"))return;
   const sc=+(((($("result").querySelector(".score")||{}).textContent)||"").match(/\d+/)||[0])[0];
   const what=id==="deep"?"เบอร์":(NUMK[MODE]||{n:"เลข"}).n;
-  const lead=id==="deep"?(sc&&sc<700?`เบอร์นี้ได้ ${sc} คะแนนจาก 1000 ยังไม่ถึงระดับที่ดวงของคุณควรได้ เบอร์ที่ร้อยเรียงเข้ากับดวงจริงมักได้ 800 คะแนนขึ้นไป`:sc>=800?`เบอร์นี้ได้ ${sc} คะแนน ดีอยู่แล้ว ใช้ต่อได้ ถ้าอยากได้เบอร์สำรองหรือเบอร์ทำงานที่ดีระดับเดียวกัน คุยกับผมได้`:`เบอร์นี้ได้ ${sc} คะแนน ใช้ได้ แต่ยังขยับขึ้นได้อีก ถ้าร้อยเรียงให้เข้ากับดวงและงานของคุณจริง`):`ถ้าอยากได้${what}ใหม่ที่ได้คะแนนสูงกว่านี้ หรืออยากให้ผมร้อยเรียงเบอร์ที่ใช้คู่กันให้หนุน${what}นี้ คุยกับผมได้`;
+  const lead=id==="deep"?(sc&&sc<700?`เบอร์นี้ได้ ${sc} คะแนนจาก 1000 ยังไม่ถึงระดับที่ดวงของคุณควรได้ เบอร์ที่ร้อยเรียงเข้ากับดวงจริงมักได้ 800 คะแนนขึ้นไป`:sc>=800?`เบอร์นี้ได้ ${sc} คะแนน อยู่ในระดับดี ถ้าอยากได้เบอร์สำรองหรือเบอร์ทำงานที่ดีระดับเดียวกัน คุยกับผมได้`:`เบอร์นี้ได้ ${sc} คะแนน ใช้ได้ แต่ยังขยับขึ้นได้อีก ถ้าร้อยเรียงให้เข้ากับดวงและงานของคุณจริง`):`ถ้าอยากได้${what}ใหม่ที่ได้คะแนนสูงกว่านี้ หรืออยากให้ผมร้อยเรียงเบอร์ที่ใช้คู่กันให้หนุน${what}นี้ คุยกับผมได้`;
   if(id==="deep"&&sc<800&&_ASK&&_ASK.inp){const tz=stockTeaserHtml(_ASK.inp,_ASK.r,"after");if(tz)el.insertAdjacentHTML("beforeend",tz.replace('class="card stktz"','class="card stktz" style="margin-top:14px"'));}
   el.insertAdjacentHTML("beforeend",`<section class="card upsell" style="margin-top:14px;border-color:var(--accent)"><h2>อยากได้เบอร์ที่ดีกว่านี้</h2><p class="para">${lead}</p>${pkgListHtml()}<div class="btns"><a href="${CONFIG.chatUrl}" target="_blank" rel="noopener" class="primary">ทักไลน์คุยกับผม</a><a href="#stock" class="ghost">ดูสต็อกเบอร์</a></div></section>`);});}catch(e){}}
 try{new MutationObserver(()=>{bundleInject();upsellInject();xsellInject();}).observe($("result"),{subtree:true,childList:true,attributes:true,attributeFilter:["hidden"]});}catch(e){}
