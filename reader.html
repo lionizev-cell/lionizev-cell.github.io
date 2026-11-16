@@ -398,7 +398,7 @@ function posParas(R){
   else out.push(sent(pick(["เริ่มจากท้ายเบอร์ก่อน เพราะแรงที่สุด","ท้ายเบอร์ผมดูก่อนเลย เพราะส่งผลแรงสุด"],k++),tail.map(p=>detail(p,R)+" "+word[p.g]).join(" ส่วน")));
   const rest=R.pos.filter(p=>!["FG","GF","A2","21"].includes(p.k)).sort((a,b)=>(b.w0||b.w)-(a.w0||a.w));
   const bad=rest.filter(p=>p.g==="b"), good=rest.filter(p=>p.g==="g"), mid=rest.filter(p=>p.g==="m");
-  const opener=["ที่ผมสะดุดคือ","อีกจุดที่ไม่ดีคือ","แล้วก็","จุดนี้ต้องระวังด้วย"];
+  const opener=["จุดที่ไม่ดีคือ","อีกจุดที่ไม่ดีคือ","แล้วก็","จุดนี้ต้องระวังด้วย"];
   bad.forEach((p,j)=>out.push(sent(j===0?opener[0]+PN[p.k]:opener[1+((k+j)%3)]+" "+PN[p.k],`เป็น ${p.s} ${clean(p.info[1])} ${clean(p.info[2])}`,clean(p.info[3]),digitNote(p,R))));
   if(!bad.length) out.push("ช่วงกลางเบอร์ไม่มีตำแหน่งไหนเสียเลย");
   if(good.length) out.push(pick(["ส่วนที่หนุนอยู่ ","ฝั่งที่ดีมี ","ที่ช่วยได้คือ "],k++)+groupBrief(good).map((x,j)=>j===0?x:(j%2?" แล้วก็":" ส่วน")+x).join("")+" "+pick(["พวกนี้ผมให้ผ่าน","ตรงนี้ไม่ต้องห่วง","ส่วนนี้ช่วยเบอร์ไว้ได้เยอะ"],k++));

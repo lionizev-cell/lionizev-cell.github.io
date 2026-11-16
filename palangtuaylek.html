@@ -6,7 +6,7 @@
 <link rel="canonical" href="https://www.palangtuaylek.com/palangtuaylek.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="db95d51dac74eba72e49cb31d84b478f7794228e">
+<meta name="plk-base" content="49bd8377a48a46d8bea90703b81a59d78543e868">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -497,7 +497,7 @@ a.dgo{display:inline-block;background:var(--accent-deep);color:var(--on-accent);
       <li>เว็บจำวันเกิดและอาชีพไว้ในมือถือเครื่องนี้ ครั้งหน้าจะได้ไม่ต้องกรอกใหม่ กดล้างได้ทุกเมื่อ</li>
       <li>ข้อมูลจะถูกส่งออกเฉพาะตอนที่คุณกดเอง คือ จ่ายเงินเปิดผลละเอียด (ส่งสลิปกับเบอร์หรือวันเกิด เพื่อตรวจยอดโอนและบันทึกสิทธิ์เปิดผล) พิมพ์ถามคำถามเพิ่ม (ส่งคำถามกับคู่เลขในเบอร์ ไม่ส่งเบอร์เต็ม ชื่อ หรือวันเกิด) ซื้อเบอร์ ฝากขายเบอร์ และกดส่งผลทางไลน์</li>
       <li>เว็บนับแค่จำนวนคนเข้าและจำนวนครั้งที่กดใช้ ไม่เก็บตัวเลขที่คุณพิมพ์</li>
-      <li>เว็บนี้ไม่ขอรหัส OTP รหัสผ่าน หรือเลขหลังบัตร ถ้ามีใครอ้างชื่อเพจมาขอ อย่าให้เด็ดขาด</li></ul></details></div>
+      <li>เว็บนี้ไม่ขอรหัส OTP รหัสผ่าน หรือเลขหลังบัตร ถ้ามีใครอ้างชื่อเพจมาขอ อย่าให้เด็ดขาด</li></ul><p style="margin:6px 0 0"><a href="privacy.html" class="flink">อ่านนโยบายความเป็นส่วนตัวฉบับเต็ม</a></p></details></div>
     </div>
     <h3 class="sub" data-show="love" style="margin:0">คนที่ 1 ข้อมูลของคุณ</h3>
     <div class="row" data-show="phone name plate house idcard cmp rk love bank shop today baby dir chong pin wall card logo spack">
@@ -5576,7 +5576,7 @@ function namePlain(inp,nm){
 }
 function nameAdvice(nm){const s=nm.score;
   if(nm.bk.ev&&nm.bk.ev.lv==="ban") return "อักษรตัวแรกของชื่อขัดกับดวง แนะนำให้เปลี่ยนชื่อ ดูชื่อที่เหมาะกับดวงคุณได้ด้านล่าง";
-  return s>=800?"ชื่อนี้ดีแล้ว ใช้ต่อได้เลย ไม่ต้องเปลี่ยน":s>=650?"ใช้ต่อได้ ไม่จำเป็นต้องเปลี่ยน ถ้าอยากเสริมให้ดีขึ้น ดูชื่อแนะนำด้านล่างได้":s>=450?"ชื่อยังไม่หนุนดวงเต็มที่ ถ้าสะดวกเปลี่ยน แนะนำดูชื่อที่เหมาะกับดวงคุณด้านล่าง":"ชื่อนี้ไม่ค่อยเข้ากับดวง แนะนำให้เปลี่ยน ดูชื่อที่เหมาะกับดวงคุณได้ด้านล่าง";}
+  return s>=800?"ชื่อนี้อยู่ในระดับดี ไม่ต้องเปลี่ยน":s>=650?"ชื่อนี้ไม่จำเป็นต้องเปลี่ยน ถ้าอยากเสริมให้ดีขึ้น ดูชื่อแนะนำด้านล่างได้":s>=450?"ชื่อยังไม่หนุนดวงเต็มที่ ถ้าสะดวกเปลี่ยน แนะนำดูชื่อที่เหมาะกับดวงคุณด้านล่าง":"ชื่อนี้ไม่ค่อยเข้ากับดวง แนะนำให้เปลี่ยน ดูชื่อที่เหมาะกับดวงคุณได้ด้านล่าง";}
 function nameSummaryHtml(inp,nm){
   const C=namePlain(inp,nm), good=C.filter(c=>c.g==="g").map(c=>c.short), bad=C.filter(c=>c.g==="b").map(c=>c.k==="kk"?"มีอักษรกาลกิณี":c.short), mid=C.filter(c=>c.g==="m").map(c=>c.short);
   const j=a=>a.length>1?a.slice(0,-1).join(" ")+" และ"+a[a.length-1]:a[0];
@@ -6207,6 +6207,7 @@ function renderCmp(inp,cta){
 
 // ===== สต็อกเบอร์จากไฟล์ stock.json (แก้ได้จากหน้าแอดมิน) =====
 const GH={owner:"lionizev-cell",repo:"lionizev-cell.github.io",path:"stock.json"};
+function netLbl(s){return String(s||"").replace(/\s*ระบบ\s*/g," ").replace(/\s+/g," ").trim();}
 function stockLoad(){
   if(!/github\.io$|palangtuaylek\.com$/.test(location.hostname)) return;
   fetch("stock.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(d=>{
@@ -7986,7 +7987,7 @@ function stkMatchShow(reset){
   out.innerHTML=`<h3 class="sub" style="margin-top:14px">เบอร์ที่เข้ากับดวงคุณ${smGoal!=="all"?" เด่นเรื่อง"+SM_GOAL[smGoal][0]:""} ${list.length.toLocaleString("th-TH")} เบอร์</h3><p class="note" style="margin:0">เรียงจากเบอร์ที่เข้ากับดวงคุณที่สุด${cur?" ทุกเบอร์เข้ากับดวงคุณมากกว่าเบอร์ "+fmt(cur.ph):""}</p>
    <ul class="stk">${show.map(o=>{const gw=G.length?"เด่นเรื่อง"+SM_GOAL[smGoal][0]+": "+G.map(k=>{const q=P(o,k);return (POS.find(z=>z.k===k)||{}).n+" "+q.s;}).join(" "):"";
      return `<li><div class="stn"><b class="exn">${fmt(o.ph)}</b><span class="stp">${o.price?o.price.toLocaleString("th-TH")+" บาท":"สอบถามราคา"}</span></div>
-     <div class="note">${o.net?esc(o.net)+" · ":""}คะแนนกับดวงคุณ <span class="pill ${o.x.s1000>=750?"g":"m"}">${o.x.s1000} / 1000</span></div>
+     <div class="note">${o.net?esc(netLbl(o.net))+" · ":""}คะแนนกับดวงคุณ <span class="pill ${o.x.s1000>=750?"g":"m"}">${o.x.s1000} / 1000</span></div>
      ${gw?`<p style="margin:2px 0 0"><b>${gw}</b></p>`:""}<p style="margin:2px 0 0">${o.why.join(" ")||"ไม่มีคู่เสียในตำแหน่งสำคัญ"}</p>
      <details class="libd stkd"><summary>ดูความหมายเบอร์</summary>${recMeaning(o.x)}</details>
      <div class="stkact">${o.price?`<button type="button" class="primary sm" data-smbuy="${o.ph}" data-price="${o.price}">ซื้อเบอร์นี้</button>`:""}<a class="stklink" href="${CONFIG.chatUrl}" target="_blank" rel="noopener" data-stkint="${o.ph}" data-stksc="${o.x.s1000}" data-stkpr="${o.price||""}" data-cur="${cur?cur.ph:""}" data-cursc="${cur?cur.s:""}">ทักไลน์ถามเบอร์นี้</a><button type="button" class="stklink" data-smph="${o.ph}">ดูผลเบอร์นี้กับดวงคุณ</button></div><div data-smslot="${o.ph}"></div></li>`;}).join("")}</ul>
@@ -8021,7 +8022,7 @@ function stockList(){
   $("stlist").innerHTML=rows.length?rows.map(r=>{
     const n=r.ph.split("").map(Number), sum=n.reduce((a,b)=>a+b,0), si=sumGen(sum), tail=libPair(r.ph.slice(-2));
     return `<li class="${r.sold?"sold":""}"><div class="stn"><b class="exn">${fmt(r.ph)}</b>${r.st==="sold"?'<span class="pill b">ขายแล้ว</span>':r.st==="rsv"?'<span class="pill m">จองแล้ว</span>':`<span class="stp">${r.price?r.price.toLocaleString("th-TH")+" บาท":"สอบถามราคา"}</span>`}</div>
-      <div class="note"><span class="pill ${r.cat==="pretty"?"m":"g"}" style="margin-right:4px">${r.cat==="pretty"?"เบอร์สวย"+(r.catWhy?" · "+esc(r.catWhy):""):"เบอร์มงคล"}</span>${r.net?esc(r.net)+" · ":""}ผลรวม ${sum} <span class="pill ${si[0]}">${String(si[1]).replace(/^ผลรวม\s*\d+\s*/,"")}</span> · ท้ายเบอร์ ${r.ph.slice(-2)} <span class="pill ${tail[0]}">${tail[1]}</span></div>
+      <div class="note"><span class="pill ${r.cat==="pretty"?"m":"g"}" style="margin-right:4px">${r.cat==="pretty"?"เบอร์สวย"+(r.catWhy?" · "+esc(r.catWhy):""):"เบอร์มงคล"}</span>${r.net?esc(netLbl(r.net))+" · ":""}ผลรวม ${sum} <span class="pill ${si[0]}">${String(si[1]).replace(/^ผลรวม\s*\d+\s*/,"")}</span> · ท้ายเบอร์ ${r.ph.slice(-2)} <span class="pill ${tail[0]}">${tail[1]}</span></div>
       ${r.note?`<p style="margin:2px 0 0">${esc(r.note)}</p>`:""}
       ${r.sold?"":`<details class="libd stkd"><summary>ดูความหมายเบอร์</summary>${stockMeaning(r.ph)}</details>`}
       ${r.sold?"":`<div class="btns">${r.price?`<button type="button" class="primary sm" data-buy="${r.ph}" data-price="${r.price}">ซื้อเบอร์นี้</button>`:""}<button type="button" class="ghost" data-ph="${r.ph}">ดูว่าเข้ากับดวงไหม</button><a class="ghost" href="${CONFIG.chatUrl}" target="_blank" rel="noopener">ถามทางไลน์</a></div><div data-buyslot="${r.ph}"></div>`}</li>`;}).join("")
@@ -8773,7 +8774,7 @@ function stockRecHtml(inp,r){
   return `<section class="card" id="stockrec" aria-labelledby="hsr"><h2 id="hsr">เบอร์ในสต็อกที่เข้ากับดวง${who}</h2>
    ${res.length?`<p class="note" style="margin:0 0 10px">ผมเทียบทุกเบอร์ที่ลงขายกับพื้นดวง อาชีพ เพศ และวัยของคุณ แล้วคัดเบอร์ที่เข้ากันที่สุดมาให้</p>
    <ul class="stk">${res.map(o=>`<li><div class="stn"><b class="exn">${fmt(o.ph)}</b><span class="stp">${o.price?o.price.toLocaleString("th-TH")+" บาท":"สอบถามราคา"}</span></div>
-     <div class="note">${o.net?esc(o.net)+" · ":""}คะแนนกับดวงคุณ <span class="pill ${o.x.s1000>=750?"g":"m"}">${o.x.s1000} / 1000</span></div>
+     <div class="note">${o.net?esc(netLbl(o.net))+" · ":""}คะแนนกับดวงคุณ <span class="pill ${o.x.s1000>=750?"g":"m"}">${o.x.s1000} / 1000</span></div>
      <p style="margin:2px 0 0">${o.why.join(" ")||"ไม่มีคู่เสียในตำแหน่งสำคัญ"}</p>
      <details class="libd stkd"><summary>ดูความหมายเบอร์</summary>${recMeaning(o.x)}</details>
      <div class="stkact"><a class="stkbuy" href="${CONFIG.chatUrl}" target="_blank" rel="noopener" data-stkint="${o.ph}" data-stksc="${o.x.s1000}" data-stkpr="${o.price||""}" data-cur="${inp.phone||""}" data-cursc="${r.s1000||""}">สนใจเบอร์นี้</a><button type="button" class="stklink" data-ph="${o.ph}">ดูผลเบอร์นี้กับดวงคุณ</button></div></li>`).join("")}</ul>
