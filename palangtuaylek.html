@@ -6,7 +6,7 @@
 <link rel="canonical" href="https://www.palangtuaylek.com/palangtuaylek.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="cd9d5fadd82853fc14c0eddc9c8b5f4aad6931e4">
+<meta name="plk-base" content="895e4243914e84e2c2d26e13fc73059a935fb6b3">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -5833,16 +5833,24 @@ const TH_NAMES={m:["อนันต์","อรุณ","อภิชาติ","
 // ===== ชื่อมงคลที่แนะนำ (คัดจากรายชื่อจริง ผ่านทั้งนามดาวและเลขศาสตร์) =====
 // ชื่อสละสลวยที่อาจารย์ให้เพิ่ม 20 พ.ย. 69 ขึ้นก่อนชื่ออื่นในกลุ่มเดียวกัน
 const NM_NICE=new Set(["ภูริณัฐ","วรภัทร","ปัณณวัฒน์","รวิภาส","พีรณัฐ","ปภังกร","คุณานนท์","ธีรเมธ","ภูวเดช","วิชญ์พล","ชินภัทร","ภาณุวัฒน์","ธนภูมิ","ปรเมศวร์","เตชินท์","จิรพัฒน์","ธีรดนย์","กษิดิ์เดช","วรเมธ","ปรัชญ์","ณัฐภูมิ","กรณ์ภัทร","ภูวนาถ","ชวัลวิทย์","ปัณณ์","ภัทรกร","นรภัทร","ณภูมิ","ภูมิภัทร","ธีรนาท","วศิน","ภัทรภณ","อัครพนธ์","เตชิต","ภาสกร","นิติภูมิ","ภูมินทร์","วรวิช","ศิรวิทย์","ภัทรเดช","ปภาวิน","กันตพัฒน์","พีรภัทร","ธนพนธ์","ปุณณภัทร","ภูริวัฒน์","ธีรพัฒน์","วรพัฒน์","ธีธัช","ธนธรณ์","ภัทรนันท์","ปุณยาพร","พิชญาภา","ภัคจิรา","ปภาวรินท์","สิรินทรา","รดา","ธมนวรรณ","เพชรลดา","ลลิลทิพย์","อภิชญา","สุพิชญา","ภูริชญา","ทิพย์ธารา","อรณิชา","เปมิกา","ปัณฑารีย์","กวินทิพย์","ธัญวรัตม์","กัญญาภัค","อัยรดา","ภิญญดา","วิมลรดา","ภัทรธิดา","พิชชาภา","อชิรญา","ภูริตา","ศุภาพิชญ์","ชนิดาภา","พัทธ์ธีรา","กัญญ์วรา","ธันยพร","ภคพร","ปพิชญา","ธนัชพร","ปุณิกา","พิมพ์ญาดา","ธัญญาภรณ์","กัลยกร","ลลิตภัทร","ปุณณดา","ภัทราพร","สิริกานต์","มนต์นภา","พรนภัส","ณภัค","ธีรนุช","ปัณณพร","อริสรา","วิรัลพัชร"]);
+
+// ชื่อแนวใหม่ ประกอบจากคำมงคลที่เข้ากัน (ใช้คู่กับรายชื่อจริง) ให้แต่ละดวงมีชื่อสละสลวยให้เลือกพอ 50 ชื่อ
+const NM_GEN=(()=>{const mk=(P,S)=>{const o=[];P.forEach(a=>S.forEach(b=>{if(a===b||a.endsWith(b)||b.startsWith(a)||a.slice(-1)===b[0])return;o.push(a+b);}));return o;};
+  return {m:mk(["อภิ","อิทธิ","อนันต","อุดม","อชิร","อนุ","อดิ","อธิ","กิตติ","กฤต","กันต","เขม","คุณ","กวิน","จิร","ชย","ชิน","ญาณ","ชล","ชาญ","จักร","ณัฐ","ฐิติ","ณัฏฐ","ธีร","ธน","นร","นิติ","เตช","ภัทร","ภูริ","ปัณณ","ปุณณ","พีร","พัชร","ภาณุ","ภูว","พิชญ","วร","วีร","รัฐ","รวิ","ยศ","วิชญ","รัช","ศุภ","ศิร","สิร","อัคร","อรรถ","เศรษฐ","สุ","เอก","อมร"],["ภูมิ","พล","เดช","วัฒน์","พัฒน์","กร","ภณ","นนท์","เมธ","ภัทร","วิชญ์","พงศ์","ธร","นาถ","ธัช","โชติ","กฤต","ณัฐ","วุฒิ","ภาส","ดนัย","ศักดิ์","เทพ","วงศ์","พัทธ์","นันท์","เศรษฐ์","ยศ","กิตติ์"]),
+          f:mk(["อภิ","อริ","กมล","กัญญ","ขวัญ","เขม","จิร","ชล","ญาณ","ชุติ","ณัฐ","ณิช","ฐิติ","ธัญ","ธน","ทิพย์","นภ","ธาร","ภัทร","ภูริ","ปุณย","พิมพ์","ปิย","มน","เบญ","พิชญ","ปภา","วร","ลลิต","วิมล","รัตน","ศุภ","สิริ","อร","ศศิ","สุ","ศิร"],["ภา","ธิดา","นันท์","พร","รดา","ลดา","นิภา","ทิพย์","กานต์","ชนก","วรรณ","ปรียา","ณิชา","นภัส","วดี","ลักษณ์","ภรณ์","ภัค","สุดา","ภาพร","รัตน์","นิชา","ภัสสร"])};})();
+const NM_GEN_SET=new Set([...NM_GEN.m,...NM_GEN.f]);
+const nmNice=n=>NM_NICE.has(n)||NM_GEN_SET.has(n);
+// ลำดับเฉพาะคน: วันเวลาเกิดต่างกัน ได้ชุดชื่อที่ขึ้นก่อนต่างกัน
+function nmKey(inp){return [inp.d,inp.m,inp.y,inp.h,inp.mi,inp.sex].join("-");}
+function nmHash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function nameSuggest(inp,bk,ds){
-  const sex=inp.sex==="f"?"f":"m", list=TH_NAMES[sex]||[];
+  const sex=inp.sex==="f"?"f":"m", list=[...new Set([...(TH_NAMES[sex]||[]),...NM_GEN[sex]])], pk=nmKey(inp);
   const ok=bk.all.filter(e=>e.lv==="great"||e.lv==="ok");
   const so=bk.all.filter(e=>e.lv==="so");
   let use=(ok.length?ok:so.slice(0,1));
   const rank={};use.forEach((e,i)=>rank[e.N]=i);
-  const cnt=TH_NAMES[sex].filter(n=>{const l=nbLead(n);return l&&rank[l.p]!==undefined;}).length;
-  if(cnt<60&&ok.length){so.slice(0,2).forEach((e,i)=>{rank[e.N]=10+i;});use=use.concat(so.slice(0,2));}
   const lsum=inp.lname?nameCalc(inp.lname).sum:0;
-  const out=[];
+  const run=()=>{const out=[];
   list.forEach(n=>{const ld=nbLead(n);if(!ld||rank[ld.p]===undefined)return;
     const c=nameCalc(n);if(c.unk.length)return;
     const si=nameSumBook(c.sum,inp.sex);if(si[0]!=="g")return;
@@ -5850,8 +5858,12 @@ function nameSuggest(inp,bk,ds){
     if(tot&&tot.g!=="g")return;
     const kk=kalakiniIn(n,bk.day), shd=shadowRead(n,inp.sex), shBad=!!shd&&(shd.info[0]==="b"||shd.ay[0]==="b");
     if(kk.length||shBad)return;
-    out.push({n,p:ld.p,sum:c.sum,title:si[5]||si[1],tot,kk,sec:rank[ld.p]>=10,r:rank[ld.p]*10+(NM_NICE.has(n)?-0.5:0)+(tot&&tot.g!=="g"?5:0)+(tot&&tot.g==="b"?3:0)+(kk.length?100:0)+(shBad?50:0),shd,shBad});});
-  out.sort((a,b)=>a.r-b.r||a.n.localeCompare(b.n,"th"));
+    out.push({n,p:ld.p,sum:c.sum,title:si[5]||si[1],tot,kk,sec:rank[ld.p]>=10,h:nmHash(pk+"|"+n),r:(nmNice(n)?0:1000)+rank[ld.p]*10,shd,shBad});});
+  return out;};
+  let out=run();
+  // ชื่อที่ผ่านครบยังไม่ถึง 50 ชื่อ เพิ่มกลุ่มอักษรรอง (ติดป้ายทางเลือกรอง)
+  if(ok.length&&out.filter(x=>nmNice(x.n)).length<50&&so.length){so.forEach((e,i)=>{rank[e.N]=10+i;});use=use.concat(so);out=run();}
+  out.sort((a,b)=>a.r-b.r||a.h-b.h);
   return {out,use,lsum};
 }
 function ok_any(u){return u.some(e=>e.lv==="great"||e.lv==="ok");}
@@ -5859,9 +5871,9 @@ function nameSuggestHtml(inp,bk,ds){
   const {out,use,lsum}=nameSuggest(inp,bk,ds);
   if(!out.length) return `<section class="card"><h2>ชื่อที่แนะนำสำหรับดวงคุณ</h2><p class="para">ยังหาชื่อในรายชื่อที่ผ่านเกณฑ์ครบไม่ได้ ดวงแบบนี้ต้องคิดชื่อเฉพาะตัว แอดไลน์มาให้ผมช่วยคิดได้ครับ</p></section>`;
   const item=x=>`<li class="sgn sgc" data-fn="${esc(x.n)}" role="button" tabindex="0"><b>${esc(x.n)}</b><span class="note">${x.sec?"ทางเลือกรอง ":""}ความหมาย ${esc(x.title)}${x.tot?` รวมนามสกุลได้ ${x.tot.sum} <span class="pill ${x.tot.g}">${GL[x.tot.g]}</span>`:""}</span><span class="sghint">กดเพื่อเทียบกับชื่อเดิม</span><div class="cmpbox" hidden></div></li>`;
-  const first=out.slice(0,24), more=out.slice(24,120);
+  const first=out.slice(0,12), more=out.slice(12,50);
   return `<section class="card"><h2>ชื่อที่แนะนำสำหรับดวงคุณ</h2>
-   <p class="note" style="margin:0 0 8px">ชื่อ${inp.sex==="f"?"ผู้หญิง":"ผู้ชาย"}ที่ใช้กันจริง ที่ผ่านครบทุกข้อสำหรับดวงคุณ ทั้งอักษรตัวแรก ความหมายของชื่อ${lsum?" ผลรวมกับนามสกุล "+esc(inp.lname):""} พลังแฝง และไม่มีอักษรกาลกิณี${out.some(x=>x.sec)?" ชื่อที่เขียนว่าทางเลือกรองก็ใช้ได้ แต่อักษรตัวแรกหนุนดวงน้อยกว่ากลุ่มแรกเล็กน้อย":""}</p>
+   <p class="note" style="margin:0 0 8px">ชื่อ${inp.sex==="f"?"ผู้หญิง":"ผู้ชาย"}ที่คัดเฉพาะดวงคุณ ผ่านครบทุกข้อสำหรับดวงคุณ ทั้งอักษรตัวแรก ความหมายของชื่อ${lsum?" ผลรวมกับนามสกุล "+esc(inp.lname):""} พลังแฝง และไม่มีอักษรกาลกิณี${out.some(x=>x.sec)?" ชื่อที่เขียนว่าทางเลือกรองก็ใช้ได้ แต่อักษรตัวแรกหนุนดวงน้อยกว่ากลุ่มแรกเล็กน้อย":""}</p>
    <ul class="sgl">${first.map(item).join("")}</ul>
    ${more.length?`<details class="libd"><summary>ดูชื่ออื่นอีก ${more.length} ชื่อ</summary><ul class="sgl">${more.map(item).join("")}</ul></details>`:""}
    <p class="note">ชื่อที่ดีควรออกเสียงง่าย ความหมายดี และถูกใจเจ้าของชื่อด้วย ถ้าอยากได้ชื่อที่คิดเฉพาะดวงคุณ แอดไลน์มาได้เลยครับ</p></section>`;
@@ -5872,25 +5884,28 @@ function nameSuggestHtml(inp,bk,ds){
 const SN_PRE=["ศรี","ทรัพย์","เจริญ","รุ่งเรือง","มั่นคง","ธนา","สุข","บุญ","ชัย","วัฒนา","ศุภ","มงคล","เกียรติ","ทอง","แก้ว","เพชร","รัตน","อุดม","ไพบูลย์","สมบูรณ์","ประเสริฐ","กิตติ","วิริยะ","เลิศ","จิร","อนันต์","ธีร","วร","ภัทร","ปัญญา","เมธา","กมล","สิริ","นิธิ","โชค","พูนผล","ทวี","ศักดิ์","ปิติ","ยิ่งยง"];
 const SN_SUF=["กุล","สกุล","วงศ์","ไพศาล","ธนากร","พาณิชย์","เจริญ","สมบัติ","ทรัพย์","ศิริ","โชติ","รุ่งเรือง","ไพบูลย์","พิพัฒน์","วัฒน์","ชัย","ธำรง","นิรันดร์","มงคล","สถิต","ถาวร","กิจ","เกษม","พงศ์","ภิญโญ","อนันต์","รักษ์","มั่นคง","วิวัฒน์","อำไพ"];
 // นามสกุลสละสลวยที่คิดใหม่ 50 นามสกุล (20 พ.ย. 69) ขึ้นก่อนเสมอ ค้นในเว็บแล้วไม่พบคนใช้ แต่ต้องเช็กกับอำเภอก่อนจดจริง
+const SN_A=["ธน","ภัทร","ศิริ","วร","ธีร","จิร","ศุภ","กิตติ","เมธา","อัคร","นิธิ","ภูริ","มงคล","รัตน","ชย","ปัณณ","อมร","โชติ","เพชร","กมล","บุญ","อุดม","รุ่ง"];
+const SN_U=["วรากุล","วรากร","ธนากร","ธนากุล","ภัทรากร","ภัทรากุล","วรางกูร","ธนาวงศ์","เมธากุล","เมธากร","วรเศรษฐ์","ธนาเศรษฐ์","ภัทรไพศาล","ธนาไพศาล","สิริวงศ์","สิริไพศาล","วรนันท์","สิรินันท์","ธนพงศ์","วรโชติ","สิริโชติ","เมธาวงศ์","ภัทรวงศ์","วรพงศ์","ธนโชติ","มงคลวงศ์"];
+const SN_GEN=(()=>{const o=[];const root=x=>x.replace(/^(ธนา|ธน)/,"ธน").replace(/^(เมธา|เมธี)/,"เมธ").replace(/^(ศิริ|สิริ)/,"สิริ").slice(0,3);SN_A.forEach(a=>SN_U.forEach(u=>{if(root(a)===root(u))return;o.push(a+u);}));return o;})();
 const SN_NICE=["ธนภัทรไพศาล","ศิริวรากุล","ภัทรธนากร","ธีรโชติสกุล","มงคลวรเศรษฐ์","ศุภวรากร","เมธาวรนันท์","อัครธนวงศ์","สิริธนาเศรษฐ์","ภูริธนพงศ์","เจริญวรากุล","ชยวรากุล","ศรีสิรินันท์","บุญภัทรากร","จิรภัทรไพศาล","ศุภมงคลวงศ์","วรเมธากุล","ภัทรสิริวงศ์","กมลธนากร","อุดมวรเศรษฐ์","รัตนวรากร","ธีรวรเศรษฐ์","กิตติวรางกูร","ศิริภัทรากร","เมธีธนวงศ์","นิธิภัทรไพศาล","อัครวรางกูร","โชติวรเศรษฐ์","มงคลภัทรากร","ธนวรางกูร","ศุภธนาไพศาล","วรสิริโชติ","ภัทรเมธากุล","รุ่งธนาไพศาล","สิริมงคลวงศ์","เพชรวรางกูร","อมรธนาวงศ์","กิตติภัทรากุล","จิรวรเศรษฐ์","ศรีภัทรไพศาล","ธนวิชญ์ไพศาล","ภูริวรเศรษฐ์","เมธาภัทรกุล","ธีรสิริไพศาล","นิธิเมธากุล","ภัทรวรางกูร","อัครเมธาวงศ์","จิรธนาไพศาล","ศิริเมธากร","ปัณณวรเศรษฐ์"];
 let NMCTX=null;
 function snConsonants(t){return [...t].filter(c=>/[ก-ฮ]/.test(c)).length;}
 function surnameSuggest(inp,bk){
   const day=bk.day||dayName(inp), fsum=inp.fname?nameCalc(inp.fname).sum:0, seen=new Set(), out=[];
-  const cands=SN_NICE.map(n=>[n,1]);SN_PRE.forEach(a=>SN_SUF.forEach(b=>{if(a===b||b.startsWith(a)||a.startsWith(b))return;cands.push([a+b,0]);}));
+  const pk=nmKey(inp), cands=SN_NICE.map(n=>[n,1]).concat(SN_GEN.map(n=>[n,1]));SN_PRE.forEach(a=>SN_SUF.forEach(b=>{if(a===b||b.startsWith(a)||a.startsWith(b))return;cands.push([a+b,0]);}));
   cands.forEach(([n,nice])=>{if(seen.has(n)||n===inp.lname)return;seen.add(n);
     if(snConsonants(n)>10||(!nice&&snConsonants(n)<6))return; const c=nameCalc(n); if(c.unk.length)return;
     const si=nameSumBook(c.sum,inp.sex); if(si[0]!=="g")return;
     let tot=null; if(fsum){const t=nameSumBook(fsum+c.sum,inp.sex); if(t[0]!=="g")return; tot={sum:fsum+c.sum,g:t[0]};}
     if(kalakiniIn(n,day).length)return;
-    out.push({n,sum:c.sum,title:si[5]||si[1],tot,nice,r:(nice?-10:0)+(DD_LONG[c.sum]?0:1)+(tot&&DD_LONG[tot.sum]?0:1)+(n.length<7?0.5:0)});});
-  out.sort((x,y)=>x.r-y.r||(x.n.charCodeAt(1)*7+x.n.length*13)%17-(y.n.charCodeAt(1)*7+y.n.length*13)%17||x.n.localeCompare(y.n,"th"));
+    out.push({n,sum:c.sum,title:si[5]||si[1],tot,nice,h:nmHash(pk+"|"+n),r:(nice?0:100)+(DD_LONG[c.sum]?0:1)+(tot&&DD_LONG[tot.sum]?0:1)});});
+  out.sort((x,y)=>x.r-y.r||x.h-y.h);
   return out;
 }
 function surnameSuggestHtml(inp,bk){
   const out=surnameSuggest(inp,bk); if(!out.length) return "";
   const item=x=>`<li class="sgn sgc" data-ln="${esc(x.n)}" role="button" tabindex="0"><b>${esc(x.n)}</b><span class="note">ความหมาย ${esc(x.title)}${x.tot?` รวมกับชื่อ ${esc(inp.fname)} ได้ ${x.tot.sum} <span class="pill g">ดี</span>`:""}</span><span class="sghint">กดเพื่อเทียบกับนามสกุลเดิม</span><div class="cmpbox" hidden></div></li>`;
-  const first=out.slice(0,12), more=out.slice(12,60);
+  const first=out.slice(0,12), more=out.slice(12,50);
   return `<section class="card"><h2>นามสกุลแนะนำ</h2>
    <p class="note" style="margin:0 0 8px">สำหรับคนที่อยากตั้งนามสกุลใหม่ ทุกนามสกุลในรายการผ่านครบ คือผลรวมของนามสกุลเป็นเลขดี${inp.fname?" รวมกับชื่อ "+esc(inp.fname)+" แล้วเป็นเลขดี":""} และไม่มีอักษรกาลกิณีของคนเกิดวัน${bk.day||dayName(inp)}</p>
    <ul class="sgl">${first.map(item).join("")}</ul>
@@ -5950,7 +5965,7 @@ function fullNameSuggestHtml(inp,bk,ds){
 function nameKey(inp){const y=inp.y<2400?inp.y+543:inp.y;return "7"+pad(inp.d)+pad(inp.m)+y;}
 function nameTeaserHtml(inp,nm,ds){
   const bk=nm.bk, ns=nameSuggest(inp,bk,ds).out, ss=surnameSuggest(inp,bk), fs=fullNameSuggest(inp,bk,ds);
-  const n=Math.min(ns.length,120), nS=Math.min(ss.length,60), total=n+nS+fs.length;
+  const n=Math.min(ns.length,50), nS=Math.min(ss.length,50), total=n+nS+fs.length;
   if(!total) return {html:"",paid:false};
   const top=fs.length?fs[0].score:0, hi=fs.filter(x=>x.score>=950).length;
   const f=ns[0];
