@@ -6,7 +6,7 @@
 <link rel="canonical" href="https://www.palangtuaylek.com/palangtuaylek.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="eeadae448a78b54b81b3168aa97ffb9b424dcc2e">
+<meta name="plk-base" content="ed7defed8f4d35e44fcb1d09d06333dcfa4092da">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -6448,20 +6448,29 @@ cntHit("visit"); // นับทุกครั้งที่เปิดหน
 // นับว่าคนเข้าเว็บมาจากช่องทางไหน ลิงก์ที่ใส่ ?src=ad page cm line (นับครั้งเดียวต่อการเปิดเว็บ)
 try{const _src=new URLSearchParams(location.search).get("src");if(["ad","page","cm","line"].includes(_src)&&!sessionStorage.getItem("plk_src")){sessionStorage.setItem("plk_src",_src);cntHit("src-"+_src);}}catch(e){}
 // ขั้นการขายในหน้าผลเบอร์: เห็นกล่อง 399 > กดไปกล่อง 399 > คัดลอกเลขบัญชี > เลือกรูปสลิป > กดตรวจสลิป > (slip-ok เดิม)
-// แถบลอยด้านล่าง พาไปกล่อง 399 (กล่องอยู่ลึกประมาณ 10 หน้าจอบนมือถือ)
+// แถบลอยด้านล่าง พาไปกล่องจ่ายเงินของหัวข้อที่กำลังวิเคราะห์ (กล่องมักอยู่ลึกหลายหน้าจอบนมือถือ)
+const PB_SUBJ={phone:"เบอร์นี้ส่งผลกับดวงคุณยังไง",plate:"ทะเบียนนี้ส่งผลกับดวงคุณยังไง",house:"บ้านเลขที่นี้ส่งผลกับดวงคุณยังไง",shop:"เลขที่ร้านนี้ส่งผลกับดวงคุณยังไง",bank:"เลขบัญชีนี้ส่งผลกับดวงคุณยังไง",name:"ชื่อนี้ส่งผลกับดวงคุณยังไง",baby:"ชื่อมงคลที่เหมาะกับลูกของคุณ",rk:"วันและเวลาฤกษ์ที่ดีที่สุดของคุณ",love:"คู่นี้ไปกันได้แค่ไหน",pin:"รหัสมงคลเฉพาะดวงคุณ",wall:"ออกแบบตามพื้นดวงของคุณ",card:"ออกแบบตามพื้นดวงของคุณ",logo:"ออกแบบตามพื้นดวงของคุณ",spack:"ออกแบบตามพื้นดวงของคุณ"};
 function payBar(){
   let bar=$("paybar");
-  if(!bar){bar=document.createElement("div");bar.id="paybar";bar.setAttribute("role","region");bar.setAttribute("aria-label","อ่านผลเจาะลึก");
+  if(!bar){bar=document.createElement("div");bar.id="paybar";bar.setAttribute("role","region");bar.setAttribute("aria-label","อ่านผลแบบละเอียด");
     bar.style.cssText="position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:40;display:none;gap:10px;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:14px;background:var(--surface);border:1px solid var(--accent);box-shadow:0 6px 24px rgba(0,0,0,.55);max-width:656px;margin:0 auto";
-    bar.innerHTML='<span style="font-size:14px;line-height:1.4;min-width:0">เบอร์นี้ส่งผลกับดวงคุณยังไง<br><b>อ่านแบบเจาะลึกทุกตำแหน่ง</b></span><button type="button" class="primary" style="padding:9px 14px;font-size:15px;white-space:nowrap;flex:none">ดู 399 บาท</button>';
+    bar.innerHTML='<span style="font-size:14px;line-height:1.4;min-width:0"><span class="pb1"></span><br><b class="pb2"></b></span><button type="button" class="primary" style="padding:9px 14px;font-size:15px;white-space:nowrap;flex:none"></button>';
     document.body.appendChild(bar);
     bar.querySelector("button").addEventListener("click",()=>{cntHit("f-paybar");const p=document.querySelector("#result section.pay");if(p)p.scrollIntoView({behavior:"smooth",block:"start"});bar.style.display="none";});
     let raf=0;const upd=()=>{raf=0;const R=$("result"),p=document.querySelector("#result section.pay");
-      if(!R||!p||!R.offsetParent){bar.style.display="none";return;}
-      const show=R.getBoundingClientRect().top<-700&&p.getBoundingClientRect().top>innerHeight*.85;bar.style.display=show?"flex":"none";};
+      if(!R||!p||!R.offsetParent){bar.style.display="none";document.body.style.paddingBottom="";return;}
+      const rt=R.getBoundingClientRect().top,pt=p.getBoundingClientRect().top;
+      const pb=p.getBoundingClientRect().bottom,off=pt>innerHeight*.85||pb<0;
+      const show=off&&rt<-Math.min(700,Math.max(120,(pt-rt)*.3));
+      if(show){const h=((p.querySelector("h2")||{}).textContent||"").trim(),pr=(h.match(/([\d,]+)\s*บาท/)||[])[1];
+        bar.querySelector(".pb1").textContent=PB_SUBJ[MODE]||"ดูแบบละเอียดเฉพาะดวงคุณ";
+        bar.querySelector(".pb2").textContent=h.replace(/\s*[\d,]+\s*บาท\s*$/,"")||"อ่านแบบละเอียด";
+        bar.querySelector("button").textContent=pr?"ดู "+pr+" บาท":"ดูเลย";}
+      bar.style.display=show?"flex":"none";document.body.style.paddingBottom=show?"88px":"";};
     addEventListener("scroll",()=>{if(!raf)raf=requestAnimationFrame(upd);},{passive:true});bar._upd=upd;}
   bar._upd();
 }
+setTimeout(()=>{try{payBar();}catch(e){}},50);
 function funnelHooks(){
   try{
     const pv=document.querySelector("#result section.pay");
