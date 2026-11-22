@@ -6,7 +6,7 @@
 <link rel="canonical" href="https://www.palangtuaylek.com/palangtuaylek.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="ed7defed8f4d35e44fcb1d09d06333dcfa4092da">
+<meta name="plk-base" content="a9823f72ff486f828df1f1c44d84b82066d01439">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -3738,10 +3738,12 @@ function simpleSummary(inp,r,nm){
     if(t9) P2.push([t9,N9.c===0||N9.c>2?-1:{g:1,m:0,b:-1}[N9.g]]);}}
   {const si=r.sumInfo; P2.push(["ผลรวมของทั้งเบอร์"+(si[0]==="g"?"ดี":si[0]==="b"?"ไม่ค่อยส่งเสริม":"ให้ผลกลาง ๆ")+" ในระยะยาว 4 ถึง 5 ปีขึ้นไปจะส่งผลไปทาง"+si[2],PV[si[0]],"ส่วน"]);}
   let fv=0,fw=0; r.AG.focus.forEach(k=>{const p=r.pos.find(x=>x.k===k);fw+=p.w0;fv+=p.w0*pairScore(p,r);}); let fg=gradeOf(fv/fw);
-  {const idx={work:[0,1],mid:[0],senior:[4],young:[3]}[r.AG.k]||[]; const rk={b:0,m:1,g:2}; idx.forEach(i=>{const x=rows[i]; if(x&&rk[x.g]<rk[fg]) fg=x.g;});}
-  {const AD0=ageDrive(inp,r); if(AD0&&AD0.sc<=-0.4&&fg==="g") fg="m";}
-  {const nb=rows.filter(x=>x.g==="b").length; if(fg==="g"&&nb) fg="m"; else if(fg==="m"&&nb>=2) fg="b";}
-  P3.push(["ตอนนี้"+who+"อายุ "+r.age+" ปี อยู่ใน"+r.AG.name+" เรื่องที่สำคัญที่สุดของวัยนี้คือ"+r.AG.txt+" "+((badF)=>fg==="g"?"ซึ่งเบอร์นี้หนุนได้ดี":fg==="m"?(badF?"ซึ่งเบอร์นี้ช่วยได้ปานกลาง":"ตำแหน่งที่ดูแลเรื่องนี้ไม่มีคู่ควรระวัง แต่แรงหนุนโดยรวมยังกลาง ๆ"):badF?"ซึ่งเบอร์นี้ยังไม่ช่วยเรื่องนี้":"ตำแหน่งที่ดูแลเรื่องนี้ไม่มีคู่ควรระวัง แต่แรงหนุนโดยรวมยังไม่มาก")(r.AG.focus.some(k=>{const q=r.pos.find(x=>x.k===k);return q&&posGrade(q,r,inp).g==="b";})),PV[fg]]);
+  const agWhy=[];
+  {const idx={work:[0,1],mid:[0],senior:[4],young:[3]}[r.AG.k]||[]; const rk={b:0,m:1,g:2}; idx.forEach(i=>{const x=rows[i]; if(x&&rk[x.g]<rk[fg]) fg=x.g; if(x&&x.g!=="g") agWhy.push(nmA(x));});}
+  {const AD0=ageDrive(inp,r); if(AD0&&AD0.sc<=-0.4&&fg==="g") fg="m"; if(AD0&&AD0.sc<=-0.4) agWhy.push("แรงขยันในเบอร์");}
+  {const nb=rows.filter(x=>x.g==="b"); if(fg==="g"&&nb.length) fg="m"; else if(fg==="m"&&nb.length>=2) fg="b"; nb.forEach(x=>agWhy.push(nmA(x)));}
+  const agW=[...new Set(agWhy)];
+  P3.push(["ตอนนี้"+who+"อายุ "+r.age+" ปี อยู่ใน"+r.AG.name+" เรื่องที่สำคัญที่สุดของวัยนี้คือ"+r.AG.txt+" "+((badF)=>fg==="g"?"ซึ่งเบอร์นี้หนุนได้ดี":fg==="m"?(badF?"ซึ่งเบอร์นี้ช่วยได้ปานกลาง":"ตำแหน่งที่ดูแลเรื่องนี้ไม่มีคู่ควรระวัง แต่"+(agW.length?"เรื่อง"+agW.join(" และ")+"ยังไม่เต็มที่ แรงหนุนโดยรวมจึงยังกลาง ๆ":"แรงหนุนโดยรวมยังกลาง ๆ")):badF?"ซึ่งเบอร์นี้ยังไม่ช่วยเรื่องนี้":"ตำแหน่งที่ดูแลเรื่องนี้ไม่มีคู่ควรระวัง แต่"+(agW.length?"เรื่อง"+agW.join(" และ")+"ยังอ่อน แรงหนุนโดยรวมจึงยังไม่มาก":"แรงหนุนโดยรวมยังไม่มาก"))(r.AG.focus.some(k=>{const q=r.pos.find(x=>x.k===k);return q&&posGrade(q,r,inp).g==="b";})),PV[fg]]);
   {const AD=ageDrive(inp,r), jt=inp.jobText?"งาน"+esc(inp.jobText):"งานของคุณ";
    if(AD&&r.AG.k==="work"){
      if(AD.sc>=0.4) P3.push(["เบอร์นี้มีแรงขยันที่ช่วยผลักให้ลุยงาน"+(inp.jobText?" เข้ากับ"+jt:""),1]);
@@ -3852,7 +3854,7 @@ function phoneTriples(r,inp){
     const sc=lv3(p1)+lv3(p2);
     let v=tong?TONG[t][1]:p1.g==="b"&&p2.g==="b"?"b":sc>=1.5?"g":sc<=-1?"b":"m";
     if(TRI_FRAUD.includes(t)) v="b";
-    if(i===7&&v==="g"&&(tailBad(inp,b*10+c)||["no","care","warn"].includes((tailRule(inp,b*10+c)||{}).lv))) v="m";
+    let tailDown=false; if(i===7&&v==="g"&&(tailBad(inp,b*10+c)||["no","care","warn"].includes((tailRule(inp,b*10+c)||{}).lv))){v="m";tailDown=true;}
     const sx=TRI_SEX.filter(x=>x.pats.includes(t)&&x.lab===(inp.sex==="f"?"ผู้หญิง":"ผู้ชาย"));
     if(sx.length&&v==="g") v="m";
     const gtr=(((GSEX[inp.sex]||{}).trip)||[]).find(([pats])=>pats.includes(t)); if(gtr) v="b";
@@ -3869,6 +3871,11 @@ function phoneTriples(r,inp){
     lines.push("เลขตัวกลาง "+b+(v==="b"?(mc==="g"?" เป็นเลขพลังดีในดวงคุณ ช่วยให้ด้านลบของชุดนี้เบาลงบ้าง":mc==="b"?" เป็นเลขพลังอ่อนในดวงคุณ ด้านลบของชุดนี้จึงยิ่งชัด":" มีพลังปานกลางในดวงคุณ"):(mc==="g"?" เป็นเลขพลังดีในดวงคุณ ช่วยให้ชุดนี้ส่งพลังได้เต็มที่":mc==="b"?" เป็นเลขพลังอ่อนในดวงคุณ ชุดนี้จึงส่งพลังได้ไม่เต็ม":" มีพลังปานกลางในดวงคุณ")));
     if(gtr||(v==="b"&&p1.g!=="b"&&p2.g!=="b")) for(let q=0;q<lines.length;q++) if(/^พลังไหลต่อเนื่องดีทั้งชุด|^พลังกลาง ๆ/.test(lines[q])) lines[q]=gtr?"ทั้งสองคู่ดูดีเมื่อแยกอ่าน แต่เมื่อเรียงเป็นชุดนี้ให้ผลไม่ดี":"ทั้งสองคู่ไม่เสีย แต่เมื่อเรียงเป็นชุดนี้ต้องระวัง";
     if(i===7&&v!=="g"&&p1.g==="g"&&p2.g==="g") for(let q=0;q<lines.length;q++) if(/^พลังไหลต่อเนื่องดีทั้งชุด/.test(lines[q])) lines[q]="สองคู่ส่งต่อกันดี แต่คู่ท้ายไม่ควรอยู่ท้ายเบอร์ ชุดนี้จึงยังไม่ใช่จุดแข็ง";
+    {const gv=triRead(t).v; if(gv!==v){const VL={g:"ชุดดี",m:"ชุดกลาง",b:"ชุดที่ต้องระวัง"}, why=[];
+      if(sx.length||gtr) why.push("เพศของคุณ");
+      if(tailDown) why.push("ชุดนี้อยู่ท้ายเบอร์ ซึ่งคู่ท้าย "+p2.s+" ไม่เหมาะกับคุณ");
+      if(!why.length||(!sx.length&&!gtr&&!tailDown)) why.splice(0,why.length,"คู่ในชุดนี้เมื่ออยู่ในตำแหน่งนี้และเทียบกับดวงคุณ ได้เกรดคู่"+plab(p1,i)+" กับคู่"+plab(p2,i+1));
+      lines.push("ความหมายทั่วไปของชุด "+t+" คือ"+VL[gv]+" แต่ในเบอร์คุณเป็น"+VL[v]+" เพราะ"+why.join(" และ"));}}
     sx.forEach(x=>lines.push("สำหรับ"+x.lab+" "+x.txt)); if(gtr&&!sx.length) lines.push("ชุดนี้ไม่เหมาะกับ"+(inp.sex==="f"?"ผู้หญิง":"ผู้ชาย")+" "+gtr[1]);
     if(TRI_FRAUD.includes(t)) lines.push("ชุด "+t+" มีเลข 1 กับ 8 ตีกลับไปมา ระวังโดนโกง ถูกหลอกเรื่องเงิน");
     out.push({t,v,i,tail,name:tong?TONG[t][0]:pop?pop[1]:"ชุด "+t,where:"หลักที่ "+(i+1)+" ถึง "+(i+3)+" "+keys.join(" และ ")+(tail?" ท้ายเบอร์ ส่งผลแรงที่สุด":""),txt:lines.join(" "),short:(tong||pop)?lines[0]:(lines[1]||lines[0])});
@@ -4384,7 +4391,7 @@ function talentHtml(inp,r){
   const top=sc[0].s; let pick=sc.filter((x,k)=>k<2||(k<4&&x.s>=top*0.75&&x.s>0)).slice(0,4);
   const strongPl=[0,1,2,3,4,5,6,7,8,9].filter(d=>ds.cls[d]!=="b").sort((a,b)=>(ds.cls[b]==="g")-(ds.cls[a]==="g")||w[b]-w[a]).slice(0,3);
   const tenLord=LORD[(ds.lag+9)%12];
-  const intro=`${who}มีพรสวรรค์ด้าน${strongPl.map(d=>TRAIT_PL[d]).join(" ด้าน")} ซึ่งมาจาก${strongPl.map(d=>PLANET_PLAIN[d]+" (เลข "+d+")").join(" ")} ${strongPl.every(d=>ds.cls[d]==="g")?"ซึ่งเป็นพลังดีในดวงคุณ":strongPl.some(d=>ds.cls[d]==="g")?"ซึ่งเป็นพลังดีและปานกลางในดวงคุณ":"ซึ่งเป็นพลังปานกลางในดวงคุณ"} ส่วนดาวที่ดูแลเรื่องการงานของคุณคือ${tenLord.map(d=>PLANET_PLAIN[d]+" (เลข "+d+") ซึ่ง"+DL[ds.cls[d]]).join(" และ")} งานที่ใช้พลังของดาวเหล่านี้คืองานที่คุณทำแล้วจะรุ่ง`;
+  const intro=`${who}มีพรสวรรค์ด้าน${strongPl.map(d=>TRAIT_PL[d]).join(" ด้าน")} ซึ่งมาจาก${strongPl.map(d=>PLANET_PLAIN[d]+" (เลข "+d+" "+(ds.cls[d]==="g"?"พลังดี":"พลังปานกลาง")+")").join(" ")} ในดวงคุณ ส่วนดาวที่ดูแลเรื่องการงานของคุณคือ${tenLord.map(d=>PLANET_PLAIN[d]+" (เลข "+d+") ซึ่ง"+DL[ds.cls[d]]).join(" และ")} งานที่ใช้พลังของดาวเหล่านี้คืองานที่คุณทำแล้วจะรุ่ง`;
   const items=pick.map((x,k)=>{const t=x.t;
     const fac=d=>{const k=t.p.indexOf(d);return k===0?1.6:k===1?1:0.6;};const drv=t.p.filter(d=>ds.cls[d]!=="b").sort((a,b)=>w[b]*fac(b)-w[a]*fac(a)).slice(0,2);
     const weak=t.p.filter(d=>ds.cls[d]==="b");
