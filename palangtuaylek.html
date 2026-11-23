@@ -6,7 +6,7 @@
 <link rel="canonical" href="https://www.palangtuaylek.com/palangtuaylek.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="744ccc38625b3a92cc851b45f5e02475d9845772">
+<meta name="plk-base" content="e8b6b41d5d0b5871b434149760c73fb9bbd1be91">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -6539,7 +6539,7 @@ document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest
 function funnelHooks(){
   try{
     const pv=document.querySelector("#result section.pay");
-    if(pv&&"IntersectionObserver" in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){cntHit("f-pay-view");io.disconnect();}},{threshold:.3});io.observe(pv);}
+    if(pv&&"IntersectionObserver" in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){cntHit("f-pay-view");io.disconnect();}},{threshold:.5});io.observe(pv.querySelector("h2")||pv);}
     document.querySelectorAll('#result [data-j="hpay"]').forEach(a=>a.addEventListener("click",()=>cntHit("f-pay-jump")));
     payBar();
     {const st=document.querySelector("#result .easy .sumtxt");if(st&&!st.dataset.cl&&st.scrollHeight>420){st.dataset.cl=1;st.classList.add("clamp");const b=document.createElement("button");b.type="button";b.className="ghost sumtog";b.textContent="อ่านคำอธิบายเต็ม";b.style.margin="6px 0 0";b.onclick=()=>{const c=st.classList.toggle("clamp");b.textContent=c?"อ่านคำอธิบายเต็ม":"ย่อคำอธิบาย";};st.after(b);}}
@@ -6548,7 +6548,7 @@ function funnelHooks(){
     const sg=$("slipgo"); if(sg) sg.addEventListener("click",()=>cntHit("f-slip-send"));
   }catch(e){}
 }
-const CNT_KEYS=[["visit","คนเข้าเว็บ"],["src-ad","เข้าเว็บจากโฆษณา"],["src-page","เข้าเว็บจากลิงก์บนเพจ"],["src-cm","เข้าเว็บจากลิงก์ตอบคอมเมนต์"],["src-line","เข้าเว็บจากลิงก์ในไลน์"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["an-shop","เลขที่ร้าน"],["an-today","สีมงคลวันนี้"],["an-baby","ตั้งชื่อลูก"],["an-dir","ทิศมงคล"],["an-chong","ปีชง"],["horo-visit","เข้าหน้าดูดวง"],["horo-read","ดูดวง (ผูกดวงแล้ว)"],["f-pay-view","ขั้นขาย: เห็นกล่อง 399"],["f-pay-jump","ขั้นขาย: กดไปกล่อง 399"],["f-paybar","ขั้นขาย: กดแถบลอยไปกล่อง 399"],["daily","กดดูสีมงคลวันนี้จากการ์ดลูกค้าเก่า"],["f-mid-cta-view","ขั้นขาย: เห็นกล่องข้อเสนอกลางหน้า"],["f-mid-cta-click","ขั้นขาย: กดปุ่มกล่องกลางหน้า"],["f-sticky-click","ขั้นขาย: กดแถบติดล่างจอ"],["f-scroll-50","ขั้นขาย: เลื่อนถึงครึ่งหน้าผล"],["f-top-cta","ขั้นขาย: กดปุ่มเจาะลึกใต้คะแนน"],["f-copyacc","ขั้นขาย: คัดลอกเลขบัญชี"],["f-slip-pick","ขั้นขาย: เลือกรูปสลิป"],["f-slip-send","ขั้นขาย: กดตรวจสลิป"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-num","จ่ายตัวเลขละเอียด 399"],["pay-bundle","จ่ายแพ็กรวม 999"],["pay-baby","จ่ายตั้งชื่อลูก 399"],["pay-pin","จ่ายรหัสมงคล 99"],["an-pin","ดูรหัสมงคล"],["pay-wall","จ่ายวอลเปเปอร์ 99"],["card-line","นามบัตร กดส่ง LINE"],["logo-line","โลโก้ กดส่ง LINE"],["spack-line","แพ็กเปิดร้าน กดส่ง LINE"],["xsell","กดบริการแนะนำ"],["line-top","ส่งผลเบอร์ทาง LINE (ปุ่มใต้คะแนน)"],["stk-interest","กดสนใจเบอร์ในสต็อก"],["stk-match","หาเบอร์ที่เข้ากับดวงในหน้าสต็อก"],["stk-all","กดดูเบอร์ที่เข้ากับดวงทั้งหมด"],["an-wall","ดูวอลเปเปอร์"],["wall-gen","สร้างภาพวอลเปเปอร์"],["pay-horo","จ่ายดูดวงละเอียด 399"],["pay-y2570","จ่ายดวงปี 2570 299"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-horo","บันทึก PDF ดูดวง"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["ask-phone","ทักถามก่อนซื้อ เบอร์"],["ask-name","ทักถามก่อนซื้อ ชื่อ"],["ask-rk","ทักถามก่อนซื้อ ฤกษ์"],["ask-love","ทักถามก่อนซื้อ ดวงคู่"],["ask-num","ทักถามก่อนซื้อ ตัวเลขละเอียด"],["ask-baby","ทักถามก่อนซื้อ ตั้งชื่อลูก"],["ai-ask","ถามเบอร์ผ่าน AI"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
+const CNT_KEYS=[["visit","คนเข้าเว็บ"],["src-ad","เข้าเว็บจากโฆษณา"],["src-page","เข้าเว็บจากลิงก์บนเพจ"],["src-cm","เข้าเว็บจากลิงก์ตอบคอมเมนต์"],["src-line","เข้าเว็บจากลิงก์ในไลน์"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["an-shop","เลขที่ร้าน"],["an-today","สีมงคลวันนี้"],["an-baby","ตั้งชื่อลูก"],["an-dir","ทิศมงคล"],["an-chong","ปีชง"],["horo-visit","เข้าหน้าดูดวง"],["horo-read","ดูดวง (ผูกดวงแล้ว)"],["f-pay-view","ขั้นขาย: เห็นกล่อง 399"],["f-pay-jump","ขั้นขาย: กดไปกล่อง 399"],["f-paybar","ขั้นขาย: กดแถบลอยไปกล่อง 399"],["daily","กดดูสีมงคลวันนี้จากการ์ดลูกค้าเก่า"],["f-mid-cta-view","ขั้นขาย: เห็นกล่องข้อเสนอกลางหน้า"],["f-mid-cta-click","ขั้นขาย: กดปุ่มกล่องกลางหน้า"],["f-sticky-click","ขั้นขาย: กดแถบติดล่างจอ"],["f-scroll-50","ขั้นขาย: เลื่อนถึงครึ่งหน้าผล"],["ask-btn","กดปุ่มคำถามสำเร็จรูป"],["ask-line","ส่งคำถามให้อาจารย์ทางไลน์"],["f-top-cta","ขั้นขาย: กดปุ่มเจาะลึกใต้คะแนน"],["f-copyacc","ขั้นขาย: คัดลอกเลขบัญชี"],["f-slip-pick","ขั้นขาย: เลือกรูปสลิป"],["f-slip-send","ขั้นขาย: กดตรวจสลิป"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-num","จ่ายตัวเลขละเอียด 399"],["pay-bundle","จ่ายแพ็กรวม 999"],["pay-baby","จ่ายตั้งชื่อลูก 399"],["pay-pin","จ่ายรหัสมงคล 99"],["an-pin","ดูรหัสมงคล"],["pay-wall","จ่ายวอลเปเปอร์ 99"],["card-line","นามบัตร กดส่ง LINE"],["logo-line","โลโก้ กดส่ง LINE"],["spack-line","แพ็กเปิดร้าน กดส่ง LINE"],["xsell","กดบริการแนะนำ"],["line-top","ส่งผลเบอร์ทาง LINE (ปุ่มใต้คะแนน)"],["stk-interest","กดสนใจเบอร์ในสต็อก"],["stk-match","หาเบอร์ที่เข้ากับดวงในหน้าสต็อก"],["stk-all","กดดูเบอร์ที่เข้ากับดวงทั้งหมด"],["an-wall","ดูวอลเปเปอร์"],["wall-gen","สร้างภาพวอลเปเปอร์"],["pay-horo","จ่ายดูดวงละเอียด 399"],["pay-y2570","จ่ายดวงปี 2570 299"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-horo","บันทึก PDF ดูดวง"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["ask-phone","ทักถามก่อนซื้อ เบอร์"],["ask-name","ทักถามก่อนซื้อ ชื่อ"],["ask-rk","ทักถามก่อนซื้อ ฤกษ์"],["ask-love","ทักถามก่อนซื้อ ดวงคู่"],["ask-num","ทักถามก่อนซื้อ ตัวเลขละเอียด"],["ask-baby","ทักถามก่อนซื้อ ตั้งชื่อลูก"],["ai-ask","ถามเบอร์ผ่าน AI"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
 let _CQ=Promise.resolve(),_CN=0;
 const CNT_GATE={ts:[],pause:0};
 /* abacus ให้ดึงได้ 30 ครั้งต่อ 10 วินาที ต่อเครื่อง จึงคุมจังหวะไม่ให้เกิน จะได้ไม่โดนบล็อก */
@@ -10198,6 +10198,7 @@ function askDev(){try{let d=localStorage.getItem("plk_dev");if(!d){d=Math.random
 function askUsed(){try{const o=JSON.parse(localStorage.getItem("plk_ai_d")||"{}");return o.d===new Date().toDateString()?o.n:0;}catch(e){return 0;}}
 function askUse(){try{localStorage.setItem("plk_ai_d",JSON.stringify({d:new Date().toDateString(),n:askUsed()+1}));}catch(e){}}
 function askNames(r){const SN={"เรื่องเงิน":"การเงิน","เรื่องงาน":"การงาน","ความรักและคู่ครอง":"ความรัก","นิสัยและตัวตน":"ตัวตน"};const by=g=>r.rows.filter(x=>x.g===g).map(x=>SN[x.name]||x.name);return {g:by("g"),m:by("m"),b:by("b")};}
+function SNM(n){return ({"เรื่องเงิน":"เงิน","เรื่องงาน":"งาน","ความรักและคู่ครอง":"ความรักและคู่ครอง","นิสัยและตัวตน":"นิสัยและตัวตน","โชคและอุปสรรค":"โชคและอุปสรรค"})[n]||n.replace(/^เรื่อง/,"");}
 function askLocal(k){const A=_ASK;if(!A)return "";const {inp,r}=A, N=askNames(r), si=r.sumInfo, GT={g:"ดี",m:"กลาง",b:"ไม่ค่อยดี"};
   const t=r.pos.find(p=>p.k==="GF"), T3=(r.tri3||[])[0];
   if(k==="keep"){
@@ -10209,6 +10210,18 @@ function askLocal(k){const A=_ASK;if(!A)return "";const {inp,r}=A, N=askNames(r)
     return base+"ผมไม่แนะนำให้ใช้ต่อ "+(N.b.length?"เพราะเบอร์ดึงเรื่อง"+N.b.join(" ")+"ลงชัดเจน ":"")+"ควรเปลี่ยนเป็นเบอร์ที่เลขเข้ากับดวงคุณ ในแบบเจาะลึกผมบอกไว้ว่าเลขไหนควรมีและควรวางตรงไหน";}
   if(k==="area") return (N.g.length?"เรื่องที่เบอร์นี้หนุนได้ดีคือ"+N.g.join(" ")+" ":"เบอร์นี้ไม่มีเรื่องที่เด่นชัด ")+(N.m.length?"เรื่องที่อยู่ระดับพอใช้คือ"+N.m.join(" ")+" ":"")+(N.b.length?"และเรื่องที่ต้องระวังคือ"+N.b.join(" "):"ไม่มีเรื่องไหนที่เบอร์ดึงลง")+" กดอ่านเพิ่มเติมที่คู่เลขแต่ละตำแหน่งด้านบนได้ จะเห็นว่าแต่ละเรื่องมาจากคู่ไหน";
   if(k==="sum") return "ผลรวม "+r.sum+" "+(si[1]||"")+" ให้ผล"+GT[si[0]]+" "+(si[2]||"")+" ผลรวมส่งผลกับชีวิตระยะยาว 4 ถึง 5 ปีขึ้นไปในภาพรวม แต่ผมให้น้ำหนักน้อยกว่าคู่ท้ายเบอร์ "+(si[0]==="b"?(r.band[0]==="g"?"เบอร์นี้คู่เลขหลักดีพอ ผลรวมที่ไม่ค่อยดีจึงยังไม่ใช่เหตุผลที่ต้องเปลี่ยนเบอร์":"ถ้าจะเปลี่ยนเบอร์อยู่แล้ว ควรเลือกเบอร์ที่ผลรวมดีด้วย"):si[0]==="g"?"ผลรวมของเบอร์นี้ช่วยหนุนภาพรวมได้ดี":"ผลรวมกลาง ๆ ไม่ได้ช่วยและไม่ได้ฉุด");
+  const GL={g:"ดี",m:"พอใช้",b:"ต้องระวัง"}, free=!phoneUnlocked(inp), FX=" วิธีแก้อยู่ในฉบับเต็ม";
+  const row=re=>r.rows.find(x=>re.test(x.name)), rowT=x=>x?"เรื่อง"+(SNM(x.name))+" "+(x.pct!=null?x.pct+"% ":"")+GL[x.g]:"";
+  const pz=k=>{const p=r.pos.find(q=>q.k===k);if(!p)return "";const G=posGrade(p,r,inp);return "ตำแหน่ง"+p.n+" คู่ "+p.s+" "+p.info[1]+" ("+G.lab+") "+p.info[2];};
+  if(k==="money"){const x=row(/เงิน/);return rowT(x)+" "+["AB","FE","DC"].map(pz).filter(Boolean).join(" ")+(free&&x&&x.g!=="g"?FX:"");}
+  if(k==="work"){const x=row(/งาน/);return rowT(x)+" "+pz("DE")+(inp.jobText&&r.jobNote?" เทียบกับงาน"+inp.jobText+" "+r.jobNote[1]:"")+(free&&x&&x.g!=="g"?FX:"");}
+  if(k==="love"){const x=row(/ความรัก/);return rowT(x)+" "+pz("GA")+(free&&x&&x.g!=="g"?FX:"");}
+  if(k==="luck"){const x=row(/โชค/);return rowT(x)+" "+["CD","BC"].map(pz).filter(Boolean).join(" ")+(free&&x&&x.g!=="g"?FX:"");}
+  if(k==="worst"||k==="best"){const rk={b:0,m:1,g:2}, L=r.pos.filter(p=>POS.find(q=>q.k===p.k&&q.main)).map(p=>({p,G:posGrade(p,r,inp)}));
+    L.sort((a,b)=>k==="worst"?(rk[a.G.g]-rk[b.G.g]||b.p.w0-a.p.w0):(rk[b.G.g]-rk[a.G.g]||b.p.w0-a.p.w0));const x=L[0];if(!x)return "";
+    if(k==="worst"&&x.G.g==="g") return "ตำแหน่งหลักของเบอร์นี้ไม่มีคู่ที่ต้องระวัง คู่ที่อ่อนที่สุดยังเป็นคู่"+x.G.lab+" คือ"+pz(x.p.k);
+    if(k==="best"&&x.G.g!=="g") return "ตำแหน่งหลักของเบอร์นี้ยังไม่มีคู่ที่ดีเด่นชัด คู่ที่ดีที่สุดคือ"+pz(x.p.k)+(free?FX:"");
+    return (k==="worst"?"จุดที่อ่อนที่สุดของเบอร์นี้คือ":"จุดที่แข็งที่สุดของเบอร์นี้คือ")+pz(x.p.k)+(k==="worst"&&free?FX:"");}
   if(k==="tail") return "ท้ายเบอร์ส่งผลกับชีวิตประจำวันแรงที่สุด คู่ท้ายของคุณคือ "+t.s+" "+t.info[1]+" "+t.info[2]+(T3?" และชุดสามตัวท้าย "+T3.t+" "+T3.name+" "+String(T3.short||"").replace(/\s+/g," "):"");
   return "";}
 function askCtx(){const {inp,r}=_ASK, GT={g:"ดี",m:"กลาง",b:"ควรระวัง"}, DG={};dblFit(inp,r).forEach(x=>{DG[x.v]=x.g;});
@@ -10221,13 +10234,19 @@ function askCtx(){const {inp,r}=_ASK, GT={g:"ดี",m:"กลาง",b:"คว�
   const cls=(r.ds&&r.ds.cls)||{};L.push("พลังเลขในดวง: "+[0,1,2,3,4,5,6,7,8,9].map(d=>d+"="+(({g:"ดี",m:"กลาง",b:"อ่อน"})[cls[d]]||"-")).join(" "));
   return L.join("\n");}
 function askBoxHtml(inp,r){_ASK={inp,r};
-  const Q=[["keep","ควรใช้ต่อหรือเปลี่ยน"],["area","เด่นเรื่องอะไร ระวังเรื่องอะไร"],["sum","ผลรวม "+r.sum+" ส่งผลยังไง"],["tail","ท้ายเบอร์ส่งผลยังไง"]];
-  setTimeout(askAiCheck,0);
+  const Q=[["keep","ควรใช้ต่อหรือเปลี่ยน"],["area","เด่นเรื่องอะไร ระวังเรื่องอะไร"],["money","เรื่องเงินเป็นยังไง"],["work","เหมาะกับงานของฉันไหม"],["love","ความรักและคู่ครองเป็นยังไง"],["luck","โชคและอุปสรรคเป็นยังไง"],["best","จุดแข็งที่สุดของเบอร์"],["worst","จุดอ่อนที่สุดของเบอร์"],["sum","ผลรวม "+r.sum+" ส่งผลยังไง"],["tail","ท้ายเบอร์ส่งผลยังไง"]];
   return `<section class="card askbox" aria-labelledby="hask"><h2 id="hask">ถามเพิ่มเกี่ยวกับเบอร์นี้</h2>
+   <p class="note" style="margin:0 0 8px">กดคำถามที่อยากรู้ คำตอบมาจากผลวิเคราะห์เบอร์ของคุณด้านบน</p>
    <div class="askq">${Q.map(q=>`<button type="button" class="ghost" data-askq="${q[0]}">${esc(q[1])}</button>`).join("")}</div>
-   <div id="askai" hidden><label for="askin" class="note">หรือพิมพ์คำถามของคุณ วันละ ${ASK_LIMIT} คำถาม</label>
-   <div class="askrow"><input id="askin" maxlength="200" autocomplete="off" placeholder="เช่น เบอร์นี้เหมาะกับงานขายไหม"><button type="button" class="primary" id="askgo">ถาม</button></div></div>
-   <div id="askans" aria-live="polite"></div></section>`;}
+   <div id="askans" aria-live="polite"></div>
+   <div style="margin-top:12px"><label for="askin" class="note">มีคำถามอื่น พิมพ์ส่งให้ผมทางไลน์ได้ ผมตอบเอง</label>
+   <div class="askrow"><input id="askin" maxlength="300" autocomplete="off" placeholder="เช่น เบอร์นี้เหมาะกับงานขายไหม"><button type="button" class="primary" id="askgo" style="white-space:nowrap">ส่งทางไลน์</button></div></div></section>`;}
+function askLine(){const el=$("askin");const q=(el&&el.value||"").trim();if(!_ASK)return;if(!q){el&&el.focus();return;}
+  const {inp,r}=_ASK, t="ถามเรื่องเบอร์ "+inp.phone+"\nเกิด "+inp.d+" "+MONTHS[inp.m-1]+" "+(inp.y+543)+(inp.notime?"":" เวลา "+pad(inp.h)+":"+pad(inp.mi))+"\nเพศ "+(inp.sex==="f"?"หญิง":"ชาย")+(inp.jobText?" อาชีพ "+inp.jobText:"")+"\nคำถาม: "+q;
+  try{cntHit("ask-line");}catch(e){}
+  const go=CONFIG.lineOA?"https://line.me/R/oaMessage/"+encodeURIComponent(CONFIG.lineOA)+"/?"+encodeURIComponent(t):CONFIG.chatUrl;
+  const done=()=>{askShow(q,"คัดลอกคำถามแล้ว กำลังเปิดไลน์ ถ้าแชทไม่มีข้อความ ให้กดค้างในช่องพิมพ์แล้วเลือกวาง ผมตอบให้เองครับ","");setTimeout(()=>{const w=window.open(go,"_blank");if(w){try{w.opener=null;}catch(e){}}else location.href=go;},500);};
+  try{navigator.clipboard.writeText(t).then(done,()=>fallback(t,done));}catch(e){fallback(t,done);}}
 let _ASK_AI=null;
 async function askAiCheck(){const el=$("askai");if(!el||!CONFIG.slipApi)return;
   if(_ASK_AI===null){try{const c=sessionStorage.getItem("plk_ai_on");if(c!==null)_ASK_AI=c==="1";}catch(e){}}
@@ -10243,9 +10262,9 @@ async function askAi(){const inp=$("askin"),go=$("askgo");const q=(inp.value||""
     else askShow(q,j.msg||"ตอนนี้ตอบคำถามไม่ว่าง ลองใหม่อีกครั้ง หรือทักไลน์ @367xgtjh ได้เลยครับ","");}
   catch(e){askShow(q,"เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง หรือทักไลน์ @367xgtjh ได้เลยครับ","");}
   go.disabled=false;go.textContent="ถาม";}
-document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-askq]");if(b){e.preventDefault();askShow(b.textContent,askLocal(b.dataset.askq),"");return;}
-  if(e.target&&e.target.id==="askgo"){e.preventDefault();askAi();}});
-document.addEventListener("keydown",e=>{if(e.target&&e.target.id==="askin"&&e.key==="Enter"){e.preventDefault();askAi();}});
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-askq]");if(b){e.preventDefault();try{cntHit("ask-btn");}catch(_){}askShow(b.textContent,askLocal(b.dataset.askq),"");return;}
+  if(e.target&&e.target.id==="askgo"){e.preventDefault();askLine();}});
+document.addEventListener("keydown",e=>{if(e.target&&e.target.id==="askin"&&e.key==="Enter"){e.preventDefault();askLine();}});
 
 // ===== พยากรณ์อากาศ 7 วัน (ข้อมูล Open-Meteo ไม่ต้องใช้คีย์) =====
 const WX_CODE={0:"ท้องฟ้าแจ่มใส",1:"แดดเป็นส่วนใหญ่",2:"มีเมฆบางส่วน",3:"เมฆมาก",45:"มีหมอก",48:"มีหมอกน้ำค้างแข็ง",51:"ฝนปรอยเล็กน้อย",53:"ฝนปรอย",55:"ฝนปรอยหนาแน่น",56:"ฝนปรอยเย็นจัด",57:"ฝนปรอยเย็นจัด",61:"ฝนเล็กน้อย",63:"ฝนปานกลาง",65:"ฝนหนัก",66:"ฝนเย็นจัด",67:"ฝนเย็นจัด",71:"หิมะเล็กน้อย",73:"หิมะ",75:"หิมะหนัก",77:"เกล็ดหิมะ",80:"ฝนตกเป็นช่วง ๆ",81:"ฝนตกเป็นช่วง ๆ ปานกลาง",82:"ฝนตกหนักเป็นช่วง ๆ",85:"หิมะเป็นช่วง ๆ",86:"หิมะหนักเป็นช่วง ๆ",95:"พายุฝนฟ้าคะนอง",96:"พายุฝนฟ้าคะนอง มีลูกเห็บ",99:"พายุฝนฟ้าคะนอง มีลูกเห็บ"};
