@@ -6,7 +6,7 @@
 <link rel="canonical" href="https://www.palangtuaylek.com/palangtuaylek.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0907">
-<meta name="plk-base" content="49c88cf2df11834427b25ffbd061d6836dfb30c7">
+<meta name="plk-base" content="6c580ca0fa7bd22b88058a6b39e7182dd7983dfb">
 <script>
 /* ===== PLKPAY ระบบปลดล็อกแบบตรวจที่หลังบ้าน (ใช้ร่วมกันทุกหน้า: palangtuaylek ebook duang) =====
    หน้าเว็บไม่มีค่าลับใด ๆ รหัสปลดล็อกตรวจที่หลังบ้าน ผ่านแล้วหลังบ้านส่งใบรับรองที่มีลายเซ็นดิจิทัลกลับมา
@@ -2678,13 +2678,14 @@ function s1000(inp,r){
   return {total:Math.max(20,Math.min(985,total)),P,why,caps};
 }
 function s1000Band(t){return t>=850?["g","เบอร์ดีมาก เข้ากับคุณ"]:t>=750?["g","เบอร์ดี ใช้ได้เลย"]:t>=600?["g","ใช้ได้ มีจุดต้องระวัง"]:t>=450?["m","กลาง ๆ ยังไม่ใช่เบอร์ที่ใช่"]:["b","ไม่แนะนำให้ใช้"];}
+let FREEV=false; // ส่วนฟรีของผลเบอร์: บอกจุดเด่นจุดอ่อน แต่ไม่บอกวิธีแก้
 function s1000Html(r){
   const k=r.k1000; if(!k) return "";
   return `<section class="card" aria-labelledby="hk1"><h2 id="hk1">คะแนน ${r.s1000} จาก 1000 แยกตามหมวด</h2>
    <p class="note" style="margin:0 0 10px">คะแนนนี้ผมคิดจากทุกมุมที่ใช้ดูเบอร์จริง เรียงตามความสำคัญ คู่เลขตามตำแหน่งและการร้อยเรียง พื้นดวง อาชีพ เพศ ช่วงวัย ผลรวม พีระมิด และผลรวมกำลังดาว เบอร์ที่ดีมากสำหรับคนคนหนึ่งมักได้ราว 800 ถึง 900 ไม่มีเบอร์ไหนได้เต็ม</p>
    ${(()=>{const R=S1K.map(([key,lab,max])=>({lab,pc:k.P[key]/max})).sort((a,b)=>b.pc-a.pc);const hi=R[0],lo=R[R.length-1];return `<div class="hl" style="margin-bottom:10px"><div class="hlb g"><b>หมวดที่ได้คะแนนดีที่สุด</b><span>${hi.lab} ${Math.round(hi.pc*100)}%</span></div><div class="hlb ${lo.pc<0.55?"b":"m"}"><b>หมวดที่ฉุดคะแนน</b><span>${lo.lab} ${Math.round(lo.pc*100)}%</span></div></div>`;})()}
    <div class="k1k">${S1K.map(([key,lab,max])=>{const v=k.P[key],pc=Math.round(v/max*100),c=pc>=75?"g":pc>=55?"m":"b";
-     return `<details class="k1row"><summary><span class="k1l">${lab}</span><span class="k1v"><b>${v}</b> / ${max}</span><span class="k1bar"><i class="${c}" style="width:${pc}%"></i></span></summary><ul class="plain">${k.why[key].map(t=>`<li>${t}</li>`).join("")}</ul></details>`;}).join("")}</div>
+     return `<details class="k1row"><summary><span class="k1l">${lab}</span><span class="k1v"><b>${v}</b> / ${max}</span><span class="k1bar"><i class="${c}" style="width:${pc}%"></i></span></summary><ul class="plain">${k.why[key].map(t=>`<li>${FREEV&&/ควรเสริม/.test(t)?"เลขที่ควรเสริมให้เข้ากับงานของคุณ วิธีแก้อยู่ในฉบับเต็ม":t}</li>`).join("")}</ul></details>`;}).join("")}</div>
    ${k.caps.length?`<p class="note" style="margin-top:8px">${k.caps.join(" ")}</p>`:""}${(()=>{const sm=S1K.reduce((a,[key])=>a+k.P[key],0);return r.s1000<sm-5&&!(k.caps.length&&r.s1000>=Math.min(...[400,700,800].filter(c=>k.caps.some(x=>x.includes("ไม่เกิน "+c))))-1)?`<p class="note" style="margin-top:8px">คะแนนรวมหมวดได้ ${sm} แต่ผมปรับคะแนนรวมลงเหลือ ${r.s1000} เพราะเมื่ออ่านรวมทุกด้านของชีวิตแล้ว มีหลายเรื่องที่เบอร์นี้ยังไม่หนุน</p>`:r.s1000>sm+5?`<p class="note" style="margin-top:8px">คะแนนรวมหมวดได้ ${sm} แต่ผมปรับขึ้นเป็น ${r.s1000} เพราะเมื่ออ่านรวมทุกด้านของชีวิตแล้ว เบอร์นี้หนุนหลายเรื่อง</p>`:"";})()}
    <p class="note" style="margin-top:8px">กดที่แต่ละหมวดเพื่อดูว่าได้หรือเสียคะแนนเพราะอะไร</p></section>`;
 }
@@ -3749,7 +3750,7 @@ function simpleSummary(inp,r,nm){
      if(AD.sc>=0.4) P3.push(["เบอร์นี้มีแรงขยันที่ช่วยผลักให้ลุยงาน"+(inp.jobText?" เข้ากับ"+jt:""),1]);
      else if(AD.sc<=-0.4) P3.push(["เบอร์นี้ยังขาดแรงผลักให้ลุยงาน ความขยันที่มีออกมาเป็นความเหนื่อยมากกว่าผลงาน",-1]);
      else P3.push(["แรงผลักเรื่องงานในเบอร์ยังกลาง ๆ",0]);
-     const ms=AD.t.find(x=>/ควรเสริม/.test(x)); if(ms){const ds=[...new Set((ms.match(/เลข (\d)/g)||[]).map(x=>+x.slice(4)))].slice(0,2); if(ds.length) P3.push([AD.sc>=0.4?"ถ้าเสริมพลัง"+ds.map(d=>ENERGY[d]).join(" หรือพลัง")+"ได้อีก "+jt+"จะยิ่งไปได้ไว":jt+"ควรมีพลัง"+ds.map(d=>ENERGY[d]).join(" หรือพลัง")+"เพิ่มขึ้น",0,null,AD.sc>=0.4?"":"และ"]);}
+     const ms=AD.t.find(x=>/ควรเสริม/.test(x)); if(ms&&FREEV) P3.push(["วิธีเสริมแรงงานให้เบอร์นี้อยู่ในฉบับเต็ม",0]); else if(ms){const ds=[...new Set((ms.match(/เลข (\d)/g)||[]).map(x=>+x.slice(4)))].slice(0,2); if(ds.length) P3.push([AD.sc>=0.4?"ถ้าเสริมพลัง"+ds.map(d=>ENERGY[d]).join(" หรือพลัง")+"ได้อีก "+jt+"จะยิ่งไปได้ไว":jt+"ควรมีพลัง"+ds.map(d=>ENERGY[d]).join(" หรือพลัง")+"เพิ่มขึ้น",0,null,AD.sc>=0.4?"":"และ"]);}
      if((AD.RS||[]).some(x=>x.g!=="g")) P3.push(["เบอร์มีชุดเลขวนซ้ำ พลังวนอยู่กับที่ ทำให้ก้าวหน้าช้า",-1]);}}
   dblFit(inp,r).forEach(x=>{const d=+x.v[0], E=ENERGY[d], wk=r.ds.cls[d]==="b", jc=x.why.some(w=>/ขัดกับงาน|ไม่ต้องการพลังนี้/.test(w)), yg=x.why.some(w=>/แรงเกินวัย/.test(w)), run=x.why.some(w=>/ติดกัน \d ตัว/.test(w));
     const why=run?"ซ้ำกันหลายตัวจนแรงเกินไป":wk?"ไม่ถูกกับดวงคุณ":jc?"ซ้ำกันจนแรงเกินสำหรับงานที่ทำ":yg?"แรงเกินวัย":"";
@@ -4724,7 +4725,7 @@ function slipToBase64(file){return new Promise((ok,no)=>{const fr=new FileReader
     if(![...R.querySelectorAll('[id$="deep"]')].some(e=>!e.hidden))return;
     R.querySelectorAll("section.pay:not(.paiddone)").forEach(s=>{
       const st=[...s.querySelectorAll('[id$="slipst"]')].map(e=>e.textContent.trim()).filter(t=>/ผ่าน/.test(t)).join(" ");
-      s.classList.add("paiddone");
+      s.classList.add("paiddone");R.querySelectorAll(".midcta,.fixnote").forEach(e=>e.remove());
       const m=document.createElement("div");m.className="paidmsg";
       m.innerHTML='<h2 style="margin:0 0 6px">ปลดล็อกแล้ว</h2><p class="para" style="margin:0">ผลวิเคราะห์ของคุณอยู่ด้านล่าง ไม่ต้องจ่ายหรือแนบสลิปอีกครับ</p>'+(st?'<p class="note" style="margin:6px 0 0;color:var(--good)"></p>':'');
       if(st)m.lastChild.textContent=st;
@@ -4948,6 +4949,7 @@ function render(inp,r,isSample){
   let chartLine="เลขพลังดีที่ควรมีในเบอร์ของ"+who+"คือ "+(strongD||"ไม่มีตัวที่เด่นชัด")+" ส่วนเลขพลังอ่อนคือ "+(weakD||"ไม่มี")+" เลขพลังอ่อนควรร้อยเรียงอย่างระวัง ถ้าประกบคู่กับเลขพลังดีเป็นคู่ดี และวางในตำแหน่งดี ก็ร้อยเรียงให้กลายเป็นเลขดีได้";
   const unk=inp.notime?`<p class="note">ไม่ทราบเวลาเกิด ผมใช้เวลา 06:00 ลัคนาจึงเป็นค่าโดยประมาณ</p>`:"";
   const NM=analyzeName(inp,r);
+  FREEV=!isSample&&!phoneUnlocked(inp);
   const CTA=`<section class="cta">
     <h2>${r.s1000>=700&&r.band[0]!=="b"?"มีคำถามเรื่องเบอร์นี้ คุยกับผมได้":"อยากได้เบอร์ที่ใช่สำหรับคุณ"}</h2>
     <p>ถ้าสนใจให้ผมร้อยเรียงเบอร์ใหม่ให้เข้ากับดวง งาน และช่วงวัยของคุณ แอดไลน์มาคุยกันได้เลยครับ</p>${pkgListHtml()}
@@ -4987,7 +4989,9 @@ function render(inp,r,isSample){
   <div class="pdfrow" style="margin-top:14px"><button type="button" class="ghost" data-pdf="phone">บันทึกผลวิเคราะห์เป็น PDF</button><p class="note" style="margin:6px 0 0">กดแล้วเลือก บันทึกเป็น PDF เก็บไว้อ่านทีหลังได้</p></div>
   ${paidLineHtml("phone")}
   </div>`;
+  FREEV=false;
   if(r.stg==="child") kidSweep($("result")); else if(r.age>=65) kidSweep($("result"),"senior");
+  if(!isSample&&!phoneUnlocked(inp)) freeHooks();
   $("copyacc").onclick=()=>{const t=PAY.acc.replace(/-/g,"");try{navigator.clipboard.writeText(t).then(()=>{$("copyacc").textContent="คัดลอกแล้ว";},()=>fallback(t,()=>{$("copyacc").textContent="คัดลอกแล้ว";}));}catch(e){fallback(t,()=>{});}};
   if(!isSample) funnelHooks();
   if(!isSample) payTeaserWatch();
@@ -6463,21 +6467,46 @@ function payBar(){
     bar.style.cssText="position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:40;display:none;gap:10px;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:14px;background:var(--surface);border:1px solid var(--accent);box-shadow:0 6px 24px rgba(0,0,0,.55);max-width:656px;margin:0 auto";
     bar.innerHTML='<span style="font-size:14px;line-height:1.4;min-width:0"><span class="pb1"></span><br><b class="pb2"></b></span><button type="button" class="primary" style="padding:9px 14px;font-size:15px;white-space:nowrap;flex:none"></button>';
     document.body.appendChild(bar);
-    bar.querySelector("button").addEventListener("click",()=>{cntHit("f-paybar");const p=document.querySelector("#result section.pay");if(p)p.scrollIntoView({behavior:"smooth",block:"start"});bar.style.display="none";});
-    let raf=0;const upd=()=>{raf=0;const R=$("result"),p=document.querySelector("#result section.pay");
+    bar.querySelector("button").addEventListener("click",()=>{cntHit("f-paybar");cntHit("f-sticky-click");const p=document.querySelector("#result section.pay:not(.paiddone)");if(p)p.scrollIntoView({behavior:"smooth",block:"start"});bar.style.display="none";});
+    let raf=0;const upd=()=>{raf=0;const R=$("result"),p=document.querySelector("#result section.pay:not(.paiddone)");
       if(!R||!p||!R.offsetParent){bar.style.display="none";document.body.style.paddingBottom="";return;}
       const rt=R.getBoundingClientRect().top,pt=p.getBoundingClientRect().top;
       const pb=p.getBoundingClientRect().bottom,off=pt>innerHeight*.85||pb<0;
-      const show=off&&rt<-Math.min(700,Math.max(120,(pt-rt)*.3));
+      const hl=MODE==="phone"?R.querySelector(".easy .hl"):null;
+      const show=off&&(hl?hl.getBoundingClientRect().bottom<0:rt<-Math.min(700,Math.max(120,(pt-rt)*.3)));
       if(show){const h=((p.querySelector("h2")||{}).textContent||"").trim(),pr=(h.match(/([\d,]+)\s*บาท/)||[])[1];
+        if(MODE==="phone"){bar.querySelector(".pb1").textContent="เบอร์นี้แก้ได้";bar.querySelector(".pb2").textContent="ดูวิธีแก้ + คู่เลขแนะนำ";bar.querySelector("button").textContent=(pr||PAY.amount)+" บาท";}else{
         bar.querySelector(".pb1").textContent=PB_SUBJ[MODE]||"ดูแบบละเอียดเฉพาะดวงคุณ";
         bar.querySelector(".pb2").textContent=h.replace(/\s*[\d,]+\s*บาท\s*$/,"")||"อ่านแบบละเอียด";
-        bar.querySelector("button").textContent=pr?"ดู "+pr+" บาท":"ดูเลย";}
+        bar.querySelector("button").textContent=pr?"ดู "+pr+" บาท":"ดูเลย";}}
       bar.style.display=show?"flex":"none";document.body.style.paddingBottom=show?"88px":"";};
     addEventListener("scroll",()=>{if(!raf)raf=requestAnimationFrame(upd);},{passive:true});bar._upd=upd;}
   bar._upd();
 }
 setTimeout(()=>{try{payBar();}catch(e){}},50);
+function goPay(){const p=document.querySelector("#result section.pay");if(p)p.scrollIntoView({behavior:"smooth",block:"start"});}
+function freeHooks(){try{
+  const R=$("result");if(!R)return;
+  const fix=()=>{const n=document.createElement("p");n.className="note fixnote";n.style.cssText="margin:6px 0 0;color:var(--accent)";n.innerHTML='วิธีแก้อยู่ในฉบับเต็ม <a href="#" class="flink" data-gopay="1">ดู</a>';return n;};
+  // จุดอ่อน: แถบรายเรื่องที่ไม่ได้ดี และคู่เลขที่ต้องระวัง
+  const areaWeak=[...R.querySelectorAll("ul.areas.arc > li")].filter(li=>{const m=li.innerText.match(/(\d+)%\s*(\S+)/);return m&&m[2]!=="ดี";});
+  const pairWeak=[...R.querySelectorAll("ul.pairs > li")].filter(li=>{const h=li.querySelector("h3 .pill");return h&&/ระวัง/.test(h.textContent);});
+  areaWeak.concat(pairWeak).forEach(li=>li.appendChild(fix()));
+  const first=areaWeak[0]||pairWeak[0];
+  if(first&&!R.querySelector(".midcta")){
+    const box=document.createElement(first.tagName==="LI"?"li":"div");box.className="midcta";
+    box.style.cssText="display:block;list-style:none;margin:10px 0;padding:12px 14px;border:1px solid var(--accent);border-radius:12px;background:var(--bg)";
+    box.innerHTML='<p style="margin:0 0 8px"><b>จุดนี้แก้ได้</b> ผมเขียนวิธีแก้กับคู่เลขที่เข้ากับดวงคุณไว้ในฉบับเต็ม '+PAY.amount+' บาท</p><button type="button" class="primary" style="width:100%">ดูวิธีแก้เบอร์นี้</button>';
+    first.after(box);
+    box.querySelector("button").onclick=()=>{cntHit("f-mid-cta-click");goPay();};
+    if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){cntHit("f-mid-cta-view");io.disconnect();}},{threshold:.5});io.observe(box);}
+  }
+  // เลื่อนถึงครึ่งหน้าผล นับครั้งเดียวต่อผล
+  const id=Date.now();R.dataset.s50=id;
+  const sc=()=>{if(R.dataset.s50!=String(id)){removeEventListener("scroll",sc);return;}const rc=R.getBoundingClientRect();if(rc.height&&(innerHeight-rc.top)>=rc.height/2){cntHit("f-scroll-50");removeEventListener("scroll",sc);}};
+  addEventListener("scroll",sc,{passive:true});
+}catch(e){}}
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("[data-gopay]");if(!a)return;e.preventDefault();goPay();});
 function funnelHooks(){
   try{
     const pv=document.querySelector("#result section.pay");
@@ -6490,7 +6519,7 @@ function funnelHooks(){
     const sg=$("slipgo"); if(sg) sg.addEventListener("click",()=>cntHit("f-slip-send"));
   }catch(e){}
 }
-const CNT_KEYS=[["visit","คนเข้าเว็บ"],["src-ad","เข้าเว็บจากโฆษณา"],["src-page","เข้าเว็บจากลิงก์บนเพจ"],["src-cm","เข้าเว็บจากลิงก์ตอบคอมเมนต์"],["src-line","เข้าเว็บจากลิงก์ในไลน์"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["an-shop","เลขที่ร้าน"],["an-today","สีมงคลวันนี้"],["an-baby","ตั้งชื่อลูก"],["an-dir","ทิศมงคล"],["an-chong","ปีชง"],["horo-visit","เข้าหน้าดูดวง"],["horo-read","ดูดวง (ผูกดวงแล้ว)"],["f-pay-view","ขั้นขาย: เห็นกล่อง 399"],["f-pay-jump","ขั้นขาย: กดไปกล่อง 399"],["f-paybar","ขั้นขาย: กดแถบลอยไปกล่อง 399"],["daily","กดดูสีมงคลวันนี้จากการ์ดลูกค้าเก่า"],["f-top-cta","ขั้นขาย: กดปุ่มเจาะลึกใต้คะแนน"],["f-copyacc","ขั้นขาย: คัดลอกเลขบัญชี"],["f-slip-pick","ขั้นขาย: เลือกรูปสลิป"],["f-slip-send","ขั้นขาย: กดตรวจสลิป"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-num","จ่ายตัวเลขละเอียด 399"],["pay-bundle","จ่ายแพ็กรวม 999"],["pay-baby","จ่ายตั้งชื่อลูก 399"],["pay-pin","จ่ายรหัสมงคล 99"],["an-pin","ดูรหัสมงคล"],["pay-wall","จ่ายวอลเปเปอร์ 99"],["card-line","นามบัตร กดส่ง LINE"],["logo-line","โลโก้ กดส่ง LINE"],["spack-line","แพ็กเปิดร้าน กดส่ง LINE"],["xsell","กดบริการแนะนำ"],["line-top","ส่งผลเบอร์ทาง LINE (ปุ่มใต้คะแนน)"],["stk-interest","กดสนใจเบอร์ในสต็อก"],["stk-match","หาเบอร์ที่เข้ากับดวงในหน้าสต็อก"],["stk-all","กดดูเบอร์ที่เข้ากับดวงทั้งหมด"],["an-wall","ดูวอลเปเปอร์"],["wall-gen","สร้างภาพวอลเปเปอร์"],["pay-horo","จ่ายดูดวงละเอียด 399"],["pay-y2570","จ่ายดวงปี 2570 299"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-horo","บันทึก PDF ดูดวง"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["ask-phone","ทักถามก่อนซื้อ เบอร์"],["ask-name","ทักถามก่อนซื้อ ชื่อ"],["ask-rk","ทักถามก่อนซื้อ ฤกษ์"],["ask-love","ทักถามก่อนซื้อ ดวงคู่"],["ask-num","ทักถามก่อนซื้อ ตัวเลขละเอียด"],["ask-baby","ทักถามก่อนซื้อ ตั้งชื่อลูก"],["ai-ask","ถามเบอร์ผ่าน AI"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
+const CNT_KEYS=[["visit","คนเข้าเว็บ"],["src-ad","เข้าเว็บจากโฆษณา"],["src-page","เข้าเว็บจากลิงก์บนเพจ"],["src-cm","เข้าเว็บจากลิงก์ตอบคอมเมนต์"],["src-line","เข้าเว็บจากลิงก์ในไลน์"],["an-phone","วิเคราะห์เบอร์"],["an-name","วิเคราะห์ชื่อ"],["an-plate","ทะเบียนรถ"],["an-house","บ้านเลขที่"],["an-idcard","บัตรประชาชน"],["an-biz","ชื่อร้าน"],["an-cmp","เทียบเบอร์"],["an-rk","หาฤกษ์"],["an-love","ดวงคู่"],["an-bank","เลขบัญชี"],["an-shop","เลขที่ร้าน"],["an-today","สีมงคลวันนี้"],["an-baby","ตั้งชื่อลูก"],["an-dir","ทิศมงคล"],["an-chong","ปีชง"],["horo-visit","เข้าหน้าดูดวง"],["horo-read","ดูดวง (ผูกดวงแล้ว)"],["f-pay-view","ขั้นขาย: เห็นกล่อง 399"],["f-pay-jump","ขั้นขาย: กดไปกล่อง 399"],["f-paybar","ขั้นขาย: กดแถบลอยไปกล่อง 399"],["daily","กดดูสีมงคลวันนี้จากการ์ดลูกค้าเก่า"],["f-mid-cta-view","ขั้นขาย: เห็นกล่องข้อเสนอกลางหน้า"],["f-mid-cta-click","ขั้นขาย: กดปุ่มกล่องกลางหน้า"],["f-sticky-click","ขั้นขาย: กดแถบติดล่างจอ"],["f-scroll-50","ขั้นขาย: เลื่อนถึงครึ่งหน้าผล"],["f-top-cta","ขั้นขาย: กดปุ่มเจาะลึกใต้คะแนน"],["f-copyacc","ขั้นขาย: คัดลอกเลขบัญชี"],["f-slip-pick","ขั้นขาย: เลือกรูปสลิป"],["f-slip-send","ขั้นขาย: กดตรวจสลิป"],["slip-ok","ปลดล็อกด้วยสลิป รวมทุกแบบ"],["pay-phone","จ่ายเบอร์ 399"],["pay-name","จ่ายชื่อ 399"],["pay-rk","จ่ายฤกษ์ 399"],["pay-love","จ่ายดวงคู่ 399"],["pay-num","จ่ายตัวเลขละเอียด 399"],["pay-bundle","จ่ายแพ็กรวม 999"],["pay-baby","จ่ายตั้งชื่อลูก 399"],["pay-pin","จ่ายรหัสมงคล 99"],["an-pin","ดูรหัสมงคล"],["pay-wall","จ่ายวอลเปเปอร์ 99"],["card-line","นามบัตร กดส่ง LINE"],["logo-line","โลโก้ กดส่ง LINE"],["spack-line","แพ็กเปิดร้าน กดส่ง LINE"],["xsell","กดบริการแนะนำ"],["line-top","ส่งผลเบอร์ทาง LINE (ปุ่มใต้คะแนน)"],["stk-interest","กดสนใจเบอร์ในสต็อก"],["stk-match","หาเบอร์ที่เข้ากับดวงในหน้าสต็อก"],["stk-all","กดดูเบอร์ที่เข้ากับดวงทั้งหมด"],["an-wall","ดูวอลเปเปอร์"],["wall-gen","สร้างภาพวอลเปเปอร์"],["pay-horo","จ่ายดูดวงละเอียด 399"],["pay-y2570","จ่ายดวงปี 2570 299"],["pay-ebook","ซื้ออีบุ๊ก 399"],["ebook-visit","เข้าหน้าอีบุ๊ก"],["pdf-ebook","บันทึก PDF อีบุ๊ก"],["pdf-horo","บันทึก PDF ดูดวง"],["pdf-phone","บันทึก PDF เบอร์"],["pdf-name","บันทึก PDF ชื่อ"],["pdf-rk","บันทึก PDF ฤกษ์"],["pdf-love","บันทึก PDF ดวงคู่"],["line-paid","ลูกค้าที่จ่ายแล้วกดแอดไลน์"],["ask-phone","ทักถามก่อนซื้อ เบอร์"],["ask-name","ทักถามก่อนซื้อ ชื่อ"],["ask-rk","ทักถามก่อนซื้อ ฤกษ์"],["ask-love","ทักถามก่อนซื้อ ดวงคู่"],["ask-num","ทักถามก่อนซื้อ ตัวเลขละเอียด"],["ask-baby","ทักถามก่อนซื้อ ตั้งชื่อลูก"],["ai-ask","ถามเบอร์ผ่าน AI"],["share","บันทึกผลเป็นรูป"],["line","กดแอดไลน์"],["line-data","ส่งผลวิเคราะห์ทางไลน์"],["consign","ส่งฝากขายเบอร์"],["buy","ซื้อเบอร์ผ่านเว็บ (สลิปผ่าน)"]];
 let _CQ=Promise.resolve(),_CN=0;
 const CNT_GATE={ts:[],pause:0};
 /* abacus ให้ดึงได้ 30 ครั้งต่อ 10 วินาที ต่อเครื่อง จึงคุมจังหวะไม่ให้เกิน จะได้ไม่โดนบล็อก */
@@ -9653,6 +9682,7 @@ function deepPreviewHtml(inp,r,NM){
     const secs=[...d.querySelectorAll(":scope > section")];
     const pick=secs.find(s=>s.querySelector("#hbig"))||secs[1];if(!pick)return "";
     pick.querySelectorAll("[id]").forEach(x=>x.removeAttribute("id"));
+    pick.querySelectorAll("h3.sub").forEach(h=>{if(!/คู่เลข|ชุดเลข/.test(h.textContent))return;const pp=h.nextElementSibling;if(pp&&pp.querySelector(".chw")){pp.querySelectorAll(".chw").forEach(b=>{b.textContent="●●";b.classList.add("tz");});const nt=pp.nextElementSibling;if(nt&&nt.classList.contains("note"))nt.textContent="คู่เลขแนะนำและตำแหน่งที่ควรวาง อยู่ในฉบับเต็ม";}});
     const inner=pick.innerHTML.replace(/<h2[^>]*>.*?<\/h2>/,"");
     const title=(pick.querySelector("h2")||{}).textContent||"";
     const rest=["ดวงของคุณแบบเข้าใจง่าย","พลังของเลข 0 ถึง 9 ในดวงคุณ","ด้านต่าง ๆ ในชีวิต 12 เรื่องตามดวง","พรสวรรค์และอาชีพที่ทำแล้วรุ่ง","อ่านเบอร์ "+inp.phone.replace(/^(\d{3})(\d{3})(\d{4})$/,"$1-$2-$3")+" ทีละตำแหน่ง","ชุดเลข 3 ตัวและภาพรวมทั้งเบอร์","คู่เลขที่แนะนำ และตัวอย่างเบอร์ 5 เบอร์","รหัส 6 หลักเสริมดวง และฤกษ์เปิดเบอร์"];
